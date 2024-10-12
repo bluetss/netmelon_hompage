@@ -16,6 +16,7 @@
             color: #fff;
             padding: 1em 0;
             text-align: center;
+            position: relative;
         }
         header h1 {
             margin: 0;
@@ -31,15 +32,15 @@
             font-weight: bold;
         }
         .lang-switch {
-            margin: 1em;
-            text-align: center;
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
         .lang-switch button {
             background-color: #4CAF50;
             color: #fff;
             border: none;
             padding: 0.5em 1em;
-            margin: 0 10px;
             cursor: pointer;
             border-radius: 5px;
         }
@@ -80,6 +81,10 @@
     <header>
         <h1 id="company-name">네트멜론</h1>
         <p id="company-slogan">고객과 함께 성장하는 인공지능 전문 기업</p>
+        <div class="lang-switch">
+            <button id="btn-ko" onclick="switchLanguage('ko')" style="display: none;">한국어</button>
+            <button id="btn-en" onclick="switchLanguage('en')">English</button>
+        </div>
     </header>
 
     <nav>
@@ -87,11 +92,6 @@
         <a href="#product" id="nav-product">상품</a>
         <a href="#contact" id="nav-contact">연락처</a>
     </nav>
-
-    <div class="lang-switch">
-        <button onclick="switchLanguage('ko')">한국어</button>
-        <button onclick="switchLanguage('en')">English</button>
-    </div>
 
     <section id="about">
         <h2 id="about-title">회사소개</h2>
@@ -102,10 +102,10 @@
         <h2 id="product-title">상품</h2>
         <ul>
             <li id="product-description">모바일 어플리케이션 개발</li>        
-                <div class="product-images">
-                    <img src="images/main1.jpg" alt="앱 메인 화면 1">
-                    <img src="images/main2.jpg" alt="앱 메인 화면 2">
-                </div>            
+            <div class="product-images">
+                <img src="images/main1.jpg" alt="앱 메인 화면 1">
+                <img src="images/main2.jpg" alt="앱 메인 화면 2">
+            </div>            
         </ul>
     </section>
 
@@ -155,6 +155,10 @@
                     element.innerText = translation;
                 }
             });
+            
+            // 언어 전환에 따라 버튼 표시/숨김
+            document.getElementById("btn-ko").style.display = lang === 'en' ? "inline-block" : "none";
+            document.getElementById("btn-en").style.display = lang === 'ko' ? "inline-block" : "none";
         }
     </script>
 
