@@ -30,6 +30,19 @@
             margin: 0 15px;
             font-weight: bold;
         }
+        .lang-switch {
+            margin: 1em;
+            text-align: center;
+        }
+        .lang-switch button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 0.5em 1em;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
         section {
             padding: 2em;
             max-width: 800px;
@@ -65,42 +78,85 @@
 <body>
 
     <header>
-        <h1>Netmelon</h1>
-        <p>고객과 함께 성장하는 인공지능 전문 기업</p>
+        <h1 id="company-name">네트멜론</h1>
+        <p id="company-slogan">고객과 함께 성장하는 인공지능 전문 기업</p>
     </header>
 
     <nav>
-        <a href="#about">회사소개</a>
-        <a href="#product">상품</a>
-        <a href="#contact">연락처</a>
+        <a href="#about" id="nav-about">회사소개</a>
+        <a href="#product" id="nav-product">상품</a>
+        <a href="#contact" id="nav-contact">연락처</a>
     </nav>
 
+    <div class="lang-switch">
+        <button onclick="switchLanguage('ko')">한국어</button>
+        <button onclick="switchLanguage('en')">English</button>
+    </div>
+
     <section id="about">
-        <h2>회사소개</h2>
-        <p>네트멜론은 고객의 요구에 맞춘 혁신적인 인공지능 기술이 결합된 모바일 어플리케이션 개발 기업입니다. 네트멜론의 모바일 어플리케이션은 고객의 성공을 돕고 있습니다.</p>
+        <h2 id="about-title">회사소개</h2>
+        <p id="about-content">네트멜론은 고객의 요구에 맞춘 혁신적인 인공지능 기술이 결합된 모바일 어플리케이션 개발 기업입니다. 네트멜론의 모바일 어플리케이션은 고객의 성공을 돕고 있습니다.</p>
     </section>
 
     <section id="product">
-        <h2>상품</h2>
+        <h2 id="product-title">상품</h2>
         <ul>
-            <li>모바일 어플리케이션 개발</li>        
-                <!-- Product 이미지 추가 -->
+            <li id="product-description">모바일 어플리케이션 개발</li>        
                 <div class="product-images">
                     <img src="images/main1.jpg" alt="앱 메인 화면 1">
                     <img src="images/main2.jpg" alt="앱 메인 화면 2">
                 </div>            
         </ul>
-        
     </section>
 
     <section id="contact">
-        <h2>연락처</h2>
-        <p>이메일: netmelondev@gmail.com</p>
+        <h2 id="contact-title">연락처</h2>
+        <p id="contact-content">이메일: netmelondev@gmail.com</p>
     </section>
 
     <footer>
         <p>&copy; 2024 Netmelon. All rights reserved.</p>
     </footer>
+
+    <script>
+        const translations = {
+            "ko": {
+                "company-name": "네트멜론",
+                "company-slogan": "고객과 함께 성장하는 인공지능 전문 기업",
+                "nav-about": "회사소개",
+                "nav-product": "상품",
+                "nav-contact": "연락처",
+                "about-title": "회사소개",
+                "about-content": "네트멜론은 고객의 요구에 맞춘 혁신적인 인공지능 기술이 결합된 모바일 어플리케이션 개발 기업입니다. 네트멜론의 모바일 어플리케이션은 고객의 성공을 돕고 있습니다.",
+                "product-title": "상품",
+                "product-description": "모바일 어플리케이션 개발",
+                "contact-title": "연락처",
+                "contact-content": "이메일: netmelondev@gmail.com"
+            },
+            "en": {
+                "company-name": "Netmelon",
+                "company-slogan": "An AI company growing with customers",
+                "nav-about": "About Us",
+                "nav-product": "Products",
+                "nav-contact": "Contact",
+                "about-title": "About Us",
+                "about-content": "Netmelon is a mobile application development company combining innovative AI technology tailored to customer needs. Netmelon's mobile applications support customer success.",
+                "product-title": "Products",
+                "product-description": "Mobile Application Development",
+                "contact-title": "Contact",
+                "contact-content": "Email: netmelondev@gmail.com"
+            }
+        };
+
+        function switchLanguage(lang) {
+            document.querySelectorAll("[id]").forEach(element => {
+                const translation = translations[lang][element.id];
+                if (translation) {
+                    element.innerText = translation;
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
