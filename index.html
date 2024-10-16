@@ -246,8 +246,9 @@
                 }
             });
 
-            document.getElementById("full-privacy-content-ko").style.display = lang === 'ko' ? "block" : "none";
-            document.getElementById("full-privacy-content-en").style.display = lang === 'en' ? "block" : "none";
+            document.getElementById("full-privacy-content-ko").style.display = "none";
+            document.getElementById("full-privacy-content-en").style.display = "none";
+            document.getElementById("view-full-privacy").innerText = lang === "ko" ? "개인정보 처리 정책 전문 보기" : "View Full Privacy Policy";
             document.getElementById("btn-ko").style.display = lang === 'en' ? "inline-block" : "none";
             document.getElementById("btn-en").style.display = lang === 'ko' ? "inline-block" : "none";
         }
