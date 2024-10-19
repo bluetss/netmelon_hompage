@@ -92,7 +92,7 @@
         <a href="#about" id="nav-about">회사소개</a>
         <a href="#product" id="nav-product">상품</a>
         <a href="#contact" id="nav-contact">연락처</a>
-        <a href="#privacy" id="nav-privacy">개인정보 처리 정책</a>
+        <a href="#privacy" id="nav-privacy">개인정보 정책</a>
     </nav>
 
     <section id="about">
@@ -117,11 +117,11 @@
     </section>
 
     <section id="privacy">
-        <h2 id="privacy-title">개인정보 처리 정책</h2>
+        <h2 id="privacy-title">개인정보 정책</h2>
         <p id="privacy-content">네트멜론은 고객의 개인정보를 안전하게 보호하며, 관련 법령에 따라 개인정보를 처리하고 있습니다.</p>
         <a href="javascript:void(0);" id="view-full-privacy" onclick="toggleFullPrivacy()">개인정보 처리 정책 전문 보기</a>
         <div id="full-privacy-content-ko" style="display: none; text-align: left; max-width: 800px; margin: auto; padding-top: 1em;">
-            <h3>개인정보 처리 정책</h3>
+            <h3>개인정보 정책</h3>
             <ol>
                 <li><strong>수집하는 정보</strong><br>
                     우리 앱은 사용자의 카메라를 통해 이미지를 캡처하고 처리하기 위해 카메라 권한을 요청합니다. 사용자가 이 권한을 허용할 경우, 앱은 다음과 같은 정보를 수집할 수 있습니다:
@@ -214,10 +214,10 @@
                 "product-description": "모바일 어플리케이션 개발",
                 "contact-title": "연락처",
                 "contact-content": "이메일: netmelondev@gmail.com",
-                "nav-privacy": "개인정보 처리 정책",
-                "privacy-title": "개인정보 처리 정책",
+                "nav-privacy": "개인정보 정책",
+                "privacy-title": "개인정보 정책",
                 "privacy-content": "네트멜론은 고객의 개인정보를 안전하게 보호하며, 관련 법령에 따라 개인정보를 처리하고 있습니다.",
-                "view-full-privacy": "개인정보 처리 정책 전문 보기"
+                "view-full-privacy": "개인정보 정책 전문 보기"
             },
             "en": {
                 "company-name": "Netmelon",
@@ -248,7 +248,7 @@
 
             document.getElementById("full-privacy-content-ko").style.display = "none";
             document.getElementById("full-privacy-content-en").style.display = "none";
-            document.getElementById("view-full-privacy").innerText = lang === "ko" ? "개인정보 처리 정책 전문 보기" : "View Full Privacy Policy";
+            document.getElementById("view-full-privacy").innerText = lang === "ko" ? "개인정보 정책 전문 보기" : "View Full Privacy Policy";
             document.getElementById("btn-ko").style.display = lang === 'en' ? "inline-block" : "none";
             document.getElementById("btn-en").style.display = lang === 'ko' ? "inline-block" : "none";
         }
@@ -262,11 +262,11 @@
             if ((lang === "ko" && fullPrivacyContentKo.style.display === "none") || (lang === "en" && fullPrivacyContentEn.style.display === "none")) {
                 fullPrivacyContentKo.style.display = lang === "ko" ? "block" : "none";
                 fullPrivacyContentEn.style.display = lang === "en" ? "block" : "none";
-                viewFullPrivacy.innerText = lang === "ko" ? "개인정보 처리 정책 전문 닫기" : "Hide Full Privacy Policy";
+                viewFullPrivacy.innerText = lang === "ko" ? "개인정보 정책 전문 닫기" : "Hide Full Privacy Policy";
             } else {
                 fullPrivacyContentKo.style.display = "none";
                 fullPrivacyContentEn.style.display = "none";
-                viewFullPrivacy.innerText = lang === "ko" ? "개인정보 처리 정책 전문 보기" : "View Full Privacy Policy";
+                viewFullPrivacy.innerText = lang === "ko" ? "개인정보 정책 전문 보기" : "View Full Privacy Policy";
             }
         }
     </script>
