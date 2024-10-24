@@ -42,6 +42,17 @@
             font-size: 1.0em;
             padding: 0.5em;
         }
+         /* 기본적으로 큰 화면에서는 중앙 정렬 */
+         nav {
+            justify-content: center;
+        }
+        /* 모바일 화면에서는 왼쪽 정렬 */
+        @media (max-width: 768px) {
+            nav {
+                justify-content: flex-start; /* 왼쪽 정렬 */
+                padding-left: 15px; /* 모바일에서는 메뉴를 왼쪽에 여유 있게 띄움 */
+            }
+        }
         .lang-switch {
             position: absolute;
             top: 10px;
@@ -79,7 +90,7 @@
         .product-images,
         .image-container {
             display: flex;
-            gap: 10px; /* 이미지 간 간격 */
+            gap: 1px; /* 이미지 간 간격 */
             overflow-x: auto;
         }
         .product-images img,
