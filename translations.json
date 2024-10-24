@@ -1,0 +1,42 @@
+{
+    "ko": {
+        "company-name": "네트멜론",
+        "company-slogan": "고객과 함께 성장하는 인공지능 전문 기업",
+        "nav-about": "회사소개",
+        "nav-product": "상품",
+        "nav-contact": "연락처",
+        "about-title": "회사소개",
+        "about-content": "네트멜론은 고객의 요구에 맞춘 혁신적인 인공지능 기술이 결합된 모바일 어플리케이션 개발 기업입니다. 네트멜론의 모바일 어플리케이션은 고객의 성공을 돕고 있습니다.",
+        "product-title": "상품",
+        "product-description": "내팝퀴즈",
+        "contact-title": "연락처",
+        "contact-content": "이메일: netmelondev@gmail.com",
+        "nav-privacy": "개인정보 정책",
+        "privacy-title": "개인정보 정책",
+        "privacy-content": "네트멜론은 고객의 개인정보를 안전하게 보호하며, 관련 법령에 따라 개인정보를 처리하고 있습니다.",
+        "view-full-privacy": "개인정보 정책 전문 보기",
+        "nav-account": "계정",
+        "account-title": "계정",
+        "account-content": "계정 관련 정보를 확인하세요"
+    },
+    "en": {
+        "company-name": "Netmelon",
+        "company-slogan": "An AI company growing with customers",
+        "nav-about": "About Us",
+        "nav-product": "Products",
+        "nav-contact": "Contact",
+        "about-title": "About Us",
+        "about-content": "Netmelon is a mobile application development company combining innovative AI technology tailored to customer needs. Netmelon's mobile applications support customer success.",
+        "product-title": "Products",
+        "product-description": "Naepopquiz",
+        "contact-title": "Contact",
+        "contact-content": "Email: netmelondev@gmail.com",
+        "nav-privacy": "Privacy Policy",
+        "privacy-title": "Privacy Policy",
+        "privacy-content": "Netmelon securely protects customer personal information and processes it in accordance with relevant laws.",
+        "view-full-privacy": "View Full Privacy Policy",
+        "nav-account": "Account",
+        "account-title": "Account",
+        "account-content": "Check account-related information"
+    }
+}

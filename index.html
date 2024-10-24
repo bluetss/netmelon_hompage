@@ -22,15 +22,25 @@
             margin: 0;
         }
         nav {
-            text-align: center;
+            display: flex;
+            justify-content: center;
             margin: 1em 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            -ms-overflow-style: none;  /* IE 및 Edge에서 스크롤바 숨기기 */
+            scrollbar-width: none;  /* Firefox에서 스크롤바 숨기기 */
+            cursor: grab; /* 기본 마우스 커서 */
+        }
+        nav::-webkit-scrollbar {
+            display: none;  /* Chrome, Safari에서 스크롤바 숨기기 */
         }
         nav a {
             color: #333;
             text-decoration: none;
             margin: 0 15px;
             font-weight: bold;
-            font-size: 0.9em; /* 글자 크기 조절 */
+            font-size: 1.0em;
+            padding: 0.5em;
         }
         .lang-switch {
             position: absolute;
@@ -65,15 +75,19 @@
             bottom: 0;
             width: 100%;
         }
-        .product-images {
+        /* 이미지 컨테이너를 가로로 배열 */
+        .product-images,
+        .image-container {
             display: flex;
-            justify-content: space-around;
-            margin-top: 1em;
+            gap: 10px; /* 이미지 간 간격 */
+            overflow-x: auto;
         }
-        .product-images img {
-            max-width: 45%;
-            border-radius: 8px;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        .product-images img,
+        .image-container img {
+            margin: 0 auto; /* 이미지 중앙 정렬 */
+            width: 20%; /* 이미지 크기를 줄이기 위해 고정된 크기 설정 */
+            height: auto; /* 이미지 비율 유지를 위해 높이를 자동으로 설정 */
+            flex-shrink: 0; /* 이미지 크기를 줄이지 않도록 설정 */
         }
     </style>
 </head>
@@ -88,11 +102,12 @@
         </div>
     </header>
 
-    <nav>
+    <nav id="menu">
         <a href="#about" id="nav-about">회사소개</a>
         <a href="#product" id="nav-product">상품</a>
         <a href="#contact" id="nav-contact">연락처</a>
-        <a href="#privacy" id="nav-privacy">개인정보 정책</a>
+        <a href="#privacy" id="nav-privacy">개인정보처리방침</a>
+        <a href="#account" id="nav-account">계정</a>
     </nav>
 
     <section id="about">
@@ -103,10 +118,12 @@
     <section id="product">
         <h2 id="product-title">상품</h2>
         <ul>
-            <li id="product-description">모바일 어플리케이션 개발: 내팝퀴즈</li>        
+            <li id="product-description">내팝퀴즈</li>        
             <div class="product-images">
-                <img src="images/main1.jpg" alt="앱 메인 화면 1">
-                <img src="images/main2.jpg" alt="앱 메인 화면 2">
+                <img src="images/main1.png" alt="앱 메인 화면 1">
+                <img src="images/main2.png" alt="앱 메인 화면 2">
+                <img src="images/main3.png" alt="앱 메인 화면 3">
+                <img src="images/main4.png" alt="앱 메인 화면 4">
             </div>            
         </ul>
     </section>
@@ -117,82 +134,39 @@
     </section>
 
     <section id="privacy">
-        <h2 id="privacy-title">개인정보 정책</h2>
+        <h2 id="privacy-title">개인정보처리방침</h2>
         <p id="privacy-content">네트멜론은 고객의 개인정보를 안전하게 보호하며, 관련 법령에 따라 개인정보를 처리하고 있습니다.</p>
-        <a href="javascript:void(0);" id="view-full-privacy" onclick="toggleFullPrivacy()">개인정보 처리 정책 전문 보기</a>
-        <div id="full-privacy-content-ko" style="display: none; text-align: left; max-width: 800px; margin: auto; padding-top: 1em;">
-            <h3>개인정보 정책</h3>
-            <ol>
-                <li><strong>수집하는 정보</strong><br>
-                    우리 앱은 사용자의 카메라를 통해 이미지를 캡처하고 처리하기 위해 카메라 권한을 요청합니다. 사용자가 이 권한을 허용할 경우, 앱은 다음과 같은 정보를 수집할 수 있습니다:
-                    <ul>
-                        <li><strong>캡처된 이미지</strong>: 앱 기능 수행을 위해 캡처된 이미지를 사용하며, 해당 이미지는 앱 내에서만 사용됩니다.</li>
-                        <li><strong>이미지에서 추출된 텍스트</strong>: 텍스트는 Firebase의 클라우드 서버에 저장되며, 앱의 서비스 제공 목적으로만 사용됩니다.</li>
-                    </ul>
-                </li>
-                <li><strong>정보 사용 목적</strong><br>
-                    수집한 정보는 다음과 같은 목적으로 사용됩니다:
-                    <ul>
-                        <li><strong>이미지 분석 및 처리</strong>: 사용자에게 제공되는 기능을 수행하기 위해 카메라로 촬영한 이미지를 앱 내에서 처리합니다.</li>
-                        <li><strong>텍스트 데이터 활용</strong>: 이미지에서 추출된 텍스트는 앱의 서비스를 개선하고 사용자에게 맞춤형 경험을 제공하기 위해 사용됩니다.</li>
-                        <li><strong>사용자 경험 개선</strong>: 사용자 피드백과 사용 패턴을 기반으로 앱의 기능을 개선하기 위해 내부적으로 분석할 수 있습니다.</li>
-                    </ul>
-                </li>
-                <li><strong>정보 보호</strong><br>
-                    우리 앱은 사용자의 개인정보를 안전하게 보호하기 위해 다음과 같은 조치를 취하고 있습니다:
-                    <ul>
-                        <li>사용자의 이미지는 외부 서버로 전송되지 않으며, 앱 내에서만 처리됩니다.</li>
-                        <li>이미지에서 추출된 텍스트는 Firebase의 안전한 클라우드 서버에 저장되며, 오직 서비스 제공 목적을 위해서만 접근됩니다.</li>
-                    </ul>
-                </li>
-                <li><strong>정보 공유</strong><br>
-                    우리 앱은 사용자의 이미지를 제3자와 공유하지 않습니다. 또한, 법적 요구가 없는 한 어떠한 개인 정보도 외부에 제공하지 않습니다. 이미지에서 추출된 텍스트는 앱의 서비스 제공 외 목적으로는 사용되지 않습니다.</li>
-                <li><strong>정보 보유 기간</strong><br>
-                    이미지에서 추출된 텍스트는 서비스 제공을 위해 필요한 기간 동안만 보관됩니다.</li>
-                <li><strong>사용자 권리</strong><br>
-                    사용자는 언제든지 카메라 권한을 거부할 수 있으며, 이 경우 일부 기능 사용에 제한이 있을 수 있습니다. 또한, 앱의 개인정보 처리방침에 대한 문의가 있을 경우 아래 연락처로 문의할 수 있습니다.</li>
-                <li><strong>연락처 정보</strong><br>
-                    앱 관련 문의사항이 있을 경우 다음 연락처로 문의해 주세요:<br>
-                    이메일: netmelondev@gmail.com
-                </li>
-            </ol>
+        <a href="javascript:void(0);" id="view-full-privacy" onclick="toggleFullPrivacy()">개인정보처리방침 전문 보기</a>
+        <div id="full-privacy-content-ko" style="display: none; text-align: left;"></div>
+        <div id="full-privacy-content-en" style="display: none; text-align: left;"></div>
+    </section>
+
+    <!-- 계정 섹션 -->
+    <section id="account">
+        <h2 id="account-title">계정</h2>
+        <p id="account-content">계정 관련 정보를 확인하세요.</p>
+        <a href="javascript:void(0);" id="view-full-account" onclick="toggleFullAccount()">회원 탈퇴 방법 보기</a>
+        <div id="full-account-content-ko" style="display: none; text-align: left;">
+            <!-- JSON에서 불러온 텍스트 -->
+            <div id="account-text-ko"></div>
+            <!-- 이미지를 가로로 배열 -->
+            <div class="image-container">
+                <img src='images/account-delete_01.png' alt='회원 탈퇴 첫 번째 단계'>
+                <img src='images/account-delete_02.png' alt='회원 탈퇴 두 번째 단계'>
+                <img src='images/account-delete_03.png' alt='회원 탈퇴 세 번째 단계'>
+                <img src='images/account-delete_04.png' alt='회원 탈퇴 네 번째 단계'>
+            </div>
         </div>
-        <div id="full-privacy-content-en" style="display: none; text-align: left; max-width: 800px; margin: auto; padding-top: 1em;">
-            <h3>Privacy Policy</h3>
-            <ol>
-                <li><strong>Information Collected</strong><br>
-                    Our app requests camera permission to capture and process images. If granted, the app may collect:
-                    <ul>
-                        <li><strong>Captured Images</strong>: Used solely within the app to perform app functions.</li>
-                        <li><strong>Extracted Text from Images</strong>: Stored on Firebase cloud servers and used exclusively for service provision.</li>
-                    </ul>
-                </li>
-                <li><strong>Purpose of Information Usage</strong><br>
-                    The collected information is used for:
-                    <ul>
-                        <li><strong>Image Analysis and Processing</strong>: To perform app functions, images taken by the camera are processed within the app.</li>
-                        <li><strong>Use of Text Data</strong>: Extracted text is used to improve app services and provide a tailored user experience.</li>
-                        <li><strong>Improving User Experience</strong>: Internal analysis is done to enhance app functionality based on feedback and usage patterns.</li>
-                    </ul>
-                </li>
-                <li><strong>Information Protection</strong><br>
-                    Our app takes the following steps to protect user data:
-                    <ul>
-                        <li>Captured images are not transmitted externally and are processed solely within the app.</li>
-                        <li>Extracted text is stored securely on Firebase cloud servers and accessed only for service purposes.</li>
-                    </ul>
-                </li>
-                <li><strong>Information Sharing</strong><br>
-                    The app does not share users' images with third parties. No personal information is disclosed externally unless legally required, and extracted text is used only for service provision.</li>
-                <li><strong>Data Retention Period</strong><br>
-                    Extracted text is retained only for the necessary period to provide the service.</li>
-                <li><strong>User Rights</strong><br>
-                    Users may revoke camera permission at any time, though some features may become restricted. For inquiries regarding the app's privacy policy, please contact us.</li>
-                <li><strong>Contact Information</strong><br>
-                    For inquiries related to the app, please contact us at:<br>
-                    Email: netmelondev@gmail.com
-                </li>
-            </ol>
+        <div id="full-account-content-en" style="display: none; text-align: left;">
+            <!-- JSON에서 불러온 텍스트 -->
+            <div id="account-text-en"></div>
+            <!-- 이미지를 가로로 배열 -->
+            <div class="image-container">
+                <img src='images/account-delete_01.png' alt='First step to delete account'>
+                <img src='images/account-delete_02.png' alt='Second step to delete account'>
+                <img src='images/account-delete_03.png' alt='Third step to delete account'>
+                <img src='images/account-delete_04.png' alt='Fourth step to delete account'>
+            </div>
         </div>
     </section>
 
@@ -201,42 +175,20 @@
     </footer>
 
     <script>
-        const translations = {
-            "ko": {
-                "company-name": "네트멜론",
-                "company-slogan": "고객과 함께 성장하는 인공지능 전문 기업",
-                "nav-about": "회사소개",
-                "nav-product": "상품",
-                "nav-contact": "연락처",
-                "about-title": "회사소개",
-                "about-content": "네트멜론은 고객의 요구에 맞춘 혁신적인 인공지능 기술이 결합된 모바일 어플리케이션 개발 기업입니다. 네트멜론의 모바일 어플리케이션은 고객의 성공을 돕고 있습니다.",
-                "product-title": "상품",
-                "product-description": "모바일 어플리케이션 개발",
-                "contact-title": "연락처",
-                "contact-content": "이메일: netmelondev@gmail.com",
-                "nav-privacy": "개인정보 정책",
-                "privacy-title": "개인정보 정책",
-                "privacy-content": "네트멜론은 고객의 개인정보를 안전하게 보호하며, 관련 법령에 따라 개인정보를 처리하고 있습니다.",
-                "view-full-privacy": "개인정보 정책 전문 보기"
-            },
-            "en": {
-                "company-name": "Netmelon",
-                "company-slogan": "An AI company growing with customers",
-                "nav-about": "About Us",
-                "nav-product": "Products",
-                "nav-contact": "Contact",
-                "about-title": "About Us",
-                "about-content": "Netmelon is a mobile application development company combining innovative AI technology tailored to customer needs. Netmelon's mobile applications support customer success.",
-                "product-title": "Products",
-                "product-description": "Mobile Application Development",
-                "contact-title": "Contact",
-                "contact-content": "Email: netmelondev@gmail.com",
-                "nav-privacy": "Privacy Policy",
-                "privacy-title": "Privacy Policy",
-                "privacy-content": "Netmelon securely protects customer personal information and processes it in accordance with relevant laws.",
-                "view-full-privacy": "View Full Privacy Policy"
-            }
-        };
+        async function fetchJsonData(url) {
+            const response = await fetch(url);
+            return response.json();
+        }
+
+        let translations;
+        let privacyPolicies;
+        let accountInfo;
+
+        async function loadTranslations() {
+            translations = await fetchJsonData('translations.json');
+            privacyPolicies = await fetchJsonData('privacy.json');
+            accountInfo = await fetchJsonData('delete-account.json'); // 회원 탈퇴 방법 불러오기
+        }
 
         function switchLanguage(lang) {
             document.querySelectorAll("[id]").forEach(element => {
@@ -248,7 +200,11 @@
 
             document.getElementById("full-privacy-content-ko").style.display = "none";
             document.getElementById("full-privacy-content-en").style.display = "none";
-            document.getElementById("view-full-privacy").innerText = lang === "ko" ? "개인정보 정책 전문 보기" : "View Full Privacy Policy";
+            document.getElementById("full-account-content-ko").style.display = "none";
+            document.getElementById("full-account-content-en").style.display = "none";
+
+            document.getElementById("view-full-privacy").innerText = lang === "ko" ? "개인정보처리방침 전문 보기" : "View Full Privacy Policy";
+            document.getElementById("view-full-account").innerText = lang === "ko" ? "회원 탈퇴 방법 보기" : "View How to Delete Account";
             document.getElementById("btn-ko").style.display = lang === 'en' ? "inline-block" : "none";
             document.getElementById("btn-en").style.display = lang === 'ko' ? "inline-block" : "none";
         }
@@ -258,17 +214,94 @@
             const fullPrivacyContentEn = document.getElementById("full-privacy-content-en");
             const viewFullPrivacy = document.getElementById("view-full-privacy");
             const lang = document.getElementById("btn-ko").style.display === "none" ? "ko" : "en";
-            
+
             if ((lang === "ko" && fullPrivacyContentKo.style.display === "none") || (lang === "en" && fullPrivacyContentEn.style.display === "none")) {
+                fullPrivacyContentKo.innerHTML = privacyPolicies["ko"].content;
+                fullPrivacyContentEn.innerHTML = privacyPolicies["en"].content;
+
                 fullPrivacyContentKo.style.display = lang === "ko" ? "block" : "none";
                 fullPrivacyContentEn.style.display = lang === "en" ? "block" : "none";
-                viewFullPrivacy.innerText = lang === "ko" ? "개인정보 정책 전문 닫기" : "Hide Full Privacy Policy";
+                viewFullPrivacy.innerText = lang === "ko" ? "개인정보처리방침 전문 닫기" : "Hide Full Privacy Policy";
             } else {
                 fullPrivacyContentKo.style.display = "none";
                 fullPrivacyContentEn.style.display = "none";
-                viewFullPrivacy.innerText = lang === "ko" ? "개인정보 정책 전문 보기" : "View Full Privacy Policy";
+                viewFullPrivacy.innerText = lang === "ko" ? "개인정보처리방침 전문 보기" : "View Full Privacy Policy";
             }
         }
+
+        function toggleFullAccount() {
+            const fullAccountContentKo = document.getElementById("full-account-content-ko");
+            const fullAccountContentEn = document.getElementById("full-account-content-en");
+            const accountTextKo = document.getElementById("account-text-ko");
+            const accountTextEn = document.getElementById("account-text-en");
+            const viewFullAccount = document.getElementById("view-full-account");
+            const lang = document.getElementById("btn-ko").style.display === "none" ? "ko" : "en";
+
+            if ((lang === "ko" && fullAccountContentKo.style.display === "none") || (lang === "en" && fullAccountContentEn.style.display === "none")) {
+                accountTextKo.innerHTML = accountInfo["ko"].content;
+                accountTextEn.innerHTML = accountInfo["en"].content;
+
+                fullAccountContentKo.style.display = lang === "ko" ? "block" : "none";
+                fullAccountContentEn.style.display = lang === "en" ? "block" : "none";
+                viewFullAccount.innerText = lang === "ko" ? "회원 탈퇴 방법 닫기" : "Hide How to Delete Account";
+            } else {
+                fullAccountContentKo.style.display = "none";
+                fullAccountContentEn.style.display = "none";
+                viewFullAccount.innerText = lang === "ko" ? "회원 탈퇴 방법 보기" : "View How to Delete Account";
+            }
+        }
+
+        // 페이지 로드 시 translations, privacy 및 account 데이터 로드
+        document.addEventListener("DOMContentLoaded", loadTranslations);
+
+        // 마우스 드래그를 통한 수평 스크롤 기능 추가
+        const menu = document.getElementById('menu');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        menu.addEventListener('mousedown', (e) => {
+            isDown = true;
+            menu.classList.add('active');
+            startX = e.pageX - menu.offsetLeft;
+            scrollLeft = menu.scrollLeft;
+            menu.style.cursor = 'grabbing';
+        });
+
+        menu.addEventListener('mouseleave', () => {
+            isDown = false;
+            menu.style.cursor = 'grab';
+        });
+
+        menu.addEventListener('mouseup', () => {
+            isDown = false;
+            menu.style.cursor = 'grab';
+        });
+
+        menu.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - menu.offsetLeft;
+            const walk = (x - startX) * 2; // 드래그 속도 조정
+            menu.scrollLeft = scrollLeft - walk;
+        });
+
+        menu.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - menu.offsetLeft;
+            scrollLeft = menu.scrollLeft;
+        });
+
+        menu.addEventListener('touchend', () => {
+            isDown = false;
+        });
+
+        menu.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - menu.offsetLeft;
+            const walk = (x - startX) * 2; // 드래그 속도 조정
+            menu.scrollLeft = scrollLeft - walk;
+        });
     </script>
 
 </body>

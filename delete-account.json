@@ -1,0 +1,11 @@
+{
+    "ko": {
+      "title": "회원 탈퇴 방법",
+      "content": "<h3>회원 탈퇴 방법</h3><ol><li>앱에서 '나의팝'으로 이동합니다.</li><li>'내 정보'로 이동합니다.</li><li>'탈퇴하기'를 누릅니다.</li><li>탈퇴확인 메시지를 확인하시고 '탈퇴하기'를 누르면 계정이 삭제되고, 저장된 정보는 모두 삭제됩니다.</li></ol>"
+    },
+    "en": {
+      "title": "How to Delete Your Account",
+      "content": "<h3>How to Delete Your Account</h3><ol><li>Go to 'MyPop' in the app.</li><li>Navigate to 'My Info'.</li><li>Click 'Delete Account'.</li><li>Confirm the account deletion message and click 'Delete Account' again to permanently delete your account and all stored information.</li></ol>"
+    }
+  }
+  
