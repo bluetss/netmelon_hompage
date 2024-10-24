@@ -20,7 +20,10 @@
         "account-content": "계정 관련 정보를 확인하세요.",
         "nav-data": "데이터",
         "data-title": "데이터",
-        "data-content": "사용자는 앱 내에서 PDF 파일을 삭제할 수 있습니다. PDF를 삭제하면 해당 파일은 서버에서 영구적으로 삭제되며, 더 이상 복구할 수 없습니다. 나머지 데이터는 유지됩니다."
+        "data-content": "사용자는 앱 내에서 PDF 파일을 삭제할 수 있습니다. PDF를 삭제하면 해당 파일은 서버에서 영구적으로 삭제되며, 더 이상 복구할 수 없습니다. 나머지 데이터는 유지됩니다.",
+        "nav-terms": "이용약관",
+        "terms-title": "이용약관",
+        "terms-content": "내팝퀴즈의 서비스 이용약관을 확인하세요."
     },
     "en": {
         "company-name": "Netmelon",
@@ -43,6 +46,9 @@
         "account-content": "Check account-related information",
         "nav-data": "Data",
         "data-title": "Data",
-        "data-content": "Users can delete PDF files within the app. Once a PDF is deleted, it will be permanently removed from the server and cannot be recovered. All other data will remain intact."
+        "data-content": "Users can delete PDF files within the app. Once a PDF is deleted, it will be permanently removed from the server and cannot be recovered. All other data will remain intact.",
+        "nav-terms": "Terms of Service",
+        "terms-title": "Terms of Service",
+        "terms-content": "Check out the terms of service for Naepopquiz."
     }
 }

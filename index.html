@@ -6,7 +6,7 @@
     <title>Netmelon</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f9;
@@ -134,10 +134,11 @@
     <nav id="menu">
         <a href="#about" id="nav-about">회사소개</a>
         <a href="#product" id="nav-product">상품</a>
-        <a href="#contact" id="nav-contact">연락처</a>
         <a href="#privacy" id="nav-privacy">개인정보처리방침</a>
         <a href="#account" id="nav-account">계정</a>
         <a href="#data" id="nav-data">데이터</a>
+        <a href="#terms" id="nav-terms">이용약관</a>
+        <a href="#contact" id="nav-contact">연락처</a>
     </nav>
 
     <section id="about">
@@ -156,11 +157,6 @@
                 <img src="images/main4.png" alt="앱 메인 화면 4">
             </div>            
         </ul>
-    </section>
-
-    <section id="contact">
-        <h2 id="contact-title">연락처</h2>
-        <p id="contact-content">이메일: netmelondev@gmail.com</p>
     </section>
 
     <section id="privacy">
@@ -204,7 +200,20 @@
         <h2 id="data-title">데이터</h2>
         <p id="data-content">사용자는 앱 내에서 PDF 파일을 삭제할 수 있습니다. PDF를 삭제하면 해당 파일은 서버에서 영구적으로 삭제되며, 더 이상 복구할 수 없습니다. 나머지 데이터는 유지됩니다.</p>
     </section>
-    
+
+    <section id="terms">
+        <h2 id="terms-title">이용약관</h2>
+        <p id="terms-content">내팝퀴즈의 서비스 이용약관을 확인하세요.</p>
+        <a href="javascript:void(0);" id="view-full-terms" onclick="toggleFullTerms()">이용약관 전문 보기</a>
+        <div id="full-terms-content-ko" style="display: none; text-align: left;"></div>
+        <div id="full-terms-content-en" style="display: none; text-align: left;"></div>
+    </section>
+
+    <section id="contact">
+        <h2 id="contact-title">연락처</h2>
+        <p id="contact-content">이메일: netmelondev@gmail.com</p>
+    </section>
+
     <footer>
         <p>&copy; 2024 Netmelon. All rights reserved.</p>
     </footer>
@@ -221,11 +230,13 @@
         let translations;
         let privacyPolicies;
         let accountInfo;
+        let termsOfService;
 
         async function loadTranslations() {
             translations = await fetchJsonData('translations.json');
             privacyPolicies = await fetchJsonData('privacy.json');
             accountInfo = await fetchJsonData('delete-account.json'); // 회원 탈퇴 방법 불러오기
+            termsOfService = await fetchJsonData('terms_of_service.json'); // JSON 파일에서 이용약관 로드
         }
 
         function switchLanguage(lang) {
@@ -240,9 +251,13 @@
             document.getElementById("full-privacy-content-en").style.display = "none";
             document.getElementById("full-account-content-ko").style.display = "none";
             document.getElementById("full-account-content-en").style.display = "none";
+            document.getElementById("full-terms-content-ko").style.display = "none";
+            document.getElementById("full-terms-content-en").style.display = "none"; // 이용약관 내용 숨기기
 
             document.getElementById("view-full-privacy").innerText = lang === "ko" ? "개인정보처리방침 전문 보기" : "View Full Privacy Policy";
             document.getElementById("view-full-account").innerText = lang === "ko" ? "회원 탈퇴 방법 보기" : "View How to Delete Account";
+            document.getElementById("view-full-terms").innerText = lang === "ko" ? "이용약관 전문 보기" : "View Full Terms of Service"; // 이용약관 버튼 변경
+
             document.getElementById("btn-ko").style.display = lang === 'en' ? "inline-block" : "none";
             document.getElementById("btn-en").style.display = lang === 'ko' ? "inline-block" : "none";
         }
@@ -289,8 +304,31 @@
             }
         }
 
-        // 페이지 로드 시 translations, privacy 및 account 데이터 로드
-        document.addEventListener("DOMContentLoaded", loadTranslations);
+        function toggleFullTerms() {
+            const fullTermsContentKo = document.getElementById("full-terms-content-ko");
+            const fullTermsContentEn = document.getElementById("full-terms-content-en");
+            const viewFullTerms = document.getElementById("view-full-terms");
+            const lang = document.getElementById("btn-ko").style.display === "none" ? "ko" : "en";
+
+            if ((lang === "ko" && fullTermsContentKo.style.display === "none") || (lang === "en" && fullTermsContentEn.style.display === "none")) {
+                fullTermsContentKo.innerHTML = termsOfService["ko"].content;
+                fullTermsContentEn.innerHTML = termsOfService["en"].content;
+
+                fullTermsContentKo.style.display = lang === "ko" ? "block" : "none";
+                fullTermsContentEn.style.display = lang === "en" ? "block" : "none";
+                viewFullTerms.innerText = lang === "ko" ? "이용약관 전문 닫기" : "Hide Full Terms of Service";
+            } else {
+                fullTermsContentKo.style.display = "none";
+                fullTermsContentEn.style.display = "none";
+                viewFullTerms.innerText = lang === "ko" ? "이용약관 전문 보기" : "View Full Terms of Service";
+            }
+        }
+
+        // 페이지 로드 시 translations, privacy, account, 그리고 terms 데이터 로드
+        document.addEventListener("DOMContentLoaded", () => {
+            loadTranslations();
+        });
+
 
         // 마우스 드래그를 통한 수평 스크롤 기능 추가
         const menu = document.getElementById('menu');
