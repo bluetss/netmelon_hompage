@@ -85,9 +85,27 @@
         .product-images img,
         .image-container img {
             margin: 0 auto; /* 이미지 중앙 정렬 */
-            width: 20%; /* 이미지 크기를 줄이기 위해 고정된 크기 설정 */
+            width: 24%; /* 이미지 크기를 줄이기 위해 고정된 크기 설정 */
             height: auto; /* 이미지 비율 유지를 위해 높이를 자동으로 설정 */
             flex-shrink: 0; /* 이미지 크기를 줄이지 않도록 설정 */
+        }
+        /* TOP 버튼 스타일 */
+        #topBtn {
+            position: fixed; /* 화면의 특정 위치에 고정 */
+            bottom: 20px; /* 아래에서 20px */
+            right: 20px; /* 오른쪽에서 20px */
+            display: none; /* 처음엔 보이지 않도록 설정 */
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000; /* 다른 요소 위에 표시 */
+        }
+        #topBtn:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -173,6 +191,9 @@
     <footer>
         <p>&copy; 2024 Netmelon. All rights reserved.</p>
     </footer>
+
+    <!-- TOP으로 가는 버튼 -->
+    <button id="topBtn" onclick="scrollToTop()">TOP</button>
 
     <script>
         async function fetchJsonData(url) {
@@ -302,6 +323,24 @@
             const walk = (x - startX) * 2; // 드래그 속도 조정
             menu.scrollLeft = scrollLeft - walk;
         });
+
+        // 스크롤 이벤트에 따라 TOP 버튼 표시
+        window.onscroll = function() {
+            const topButton = document.getElementById("topBtn");
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                topButton.style.display = "block"; // 스크롤이 100px 이상일 때 버튼 표시
+            } else {
+                topButton.style.display = "none"; // 그 외에는 버튼 숨기기
+            }
+        };
+
+        // TOP 버튼 클릭 시 최상단으로 부드럽게 스크롤 이동
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth" // 부드러운 스크롤
+            });
+        }
     </script>
 
 </body>
