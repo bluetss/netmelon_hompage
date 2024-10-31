@@ -131,6 +131,11 @@
         #topBtn:hover {
             background-color: #45a049;
         }
+         /* Google Play 배지의 크기 조정 */
+        #google-play-badge {
+            width: 240px; /* 엄지손가락 정도의 크기로 설정 */
+            height: auto; /* 비율 유지 */
+        }
     </style>
 </head>
 <body>
@@ -162,7 +167,12 @@
     <section id="product">
         <h2 id="product-title">상품</h2>
         <ul>
-            <li id="product-description">내팝퀴즈</li>        
+            <li id="product-description">내팝퀴즈</li> 
+            <div id="play-store-badge">
+                <a href="https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz" target="_blank">
+                    <img id="google-play-badge" src="images/GetItOnGooglePlay_Badge_Web_color_Korean.png" alt="Google Play Store Badge">
+                </a>
+            </div>                   
             <div class="product-images" id="product-images"> <!-- 수정된 부분: id 추가 -->
                 <img src="images/screen_one.png" alt="앱 메인 화면 1">
                 <img src="images/screen_two.png" alt="앱 메인 화면 2">
@@ -277,6 +287,10 @@
 
             document.getElementById("btn-ko").style.display = lang === 'en' ? "inline-block" : "none";
             document.getElementById("btn-en").style.display = lang === 'ko' ? "inline-block" : "none";
+
+            // Google Play 배지 이미지 변경
+            const playBadge = document.getElementById("google-play-badge");
+            playBadge.src = lang === "ko" ? "images/GetItOnGooglePlay_Badge_Web_color_Korean.png" : "images/GetItOnGooglePlay_Badge_Web_color_English.png";
         }
 
         function toggleFullPrivacy() {
