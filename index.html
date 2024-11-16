@@ -131,11 +131,17 @@
         #topBtn:hover {
             background-color: #45a049;
         }
-        /* 수정된 부분: Google Play와 Apple App Store 배지 사이에 간격 추가 */
         #play-store-badge {
             display: flex;
-            align-items: center; /* 배지를 수직 중앙 정렬 */
+            align-items: center; /* 수직 중앙 정렬 */
             gap: 10px; /* 두 배지 사이에 간격 추가 */
+            overflow-x: auto; /* 가로 스크롤 허용 */
+            -ms-overflow-style: none; /* IE 및 Edge에서 스크롤바 숨기기 */
+            scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
+            cursor: grab; /* 드래그 커서 */
+        }
+        #play-store-badge::-webkit-scrollbar {
+            display: none; /* Chrome, Safari에서 스크롤바 숨기기 */
         }
         /* 수정된 부분: Google Play와 Apple App Store 배지의 높이를 동일하게 맞춤 */
         #google-play-badge,
