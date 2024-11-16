@@ -131,10 +131,17 @@
         #topBtn:hover {
             background-color: #45a049;
         }
-         /* Google Play 배지의 크기 조정 */
-        #google-play-badge {
-            width: 240px; /* 엄지손가락 정도의 크기로 설정 */
-            height: auto; /* 비율 유지 */
+        /* 수정된 부분: Google Play와 Apple App Store 배지 사이에 간격 추가 */
+        #play-store-badge {
+            display: flex;
+            align-items: center; /* 배지를 수직 중앙 정렬 */
+            gap: 20px; /* 두 배지 사이에 간격 추가 */
+        }
+        /* 수정된 부분: Google Play와 Apple App Store 배지의 높이를 동일하게 맞춤 */
+        #google-play-badge,
+        #apple-appstore-badge {
+            height: 50px; /* 원하는 높이 설정 */
+            width: auto;  /* 비율 유지 */
         }
     </style>
 </head>
@@ -171,6 +178,9 @@
             <div id="play-store-badge">
                 <a href="https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz" target="_blank">
                     <img id="google-play-badge" src="images/GetItOnGooglePlay_Badge_Web_color_Korean.png" alt="Google Play Store Badge">
+                </a>
+                <a href="https://apple.co/4ez9nji" target="_blank">
+                    <img id="apple-appstore-badge" src="images/appstore_black_ko.svg" alt="Apple App Store Badge">
                 </a>
             </div>                   
             <div class="product-images" id="product-images"> <!-- 수정된 부분: id 추가 -->
@@ -291,6 +301,10 @@
             // Google Play 배지 이미지 변경
             const playBadge = document.getElementById("google-play-badge");
             playBadge.src = lang === "ko" ? "images/GetItOnGooglePlay_Badge_Web_color_Korean.png" : "images/GetItOnGooglePlay_Badge_Web_color_English.png";
+
+            // Apple App Store 배지 이미지 변경
+            const appStoreBadge = document.getElementById("apple-appstore-badge");
+            appStoreBadge.src = lang === "ko" ? "images/appstore_black_ko.svg" : "images/appstore_black_en.svg";
         }
 
         function toggleFullPrivacy() {
