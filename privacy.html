@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="privacy-title">네트멜론 - 개인정보처리방침</title>
+  <style>
+    /* ==================== COLOR SYSTEM ==================== */
+    :root {
+      /* Primary */
+      --primary:             #FFFF66;
+      --on-primary:          #4C4C1A;
+      --primary-container:   #FFFECB;
+      --on-primary-container:#474710;
+      /* Secondary */
+      --secondary:           #FFD700;
+      --on-secondary:        #4C4C1A;
+      --secondary-container: #FFF9CC;
+      --on-secondary-container:#48480C;
+      /* Surface / Background */
+      --surface:             #FFFEF4;
+      --surface-low:         #FFFDE8;
+      --surface-container:   #FFF9C4;
+      --surface-container-low:#FFFDE8;
+      /* Text / Border */
+      --on-surface:          #232304;
+      --on-surface-variant:  #75750D;
+      --outline:             #C2B900;
+      /* Shadows */
+      --elev1: 0 1px 3px rgba(220,200,0,.09),0 1px 2px rgba(220,200,0,.13);
+      --elev2: 0 2px 6px rgba(220,200,0,.13),0 1px 2px rgba(220,200,0,.17);
+    }
+    /* ==================== TYPOGRAPHY ==================== */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+    html, body {      
+      margin:0; padding:0;
+      font-family:'Roboto', sans-serif;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    body {
+      padding-top: 80px; /* 헤더 높이 만큼 아래로 내림 */
+    }
+    h1, h2 { margin: 0; }
+    h1 { font-size: 28px; line-height: 36px; font-weight: 500; }
+    h2 { font-size: 24px; line-height: 32px; font-weight: 500; color: var(--on-primary); }
+    p, a { font-size: 14px; line-height: 20px; color: var(--on-surface-variant); text-decoration: none; }
+
+    /* ==================== HEADER & NAV ==================== */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      padding: 16px 0;
+      background: rgba(255,255,102,0.6);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--elev2);
+      transition: background .3s;
+      z-index: 100;
+    }
+    header.scrolled {
+      background: var(--primary) !important;
+    }
+    header .container {
+      max-width: 1200px; margin: auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+    }
+    nav a {
+      margin-left: 8px;
+      margin-right: 16px;
+      color: var(--on-primary);
+      font-weight: 500;
+      transition: color .2s;
+    }
+    nav a:hover {
+      color: var(--primary-container);
+    }
+    nav a:first-child {
+      margin-left: 0;
+    }
+    .lang-switch {
+      display: flex; gap: 8px;
+      margin-left: 12px;
+    }
+    .lang-switch button {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border: none; padding: 6px 12px;
+      border-radius: 8px; cursor: pointer;
+      font-weight: 500;
+    }
+    .lang-switch button:hover {
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+    }
+
+    /* ==================== POLICY LAYOUT ==================== */
+    .policy-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 100px auto 60px;
+      gap: 32px;
+      padding: 0 24px;
+    }
+    .policy-nav {
+      flex: 0 0 240px;
+      background: var(--surface-low);
+      border-radius: 8px;
+      padding: 24px;
+      position: sticky;
+      top: 100px;
+      box-shadow: var(--elev1);
+    }
+    .policy-nav ul {
+      list-style: none; padding: 0; margin: 0;
+    }
+    .policy-nav li { margin-bottom: 12px; }
+    .policy-nav a {
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .2s;
+    }
+    .policy-nav a:hover { color: var(--primary); }
+    .policy-content {
+      flex: 1;
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: var(--elev1);
+    }
+    /* JSON에서 로드된 타이틀(h2,h3) 색 수정 */
+    .policy-content h2, .policy-content h3 {
+      color: var(--on-primary);
+      margin-top: 24px;
+    }
+    .policy-content p, .policy-content li {
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .lang-switch-top { display:flex; gap:8px; margin-bottom:24px; }
+    .lang-switch-top button.active {
+      background: var(--secondary);
+      color: var(--on-secondary);
+    }
+
+    /* ==================== FOOTER ==================== */
+    footer {
+      background: var(--on-surface);
+      color: var(--surface);
+      padding: 40px 0;
+    }
+    .footer-info {
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header id="site-header">
+    <div class="container">
+      <h1 id="company-name">네트멜론</h1>
+      <nav>
+        <a href="#" id="home-link">HOME</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="policy-container">
+    <article class="policy-content" id="policy-content">로딩 중...</article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-info">© 2025 Netmelon. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    async function fetchJsonData(url) { const res = await fetch(url); return res.json(); }
+    let privacyPolicies;
+    // URL 쿼리 파라미터에서 lang 값을 가져와서 초기 언어 설정
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentLang = urlParams.get('lang') === 'en' ? 'en' : 'ko';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      privacyPolicies = await fetchJsonData('privacy.json');
+      translations = await fetchJsonData('translations.json'); // ★ 추가
+      applyLangTexts(currentLang); // ★ 아래 함수에서 타이틀, 회사명 바꿔줌
+      renderPrivacy(currentLang);
+      buildToc();
+      window.addEventListener('scroll', () => {
+        document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 50);
+      });
+    });
+
+    // HOME 링크를 현재 언어에 맞게 동작시킴
+    document.addEventListener('DOMContentLoaded', function() {
+    const homeLink = document.getElementById('home-link');
+    if (homeLink) {
+        homeLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = `index.html?lang=${currentLang}#hero`;
+        });
+    }
+    });
+
+    function switchPrivacyLang(lang) {
+      currentLang = lang;
+      document.getElementById('btn-ko').classList.toggle('active', lang==='ko');
+      document.getElementById('btn-en').classList.toggle('active', lang==='en');
+      applyLangTexts(lang); // ★ 언어 바꿀 때도 동작
+      renderPrivacy(lang);
+      buildToc();
+    }
+
+    function applyLangTexts(lang) {
+    // 타이틀, 회사명 교체
+    if(translations && translations[lang]) {
+      document.title = translations[lang]['privacy-title'];
+      document.getElementById('privacy-title').innerText = translations[lang]['privacy-title'];
+      document.getElementById('company-name').innerText = translations[lang]['company-name'];
+    }
+    // <html> lang도 갱신
+    document.documentElement.lang = lang;
+    } 
+
+    function renderPrivacy(lang) {
+      const html = privacyPolicies[lang]?.content || '<p>내용이 없습니다.</p>';
+      document.getElementById('policy-content').innerHTML = html;
+      // <html> 요소의 lang 속성도 업데이트 (접근성/SEO)
+      document.documentElement.lang = lang === 'en' ? 'en' : 'ko';
+    }
+
+    function buildToc() {
+      const container = document.getElementById('policy-content');
+      const toc = document.getElementById('policy-toc');
+      toc.innerHTML = '';
+      container.querySelectorAll('h2, h3').forEach(h => {
+        if (!h.id) h.id = h.textContent.trim().replace(/\s+/g, '-');
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        toc.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>

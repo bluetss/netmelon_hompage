@@ -1,512 +1,447 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netmelon</title>
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-        header {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 1em 0;
-            text-align: center;
-            position: relative;
-        }
-        header h1 {
-            margin: 0;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            margin: 1em 0;
-            overflow-x: auto;
-            white-space: nowrap;
-            -ms-overflow-style: none;  /* IE 및 Edge에서 스크롤바 숨기기 */
-            scrollbar-width: none;  /* Firefox에서 스크롤바 숨기기 */
-            cursor: grab; /* 기본 마우스 커서 */
-        }
-        nav::-webkit-scrollbar {
-            display: none;  /* Chrome, Safari에서 스크롤바 숨기기 */
-        }
-        nav a {
-            color: #333;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-            font-size: 1.0em;
-            padding: 0.5em;
-        }
-         /* 기본적으로 큰 화면에서는 중앙 정렬 */
-         nav {
-            justify-content: center;
-        }
-        /* 모바일 화면에서는 왼쪽 정렬 */
-        @media (max-width: 768px) {
-            nav {
-                justify-content: flex-start; /* 왼쪽 정렬 */
-                padding-left: 5px; /* 모바일에서는 메뉴를 왼쪽에 여유 있게 띄움 */
-            }
-        }
-        .lang-switch {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        .lang-switch button {
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            padding: 0.5em 1em;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        section {
-            padding: 2em;
-            max-width: 800px;
-            margin: auto;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #4CAF50;
-        }
-        footer {
-            text-align: center;
-            padding: 1em 0;
-            background-color: #333;
-            color: #fff;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-        /* 이미지 컨테이너를 가로로 배열 */
-        .product-images,
-        .image-container {
-            display: flex;
-            gap: 1px; /* 이미지 간 간격 */
-            overflow-x: auto;
-        }
-        .product-images,
-        .image-container {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            cursor: grab; /* 터치 및 드래그를 위한 커서 스타일 */
-            -ms-overflow-style: none; /* IE 및 Edge에서 스크롤바 숨기기 */
-            scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
-        }
-        .product-images::-webkit-scrollbar,
-        .image-container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari에서 스크롤바 숨기기 */
-        }
-        .product-images img,
-        .image-container img {
-            margin: 0 auto;
-            width: 40%;
-            height: auto;
-            flex-shrink: 0;
-        }
-        /* TOP 버튼 스타일 */
-        #topBtn {
-            position: fixed; /* 화면의 특정 위치에 고정 */
-            bottom: 20px; /* 아래에서 20px */
-            right: 20px; /* 오른쪽에서 20px */
-            display: none; /* 처음엔 보이지 않도록 설정 */
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            font-size: 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000; /* 다른 요소 위에 표시 */
-        }
-        #topBtn:hover {
-            background-color: #45a049;
-        }
-        #play-store-badge {
-            display: flex;
-            align-items: center; /* 수직 중앙 정렬 */
-            gap: 10px; /* 두 배지 사이에 간격 추가 */
-            overflow-x: auto; /* 가로 스크롤 허용 */
-            -ms-overflow-style: none; /* IE 및 Edge에서 스크롤바 숨기기 */
-            scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
-            cursor: grab; /* 드래그 커서 */
-        }
-        #play-store-badge::-webkit-scrollbar {
-            display: none; /* Chrome, Safari에서 스크롤바 숨기기 */
-        }
-        /* 수정된 부분: Google Play와 Apple App Store 배지의 높이를 동일하게 맞춤 */
-        #google-play-badge,
-        #apple-appstore-badge {
-            height: 50px; /* 원하는 높이 설정 */
-            width: auto;  /* 비율 유지 */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title id="company-name">네트멜론</title>
+  <style>
+    /* ==================== COLOR SYSTEM ==================== */
+:root {
+  /* Primary */
+  --primary:             #FFFF66;  /* 메인 컬러 (레몬 옐로우) */
+  --on-primary:          #4C4C1A;  /* 주황/어두운 올리브 (노랑 위에서 읽기 쉬운 색) */
+  --primary-container:   #FFFECB;  /* 밝은 옐로우(컨테이너 배경) */
+  --on-primary-container:#474710;  /* 더 진한 옐로우/올리브 (텍스트 등) */
+
+  /* Secondary */
+  --secondary:           #FFD700;  /* 선명한 골드 */
+  --on-secondary:        #4C4C1A;  /* 어두운 올리브 */
+  --secondary-container: #FFF9CC;  /* 아주 연한 노랑 */
+  --on-secondary-container:#48480C;/* 올리브 톤 */
+
+  /* Surface / Background */
+  --surface:             #FFFEF4;  /* 거의 흰색에 가까운 따뜻한 노랑 */
+  --surface-low:         #FFFDE8;  /* 약간 더 노란기 */
+  --surface-container:   #FFF9C4;  /* 연한 크림색 */
+  --surface-container-low:#FFFDE8; /* 동일, 연한 크림 */
+
+  /* Text / Border */
+  --on-surface:          #232304;  /* 아주 진한 올리브/카키 */
+  --on-surface-variant:  #75750D;  /* 노랑 계열의 어두운 텍스트 */
+  --outline:             #C2B900;  /* 밝은 머스타드 (테두리 등) */
+
+  /* Elevation shadows */
+  --elev1: 0 1px 3px rgba(220,200,0,.09),0 1px 2px rgba(220,200,0,.13);
+  --elev2: 0 2px 6px rgba(220,200,0,.13),0 1px 2px rgba(220,200,0,.17);
+  --elev3: 0 1px 3px rgba(220,200,0,.15),0 4px 8px rgba(220,200,0,.08);
+}
+
+
+    /* ==================== TYPOGRAPHY ==================== */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+    html, body {
+      margin: 0; padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    h1, h2 { margin: 0; }
+    h1 { font-size: 28px; line-height: 36px; font-weight: 500; }
+    h2 { font-size: 24px; line-height: 32px; font-weight: 500; color: var(--secondary); }
+    p, a { font-size: 14px; line-height: 20px; color: var(--on-surface-variant); text-decoration: none; }
+
+    /* ==================== HEADER & NAV ==================== */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      padding: 16px 0;
+      background: rgba(255,255,102,0.6);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--elev2);
+      transition: background .3s;
+      z-index: 100;
+    }
+    header.scrolled {
+      background: var(--primary) !important;
+    }
+    header .container {
+      max-width: 1200px; margin: auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;   /* 좌우에 32px 패딩 추가 */
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      padding-right: 24px; /* 스크롤바와 겹치지 않게 */
+    }
+    nav a {
+      margin-left: 8px;
+      margin-right: 16px;
+      color: var(--on-primary);
+      font-weight: 500;
+      transition: color .2s;
+    }
+    nav a:hover {
+      color: var(--on-surface);
+    }
+    nav a:first-child {
+      margin-left: 0;     /* 첫 메뉴는 왼쪽 여백 없음 */
+    }
+    .lang-switch {
+      display: flex; gap: 8px;
+      margin-left: 12px; /* '제품' 메뉴와 언어버튼 사이 여백 */
+    }
+    .lang-switch button {
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+      border: none; padding: 6px 12px;
+      border-radius: 8px; cursor: pointer;
+      font-weight: 500;
+    }
+    .lang-switch button:hover {
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+    }
+
+    /* ==================== HERO BANNER ==================== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('images/hero_bg.png') center 35%/cover no-repeat;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      color: var(--on-primary);
+    }
+    .hero::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.4);
+    }
+    .hero .content {
+      position: relative; 
+      z-index: 1;
+      max-width: 800px;      
+    }
+    .hero h1 {
+      font-size: clamp(28px, 6vw, 54px); /* 최소28, 최대54, 화면폭에 따라 유동 */
+      line-height: 1.15;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--primary-container);  /* 밝은 레몬 */
+      text-shadow: 0 6px 24px rgba(44,44,0,0.27), 0 1px 2px rgba(44,44,0,0.38);
+      word-break: keep-all;    /* 한국어는 keep-all이 더 자연스러움 */
+    }
+    .hero p {
+      font-size: clamp(10px, 6vw, 20px); /* 최소28, 최대54, 화면폭에 따라 유동 */
+      line-height: 1.5;
+      font-weight: 400;
+      margin-bottom: 32px;
+      color: var(--surface);  /* 거의 흰색에 가까운 밝은색 */
+      text-shadow: 0 3px 12px rgba(44,44,0,0.32);
+      word-break: keep-all;    /* 한국어는 keep-all이 더 자연스러움 */
+    }
+    .hero .btn {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      padding: 12px 28px;
+      border-radius: 8px;
+      box-shadow: var(--elev1);
+      font-weight: 500;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .hero .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--elev2);
+    }
+
+    /* ==================== SECTIONS ==================== */
+    .section {
+      padding: 80px 0;
+    }
+    .section .container {
+      max-width: 1000px; margin: auto;
+      text-align: center;
+    }
+    .section p {
+      margin-bottom: 40px;
+    }
+
+    /* ==================== PRODUCT ==================== */
+    #play-store-badge {
+      display: flex; gap: 16px; justify-content: center; margin-top: 16px;
+    }
+    #play-store-badge img {
+      height: 48px; width: auto;
+    }
+
+    /* ==================== TESTIMONIALS ==================== */
+    .testimonials {
+      background: var(--surface-low);
+    }
+    .testimonials .cards {
+      display: flex; gap: 24px;
+      overflow-x: auto; padding-bottom: 16px;
+    }
+    .testimonials .card {
+      flex: 0 0 300px;
+      background: var(--surface-container);
+      border-radius: 16px;
+      box-shadow: var(--elev1);
+      padding: 24px;
+      display: flex; flex-direction: column;
+    }
+    .testimonials .author {
+      margin-top: 16px;
+      text-align: right;
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    /* ==================== EVENTS (예시) ==================== */
+    .events .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .events .event {
+      background: var(--surface-container);
+      border-radius: 16px;
+      box-shadow: var(--elev1);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .events .event img {
+      width: 100%; height: 180px; object-fit: cover;
+    }
+    .events .event .info {
+      padding: 16px; flex: 1;
+    }
+    .events .event h3 {
+      font-size: 20px; margin-bottom: 8px;
+      color: var(--primary);
+    }
+    .events .event a.btn {
+      margin-top: 16px;
+      display: inline-block;
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 500;
+      box-shadow: var(--elev1);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .events .event a.btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--elev2);
+    }
+
+    /* ==================== FOOTER ==================== */
+    footer {
+      background: var(--on-surface);
+      color: var(--surface);
+      padding: 40px 0;
+    }
+    .footer-menu {
+      display: flex; justify-content: center; gap: 24px; margin-bottom: 16px;
+    }
+    .footer-link {
+      color: var(--on-surface-variant);
+      font-size: 14px; line-height: 20px;
+      transition: color .2s;
+    }
+    .footer-link:hover {
+      color: var(--primary);
+    }
+    .footer-info {
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-
-    <header>
-        <h1 id="company-name">네트멜론</h1>
-        <p id="company-slogan">고객과 함께 성장하는 인공지능 전문 기업</p>
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="container">
+      <h1 id="company-name">네트멜론</h1>
+      <nav>
+        <a id="nav-home"    href="#hero">HOME</a>
+        <a id="nav-about"   href="#about">회사소개</a>
+        <a id="nav-product" href="#product">제품</a>
         <div class="lang-switch">
-            <button id="btn-ko" onclick="switchLanguage('ko')" style="display: none;">한국어</button>
-            <button id="btn-en" onclick="switchLanguage('en')">English</button>
+          <button id="btn-ko" onclick="switchLanguage('ko')" style="display:none">한국어</button>
+          <button id="btn-en" onclick="switchLanguage('en')">English</button>
         </div>
-    </header>
+      </nav>
+    </div>
+  </header>
 
-    <nav id="menu">
-        <a href="#about" id="nav-about">회사소개</a>
-        <a href="#product" id="nav-product">상품</a>
-        <a href="#privacy" id="nav-privacy">개인정보처리방침</a>
-        <a href="#account" id="nav-account">계정</a>
-        <a href="#data" id="nav-data">데이터</a>
-        <a href="#terms" id="nav-terms">이용약관</a>
-        <a href="#contact" id="nav-contact">연락처</a>
-    </nav>
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="content">
+      <h1 id="hero-title">네트멜론과 함께하면,<br>선생님의 하루가 달라집니다.</h1>      
+      <p id="hero-subtitle">반복되는 업무는 AI에 맡기고, 진짜 교육에 집중하세요!</p>
+      <a href="#product" class="btn" id="hero-cta">제품 보러 가기</a>
+    </div>
+  </section>
 
-    <section id="about">
-        <h2 id="about-title">회사소개</h2>
-        <p id="about-content">네트멜론은 고객의 요구에 맞춘 혁신적인 인공지능 기술이 결합된 모바일 어플리케이션 개발 기업입니다. 네트멜론의 모바일 어플리케이션은 고객의 성공을 돕고 있습니다.</p>
-    </section>
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 id="about-title">회사소개</h2>
+      <p id="about-content">네트멜론은 고객의 요구에 맞춘 혁신적인 인공지능 기술이 결합된 모바일 어플리케이션 개발 기업입니다.</p>
+    </div>
+  </section>
 
-    <section id="product">
-        <h2 id="product-title">상품</h2>
-        <ul>
-            <li id="product-description">내팝퀴즈</li> 
-            <div id="play-store-badge">
-                <a href="https://apple.co/4ez9nji" target="_blank">
-                    <img id="apple-appstore-badge" src="images/appstore_black_ko.svg" alt="Apple App Store Badge">
-                </a>
-                <a href="https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz" target="_blank">
-                    <img id="google-play-badge" src="images/GetItOnGooglePlay_Badge_Web_color_Korean_resized.png" alt="Google Play Store Badge">
-                </a>
-            </div>                   
-            <div class="product-images" id="product-images"> <!-- 수정된 부분: id 추가 -->
-                <img src="images/appstore_screen_01.png" alt="앱 메인 화면 1">
-                <img src="images/appstore_screen_02.png" alt="앱 메인 화면 2">
-                <img src="images/appstore_screen_03.png" alt="앱 메인 화면 3">
-                <img src="images/appstore_screen_04.png" alt="앱 메인 화면 4">
-                <img src="images/appstore_screen_05.png" alt="앱 메인 화면 5">
-                <img src="images/appstore_screen_06.png" alt="앱 메인 화면 6">
-            </div>            
-        </ul>
-    </section>
+  <!-- PRODUCT -->
+  <section id="product" class="section">
+    <div class="container">
+      <h2 id="product-title">제품</h2>
+      <p id="product-description">내팝퀴즈 — AI 기반 영단어 학습 퀴즈 생성 앱</p>
+      <div id="play-store-badge">
+        <a href="https://apple.co/4ez9nji" target="_blank">
+          <img id="apple-appstore-badge" src="images/appstore_black_ko.svg" alt="Apple App Store Badge">
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz" target="_blank">
+          <img id="google-play-badge" src="images/GetItOnGooglePlay_Badge_Web_color_Korean_resized.png" alt="Google Play Store Badge">
+        </a>
+      </div>
+    </div>
+  </section>
 
-    <section id="privacy">
-        <h2 id="privacy-title">개인정보처리방침</h2>
-        <p id="privacy-content">네트멜론은 고객의 개인정보를 안전하게 보호하며, 관련 법령에 따라 개인정보를 처리하고 있습니다.</p>
-        <a href="javascript:void(0);" id="view-full-privacy" onclick="toggleFullPrivacy()">개인정보처리방침 전문 보기</a>
-        <div id="full-privacy-content-ko" style="display: none; text-align: left;"></div>
-        <div id="full-privacy-content-en" style="display: none; text-align: left;"></div>
-    </section>
+  <!-- PRIVACY -->
+  <!-- <section id="privacy" class="section">
+    <div class="container">
+      <h2 id="privacy-title">개인정보처리방침</h2>
+      <p id="privacy-snippet">네트멜론은 고객의 개인정보를 안전하게 보호합니다.</p>
+      <a href="javascript:void(0);" id="view-full-privacy" onclick="toggleFullPrivacy()">전문 보기</a>
+      <div id="full-privacy-content-ko" style="display:none; text-align:left;"></div>
+      <div id="full-privacy-content-en" style="display:none; text-align:left;"></div>
+    </div>
+  </section> -->
 
-    <!-- 계정 섹션 -->
-    <section id="account">
-        <h2 id="account-title">계정</h2>
-        <p id="account-content">계정 관련 정보를 확인하세요.</p>
-        <a href="javascript:void(0);" id="view-full-account" onclick="toggleFullAccount()">회원 탈퇴 방법 보기</a>
-        <div id="full-account-content-ko" style="display: none; text-align: left;">
-            <!-- JSON에서 불러온 텍스트 -->
-            <div id="account-text-ko"></div>
-            <!-- 이미지를 가로로 배열 -->
-            <ul>
-                <div class="image-container" id="image-container"> <!-- 수정된 부분: id 추가 -->
-                    <img src='images/account-delete_01.png' alt='회원 탈퇴 첫 번째 단계'>
-                    <img src='images/account-delete_02.png' alt='회원 탈퇴 두 번째 단계'>
-                    <img src='images/account-delete_03.png' alt='회원 탈퇴 세 번째 단계'>
-                    <img src='images/account-delete_04.png' alt='회원 탈퇴 네 번째 단계'>
-                </div>
-            </ul>
-        </div>
-        <div id="full-account-content-en" style="display: none; text-align: left;">
-            <!-- JSON에서 불러온 텍스트 -->
-            <div id="account-text-en"></div>
-            <!-- 이미지를 가로로 배열 -->
-            <ul>
-                <div class="image-container">
-                    <img src='images/account-delete_01.png' alt='First step to delete account'>
-                    <img src='images/account-delete_02.png' alt='Second step to delete account'>
-                    <img src='images/account-delete_03.png' alt='Third step to delete account'>
-                    <img src='images/account-delete_04.png' alt='Fourth step to delete account'>
-                </div>
-            </ul>
-        </div>
-    </section>
+  <!-- TERMS -->
+  <!-- <section id="terms" class="section">
+    <div class="container">
+      <h2 id="terms-title">이용약관</h2>
+      <p id="terms-snippet">내팝퀴즈 서비스 이용약관을 안내합니다.</p>
+      <a href="javascript:void(0);" id="view-full-terms" onclick="toggleFullTerms()">전문 보기</a>
+      <div id="full-terms-content-ko" style="display:none; text-align:left;"></div>
+      <div id="full-terms-content-en" style="display:none; text-align:left;"></div>
+    </div>
+  </section> -->
 
-    <section id="data">
-        <h2 id="data-title">데이터</h2>
-        <p id="data-content">사용자는 앱 내에서 PDF 파일을 삭제할 수 있습니다. PDF를 삭제하면 해당 파일은 서버에서 영구적으로 삭제되며, 더 이상 복구할 수 없습니다. 나머지 데이터는 유지됩니다.</p>
-    </section>
+  <!-- CONTACT -->
+  <!-- <section id="contact" class="section">
+    <div class="container">
+      <h2 id="contact-title">연락처</h2>
+      <p id="contact-content">이메일: <a href="mailto:netmelondev@gmail.com">netmelondev@gmail.com</a></p>
+    </div>
+  </section> -->
 
-    <section id="terms">
-        <h2 id="terms-title">이용약관</h2>
-        <p id="terms-content">내팝퀴즈의 서비스 이용약관을 확인하세요.</p>
-        <a href="javascript:void(0);" id="view-full-terms" onclick="toggleFullTerms()">이용약관 전문 보기</a>
-        <div id="full-terms-content-ko" style="display: none; text-align: left;"></div>
-        <div id="full-terms-content-en" style="display: none; text-align: left;"></div>
-    </section>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-menu">        
+        <!-- ▶ id를 footer-privacy → nav-privacy 로 바꾸고 href 초기값은 # 으로 두세요 -->
+        <a href="#" class="footer-link" id="nav-privacy">개인정보처리방침</a>
+        <!-- ▶ id를 footer-terms → nav-terms 로 바꾸고 href 초기값은 # 으로 두세요 -->
+        <a href="#" class="footer-link" id="nav-terms">이용약관</a>
+        <!-- ▶ id nav-contact 이미 올바름, mailto는 switchLanguage 에서 고정 세팅 -->
+        <a href="#" class="footer-link" id="nav-contact">문의</a>
+      </div>
+      <div class="footer-info">
+        © 2025 Netmelon. All rights reserved.
+      </div>
+    </div>
+  </footer>
 
-    <section id="contact">
-        <h2 id="contact-title">연락처</h2>
-        <p id="contact-content">이메일: netmelondev@gmail.com</p>
-    </section>
+  <script>
+    // 1. 초기 언어 결정
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentLang = urlParams.get('lang') === 'en' ? 'en' : 'ko';
 
-    <footer>
-        <p>&copy; 2024 Netmelon. All rights reserved.</p>
-    </footer>
+    // 2. 데이터 전역 변수
+    let translations, privacyPolicies, termsOfService;
 
-    <!-- TOP으로 가는 버튼 -->
-    <button id="topBtn" onclick="scrollToTop()">TOP</button>
+    // 3. DOMContentLoaded 이벤트에서 초기 데이터 fetch 및 언어 적용
+    document.addEventListener("DOMContentLoaded", async () => {
+      translations    = await fetchJsonData('translations.json');
+      privacyPolicies = await fetchJsonData('privacy.json');
+      termsOfService  = await fetchJsonData('terms_of_service.json');
+      switchLanguage(currentLang); // 페이지 진입 시 lang 반영
+      setAllLinksLang();           // 네비, 푸터, 내부 anchor 등에도 lang 반영
+    });
 
-    <script>
-        async function fetchJsonData(url) {
-            const response = await fetch(url);
-            return response.json();
+    // 4. 언어 전환 함수
+    function switchLanguage(lang) {
+      currentLang = lang;
+      document.querySelectorAll("[id]").forEach(el => {
+        const key = el.id;
+        if (translations[lang][key]) el.innerText = translations[lang][key];
+      });
+      document.getElementById("btn-ko").style.display = lang==='en'?'inline-block':'none';
+      document.getElementById("btn-en").style.display = lang==='ko'?'inline-block':'none';
+      document.getElementById("google-play-badge").src =
+        lang==='ko'
+          ? "images/GetItOnGooglePlay_Badge_Web_color_Korean_resized.png"
+          : "images/GetItOnGooglePlay_Badge_Web_color_English.png";
+      document.getElementById("apple-appstore-badge").src =
+        lang==='ko'
+          ? "images/appstore_black_ko.svg"
+          : "images/appstore_black_en.svg";
+      
+      // footer 메뉴 링크
+      document.getElementById("nav-privacy").href = `privacy.html?lang=${lang}`;
+      document.getElementById("nav-terms"  ).href = `terms.html?lang=${lang}`;
+      document.getElementById("nav-contact").href = `mailto:netmelon@netmelonai.com`;
+
+      // footer 텍스트
+      document.getElementById("nav-privacy").innerText = translations[lang]["nav-privacy"];
+      document.getElementById("nav-terms"  ).innerText = translations[lang]["nav-terms"];
+      document.getElementById("nav-contact").innerText = translations[lang]["nav-contact"];
+
+      // <html> lang도 변경
+      document.documentElement.lang = lang;
+
+      // 내부 anchor 이동 시 lang 파라미터 유지
+      setAllLinksLang();
+    }
+
+    // 5. 모든 주요 링크에 lang 파라미터 추가(내부 anchor 이동도 포함)
+    function setAllLinksLang() {
+      // 헤더 메뉴 (HOME 등은 앵커+lang)
+      document.getElementById('nav-home').href    = `index.html?lang=${currentLang}#hero`;
+      document.getElementById('nav-about').href   = `index.html?lang=${currentLang}#about`;
+      document.getElementById('nav-product').href = `index.html?lang=${currentLang}#product`;
+      // 푸터는 위 switchLanguage에서 반영
+
+      // 앵커(a) 태그 중 #으로 시작하는 내부링크도 모두 lang 반영
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        if (!a.id.startsWith('nav-')) {
+          a.href = `${window.location.pathname}?lang=${currentLang}${a.getAttribute('href')}`;
         }
+      });
+    }
 
-        let translations;
-        let privacyPolicies;
-        let accountInfo;
-        let termsOfService;
+    // 6. lang 파라미터 없을 때 디폴트(ko)로 세팅
+    if (!urlParams.has('lang')) {
+      history.replaceState({}, '', `${location.pathname}?lang=ko${location.hash}`);
+    }
 
-        async function loadTranslations() {
-            translations = await fetchJsonData('translations.json');
-            privacyPolicies = await fetchJsonData('privacy.json');
-            accountInfo = await fetchJsonData('delete-account.json'); // 회원 탈퇴 방법 불러오기
-            termsOfService = await fetchJsonData('terms_of_service.json'); // JSON 파일에서 이용약관 로드
-        }
+    // 7. 헤더 배경 전환 (기존과 동일)
+    const hdr = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      hdr.classList.toggle('scrolled', window.scrollY > 50);
+    });
 
-        function switchLanguage(lang) {
-            document.querySelectorAll("[id]").forEach(element => {
-                const translation = translations[lang][element.id];
-                if (translation) {
-                    element.innerText = translation;
-                }
-            });
-
-            document.getElementById("full-privacy-content-ko").style.display = "none";
-            document.getElementById("full-privacy-content-en").style.display = "none";
-            document.getElementById("full-account-content-ko").style.display = "none";
-            document.getElementById("full-account-content-en").style.display = "none";
-            document.getElementById("full-terms-content-ko").style.display = "none";
-            document.getElementById("full-terms-content-en").style.display = "none"; // 이용약관 내용 숨기기
-
-            document.getElementById("view-full-privacy").innerText = lang === "ko" ? "개인정보처리방침 전문 보기" : "View Full Privacy Policy";
-            document.getElementById("view-full-account").innerText = lang === "ko" ? "회원 탈퇴 방법 보기" : "View How to Delete Account";
-            document.getElementById("view-full-terms").innerText = lang === "ko" ? "이용약관 전문 보기" : "View Full Terms of Service"; // 이용약관 버튼 변경
-
-            document.getElementById("btn-ko").style.display = lang === 'en' ? "inline-block" : "none";
-            document.getElementById("btn-en").style.display = lang === 'ko' ? "inline-block" : "none";
-
-            // Google Play 배지 이미지 변경
-            const playBadge = document.getElementById("google-play-badge");
-            playBadge.src = lang === "ko" ? "images/GetItOnGooglePlay_Badge_Web_color_Korean_resized.png" : "images/GetItOnGooglePlay_Badge_Web_color_English.png";
-
-            // Apple App Store 배지 이미지 변경
-            const appStoreBadge = document.getElementById("apple-appstore-badge");
-            appStoreBadge.src = lang === "ko" ? "images/appstore_black_ko.svg" : "images/appstore_black_en.svg";
-        }
-
-        function toggleFullPrivacy() {
-            const fullPrivacyContentKo = document.getElementById("full-privacy-content-ko");
-            const fullPrivacyContentEn = document.getElementById("full-privacy-content-en");
-            const viewFullPrivacy = document.getElementById("view-full-privacy");
-            const lang = document.getElementById("btn-ko").style.display === "none" ? "ko" : "en";
-
-            if ((lang === "ko" && fullPrivacyContentKo.style.display === "none") || (lang === "en" && fullPrivacyContentEn.style.display === "none")) {
-                fullPrivacyContentKo.innerHTML = privacyPolicies["ko"].content;
-                fullPrivacyContentEn.innerHTML = privacyPolicies["en"].content;
-
-                fullPrivacyContentKo.style.display = lang === "ko" ? "block" : "none";
-                fullPrivacyContentEn.style.display = lang === "en" ? "block" : "none";
-                viewFullPrivacy.innerText = lang === "ko" ? "개인정보처리방침 전문 닫기" : "Hide Full Privacy Policy";
-            } else {
-                fullPrivacyContentKo.style.display = "none";
-                fullPrivacyContentEn.style.display = "none";
-                viewFullPrivacy.innerText = lang === "ko" ? "개인정보처리방침 전문 보기" : "View Full Privacy Policy";
-            }
-        }
-
-        function toggleFullAccount() {
-            const fullAccountContentKo = document.getElementById("full-account-content-ko");
-            const fullAccountContentEn = document.getElementById("full-account-content-en");
-            const accountTextKo = document.getElementById("account-text-ko");
-            const accountTextEn = document.getElementById("account-text-en");
-            const viewFullAccount = document.getElementById("view-full-account");
-            const lang = document.getElementById("btn-ko").style.display === "none" ? "ko" : "en";
-
-            if ((lang === "ko" && fullAccountContentKo.style.display === "none") || (lang === "en" && fullAccountContentEn.style.display === "none")) {
-                accountTextKo.innerHTML = accountInfo["ko"].content;
-                accountTextEn.innerHTML = accountInfo["en"].content;
-
-                fullAccountContentKo.style.display = lang === "ko" ? "block" : "none";
-                fullAccountContentEn.style.display = lang === "en" ? "block" : "none";
-                viewFullAccount.innerText = lang === "ko" ? "회원 탈퇴 방법 닫기" : "Hide How to Delete Account";
-            } else {
-                fullAccountContentKo.style.display = "none";
-                fullAccountContentEn.style.display = "none";
-                viewFullAccount.innerText = lang === "ko" ? "회원 탈퇴 방법 보기" : "View How to Delete Account";
-            }
-        }
-
-        function toggleFullTerms() {
-            const fullTermsContentKo = document.getElementById("full-terms-content-ko");
-            const fullTermsContentEn = document.getElementById("full-terms-content-en");
-            const viewFullTerms = document.getElementById("view-full-terms");
-            const lang = document.getElementById("btn-ko").style.display === "none" ? "ko" : "en";
-
-            if ((lang === "ko" && fullTermsContentKo.style.display === "none") || (lang === "en" && fullTermsContentEn.style.display === "none")) {
-                fullTermsContentKo.innerHTML = termsOfService["ko"].content;
-                fullTermsContentEn.innerHTML = termsOfService["en"].content;
-
-                fullTermsContentKo.style.display = lang === "ko" ? "block" : "none";
-                fullTermsContentEn.style.display = lang === "en" ? "block" : "none";
-                viewFullTerms.innerText = lang === "ko" ? "이용약관 전문 닫기" : "Hide Full Terms of Service";
-            } else {
-                fullTermsContentKo.style.display = "none";
-                fullTermsContentEn.style.display = "none";
-                viewFullTerms.innerText = lang === "ko" ? "이용약관 전문 보기" : "View Full Terms of Service";
-            }
-        }
-
-        // 페이지 로드 시 translations, privacy, account, 그리고 terms 데이터 로드
-        document.addEventListener("DOMContentLoaded", () => {
-            loadTranslations();
-        });
-
-
-        // 마우스 드래그를 통한 수평 스크롤 기능 추가
-        const menu = document.getElementById('menu');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        menu.addEventListener('mousedown', (e) => {
-            isDown = true;
-            menu.classList.add('active');
-            startX = e.pageX - menu.offsetLeft;
-            scrollLeft = menu.scrollLeft;
-            menu.style.cursor = 'grabbing';
-        });
-
-        menu.addEventListener('mouseleave', () => {
-            isDown = false;
-            menu.style.cursor = 'grab';
-        });
-
-        menu.addEventListener('mouseup', () => {
-            isDown = false;
-            menu.style.cursor = 'grab';
-        });
-
-        menu.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - menu.offsetLeft;
-            const walk = (x - startX) * 2; // 드래그 속도 조정
-            menu.scrollLeft = scrollLeft - walk;
-        });
-
-        menu.addEventListener('touchstart', (e) => {
-            isDown = true;
-            startX = e.touches[0].pageX - menu.offsetLeft;
-            scrollLeft = menu.scrollLeft;
-        });
-
-        menu.addEventListener('touchend', () => {
-            isDown = false;
-        });
-
-        menu.addEventListener('touchmove', (e) => {
-            if (!isDown) return;
-            const x = e.touches[0].pageX - menu.offsetLeft;
-            const walk = (x - startX) * 2; // 드래그 속도 조정
-            menu.scrollLeft = scrollLeft - walk;
-        });
-
-        // 스크롤 이벤트에 따라 TOP 버튼 표시
-        window.onscroll = function() {
-            const topButton = document.getElementById("topBtn");
-            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                topButton.style.display = "block"; // 스크롤이 100px 이상일 때 버튼 표시
-            } else {
-                topButton.style.display = "none"; // 그 외에는 버튼 숨기기
-            }
-        };
-
-        // TOP 버튼 클릭 시 최상단으로 부드럽게 스크롤 이동
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth" // 부드러운 스크롤
-            });
-        }
-
-         // 수정된 부분: 가로 드래그 기능 추가
-        function enableHorizontalDrag(elementId) {
-            const container = document.getElementById(elementId);
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-
-            container.addEventListener('mousedown', (e) => {
-                isDown = true;
-                startX = e.pageX - container.offsetLeft;
-                scrollLeft = container.scrollLeft;
-                container.style.cursor = 'grabbing';
-            });
-
-            container.addEventListener('mouseleave', () => {
-                isDown = false;
-                container.style.cursor = 'grab';
-            });
-
-            container.addEventListener('mouseup', () => {
-                isDown = false;
-                container.style.cursor = 'grab';
-            });
-
-            container.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - container.offsetLeft;
-                const walk = (x - startX) * 2;
-                container.scrollLeft = scrollLeft - walk;
-            });
-
-            container.addEventListener('touchstart', (e) => {
-                isDown = true;
-                startX = e.touches[0].pageX - container.offsetLeft;
-                scrollLeft = container.scrollLeft;
-            });
-
-            container.addEventListener('touchend', () => {
-                isDown = false;
-            });
-
-            container.addEventListener('touchmove', (e) => {
-                if (!isDown) return;
-                const x = e.touches[0].pageX - container.offsetLeft;
-                const walk = (x - startX) * 2;
-                container.scrollLeft = scrollLeft - walk;
-            });
-        }
-
-        // 페이지 로드 시 드래그 기능 활성화
-        document.addEventListener("DOMContentLoaded", () => {
-            enableHorizontalDrag('product-images'); // 수정된 부분: product-images에 가로 드래그 적용
-            enableHorizontalDrag('image-container'); // 수정된 부분: image-container에 가로 드래그 적용
-        });
-
-    </script>
-
+    // 8. JSON fetch 함수
+    async function fetchJsonData(url) {
+      const res = await fetch(url);
+      return await res.json();
+    }
+  </script>
+  </script>
 </body>
 </html>
+```
