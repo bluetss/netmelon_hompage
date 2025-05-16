@@ -153,6 +153,43 @@
       text-align: center;
       font-size: 14px;
     }
+
+    /* ==================== MOBILE ==================== */
+    @media (max-width: 600px) {
+    header .container {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px;
+    }
+    header h1 {
+      font-size: 20px;
+      line-height: 26px;
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+    nav {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+      padding-right: 0;
+    }
+    nav a {
+      font-size: 14px;
+      margin: 0 4px;
+      padding: 0 2px;
+      white-space: nowrap;
+    }
+    .lang-switch {
+      margin-left: 8px;
+      gap: 3px;
+    }
+    .lang-switch button {
+      padding: 3px 8px;
+      font-size: 13px;
+    }
+  }
   </style>
 </head>
 <body>
