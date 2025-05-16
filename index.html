@@ -7,36 +7,35 @@
   <title id="company-name">네트멜론</title>
   <style>
     /* ==================== COLOR SYSTEM ==================== */
-:root {
-  /* Primary */
-  --primary:             #FFFF66;  /* 메인 컬러 (레몬 옐로우) */
-  --on-primary:          #4C4C1A;  /* 주황/어두운 올리브 (노랑 위에서 읽기 쉬운 색) */
-  --primary-container:   #FFFECB;  /* 밝은 옐로우(컨테이너 배경) */
-  --on-primary-container:#474710;  /* 더 진한 옐로우/올리브 (텍스트 등) */
+    :root {
+      /* Primary */
+      --primary:             #FFFF66;  /* 메인 컬러 (레몬 옐로우) */
+      --on-primary:          #4C4C1A;  /* 주황/어두운 올리브 (노랑 위에서 읽기 쉬운 색) */
+      --primary-container:   #FFFECB;  /* 밝은 옐로우(컨테이너 배경) */
+      --on-primary-container:#474710;  /* 더 진한 옐로우/올리브 (텍스트 등) */
 
-  /* Secondary */
-  --secondary:           #FFD700;  /* 선명한 골드 */
-  --on-secondary:        #4C4C1A;  /* 어두운 올리브 */
-  --secondary-container: #FFF9CC;  /* 아주 연한 노랑 */
-  --on-secondary-container:#48480C;/* 올리브 톤 */
+      /* Secondary */
+      --secondary:           #FFD700;  /* 선명한 골드 */
+      --on-secondary:        #4C4C1A;  /* 어두운 올리브 */
+      --secondary-container: #FFF9CC;  /* 아주 연한 노랑 */
+      --on-secondary-container:#48480C;/* 올리브 톤 */
 
-  /* Surface / Background */
-  --surface:             #FFFEF4;  /* 거의 흰색에 가까운 따뜻한 노랑 */
-  --surface-low:         #FFFDE8;  /* 약간 더 노란기 */
-  --surface-container:   #FFF9C4;  /* 연한 크림색 */
-  --surface-container-low:#FFFDE8; /* 동일, 연한 크림 */
+      /* Surface / Background */
+      --surface:             #FFFEF4;  /* 거의 흰색에 가까운 따뜻한 노랑 */
+      --surface-low:         #FFFDE8;  /* 약간 더 노란기 */
+      --surface-container:   #FFF9C4;  /* 연한 크림색 */
+      --surface-container-low:#FFFDE8; /* 동일, 연한 크림 */
 
-  /* Text / Border */
-  --on-surface:          #232304;  /* 아주 진한 올리브/카키 */
-  --on-surface-variant:  #75750D;  /* 노랑 계열의 어두운 텍스트 */
-  --outline:             #C2B900;  /* 밝은 머스타드 (테두리 등) */
+      /* Text / Border */
+      --on-surface:          #232304;  /* 아주 진한 올리브/카키 */
+      --on-surface-variant:  #75750D;  /* 노랑 계열의 어두운 텍스트 */
+      --outline:             #C2B900;  /* 밝은 머스타드 (테두리 등) */
 
-  /* Elevation shadows */
-  --elev1: 0 1px 3px rgba(220,200,0,.09),0 1px 2px rgba(220,200,0,.13);
-  --elev2: 0 2px 6px rgba(220,200,0,.13),0 1px 2px rgba(220,200,0,.17);
-  --elev3: 0 1px 3px rgba(220,200,0,.15),0 4px 8px rgba(220,200,0,.08);
-}
-
+      /* Elevation shadows */
+      --elev1: 0 1px 3px rgba(220,200,0,.09),0 1px 2px rgba(220,200,0,.13);
+      --elev2: 0 2px 6px rgba(220,200,0,.13),0 1px 2px rgba(220,200,0,.17);
+      --elev3: 0 1px 3px rgba(220,200,0,.15),0 4px 8px rgba(220,200,0,.08);
+    }
 
     /* ==================== TYPOGRAPHY ==================== */
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
@@ -257,6 +256,43 @@
       text-align: center;
       font-size: 14px;
     }
+    
+    /* ==================== MOBILE ==================== */
+    @media (max-width: 600px) {
+    header .container {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px;
+    }
+    header h1 {
+      font-size: 20px;
+      line-height: 26px;
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+    nav {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+      padding-right: 0;
+    }
+    nav a {
+      font-size: 14px;
+      margin: 0 4px;
+      padding: 0 2px;
+      white-space: nowrap;
+    }
+    .lang-switch {
+      margin-left: 8px;
+      gap: 3px;
+    }
+    .lang-switch button {
+      padding: 3px 8px;
+      font-size: 13px;
+    }
+  }
   </style>
 </head>
 <body>
