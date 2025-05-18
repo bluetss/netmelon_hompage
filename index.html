@@ -106,7 +106,7 @@
     .hero {
       position: relative;
       height: 100vh;
-      background: url('images/hero_bg.png') center 45%/cover no-repeat;
+      background: url('images/hero_bg.png') center 40%/cover no-repeat;
       display: flex; align-items: center; justify-content: center;
       text-align: center;
       color: var(--on-primary);
@@ -140,15 +140,22 @@
       word-break: keep-all;    /* 한국어는 keep-all이 더 자연스러움 */
     }
     .hero .btn {
-      background: var(--primary-container);
-      color: var(--on-primary-container);
+      /* background: var(--primary-container); */
+      background: rgba(255, 254, 203, 0.60);  /* 60% 불투명 (var(--primary-container)은 #FFFECB) */
+      color: var(--on-surface);
       padding: 12px 28px;
       border-radius: 8px;
       box-shadow: var(--elev1);
       font-weight: 500;
       transition: transform .2s, box-shadow .2s;
+      /* ↓ 추가로 backdrop-blur 주고 싶으면 */
+      backdrop-filter: blur(2px);
+      /* 필요하면 text-shadow로 밝기 강조 */
+      text-shadow: 0 1px 10px rgba(255,255,255,0.15);
     }
     .hero .btn:hover {
+      background: rgba(255, 254, 203, 0.92);  /* hover 시 살짝 더 선명하게 */
+      color: var(--on-primary-container);      /* hover시 기존 어두운 글씨로 */
       transform: translateY(-2px);
       box-shadow: var(--elev2);
     }
