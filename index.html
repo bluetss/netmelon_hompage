@@ -179,6 +179,30 @@
       height: 48px; width: auto;
     }
 
+    /* QR 영역 */
+    #qr-area{
+      margin-top:32px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+    }
+    #qr-install-img{
+      width:160px;
+      height:auto;
+      box-shadow: var(--elev1);
+      border-radius:12px;
+      background:#fff;
+      padding:8px;
+    }
+    #qr-caption{
+      font-size:14px;
+      color:var(--on-surface-variant);
+    }
+    @media (max-width:600px){
+      #qr-install-img{ width:140px; }
+    }
+
     /* ==================== TESTIMONIALS ==================== */
     .testimonials {
       background: var(--surface-low);
@@ -348,6 +372,10 @@
           <img id="google-play-badge" src="images/GetItOnGooglePlay_Badge_Web_color_Korean_resized.png" alt="Google Play Store Badge">
         </a>
       </div>
+      <div id="qr-area">
+        <img id="qr-install-img" src="images/qr_install.png" alt="앱 설치 QR 코드" loading="lazy">
+        <p id="qr-caption">QR 코드로 설치하기</p>
+      </div>
     </div>
   </section>
 
@@ -420,7 +448,14 @@
       currentLang = lang;
       document.querySelectorAll("[id]").forEach(el => {
         const key = el.id;
-        if (translations[lang][key]) el.innerText = translations[lang][key];
+        if (translations[lang][key]) {
+          // ★ IMG 같은 요소는 innerText 대신 alt만 바꿔준다
+          if (el.tagName === 'IMG') {
+            el.alt = translations[lang][key];
+          } else {
+            el.innerText = translations[lang][key];
+          }
+        }
       });
       document.getElementById("btn-ko").style.display = lang==='en'?'inline-block':'none';
       document.getElementById("btn-en").style.display = lang==='ko'?'inline-block':'none';
@@ -432,6 +467,16 @@
         lang==='ko'
           ? "images/appstore_black_ko.svg"
           : "images/appstore_black_en.svg";
+
+      // ★ QR 영역 텍스트/alt (있을 때만 처리)
+      const qrCaptionEl = document.getElementById("qr-caption");
+      if (qrCaptionEl && translations[lang]["qr-caption"]) {
+        qrCaptionEl.innerText = translations[lang]["qr-caption"];
+      }
+      const qrImgEl = document.getElementById("qr-install-img");
+      if (qrImgEl && translations[lang]["qr-alt"]) {
+        qrImgEl.alt = translations[lang]["qr-alt"];
+      }
       
       // footer 메뉴 링크
       document.getElementById("nav-privacy").href = `privacy.html?lang=${lang}`;
