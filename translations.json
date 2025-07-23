@@ -26,7 +26,8 @@
         "terms-content": "내팝퀴즈의 서비스 이용약관을 확인하세요.",
         "hero-title": "네트멜론과 함께하면,\n선생님의 하루가 달라집니다.",
         "hero-subtitle": "반복되는 업무는 AI에 맡기고, 진짜 교육에 집중하세요!",
-        "hero-cta": "제품 보러 가기"
+        "hero-cta": "제품 보러 가기",
+        "redirect-msg": "스토어로 이동하는 중입니다"
     },
     "en": {
         "company-name": "Netmelon",
@@ -55,6 +56,7 @@
         "terms-content": "Check out the terms of service for Naepopquiz.",
         "hero-title": "Transform Your Day with Netmelon!",
         "hero-subtitle": "Let AI handle routine tasks so you can focus on teaching.",
-        "hero-cta": "View Products"
+        "hero-cta": "View Products",
+        "redirect-msg": "Redirecting to the store"
     }
 }

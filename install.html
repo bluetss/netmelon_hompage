@@ -1,0 +1,38 @@
+<!-- /install.html  (UTF‑8) -->
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title id="company-name">네트멜론</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- 검색엔진이 캐시하지 않도록(스토어 주소 바뀔 경우 대비) -->
+  <meta http-equiv="Cache-Control" content="no-store">
+  <style>
+    /* 아주 가벼운 로딩 UI */
+    body{margin:0;display:flex;justify-content:center;align-items:center;
+         height:100vh;font-family:system-ui,Roboto,sans-serif;background:#FFFEF4;color:#4C4C1A}
+    h1{font-size:20px;font-weight:500}
+  </style>
+</head>
+<body>
+   <h1 id="redirect-msg">스토어로 이동하는 중입니다</h1>
+
+  <script>
+    // ‣ 실제 스토어 주소만 이곳에서 바꿔 주면 됩니다
+    const IOS_URL     = "https://apple.co/4ez9nji";
+    const ANDROID_URL = "https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz";
+    const WEB_FALLBACK= "https://netmelonai.com";  // 데스크톱 등
+
+    const ua = navigator.userAgent.toLowerCase();
+
+    if (ua.includes("iphone") || ua.includes("ipad")) {
+      location.replace(IOS_URL);
+    } else if (ua.includes("android")) {
+      location.replace(ANDROID_URL);
+    } else {
+      // PC·기타 기기 → 홈페이지나 앱 소개 페이지로
+      location.replace(WEB_FALLBACK);
+    }
+  </script>
+</body>
+</html>
