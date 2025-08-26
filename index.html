@@ -179,6 +179,34 @@
       height: 48px; width: auto;
     }
 
+    /* ★ ADDED: Product screenshots layout */
+    #product-screenshots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 16px;
+      margin: 16px 0 8px; /* 제목/설명과 배지 사이 간격 */
+    }
+    #product-screenshots img {
+      width: min(46%, 440px);
+      height: auto;
+      border-radius: 16px;
+      background: #fff;
+      padding: 6px;            /* 흰 여백으로 디바이스 테두리 느낌 */
+      box-shadow: var(--elev2);
+    }
+    @media (max-width: 600px) {
+      #product-screenshots {
+        gap: 12px;
+        margin: 12px 0 4px;
+      }
+      #product-screenshots img {
+        width: 100%;           /* 모바일에서는 세로로 쌓기 */
+      }
+    }
+    /* ★ ADDED END */
+
     /* QR 영역 */
     #qr-area{
       margin-top:32px;
@@ -364,6 +392,24 @@
     <div class="container">
       <h2 id="product-title">제품</h2>
       <p id="product-description">내팝퀴즈 — AI 기반 영단어 학습 퀴즈 생성 앱</p>
+       <!-- ★ ADDED: 제품 스크린샷 (product-title ~ play-store-badge 사이) -->
+      <div id="product-screenshots">
+        <img
+          id="product-screenshot-1"
+          src="images/screenshots_no_1.png"
+          alt="내팝퀴즈 앱 스크린샷 1"
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          id="product-screenshot-2"
+          src="images/screenshots_no_2.png"
+          alt="내팝퀴즈 앱 스크린샷 2"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <!-- ★ ADDED END -->
       <div id="play-store-badge">
         <a href="https://apple.co/4ez9nji" target="_blank">
           <img id="apple-appstore-badge" src="images/appstore_black_ko.svg" alt="Apple App Store Badge">
