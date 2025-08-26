@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 홈 -->
+  <url>
+    <loc>https://netmelonai.com/</loc>
+    <lastmod>2025-08-26</lastmod>
+  </url>
+
+  <!-- 주요 정적 페이지 -->
+  <url>
+    <loc>https://netmelonai.com/install.html</loc>
+    <lastmod>2025-08-26</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/terms.html</loc>
+    <lastmod>2025-08-26</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/privacy.html</loc>
+    <lastmod>2025-08-26</lastmod>
+  </url>
+</urlset>
