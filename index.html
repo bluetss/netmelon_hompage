@@ -271,6 +271,25 @@
       height: 48px; width: auto;
     }
 
+    /* ★ ADDED: 제품 섹션의 앱 아이콘 스타일 */
+    #app-icon{
+      width: 96px;
+      height: 96px;
+      border-radius: 20px;     /* 살짝 라운드 */
+      box-shadow: var(--elev2);
+      background: #fff;        /* 흰 배경(투명 PNG 대비) */
+      display: inline-block;   /* 텍스트 가운데 정렬의 영향 받도록 */
+      margin: 10px 0 8px;      /* 제목/설명 사이 간격 */
+      object-fit: cover;
+    }
+    @media (max-width: 600px){
+      #app-icon{
+        width: 84px;
+        height: 84px;
+        border-radius: 16px;
+      }
+    }
+
     /* ★ ADDED: Product screenshots layout */
     /* ★ UPDATED: 제품 스크린샷을 항상 2열 그리드로 배치 (모바일 포함) */
     #product-screenshots{
@@ -493,6 +512,16 @@
   <section id="product" class="section">
     <div class="container">
       <h2 id="product-title">제품</h2>
+      <!-- ★ ADDED: 제품 제목과 설명 사이에 앱 아이콘 -->
+      <img
+        id="app-icon"
+        src="images/app_icon.png"
+        alt="내팝퀴즈 앱 아이콘"
+        width="96" height="96"
+        loading="lazy"
+        decoding="async"
+      />
+      <!-- ★ ADDED END -->
       <p id="product-description">내팝퀴즈 — AI 기반 영단어 학습 퀴즈 생성 앱</p>
        <!-- ★ ADDED: 제품 스크린샷 (product-title ~ play-store-badge 사이) -->
       <div id="product-screenshots">
