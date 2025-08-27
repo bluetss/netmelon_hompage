@@ -3,7 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title id="company-name">네트멜론</title>
+
+  <!-- ★ 폰트 성능 최적화 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- ★ SEO: canonical & 다국어 hreflang -->
+  <link rel="canonical" href="https://netmelonai.com/"/>
+  <link rel="alternate" hreflang="ko" href="https://netmelonai.com/index.html?lang=ko"/>
+  <link rel="alternate" hreflang="en" href="https://netmelonai.com/index.html?lang=en"/>
+  <link rel="alternate" hreflang="x-default" href="https://netmelonai.com/"/>
+
+  <!-- ★ SEO 기본 메타 -->
+  <meta name="description" content="내팝퀴즈 — AI가 출제해주는 영단어 팝퀴즈앱. 영어 선생님을 위한 출제 자동화."/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="theme-color" content="#FFFF66"/>
+
+  <!-- ★ 소셜(미리보기) Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="네트멜론"/>
+  <meta property="og:title" content="네트멜론 — 내팝퀴즈: AI가 출제해주는 영단어 팝퀴즈앱"/>
+  <meta property="og:description" content="AI가 영단어 자동으로 뽑아 퀴즈를 만드는 영어 학습 앱."/>
+  <meta property="og:url" content="https://netmelonai.com/"/>
+  <meta property="og:image" content="https://netmelonai.com/images/og-cover.png"/>
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="내팝퀴즈 — AI가 출제해주는 영단어 팝퀴즈앱">
+  <meta property="og:locale" content="ko_KR"/>
+  <meta property="og:locale:alternate" content="en_US"/>
+
+  <!-- ★ 트위터 카드 -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="네트멜론 — 내팝퀴즈"/>
+  <meta name="twitter:description" content="AI가 영단어 자동으로 뽑아 퀴즈를 만드는 영어 학습 앱."/>
+  <meta name="twitter:image" content="https://netmelonai.com/images/og-cover.png"/>
+
+  <!-- ★ 파비콘/아이콘 -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+  <!-- ★ 구조화 데이터: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Netmelon",
+    "url":"https://netmelonai.com",
+    "logo":"https://netmelonai.com/images/logo.png",
+    "sameAs":[
+      "https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz",
+      "https://apple.co/4ez9nji"
+    ]
+  }
+  </script>
+
+  <!-- ★ 구조화 데이터: SoftwareApplication (앱 소개) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"내팝퀴즈",
+    "applicationCategory":"EducationalApplication",
+    "operatingSystem":"Android, iOS",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},
+    "downloadUrl":"https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz",
+    "screenshot":[
+      "https://netmelonai.com/images/screenshots_no_1.png",
+      "https://netmelonai.com/images/screenshots_no_2.png"
+    ]
+  }
+  </script>
+  
+  <title>네트멜론</title>
   <style>
     /* ==================== COLOR SYSTEM ==================== */
     :root {
@@ -37,7 +110,7 @@
     }
 
     /* ==================== TYPOGRAPHY ==================== */
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+    /* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap'); */
     html, body {
       margin: 0; padding: 0;
       font-family: 'Roboto', sans-serif;
@@ -196,6 +269,7 @@
       padding: 6px;
       box-shadow: var(--elev2);
       object-fit: contain;
+      aspect-ratio: 1320 / 2868;
     }
     /* ★ ADDED: 모바일에서 제품 섹션 좌우 패딩 살짝 추가 */
     @media (max-width: 600px){
@@ -394,19 +468,23 @@
       <p id="product-description">내팝퀴즈 — AI 기반 영단어 학습 퀴즈 생성 앱</p>
        <!-- ★ ADDED: 제품 스크린샷 (product-title ~ play-store-badge 사이) -->
       <div id="product-screenshots">
+        <!-- ★ ADD: width/height로 고유 비율 예약 -->
         <img
           id="product-screenshot-1"
           src="images/screenshots_no_1.png"
           alt="내팝퀴즈 앱 스크린샷 1"
           loading="lazy"
           decoding="async"
+          width="1320" height="2868"
         />
+
         <img
           id="product-screenshot-2"
           src="images/screenshots_no_2.png"
           alt="내팝퀴즈 앱 스크린샷 2"
           loading="lazy"
           decoding="async"
+          width="1320" height="2868"
         />
       </div>
       <!-- ★ ADDED END -->
@@ -536,6 +614,7 @@
 
       // <html> lang도 변경
       document.documentElement.lang = lang;
+      document.title = translations[lang]["company-name"] || "Netmelon";
 
       // 내부 anchor 이동 시 lang 파라미터 유지
       setAllLinksLang();
@@ -573,7 +652,6 @@
       const res = await fetch(url);
       return await res.json();
     }
-  </script>
   </script>
 </body>
 </html>
