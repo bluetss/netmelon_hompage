@@ -232,6 +232,25 @@
       box-shadow: var(--elev2);
     }
 
+    /* ★ ADDED: 브랜드(로고 + 타이틀) 레이아웃 */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;              /* 로고와 텍스트 간격 */
+    }
+
+    /* ★ ADDED: 로고 크기 — 텍스트 높이에 맞춤 */
+    #brand-logo {
+      height: 28px;           /* 데스크톱 헤더 높이에 맞춘 값 */
+      width: auto;            /* 비율 유지 */
+      border-radius: 6px;     /* (선택) 살짝 라운드 */
+    }
+    
+    @media (max-width: 600px) {
+      /* 모바일에선 타이틀이 작아지므로 로고도 축소 */
+      #brand-logo { height: 22px; }
+    }
+
     /* ==================== SECTIONS ==================== */
     .section {
       padding: 80px 0;
@@ -431,7 +450,16 @@
   <!-- HEADER -->
   <header id="site-header">
     <div class="container">
-      <h1 id="company-name">네트멜론</h1>
+      <div class="brand">
+        <img
+          id="brand-logo"
+          src="images/logo.png"
+          alt="네트멜론 로고"
+          width="32" height="32"
+          decoding="async"
+        />
+        <h1 id="company-name">네트멜론</h1>
+      </div>
       <nav>
         <a id="nav-home"    href="#hero">HOME</a>
         <a id="nav-about"   href="#about">회사소개</a>
