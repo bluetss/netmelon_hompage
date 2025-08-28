@@ -92,6 +92,10 @@
       --secondary-container: #FFF9CC;  /* 아주 연한 노랑 */
       --on-secondary-container:#48480C;/* 올리브 톤 */
 
+      /* Tertiary */
+      --tertiary-container: #E0F7FA;   /* 예: 청록빛 톤, 실제 팔레트에 맞춰 변경 */
+      --on-tertiary-container: #004D40;/* 대비용 텍스트 컬러 */
+
       /* Surface / Background */
       --surface:             #FFFEF4;  /* 거의 흰색에 가까운 따뜻한 노랑 */
       --surface-low:         #FFFDE8;  /* 약간 더 노란기 */
@@ -263,6 +267,40 @@
       margin-bottom: 40px;
     }
 
+    /* ABOUT 섹션 배경색 */
+    #about {
+      background: var(--primary)
+    }
+
+    /* PRODUCT 섹션 배경색 */
+    #product {
+      background: #E0EBE9;
+    }
+
+    #about h2,
+    #product h2 {
+      color: var(--on-surface);
+    }
+
+    /* ABOUT 섹션 브랜드 심볼 (장식용) */
+    #about .brand-symbol{
+      display:block;
+      margin:16px auto 12px;         /* 제목 아래 간격 */
+      width:min(560px, 80%);         /* 데스크톱에선 560px, 모바일에선 컨테이너 80% */
+      aspect-ratio:1200 / 630;       /* OG 비율 유지 */
+      border-radius:16px;
+      box-shadow: var(--elev2);
+      background:#fff;               /* 투명 PNG 대비 */
+      object-fit:cover;
+      pointer-events:none;           /* ★ 클릭 차단 (장식용) */
+      cursor:default;                /* ★ 손가락 커서 방지 */
+    }
+    @media (max-width: 600px){
+      #about .brand-symbol{
+        border-radius:12px;
+      }
+    }
+
     /* ==================== PRODUCT ==================== */
     #play-store-badge {
       display: flex; gap: 16px; justify-content: center; margin-top: 16px;
@@ -272,42 +310,47 @@
     }
 
     /* ★ ADDED: 제품 섹션의 앱 아이콘 스타일 */
-    #app-icon{
-      width: 96px;
-      height: 96px;
-      border-radius: 20px;     /* 살짝 라운드 */
+        #about .brand-symbol {
+      display:block;
+      margin:16px auto 12px;
+      max-width:100%;     /* 기기 가로폭 넘지 않게 */
+      height:auto;        /* 세로는 원본 비율 유지 */
+      border-radius:16px; /* 살짝 라운드 */
       box-shadow: var(--elev2);
-      background: #fff;        /* 흰 배경(투명 PNG 대비) */
-      display: inline-block;   /* 텍스트 가운데 정렬의 영향 받도록 */
-      margin: 10px 0 8px;      /* 제목/설명 사이 간격 */
-      object-fit: cover;
+      background:#fff;
+      pointer-events:none; /* 클릭 차단 */
+      cursor:default;      /* 기본 커서 */
     }
-    @media (max-width: 600px){
-      #app-icon{
-        width: 84px;
-        height: 84px;
-        border-radius: 16px;
-      }
+    @media (max-width:600px){
+      #about .brand-symbol{ border-radius:12px; }
     }
 
     /* ★ ADDED: Product screenshots layout */
     /* ★ UPDATED: 제품 스크린샷을 항상 2열 그리드로 배치 (모바일 포함) */
-    #product-screenshots{
+    #product-screenshots {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2열 고정 */
-      gap: 12px;
+      gap: 0;
       margin: 16px 0 8px;
       justify-items: center; /* 각 셀에서 중앙 정렬 */
     }
     #product-screenshots img{
       width: 100%;              /* 셀 너비에 맞춤 */
       height: auto;
-      border-radius: 16px;
-      background: #fff;
+      border-radius: 0;
+      
+      /* 배경을 tertiary-container로
+      background: var(--tertiary-container);
+      
       padding: 6px;
-      box-shadow: var(--elev2);
+      box-shadow: var(--elev2); */
+      box-shadow: none;       /* ← 그림자 겹침 방지 (필요시 유지 가능) */
       object-fit: contain;
       aspect-ratio: 1320 / 2868;
+
+      /* 불필요한 테두리/패딩 제거 */
+      background: none;
+      padding: 0;
     }
     /* ★ ADDED: 모바일에서 제품 섹션 좌우 패딩 살짝 추가 */
     @media (max-width: 600px){
@@ -504,6 +547,15 @@
   <section id="about" class="section">
     <div class="container">
       <h2 id="about-title">회사소개</h2>
+      <!-- ★ 장식용 브랜드 심볼: 클릭 불가 + 스크린리더 숨김 -->
+      <img
+        class="brand-symbol"
+        src="images/og-cover.png"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+      />
       <p id="about-content">네트멜론은 고객의 요구에 맞춘 혁신적인 인공지능 기술이 결합된 모바일 어플리케이션 개발 기업입니다.</p>
     </div>
   </section>
@@ -516,7 +568,8 @@
       <img
         id="app-icon"
         src="images/app_icon.png"
-        alt="내팝퀴즈 앱 아이콘"
+        alt=""
+        aria-hidden="true"
         width="96" height="96"
         loading="lazy"
         decoding="async"
