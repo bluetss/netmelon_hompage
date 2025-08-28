@@ -260,7 +260,7 @@
       padding: 80px 0;
     }
     .section .container {
-      max-width: 1000px; margin: auto;
+      max-width: 1200px; margin: auto;
       text-align: center;
     }
     .section p {
@@ -310,16 +310,24 @@
     }
 
     /* ★ ADDED: 제품 섹션의 앱 아이콘 스타일 */
-        #about .brand-symbol {
+      #about .brand-symbol {
       display:block;
       margin:16px auto 12px;
       max-width:100%;     /* 기기 가로폭 넘지 않게 */
       height:auto;        /* 세로는 원본 비율 유지 */
-      border-radius:16px; /* 살짝 라운드 */
-      box-shadow: var(--elev2);
-      background:#fff;
+      border-radius:0;     /* 둥근 모서리 제거 */
+      box-shadow:none;     /* 그림자 제거 */
+      background:none;     /* 배경 제거 */
       pointer-events:none; /* 클릭 차단 */
       cursor:default;      /* 기본 커서 */
+    }
+    
+    /* ABOUT 본문 패딩 */
+    #about #about-content {
+      padding-left:16px;
+      padding-right:16px;
+      box-sizing:border-box; /* 패딩으로 레이아웃 깨짐 방지 */
+      word-break: keep-all;   /* 단어(띄어쓰기 단위) 기준 줄바꿈 */
     }
     @media (max-width:600px){
       #about .brand-symbol{ border-radius:12px; }
