@@ -30,7 +30,7 @@
         "redirect-msg": "스토어로 이동하는 중입니다",
         "qr-caption": "QR 코드로 설치하기",
         "qr-alt": "앱 설치 QR 코드",
-        "nav-data-deletion": "계정 및 데이터 삭제 안내"
+        "nav-data-deletion": "계정 · 데이터 삭제"
     },
     "en": {
         "company-name": "Netmelon",
@@ -63,6 +63,6 @@
         "redirect-msg": "Redirecting to the store",
         "qr-caption": "Install via QR code",
         "qr-alt": "App install QR code",        
-        "nav-data-deletion": "Account & Data Deletion"
+        "nav-data-deletion": "Account · Data Deletion"
     }
 }
