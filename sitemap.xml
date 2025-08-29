@@ -3,7 +3,7 @@
   <!-- 홈 -->
   <url>
     <loc>https://netmelonai.com/</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2025-08-29</lastmod>
   </url>
 
   <!-- 주요 정적 페이지 -->
@@ -18,5 +18,9 @@
   <url>
     <loc>https://netmelonai.com/privacy.html</loc>
     <lastmod>2025-08-26</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/data-deletion.html</loc>
+    <lastmod>2025-08-29</lastmod>
   </url>
 </urlset>
