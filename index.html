@@ -368,6 +368,28 @@
         box-sizing: border-box; /* 패딩으로 인해 가로가 넘치지 않도록 */
       }
     }
+    /* ===== Desktop: 두 스크린샷 중앙에 딱 붙게 + 살짝 축소 ===== */
+    @media (min-width: 1024px){
+      #product-screenshots{
+        display: inline-flex !important;   /* 컨텐츠 폭만큼만 줄어듦 */
+        gap: 0 !important;
+        column-gap: 0 !important;
+        row-gap: 0 !important;
+        margin: 16px auto 8px !important;  /* 부모 .container가 text-align:center라 가운데 정렬 */
+        vertical-align: top;
+      }
+      #product-screenshots img{
+        display: block;
+        width: auto !important;            /* 가로는 이미지 비율대로 */
+        height: min(600px, 60vh);          /* 데스크탑에서 살짝 작게 보이도록 */
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+      }
+    }
+
+    /* 모바일/태블릿은 기존 레이아웃 유지(원하시면 여기도 조정 가능) */
+
     /* ★ ADDED END */
 
     /* QR 영역 */
