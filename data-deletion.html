@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="data-deletion-title">네트멜론 - 계정 및 데이터 삭제 안내</title>
+  <style>
+    :root {
+      --primary:             #FFFF66;
+      --on-primary:          #4C4C1A;
+      --primary-container:   #FFFECB;
+      --on-primary-container:#474710;
+      --secondary:           #FFD700;
+      --on-secondary:        #4C4C1A;
+      --secondary-container: #FFF9CC;
+      --on-secondary-container:#48480C;
+      --surface:             #FFFEF4;
+      --surface-low:         #FFFDE8;
+      --surface-container:   #FFF9C4;
+      --surface-container-low:#FFFDE8;
+      --on-surface:          #232304;
+      --on-surface-variant:  #75750D;
+      --outline:             #C2B900;
+      --elev1: 0 1px 3px rgba(220,200,0,.09),0 1px 2px rgba(220,200,0,.13);
+      --elev2: 0 2px 6px rgba(220,200,0,.13),0 1px 2px rgba(220,200,0,.17);
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+    html, body {
+      margin:0; padding:0;
+      font-family:'Roboto', sans-serif;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    body { padding-top: 80px; }
+    h1, h2 { margin: 0; }
+    h1 { font-size: 28px; line-height: 36px; font-weight: 500; }
+    h2 { font-size: 24px; line-height: 32px; font-weight: 500; color: var(--on-primary); }
+    p, a { font-size: 14px; line-height: 20px; color: var(--on-surface-variant); text-decoration: none; }
+
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      padding: 16px 0;
+      background: rgba(255,255,102,0.6);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--elev2);
+      transition: background .3s;
+      z-index: 100;
+    }
+    header.scrolled { background: var(--primary) !important; }
+    header .container {
+      max-width: 1200px; margin: auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+    }
+    nav a {
+      margin-left: 8px; margin-right: 16px;
+      color: var(--on-primary);
+      font-weight: 500;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--on-surface); }
+
+    .policy-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 100px auto 60px;
+      gap: 32px;
+      padding: 0 24px;
+    }
+    .policy-content {
+      flex: 1;
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: var(--elev1);
+    }
+    .policy-content h2, .policy-content h3 {
+      color: var(--on-primary);
+      margin-top: 24px;
+    }
+    .policy-content p, .policy-content li {
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    footer {
+      background: var(--on-surface);
+      color: var(--surface);
+      padding: 40px 0;
+    }
+    .footer-info { text-align: center; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header id="site-header">
+    <div class="container">
+      <h1 id="company-name">네트멜론</h1>
+      <nav>
+        <a href="#" id="home-link">HOME</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="policy-container">
+    <article class="policy-content" id="policy-content">로딩 중...</article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-info">© 2025 Netmelon. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    async function fetchJsonData(url) { const res = await fetch(url); return res.json(); }
+    let dataDeletionPolicies, translations;
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentLang = urlParams.get('lang') === 'en' ? 'en' : 'ko';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      dataDeletionPolicies = await fetchJsonData('data-deletion.json');
+      translations = await fetchJsonData('translations.json');
+      applyLangTexts(currentLang);
+      renderDataDeletion(currentLang);
+      window.addEventListener('scroll', () => {
+        document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 50);
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const homeLink = document.getElementById('home-link');
+      if (homeLink) {
+        homeLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.location.href = `index.html?lang=${currentLang}#hero`;
+        });
+      }
+    });
+
+    function switchDataDeletionLang(lang) {
+      currentLang = lang;
+      applyLangTexts(lang);
+      renderDataDeletion(lang);
+    }
+
+    function applyLangTexts(lang) {
+      if(translations && translations[lang]) {
+        document.title = translations[lang]['data-deletion-title'];
+        document.getElementById('data-deletion-title').innerText = translations[lang]['data-deletion-title'];
+        document.getElementById('company-name').innerText = translations[lang]['company-name'];
+      }
+      document.documentElement.lang = lang;
+    }
+
+    function renderDataDeletion(lang) {
+      const html = dataDeletionPolicies[lang]?.content || '<p>내용이 없습니다.</p>';
+      document.getElementById('policy-content').innerHTML = html;
+      document.documentElement.lang = lang === 'en' ? 'en' : 'ko';
+    }
+  </script>
+</body>
+</html>

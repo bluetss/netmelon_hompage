@@ -659,6 +659,8 @@
         <a href="#" class="footer-link" id="nav-privacy">개인정보처리방침</a>
         <!-- ▶ id를 footer-terms → nav-terms 로 바꾸고 href 초기값은 # 으로 두세요 -->
         <a href="#" class="footer-link" id="nav-terms">이용약관</a>
+        <!-- ▶ NEW: 계정 및 데이터 삭제 안내 -->
+        <a href="#" class="footer-link" id="nav-data-deletion">계정 및 데이터 삭제 안내</a>
         <!-- ▶ id nav-contact 이미 올바름, mailto는 switchLanguage 에서 고정 세팅 -->
         <a href="#" class="footer-link" id="nav-contact">문의</a>
       </div>
@@ -723,11 +725,13 @@
       // footer 메뉴 링크
       document.getElementById("nav-privacy").href = `privacy.html?lang=${lang}`;
       document.getElementById("nav-terms"  ).href = `terms.html?lang=${lang}`;
+      document.getElementById("nav-data-deletion").href = `data-deletion.html?lang=${lang}`;
       document.getElementById("nav-contact").href = `mailto:netmelon@netmelonai.com`;
 
       // footer 텍스트
       document.getElementById("nav-privacy").innerText = translations[lang]["nav-privacy"];
       document.getElementById("nav-terms"  ).innerText = translations[lang]["nav-terms"];
+      document.getElementById("nav-data-deletion").innerText = translations[lang]["nav-data-deletion"];
       document.getElementById("nav-contact").innerText = translations[lang]["nav-contact"];
 
       // <html> lang도 변경
