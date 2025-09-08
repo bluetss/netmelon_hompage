@@ -12,8 +12,8 @@
 
   <!-- ★ SEO: canonical & 다국어 hreflang -->
   <link rel="canonical" href="https://netmelonai.com/"/>
-  <link rel="alternate" hreflang="ko" href="https://netmelonai.com/index.html?lang=ko"/>
-  <link rel="alternate" hreflang="en" href="https://netmelonai.com/index.html?lang=en"/>
+  <link rel="alternate" hreflang="ko" href="https://netmelonai.com/?lang=ko"/>
+  <link rel="alternate" hreflang="en" href="https://netmelonai.com/?lang=en"/>
   <link rel="alternate" hreflang="x-default" href="https://netmelonai.com/"/>
 
   <!-- ★ SEO 기본 메타 -->
@@ -75,6 +75,60 @@
       "https://netmelonai.com/images/screenshots_no_2.png"
     ]
   }
+  </script>
+
+   <!-- ★ 추가: 런타임 canonical/og/lang 동기화 (최소 수정 SEO 보정) -->
+  <script>
+  (function () {
+    var p = new URLSearchParams(location.search);
+    var hasLang = p.has('lang');
+    var lang = p.get('lang') === 'en' ? 'en' : 'ko';
+
+    // ?lang 파라미터가 없으면 ko로 정규화
+    if (!hasLang) {
+      var hash = location.hash || '';
+      location.replace(location.pathname + '?lang=ko' + hash);
+      return; // 이후 코드는 리다이렉트 후 실행
+    }
+
+    // 1) canonical 갱신
+    var canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    var canonicalUrl = location.origin + location.pathname + (lang === 'ko' ? '?lang=ko' : '?lang=en');
+    canonical.setAttribute('href', canonicalUrl);
+
+    // 2) hreflang alternate 보정
+    var altKo = document.querySelector('link[rel="alternate"][hreflang="ko"]');
+    var altEn = document.querySelector('link[rel="alternate"][hreflang="en"]');
+    var altXd = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+    if (altKo) altKo.setAttribute('href', location.origin + location.pathname + '?lang=ko');
+    if (altEn) altEn.setAttribute('href', location.origin + location.pathname + '?lang=en');
+    if (altXd) altXd.setAttribute('href', location.origin + location.pathname);
+
+    // 3) og:url 갱신
+    var ogUrl = document.querySelector('meta[property="og:url"]');
+    if (!ogUrl) {
+      ogUrl = document.createElement('meta');
+      ogUrl.setAttribute('property', 'og:url');
+      document.head.appendChild(ogUrl);
+    }
+    ogUrl.setAttribute('content', canonicalUrl);
+
+    // 4) og:locale & <html lang> 갱신
+    var ogLocale = document.querySelector('meta[property="og:locale"]');
+    if (!ogLocale) {
+      ogLocale = document.createElement('meta');
+      ogLocale.setAttribute('property', 'og:locale');
+      document.head.appendChild(ogLocale);
+    }
+    var locale = (lang === 'en') ? 'en_US' : 'ko_KR';
+    ogLocale.setAttribute('content', locale);
+    document.documentElement.setAttribute('lang', lang);
+  })();
   </script>
   
   <title>네트멜론</title>
