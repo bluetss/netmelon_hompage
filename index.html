@@ -546,19 +546,35 @@
       box-sizing: border-box;
     }
     .footer-menu {
-      display: flex; justify-content: center; gap: 24px; margin-bottom: 16px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+
+      /* ↓ 핵심 */
+      flex-wrap: nowrap;              /* 줄바꿈 금지 */
+      overflow-x: auto;               /* 넘치면 가로 스크롤 */
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;          /* Firefox 스크롤바 숨김 */
+    }
+    .footer-menu::-webkit-scrollbar { /* 크롬 등 스크롤바 숨김 */
+      display: none;
     }
     .footer-link {
-      color: var(--on-surface-variant);
-      font-size: 14px; line-height: 20px;
-      transition: color .2s;
-    }
-    .footer-link:hover {
-      color: var(--primary);
+      white-space: nowrap;            /* 단어 내부 줄바꿈 방지 */
+      flex: 0 0 auto;                 /* 수축 금지(한 칸으로 취급) */
     }
     .footer-info {
       text-align: center;
       font-size: 14px;
+    }
+    /* 좁은 화면에서 간격/폰트 살짝 줄여주면 거의 스크롤 없이도 맞는 경우가 많음 */
+    @media (max-width: 600px) {
+      .footer-menu { 
+        gap: clamp(8px, 3.5vw, 16px); 
+        padding: 0 8px;
+      }
+      .footer-link { font-size: 13px; }
     }
     
     /* ==================== MOBILE ==================== */
