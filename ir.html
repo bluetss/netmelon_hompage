@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="네트멜론 IR 자료 요청 페이지입니다. 연락처와 검토 목적을 남기면 담당자가 확인 후 후속 절차를 안내드립니다.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#f4f0e8">
+  <link rel="canonical" href="https://netmelonai.com/ir.html">
+  <link rel="alternate" hreflang="ko" href="https://netmelonai.com/ir.html">
+  <link rel="alternate" hreflang="en" href="https://netmelonai.com/en/ir.html">
+  <link rel="alternate" hreflang="x-default" href="https://netmelonai.com/ir.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Netmelon">
+  <meta property="og:title" content="네트멜론 | IR">
+  <meta property="og:description" content="연락처와 검토 목적을 남기시면 담당자가 확인 후 후속 절차를 안내드립니다.">
+  <meta property="og:url" content="https://netmelonai.com/ir.html">
+  <meta property="og:image" content="https://netmelonai.com/images/og-cover.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/company.css">
+
+  <style>
+    .ir-status {
+      min-height: 1.5em;
+    }
+
+    .ir-status.success {
+      color: #166534;
+      font-weight: 800;
+    }
+
+    .ir-status.error {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
+    .ir-field.invalid input,
+    .ir-field.invalid select,
+    .ir-field.invalid textarea {
+      border-color: #dc2626 !important;
+      box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.12);
+    }
+
+    .ir-submit-spinner {
+      display: none;
+      width: 1em;
+      height: 1em;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 999px;
+      animation: irSpin 0.75s linear infinite;
+    }
+
+    button.is-loading .ir-submit-spinner {
+      display: inline-block;
+    }
+
+    button.is-loading .ir-submit-label {
+      display: inline-block;
+    }
+
+    @keyframes irSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <title>네트멜론 | IR</title>
+</head>
+<body class="ir-request-page">
+  <header class="site-header" id="top">
+    <div class="shell">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="네트멜론 로고" width="36" height="36">
+        <span>네트멜론</span>
+      </a>
+      <div class="mobile-actions">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="메뉴 열기">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary">
+        <a href="company.html">회사소개</a>
+        <a href="index.html#naepopquiz-app">제품소개</a>
+        <a href="careers.html">채용</a>
+        <a href="ir.html">IR</a>
+        <a href="company.html#notices">공지</a>
+        <a class="lang-link" href="https://netmelonai.com/en/ir.html">EN</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="ir-main">
+    <section class="ir-flow" aria-label="IR 자료 요청 안내">
+
+      <article class="ir-slide ir-request-slide" id="ir-request">
+        <div class="ir-slide-inner ir-request-grid">
+          <section class="ir-card" aria-label="IR 요청 가이드">
+            <p class="ir-kicker">Request Guide</p>
+            <h2 class="ir-title wide">연락처와 검토 목적을 남겨주세요.</h2>
+            <p class="ir-subtitle">
+              아래 항목을 입력하면 요청이 접수됩니다.
+              담당자가 확인 후 후속 연락을 드리며, NDA와 자료 제공 범위는 검토 단계에 따라 별도로 안내드립니다.
+            </p>
+          </section>
+
+          <section class="ir-form-card" aria-label="IR 자료 요청 폼">
+            <h3>IR 자료 요청</h3>
+            <form id="ir-request-form" novalidate>
+              <div class="ir-form-grid">
+                <label class="ir-field">
+                  <span>이름 *</span>
+                  <input type="text" name="name" autocomplete="name" required>
+                </label>
+
+                <label class="ir-field">
+                  <span>이메일 *</span>
+                  <input type="email" name="email" autocomplete="email" required>
+                </label>
+
+                <label class="ir-field">
+                  <span>소속/법인명 *</span>
+                  <input type="text" name="organization" autocomplete="organization" required>
+                </label>
+
+                <label class="ir-field">
+                  <span>직함 *</span>
+                  <input type="text" name="title" autocomplete="organization-title" required>
+                </label>
+
+                <label class="ir-field">
+                  <span>연락처(전화번호) *</span>
+                  <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="예: 010-1234-5678" required>
+                </label>
+
+                <label class="ir-field">
+                  <span>투자 주체 유형 *</span>
+                  <select name="investor_type" required>
+                    <option value="" disabled selected>선택</option>
+                    <option value="VC">VC</option>
+                    <option value="PE">PE</option>
+                    <option value="CVC">CVC</option>
+                    <option value="Family Office">Family Office</option>
+                    <option value="Angel">Angel / 개인투자자</option>
+                    <option value="Other">기타</option>
+                  </select>
+                </label>
+
+                <label class="ir-field">
+                  <span>검토 희망 자료 *</span>
+                  <select name="requested_material" required>
+                    <option value="" disabled selected>선택</option>
+                    <option value="IR Deck">IR Deck</option>
+                    <option value="Financial Model">Financial Model</option>
+                    <option value="IR Deck + Financial Model">IR Deck + Financial Model</option>
+                  </select>
+                </label>
+
+                <label class="ir-field">
+                  <span>NDA 체결 가능 여부 *</span>
+                  <select name="nda_preference" required>
+                    <option value="" disabled selected>선택</option>
+                    <option value="possible">가능</option>
+                    <option value="needs_discussion">협의 필요</option>
+                    <option value="impossible">불가능</option>
+                  </select>
+                </label>
+
+                <label class="ir-field full">
+                  <span>검토 목적 및 요청 배경 *</span>
+                  <textarea name="request_note" required maxlength="4000" rows="5" placeholder="예: 투자 검토, Seed 라운드 검토, 재무모델 확인"></textarea>
+                </label>
+
+                <label class="ir-field full ir-check">
+                  <input type="checkbox" name="consent" required>
+                  <span>IR 자료 제공 검토를 위한 연락처 정보 수집 및 활용에 동의합니다. *</span>
+                </label>
+              </div>
+
+              <div class="ir-form-actions">
+                <button type="submit" class="button primary"><span class="ir-submit-label">요청하기</span><span class="ir-submit-spinner" aria-hidden="true"></span></button>
+                <p class="ir-status" id="ir-request-status" aria-live="polite"></p>
+              </div>
+            </form>
+          </section>
+        </div>
+      </article>
+
+      <article class="ir-slide ir-policy-slide" id="ir-policy">
+        <div class="ir-slide-inner">
+          <p class="ir-kicker">IR Policy</p>
+          <h2 class="ir-title wide">IR 자료는 요청 검토 후 단계적으로 제공합니다.</h2>
+          <div class="ir-policy-grid">
+            <section class="ir-card">
+              <h3>공개 범위</h3>
+              <p>이 페이지는 회사와 제품에 대한 공개 문의 접수용 페이지입니다. 상세 자료와 재무모델은 요청자 정보와 검토 목적을 확인한 뒤 별도로 제공합니다.</p>
+            </section>
+            <section class="ir-card">
+              <h3>응답 방식</h3>
+              <p>요청 내용, 투자 주체 유형, NDA 가능 여부를 확인한 뒤 이메일 또는 후속 미팅으로 안내합니다.</p>
+            </section>
+            <section class="ir-card">
+              <h3>개인정보 이용</h3>
+              <p>입력한 연락처와 요청 내용은 IR 자료 제공 검토, 후속 연락, 내부 이력 관리 목적으로만 사용합니다.</p>
+            </section>
+          </div>
+          <p class="ir-note">
+            이 페이지와 제공 자료는 증권의 모집, 매출, 청약 또는 투자 권유를 위한 문서가 아닙니다. 미래 전망이나 계획은 가정에 기반한 정보이며 실제 결과는 달라질 수 있습니다.
+          </p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-row">
+      <p>© 2026 Netmelon. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="mailto:netmelon@netmelonai.com">문의</a>
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+        <a href="data-deletion.html">데이터 삭제</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const header = document.querySelector(".site-header");
+      const menuToggle = document.querySelector(".menu-toggle");
+      const nav = document.querySelector(".site-nav");
+      const downloadToggle = document.querySelector(".download-toggle");
+      const downloadDropdown = document.querySelector(".download-dropdown");
+      if (!header || !menuToggle || !nav) return;
+
+      const closeMenu = () => {
+        header.classList.remove("menu-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      };
+
+      const closeDownloadMenu = () => {
+        header.classList.remove("download-open");
+        if (downloadToggle) downloadToggle.setAttribute("aria-expanded", "false");
+      };
+
+      const closeAllMenus = () => {
+        closeMenu();
+        closeDownloadMenu();
+      };
+
+      menuToggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isOpen = !header.classList.contains("menu-open");
+        closeDownloadMenu();
+        header.classList.toggle("menu-open", isOpen);
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      if (downloadToggle) {
+        downloadToggle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = !header.classList.contains("download-open");
+          closeMenu();
+          header.classList.toggle("download-open", isOpen);
+          downloadToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+      }
+
+      nav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeAllMenus);
+      });
+
+      if (downloadDropdown) {
+        downloadDropdown.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", closeDownloadMenu);
+        });
+      }
+
+      document.addEventListener("click", (event) => {
+        if (!header.contains(event.target)) closeAllMenus();
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 920) closeAllMenus();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeAllMenus();
+      });
+    })();
+
+
+    (() => {
+      const form = document.getElementById("ir-request-form");
+      const status = document.getElementById("ir-request-status");
+      if (!form || !status) return;
+
+      const submitButton = form.querySelector("button[type='submit']");
+      const submitLabel = submitButton ? submitButton.querySelector(".ir-submit-label") : null;
+      const API_BASE_OVERRIDE = String(window.__NPQ_IR_API_BASE__ || "").trim();
+
+      const resolveApiBase = () => {
+        if (API_BASE_OVERRIDE) return API_BASE_OVERRIDE.replace(/\/+$/, "");
+        return "";
+      };
+
+      const setStatus = (message, type = "") => {
+        status.textContent = message;
+        status.classList.remove("success", "error");
+        if (type) status.classList.add(type);
+      };
+
+      const setSubmitting = (isSubmitting) => {
+        if (!submitButton) return;
+        submitButton.disabled = isSubmitting;
+        submitButton.classList.toggle("is-loading", isSubmitting);
+        if (submitLabel) submitLabel.textContent = isSubmitting ? "처리중..." : "요청하기";
+      };
+
+      const clearInvalidState = () => {
+        form.querySelectorAll(".ir-field.invalid").forEach((field) => {
+          field.classList.remove("invalid");
+        });
+      };
+
+      const markInvalidFields = () => {
+        clearInvalidState();
+
+        const controls = Array.from(
+          form.querySelectorAll("input[required], select[required], textarea[required]"),
+        );
+
+        const invalidControls = controls.filter((control) => {
+          if (control.type === "checkbox") return !control.checked;
+          return !String(control.value || "").trim() || !control.checkValidity();
+        });
+
+        invalidControls.forEach((control) => {
+          const field = control.closest(".ir-field");
+          if (field) field.classList.add("invalid");
+        });
+
+        return invalidControls;
+      };
+
+      form.addEventListener("input", (event) => {
+        const field = event.target && event.target.closest ? event.target.closest(".ir-field") : null;
+        if (field) field.classList.remove("invalid");
+        if (status.classList.contains("error")) setStatus("");
+      });
+
+      form.addEventListener("change", (event) => {
+        const field = event.target && event.target.closest ? event.target.closest(".ir-field") : null;
+        if (field) field.classList.remove("invalid");
+        if (status.classList.contains("error")) setStatus("");
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const invalidControls = markInvalidFields();
+        if (invalidControls.length > 0) {
+          setStatus("필수 항목을 확인해주세요.", "error");
+          return;
+        }
+
+        setSubmitting(true);
+        setStatus("");
+
+        const apiBase = resolveApiBase();
+        if (!apiBase) {
+          setStatus("현재 IR 요청 접수 설정을 준비 중입니다. 이메일로 문의해주세요.", "error");
+          setSubmitting(false);
+          return;
+        }
+
+        const data = new FormData(form);
+        const payload = {
+          name: String(data.get("name") ?? "").trim(),
+          email: String(data.get("email") ?? "").trim(),
+          organization: String(data.get("organization") ?? "").trim(),
+          title: String(data.get("title") ?? "").trim(),
+          phone: String(data.get("phone") ?? "").trim(),
+          investorType: String(data.get("investor_type") ?? "").trim(),
+          requestedMaterial: String(data.get("requested_material") ?? "").trim(),
+          ndaPreference: String(data.get("nda_preference") ?? "").trim(),
+          requestNote: String(data.get("request_note") ?? "").trim(),
+          consent: Boolean(data.get("consent")),
+          locale: "ko",
+          sourcePage: "ir.html",
+          landingPath: `${window.location.pathname}${window.location.search}`,
+        };
+
+        try {
+          const endpoint = `${apiBase}/ir/requests`;
+          const response = await fetch(endpoint, {
+            method: "POST",
+            mode: "cors",
+            credentials: "omit",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error("REQUEST_FAILED");
+          }
+
+          setStatus("요청성공!", "success");
+          form.reset();
+          clearInvalidState();
+        } catch (error) {
+          const raw = error instanceof Error ? error.message : "";
+          const offline =
+            !window.navigator.onLine ||
+            raw === "Failed to fetch" ||
+            raw.includes("NetworkError") ||
+            raw.includes("Load failed");
+
+          setStatus(offline ? "인터넷 연결을 확인해주세요." : "잠시 후 다시 시도해주세요.", "error");
+        } finally {
+          setSubmitting(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

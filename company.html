@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="네트멜론 회사소개 페이지입니다. Mission, Vision, 성장 기록, 공식 공지사항을 확인할 수 있습니다.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#f4f0e8">
+  <link rel="canonical" href="https://netmelonai.com/company.html">
+  <link rel="alternate" hreflang="ko" href="https://netmelonai.com/company.html">
+  <link rel="alternate" hreflang="en" href="https://netmelonai.com/en/company.html">
+  <link rel="alternate" hreflang="x-default" href="https://netmelonai.com/company.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/company.css">
+  <style>
+
+    .company-detail-page {
+      --company-display-font-size: clamp(1.95rem, 3.3vw, 3rem);
+      --company-display-line-height: 1.22;
+      --company-display-title-line-height: 1.12;
+      --company-display-letter-spacing: -0.04em;
+      --company-display-weight: 800;
+    }
+
+    .company-mission-only {
+      max-width: 980px;
+    }
+
+    .company-mission-only #company-detail-mission,
+    .company-mission-only #company-detail-vision {
+      margin: 0;
+      color: var(--npq-color-on-surface);
+      font-family: var(--npq-font-family-base);
+      font-size: var(--company-display-font-size);
+      font-weight: var(--company-display-weight);
+      line-height: var(--company-display-line-height);
+      letter-spacing: var(--company-display-letter-spacing);
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .company-detail-page .company-title {
+      font-size: var(--company-display-font-size);
+      font-weight: var(--company-display-weight);
+      line-height: var(--company-display-title-line-height);
+      letter-spacing: var(--company-display-letter-spacing);
+      max-width: 18ch;
+      word-break: keep-all;
+    }
+
+    .vision-slide {
+      display: flex;
+    }
+
+    .history-timeline .history-events {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .history-timeline .history-events p {
+      margin: 0;
+    }
+
+
+    /* Last History slide sticky hold, same pattern as the index Studio section */
+    .company-detail-page .company-end-spacer {
+      height: calc(100svh - var(--header-offset));
+      pointer-events: none;
+    }
+
+    @media (min-width: 921px) {
+      .company-detail-page .history-slide,
+      .company-detail-page .notice-slide {
+        min-height: calc(120svh - var(--header-offset));
+      }
+
+      .company-detail-page .company-end-spacer {
+        height: calc(100svh - var(--header-offset));
+        pointer-events: none;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .company-detail-page .company-end-spacer {
+        height: calc(100svh - var(--header-offset));
+        pointer-events: none;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .company-detail-page {
+        --company-display-font-size: clamp(1.55rem, 5.2vw, 2.2rem);
+        --company-display-line-height: 1.22;
+        --company-display-title-line-height: 1.14;
+        --company-display-letter-spacing: -0.04em;
+      }
+
+      .company-mission-only {
+        max-width: 100%;
+      }
+
+      .company-detail-page .company-title {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .company-detail-page {
+        --company-display-font-size: clamp(1.42rem, 5.9vw, 1.78rem);
+        --company-display-line-height: 1.24;
+        --company-display-title-line-height: 1.16;
+        --company-display-letter-spacing: -0.045em;
+      }
+    }
+  </style>
+  <title>네트멜론 | 회사소개</title>
+</head>
+<body class="company-detail-page">
+  <header class="site-header" id="top">
+    <div class="shell">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="네트멜론 로고" width="36" height="36">
+        <span>네트멜론</span>
+      </a>
+      <div class="mobile-actions">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="메뉴 열기">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary">
+        <a href="company.html">회사소개</a>
+        <a href="index.html#naepopquiz-app">제품소개</a>
+        <a href="careers.html">채용</a>
+        <a href="ir.html">IR</a>
+        <a href="#notices">공지</a>
+        <a class="lang-link" href="https://netmelonai.com/en/company.html">EN</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="company-detail-main">
+    <section class="company-story" aria-label="회사소개 상세">
+      <article class="company-slide mission-slide" id="team-mission">
+        <div class="company-slide-inner">
+          <p class="company-kicker">Mission</p>
+          <div class="mission-copy company-mission-only">
+            <p id="company-detail-mission">네트멜론은 외국어 학습을 공부에 머물지 않게 하고, 실제로 말할 수 있는 훈련으로 바꾸어 누구나 새로운 언어로 생각하고 표현하며 더 넓은 세상과 자유롭게 연결되게 합니다.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="company-slide mission-slide vision-slide" id="team-vision">
+        <div class="company-slide-inner">
+          <p class="company-kicker">Vision</p>
+          <div class="mission-copy company-mission-only">
+            <p id="company-detail-vision">우리는 언어가 기회를 제한하지 않는 세상, 누구나 새로운 언어로 자유롭게 생각하고 말하며 배우고 일할 수 있는 세상을 만듭니다.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="company-slide history-slide" id="history">
+        <div class="company-slide-inner">
+          <p class="company-kicker">History</p>
+          <h2 class="company-title">네트멜론의 성장 기록</h2>
+
+          <ol class="history-timeline" aria-label="네트멜론 연혁">
+            <li>
+              <span class="year">2021</span>
+              <div class="history-events">
+                <p>네트멜론 설립</p>
+              </div>
+            </li>
+            <li>
+              <span class="year">2025</span>
+              <div class="history-events">
+                <p>내팝퀴즈 앱 출시</p>
+              </div>
+            </li>
+            <li>
+              <span class="year">2026</span>
+              <div class="history-events">
+                <p>내팝퀴즈 유료화 전환</p>
+                <p>내팝퀴즈 스튜디오 출시</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="company-slide notice-slide" id="notices">
+        <div class="company-slide-inner">
+          <p class="company-kicker">Notices</p>
+          <h2 class="company-title">공식 공지사항</h2>
+          <p class="company-note">네트멜론의 회사, 제품, 서비스 운영과 관련된 주요 공지를 이곳에서 관리합니다.</p>
+
+          <div class="notice-board" aria-label="네트멜론 공지사항">
+            <div class="notice-toolbar">
+              <label class="notice-search" for="notice-search-input">
+                <span>검색</span>
+                <input id="notice-search-input" type="search" placeholder="공지 제목 검색">
+              </label>
+              <label class="notice-filter" for="notice-type-filter">
+                <span>유형</span>
+                <select id="notice-type-filter">
+                  <option value="">전체</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="notice-table-wrap">
+              <table class="notice-table">
+                <thead>
+                  <tr>
+                    <th scope="col">일자</th>
+                    <th scope="col">유형</th>
+                    <th scope="col">제목</th>
+                  </tr>
+                </thead>
+                <tbody id="company-notice-rows">
+                  <tr>
+                    <td>2026-05-29</td>
+                    <td>공지</td>
+                    <td class="notice-title">내팝퀴즈 스튜디오 출시 안내</td>
+                  </tr>
+                  <tr>
+                    <td>2026-04-15</td>
+                    <td>안내</td>
+                    <td class="notice-title">내팝퀴즈 유료화 전환 안내</td>
+                  </tr>
+                  <tr>
+                    <td>2025-08-20</td>
+                    <td>업데이트</td>
+                    <td class="notice-title">내팝퀴즈 앱 1.0 출시</td>
+                  </tr>
+                  <tr>
+                    <td>2021-01-12</td>
+                    <td>공지</td>
+                    <td class="notice-title">네트멜론 회사 설립</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="notice-empty" id="company-notice-empty" hidden>조건에 맞는 공지가 없습니다.</p>
+          </div>
+        </div>
+      </article>
+
+      <div class="company-end-spacer" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-row">
+      <p>© 2026 Netmelon. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="mailto:netmelon@netmelonai.com">문의</a>
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+        <a href="data-deletion.html">데이터 삭제</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const rows = document.getElementById("company-notice-rows");
+      const empty = document.getElementById("company-notice-empty");
+      const searchInput = document.getElementById("notice-search-input");
+      const typeFilter = document.getElementById("notice-type-filter");
+      if (!rows || !empty || !searchInput || !typeFilter) return;
+
+      const fallbackNotices = [
+        { title: "내팝퀴즈 스튜디오 출시 안내", type: "공지", date: "2026-05-29" },
+        { title: "내팝퀴즈 유료화 전환 안내", type: "안내", date: "2026-04-15" },
+        { title: "내팝퀴즈 앱 1.0 출시", type: "업데이트", date: "2025-08-20" },
+        { title: "네트멜론 회사 설립", type: "공지", date: "2021-01-12" },
+      ];
+
+      let notices = fallbackNotices;
+
+      const createCell = (text, className = "") => {
+        const cell = document.createElement("td");
+        cell.textContent = text;
+        if (className) cell.className = className;
+        return cell;
+      };
+
+      const renderTypeOptions = () => {
+        const selected = typeFilter.value;
+        const types = [...new Set(notices.map((notice) => notice.type).filter(Boolean))];
+        typeFilter.innerHTML = '<option value="">전체</option>';
+        types.forEach((type) => {
+          const option = document.createElement("option");
+          option.value = type;
+          option.textContent = type;
+          typeFilter.appendChild(option);
+        });
+        typeFilter.value = types.includes(selected) ? selected : "";
+      };
+
+      const renderNotices = () => {
+        const query = searchInput.value.trim().toLowerCase();
+        const type = typeFilter.value;
+        const filtered = notices.filter((notice) => {
+          const title = String(notice.title || "");
+          const matchesQuery = !query || title.toLowerCase().includes(query);
+          const matchesType = !type || notice.type === type;
+          return matchesQuery && matchesType;
+        });
+
+        rows.innerHTML = "";
+        filtered.forEach((notice) => {
+          const row = document.createElement("tr");
+          row.append(
+            createCell(String(notice.date || "")),
+            createCell(String(notice.type || "")),
+            createCell(String(notice.title || ""), "notice-title"),
+          );
+          rows.appendChild(row);
+        });
+        empty.hidden = filtered.length !== 0;
+      };
+
+      const setNotices = (nextNotices) => {
+        const normalized = Array.isArray(nextNotices)
+          ? nextNotices
+              .map((notice) => ({
+                title: String(notice?.title || "").trim(),
+                type: String(notice?.type || "").trim(),
+                date: String(notice?.date || "").trim(),
+              }))
+              .filter((notice) => notice.title && notice.date)
+          : [];
+
+        notices = normalized.length > 0 ? normalized : fallbackNotices;
+        renderTypeOptions();
+        renderNotices();
+      };
+
+      searchInput.addEventListener("input", renderNotices);
+      typeFilter.addEventListener("change", renderNotices);
+
+      fetch("data/company-notices.ko.json", { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) throw new Error(`notice load failed: ${response.status}`);
+          return response.json();
+        })
+        .then((data) => setNotices(data?.notices))
+        .catch(() => setNotices(fallbackNotices));
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const API_BASE_OVERRIDE = String(
+        window.__ENV__?.VITE_API_BASE ||
+        window.CompanySourceConfig?.apiBase ||
+        window.ApiConfig?.baseUrl ||
+        ""
+      ).trim();
+
+      const resolveApiBase = () => {
+        if (API_BASE_OVERRIDE) return API_BASE_OVERRIDE.replace(/\/+$/, "");
+        return "";
+      };
+
+      const API_BASE = resolveApiBase();
+
+      const setText = (id, value) => {
+        const el = document.getElementById(id);
+        const text = String(value || "").trim();
+        if (!el || !text) return;
+        el.textContent = text;
+      };
+
+      const updateMeta = (selector, value) => {
+        const el = document.querySelector(selector);
+        const text = String(value || "").trim();
+        if (!el || !text) return;
+        el.setAttribute("content", text);
+      };
+
+      const loadPublicCompanySource = async () => {
+        try {
+          if (!API_BASE) throw new Error("company public source API base is not configured");
+          const response = await fetch(`${API_BASE}/company/public-source`, {
+            method: "GET",
+            cache: "no-store"
+          });
+          if (!response.ok) throw new Error(`company public source failed: ${response.status}`);
+
+          const data = await response.json();
+          const identity = data?.identity || {};
+          const defaultVision = "우리는 언어가 기회를 제한하지 않는 세상, 누구나 새로운 언어로 자유롭게 생각하고 말하며 배우고 일할 수 있는 세상을 만듭니다.";
+          const mission = String(identity.mission || "").trim();
+          const vision = String(identity.vision || defaultVision).trim();
+          setText("company-detail-mission", mission);
+          setText("company-detail-vision", vision);
+
+          if (mission || vision) updateMeta('meta[name="description"]', [mission, vision].filter(Boolean).join(' '));
+        } catch (error) {
+          console.warn("[company-source] public source fallback used", error);
+          setText("company-detail-vision", "우리는 언어가 기회를 제한하지 않는 세상, 누구나 새로운 언어로 자유롭게 생각하고 말하며 배우고 일할 수 있는 세상을 만듭니다.");
+        }
+      };
+
+      loadPublicCompanySource();
+    })();
+  </script>
+  <script>
+    (() => {
+      const header = document.querySelector(".site-header");
+      const menuToggle = document.querySelector(".menu-toggle");
+      const nav = document.querySelector(".site-nav");
+      const downloadToggle = document.querySelector(".download-toggle");
+      const downloadDropdown = document.querySelector(".download-dropdown");
+      if (!header || !menuToggle || !nav) return;
+
+      const closeMenu = () => {
+        header.classList.remove("menu-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      };
+
+      const closeDownloadMenu = () => {
+        header.classList.remove("download-open");
+        if (downloadToggle) downloadToggle.setAttribute("aria-expanded", "false");
+      };
+
+      const closeAllMenus = () => {
+        closeMenu();
+        closeDownloadMenu();
+      };
+
+      menuToggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isOpen = !header.classList.contains("menu-open");
+        closeDownloadMenu();
+        header.classList.toggle("menu-open", isOpen);
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      if (downloadToggle) {
+        downloadToggle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = !header.classList.contains("download-open");
+          closeMenu();
+          header.classList.toggle("download-open", isOpen);
+          downloadToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+      }
+
+      nav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeAllMenus);
+      });
+
+      if (downloadDropdown) {
+        downloadDropdown.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", closeDownloadMenu);
+        });
+      }
+
+      document.addEventListener("click", (event) => {
+        if (!header.contains(event.target)) closeAllMenus();
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 920) closeAllMenus();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeAllMenus();
+      });
+    })();
+  </script>
+</body>
+</html>

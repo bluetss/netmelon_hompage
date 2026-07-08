@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 홈 -->
   <url>
     <loc>https://netmelonai.com/</loc>
-    <lastmod>2025-08-29</lastmod>
-  </url>
-
-  <!-- 주요 정적 페이지 -->
-  <url>
-    <loc>https://netmelonai.com/install.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2026-07-09</lastmod>
   </url>
   <url>
-    <loc>https://netmelonai.com/terms.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <loc>https://netmelonai.com/company.html</loc>
+    <lastmod>2026-07-09</lastmod>
   </url>
   <url>
-    <loc>https://netmelonai.com/privacy.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <loc>https://netmelonai.com/en/</loc>
+    <lastmod>2026-07-09</lastmod>
   </url>
   <url>
-    <loc>https://netmelonai.com/data-deletion.html</loc>
-    <lastmod>2025-08-29</lastmod>
+    <loc>https://netmelonai.com/en/company.html</loc>
+    <lastmod>2026-07-09</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/ir.html</loc>
+    <lastmod>2026-07-09</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/careers.html</loc>
+    <lastmod>2026-07-09</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/en/ir.html</loc>
+    <lastmod>2026-07-09</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/en/careers.html</loc>
+    <lastmod>2026-07-09</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Netmelon company profile page. Learn about the mission, vision, history, and official notices of Netmelon.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#f4f0e8">
+  <link rel="canonical" href="https://netmelonai.com/en/company.html">
+  <link rel="alternate" hreflang="ko" href="https://netmelonai.com/company.html">
+  <link rel="alternate" hreflang="en" href="https://netmelonai.com/en/company.html">
+  <link rel="alternate" hreflang="x-default" href="https://netmelonai.com/company.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Netmelon">
+  <meta property="og:title" content="Netmelon | Company">
+  <meta property="og:description" content="Mission, vision, history, and official notices of Netmelon.">
+  <meta property="og:url" content="https://netmelonai.com/en/company.html">
+  <meta property="og:image" content="https://netmelonai.com/images/og-cover.png">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/company.css">
+  <title>Netmelon | Company</title>
+  <style>
+    .company-detail-page .company-title {
+      max-width: 22ch;
+    }
+
+    .company-detail-page .company-end-spacer {
+      height: calc(100svh - var(--header-offset));
+      pointer-events: none;
+    }
+
+    @media (min-width: 921px) {
+      .company-detail-page .history-slide,
+      .company-detail-page .notice-slide {
+        min-height: calc(120svh - var(--header-offset));
+      }
+    }
+  </style>
+</head>
+<body class="company-detail-page">
+  <header class="site-header" id="top">
+    <div class="shell">
+      <a class="brand" href="index.html">
+        <img src="../images/logo.png" alt="Netmelon logo" width="36" height="36">
+        <span>Netmelon</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary">
+        <a href="company.html">About</a>
+        <a href="index.html#products">Products</a>
+        <a href="careers.html">Careers</a>
+        <a href="ir.html">IR</a>
+        <a href="#notices">Notices</a>
+        <a class="lang-link" href="../company.html">KO</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="company-detail-main">
+    <section class="company-story" aria-label="Company profile">
+      <article class="company-slide mission-slide" id="mission">
+        <div class="company-slide-inner">
+          <p class="company-kicker">Mission</p>
+          <div class="mission-copy">
+            <p>Netmelon turns language learning beyond studying into practical speaking training, helping people think, express themselves, and connect freely in new languages.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="company-slide mission-slide vision-slide" id="vision">
+        <div class="company-slide-inner">
+          <p class="company-kicker">Vision</p>
+          <div class="mission-copy">
+            <p>We are building a world where language does not limit opportunity and where anyone can learn, work, think, and speak freely in a new language.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="company-slide history-slide" id="history">
+        <div class="company-slide-inner">
+          <p class="company-kicker">History</p>
+          <h1 class="company-title">Netmelon's growth record</h1>
+
+          <ol class="history-timeline" aria-label="Netmelon history">
+            <li>
+              <span class="year">2021</span>
+              <div class="history-events">
+                <p>Netmelon founded</p>
+              </div>
+            </li>
+            <li>
+              <span class="year">2025</span>
+              <div class="history-events">
+                <p>Naepopquiz app launched</p>
+              </div>
+            </li>
+            <li>
+              <span class="year">2026</span>
+              <div class="history-events">
+                <p>Naepopquiz paid subscription transition</p>
+                <p>Naepopquiz Studio launched</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="company-slide notice-slide" id="notices">
+        <div class="company-slide-inner">
+          <p class="company-kicker">Notices</p>
+          <h2 class="company-title">Official notices</h2>
+          <p class="company-note">Major company, product, and service-operation notices are managed here.</p>
+
+          <div class="notice-board" aria-label="Netmelon notices">
+            <div class="notice-toolbar">
+              <label class="notice-search" for="notice-search-input">
+                <span>Search</span>
+                <input id="notice-search-input" type="search" placeholder="Search notice title">
+              </label>
+              <label class="notice-filter" for="notice-type-filter">
+                <span>Type</span>
+                <select id="notice-type-filter">
+                  <option value="">All</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="notice-table-wrap">
+              <table class="notice-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Title</th>
+                  </tr>
+                </thead>
+                <tbody id="company-notice-rows">
+                  <tr>
+                    <td>2026-05-29</td>
+                    <td>Notice</td>
+                    <td class="notice-title">Naepopquiz Studio launch notice</td>
+                  </tr>
+                  <tr>
+                    <td>2026-04-15</td>
+                    <td>Guide</td>
+                    <td class="notice-title">Naepopquiz paid subscription transition notice</td>
+                  </tr>
+                  <tr>
+                    <td>2025-08-20</td>
+                    <td>Update</td>
+                    <td class="notice-title">Naepopquiz app 1.0 launch</td>
+                  </tr>
+                  <tr>
+                    <td>2021-01-12</td>
+                    <td>Notice</td>
+                    <td class="notice-title">Netmelon company founded</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="notice-empty" id="company-notice-empty" hidden>No matching notices.</p>
+          </div>
+        </div>
+      </article>
+
+      <div class="company-end-spacer" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-row">
+      <p>© 2026 Netmelon. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="mailto:netmelon@netmelonai.com">Contact</a>
+        <a href="https://netmelonai.com/privacy.html?lang=en" target="_blank" rel="noopener noreferrer">Privacy</a>
+        <a href="https://netmelonai.com/terms.html?lang=en" target="_blank" rel="noopener noreferrer">Terms</a>
+        <a href="https://netmelonai.com/data-deletion.html?lang=en" target="_blank" rel="noopener noreferrer">Data deletion</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const rows = document.getElementById("company-notice-rows");
+      const empty = document.getElementById("company-notice-empty");
+      const searchInput = document.getElementById("notice-search-input");
+      const typeFilter = document.getElementById("notice-type-filter");
+      if (!rows || !empty || !searchInput || !typeFilter) return;
+
+      const fallbackNotices = [
+        { title: "Naepopquiz Studio launch notice", type: "Notice", date: "2026-05-29" },
+        { title: "Naepopquiz paid subscription transition notice", type: "Guide", date: "2026-04-15" },
+        { title: "Naepopquiz app 1.0 launch", type: "Update", date: "2025-08-20" },
+        { title: "Netmelon company founded", type: "Notice", date: "2021-01-12" },
+      ];
+
+      let notices = fallbackNotices;
+
+      const createCell = (text, className = "") => {
+        const cell = document.createElement("td");
+        cell.textContent = text;
+        if (className) cell.className = className;
+        return cell;
+      };
+
+      const renderTypeOptions = () => {
+        const selected = typeFilter.value;
+        const types = [...new Set(notices.map((notice) => notice.type).filter(Boolean))];
+        typeFilter.innerHTML = '<option value="">All</option>';
+        types.forEach((type) => {
+          const option = document.createElement("option");
+          option.value = type;
+          option.textContent = type;
+          typeFilter.appendChild(option);
+        });
+        typeFilter.value = types.includes(selected) ? selected : "";
+      };
+
+      const renderNotices = () => {
+        const query = searchInput.value.trim().toLowerCase();
+        const type = typeFilter.value;
+        const filtered = notices.filter((notice) => {
+          const title = String(notice.title || "");
+          const matchesQuery = !query || title.toLowerCase().includes(query);
+          const matchesType = !type || notice.type === type;
+          return matchesQuery && matchesType;
+        });
+
+        rows.innerHTML = "";
+        filtered.forEach((notice) => {
+          const row = document.createElement("tr");
+          row.append(
+            createCell(String(notice.date || "")),
+            createCell(String(notice.type || "")),
+            createCell(String(notice.title || ""), "notice-title"),
+          );
+          rows.appendChild(row);
+        });
+        empty.hidden = filtered.length !== 0;
+      };
+
+      const setNotices = (nextNotices) => {
+        const normalized = Array.isArray(nextNotices)
+          ? nextNotices
+              .map((notice) => ({
+                title: String(notice?.title || "").trim(),
+                type: String(notice?.type || "").trim(),
+                date: String(notice?.date || "").trim(),
+              }))
+              .filter((notice) => notice.title && notice.date)
+          : [];
+
+        notices = normalized.length > 0 ? normalized : fallbackNotices;
+        renderTypeOptions();
+        renderNotices();
+      };
+
+      searchInput.addEventListener("input", renderNotices);
+      typeFilter.addEventListener("change", renderNotices);
+
+      fetch("../data/company-notices.en.json", { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) throw new Error(`notice load failed: ${response.status}`);
+          return response.json();
+        })
+        .then((data) => setNotices(data?.notices))
+        .catch(() => setNotices(fallbackNotices));
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const header = document.querySelector(".site-header");
+      const menuToggle = document.querySelector(".menu-toggle");
+      const nav = document.querySelector(".site-nav");
+      if (!header || !menuToggle || !nav) return;
+
+      const closeMenu = () => {
+        header.classList.remove("menu-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      };
+
+      menuToggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isOpen = !header.classList.contains("menu-open");
+        header.classList.toggle("menu-open", isOpen);
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      nav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!header.contains(event.target)) closeMenu();
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 920) closeMenu();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMenu();
+      });
+    })();
+  </script>
+</body>
+</html>
