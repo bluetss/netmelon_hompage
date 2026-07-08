@@ -15,6 +15,9 @@ const API_BASE = String(
   ""
 ).replace(/\/+$/, "");
 const JSON_PATH = String(process.env.COMPANY_SOURCE_JSON_PATH || "").trim();
+const ALLOW_UNPUBLISHED_SOURCE = /^(1|true|yes)$/i.test(
+  String(process.env.COMPANY_SOURCE_ALLOW_UNPUBLISHED || "").trim(),
+);
 
 const htmlEscape = (value, quote = false) => String(value ?? "")
   .replaceAll("&", "&amp;")
@@ -117,6 +120,30 @@ function validateCompanySource(data) {
   if (missing.length) {
     throw new Error(`Company Source is missing required fields: ${missing.join(", ")}`);
   }
+
+  const provenance = [
+    ["sourceVersionId", String(data?.sourceVersionId || "").trim()],
+    ["version", String(data?.version || "").trim()],
+    ["publishedAt", String(data?.publishedAt || "").trim()],
+    ["publishedBy", String(data?.publishedBy || "").trim()],
+  ];
+  const missingProvenance = provenance.filter(([, value]) => !value).map(([label]) => label);
+  const isDefaultSource = data?.isDefault === true;
+
+  if ((isDefaultSource || missingProvenance.length) && !ALLOW_UNPUBLISHED_SOURCE) {
+    const reasons = [
+      isDefaultSource ? "backend returned isDefault=true" : "",
+      missingProvenance.length ? `missing provenance: ${missingProvenance.join(", ")}` : "",
+    ].filter(Boolean);
+    throw new Error(
+      `Company Source is not a published public source (${reasons.join("; ")}). ` +
+      "Publish a Corporate Source version before production injection, or set COMPANY_SOURCE_ALLOW_UNPUBLISHED=1 only for local development.",
+    );
+  }
+
+  if ((isDefaultSource || missingProvenance.length) && ALLOW_UNPUBLISHED_SOURCE) {
+    console.warn("[company-source-build] unpublished/default source allowed for local development only");
+  }
 }
 
 async function main() {
@@ -141,7 +168,7 @@ async function main() {
   output = replaceOnce(
     output,
     "<!-- __COMPANY_SOURCE_BUILD_META__ -->",
-    `<!-- Company Source injected at build time: ${htmlEscape(data.version || "unknown")}, publishedAt=${htmlEscape(data.publishedAt || "unknown")} -->`,
+    `<!-- Company Source injected at build time: sourceVersionId=${htmlEscape(data.sourceVersionId || "unknown")}, version=${htmlEscape(data.version || "unknown")}, publishedAt=${htmlEscape(data.publishedAt || "unknown")} -->`,
   );
 
   output = updateMetaContent(output, 'meta name="description"', description);
