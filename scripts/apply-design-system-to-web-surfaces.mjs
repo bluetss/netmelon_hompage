@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 
 const APP_HOME_ROOT =
-  process.env.NAEPOPQUIZ_HOMEPAGE_ROOT || "/home/seungwoo/myworks/dev/naepopquiz_hompage";
+  process.env.NAEPOPQUIZ_HOMEPAGE_ROOT || "/home/seungwoo/myworks/dev/naepopquiz_homepage";
 const STUDIO_ROOT =
   process.env.NAEPOPQUIZ_STUDIO_ROOT || "/home/seungwoo/myworks/dev/naepopquiz_studio";
 

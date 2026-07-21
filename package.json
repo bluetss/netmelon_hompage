@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "node scripts/sync-site-shell.mjs && COMPANY_SOURCE_JSON_PATH=data/company-source.ko.json node scripts/inject-company-source.mjs && node scripts/inject-company-assets.mjs && node scripts/generate-company-announcements.mjs",
+    "build:with-cms": "npm run fetch:company-source && npm run fetch:company-announcements && npm run fetch:company-assets && npm run build",
+    "build:with-cms:require-announcement": "COMPANY_ANNOUNCEMENTS_MIN_PUBLISHED=1 npm run build:with-cms",
+    "build:english": "node scripts/generate-company-english-pages.mjs && COMPANY_ASSETS_LOCALE=en COMPANY_ASSETS_TARGET=en/index.html COMPANY_ASSETS_FALLBACK_PREFIX=../ node scripts/inject-company-assets.mjs",
+    "build:english:with-cms": "COMPANY_SOURCE_LOCALE=en npm run fetch:company-source && COMPANY_ANNOUNCEMENTS_LOCALE=en npm run fetch:company-announcements && COMPANY_ASSETS_LOCALE=en npm run fetch:company-assets && npm run build:english",
+    "check": "node --check scripts/sync-site-shell.mjs && node --check scripts/inject-company-source.mjs && node --check scripts/inject-company-assets.mjs && node --check scripts/generate-company-announcements.mjs && node --check scripts/generate-company-english-pages.mjs && node --check scripts/export-company-english-translations.mjs && node --check scripts/import-company-english-translations.mjs && node --check scripts/import-company-english-translations-firestore.mjs && node --check scripts/fetch-company-source.mjs && node --check scripts/fetch-company-announcements.mjs && node --check scripts/fetch-company-assets.mjs && node --check scripts/check-site-release.mjs && node --check scripts/site-shell.js && node scripts/check-site-release.mjs",
+    "check:release": "node scripts/check-site-release.mjs",
+    "export:company-english-translations": "node scripts/export-company-english-translations.mjs",
+    "import:company-english-translations": "node scripts/import-company-english-translations.mjs",
+    "import:company-english-translations:firestore": "node scripts/import-company-english-translations-firestore.mjs",
+    "fetch:company-source": "node scripts/fetch-company-source.mjs",
+    "fetch:company-announcements": "node scripts/fetch-company-announcements.mjs",
+    "fetch:company-assets": "node scripts/fetch-company-assets.mjs",
+    "sync:shell": "node scripts/sync-site-shell.mjs",
+    "sync:design-system": "node scripts/sync-design-system-css.mjs"
+  }
+}
