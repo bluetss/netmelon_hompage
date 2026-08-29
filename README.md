@@ -47,6 +47,8 @@ Production HTML must not hard-code dev or staging API URLs.
 - Optional announcement fetch overrides:
   - `COMPANY_ANNOUNCEMENTS_JSON_PATH`: output path for the fetched snapshot.
   - `COMPANY_ANNOUNCEMENTS_BEARER_TOKEN`: bearer token for a protected snapshot endpoint.
+- Shared Publisher Legal Profile uses `PUBLISHER_PROFILE_API_BASE` or `PUBLISHER_PROFILE_PUBLIC_URL` to fetch `/web-cms/public/publisher-profile?publisherId=netmelon`. `PUBLISHER_PROFILE_JSON_PATH` overrides the build snapshot path and `PUBLISHER_PROFILE_BEARER_TOKEN` is available only when the public projection is protected.
+- `data/publisher-legal-profile.json` is the current verified static public snapshot for reproducible local builds. It is not a second CMS editing source; `build:with-cms` replaces it with the published shared profile before the static build.
 - Runtime careers Firebase override uses `window.__NPQ_CAREERS_FIREBASE_CONFIG__` or `window.CompanySourceConfig.careersFirebaseConfig`.
 - IR forms use `window.__NPQ_IR_API_BASE__` only when explicitly injected.
 
@@ -61,7 +63,7 @@ npm run build:with-cms:require-announcement
 npm run check
 ```
 
-`npm run build` syncs the shared site shell, then regenerates `index.html`, `company.html`, `careers.html`, `announcement.html`, and generated company announcement detail pages from local snapshot files. It injects the published Asset binding snapshot when `data/company-assets.ko.json` exists and otherwise keeps the controlled template fallback. `npm run build:with-cms` first fetches Company Source, company announcements, the public Asset manifest, and public Site Asset Bindings, then runs the static build. `npm run build:with-cms:require-announcement` does the same but fails if the fetched public announcement snapshot has zero published announcements. `npm run check` also verifies manifest v2, exact purpose/variant resolution, disclosure, duplicate references, and final product screenshot order before deployment.
+`npm run build` syncs the shared site shell, then regenerates `index.html`, `company.html`, `careers.html`, `announcement.html`, and generated company announcement detail pages from local snapshot files. It injects the published Asset binding snapshot when `data/company-assets.ko.json` exists and otherwise keeps the controlled template fallback, then injects the shared Publisher Legal Profile into every company Footer. `npm run build:with-cms` first fetches Company Source, company announcements, the public Asset manifest, public Site Asset Bindings, and the published Publisher Legal Profile, then runs the static build. `npm run build:with-cms:require-announcement` does the same but fails if the fetched public announcement snapshot has zero published announcements. `npm run check` also verifies manifest v2, exact purpose/variant resolution, disclosure, duplicate references, final product screenshot order, and exact KO/EN Footer profile/version binding before deployment.
 
 Company announcement CMS release example:
 
@@ -82,6 +84,7 @@ Company Asset release example:
 ```bash
 COMPANY_SOURCE_API_BASE="https://your-api.example.com" \
 COMPANY_ASSETS_API_BASE="https://your-api.example.com" \
+PUBLISHER_PROFILE_API_BASE="https://your-api.example.com" \
 COMPANY_PUBLIC_ANNOUNCEMENTS_URL="https://your-api.example.com/company/public-announcements" \
 npm run build:with-cms
 

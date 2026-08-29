@@ -262,7 +262,7 @@ function buildHomeSchema(data) {
         "@type": "WebPage",
         "@id": sitePageUrl("#webpage"),
         "url": SITE_URL,
-        "name": "네트멜론 | 언어 학습 기술 기업",
+        "name": "네트멜론",
         "description": mission,
         "inLanguage": "ko-KR",
         "isPartOf": { "@id": WEBSITE_ID },
@@ -522,8 +522,7 @@ function injectIndex(template, data) {
   const identity = data.identity;
   const mission = String(identity.mission || "").trim();
   const description = mission || String(identity.brandSignatureMessage?.plainText || "").trim();
-  const companyName = String(identity.koreanName || identity.companyName || "네트멜론").trim();
-  const title = `${companyName} | 언어 학습 기술 기업`;
+  const title = "네트멜론";
 
   let output = template;
   output = replaceOnce(output, "<!-- __COMPANY_SOURCE_HOME_HERO_LINES__ -->", `\n${renderHeroLines(identity)}\n          `);
@@ -535,6 +534,7 @@ function injectIndex(template, data) {
   output = replaceOnce(output, "<!-- __COMPANY_SOURCE_HOME_SCHEMA__ -->", escapeScriptJson(buildHomeSchema(data)));
 
   output = updateMetaContent(output, 'meta name="description"', description);
+  output = updateMetaContent(output, 'meta property="og:title"', title);
   output = updateMetaContent(output, 'meta property="og:description"', description);
   output = updateMetaContent(output, 'meta name="twitter:title"', title);
   output = updateMetaContent(output, 'meta name="twitter:description"', description);

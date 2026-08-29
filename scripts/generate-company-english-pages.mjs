@@ -276,7 +276,7 @@ function renderFooter({ assetPrefix = "../" } = {}) {
   return [
     '<footer class="site-footer">',
     '    <div class="shell footer-row">',
-    '      <p>© 2026 Netmelon. All rights reserved.</p>',
+    '      <!-- __PUBLISHER_LEGAL_PROFILE__ -->',
     '    </div>',
     '  </footer>',
     `  <script src="${assetPrefix}scripts/site-shell.js" defer></script>`,

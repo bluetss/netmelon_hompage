@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { COMPANY_ASSET_RENDER_SLOTS } from "./company-asset-slots.mjs";
+import { PUBLISHER_PROFILE_MARKER, normalizePublisherProfile, renderPublisherFooter } from "./publisher-profile.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -38,6 +39,10 @@ function assert(condition, message) {
 
 function findAny(source, patterns) {
   return patterns.filter((pattern) => pattern.test(source));
+}
+
+function withoutPublisherDisclosure(source) {
+  return String(source).replace(/<section class=\"publisher-business\"[\s\S]*?<\/section>/gi, "");
 }
 
 function normalizeJsonLdNodes(payload) {
@@ -98,6 +103,17 @@ async function checkCompanySourceBuild() {
     const found = findAny(source, forbiddenPatterns);
     assert(found.length === 0, `${page} contains forbidden Company Source runtime token(s).`);
   }
+
+  const home = await read("index.html");
+  assert(home.includes("<title>네트멜론</title>"), "index.html browser tab title must be 네트멜론.");
+  assert(
+    home.includes('<meta property="og:title" content="네트멜론">'),
+    "index.html Open Graph title must be 네트멜론.",
+  );
+  assert(
+    home.includes('<meta name="twitter:title" content="네트멜론">'),
+    "index.html Twitter title must be 네트멜론.",
+  );
 }
 
 function normalizeAnnouncements(payload) {
@@ -438,7 +454,7 @@ async function checkEnglishCmsGeneration() {
     assert(Boolean(source), `${file} must exist when data/company-source.en.json exists.`);
     if (!source) continue;
     assert(source.includes(generatedMarker), `${file} must be generated from the CMS English snapshot.`);
-    assert(!/[가-힣]/.test(source), `${file} contains Korean fallback text.`);
+    assert(!/[가-힣]/.test(withoutPublisherDisclosure(source)), `${file} contains Korean fallback text.`);
     assert(source.includes('<meta name="robots" content="noindex,nofollow">'), `${file} must stay noindex,nofollow until English public release.`);
     assert(!source.includes("hreflang="), `${file} must not expose hreflang before English public release.`);
     assert(!source.includes("og:locale:alternate"), `${file} must not expose Open Graph alternates before English public release.`);
@@ -472,7 +488,7 @@ async function checkEnglishCmsGeneration() {
     assert(detailHtml.includes(generatedMarker), `${detailPath} must be generated from the CMS English snapshot.`);
     assert(detailHtml.includes(announcement.title), `${detailPath} is missing announcement title.`);
     assert(detailHtml.includes(announcement.summary), `${detailPath} is missing announcement summary.`);
-    assert(!/[가-힣]/.test(detailHtml), `${detailPath} contains Korean fallback text.`);
+    assert(!/[가-힣]/.test(withoutPublisherDisclosure(detailHtml)), `${detailPath} contains Korean fallback text.`);
     assert(!detailHtml.includes("__COMPANY_"), `${detailPath} contains unresolved company marker(s).`);
   }
 }
@@ -543,7 +559,7 @@ async function checkLocalizationExposure() {
       `${file} must stay noindex,nofollow until English copy is approved.`,
     );
     if (source.includes("Company English pages generated from CMS public English snapshots")) {
-      assert(!/[가-힣]/.test(source), `${file} contains Korean fallback text in generated English output.`);
+      assert(!/[가-힣]/.test(withoutPublisherDisclosure(source)), `${file} contains Korean fallback text in generated English output.`);
       assert(!source.includes("hreflang="), `${file} must not expose hreflang while English pages are review-only.`);
       assert(!source.includes("og:locale:alternate"), `${file} must not expose alternate locale while English pages are review-only.`);
       assert(/<a[^>]+class="lang-link"[^>]*>\s*KOREAN\s*<\/a>/i.test(source), `${file} must expose a KOREAN language switch.`);
@@ -570,42 +586,52 @@ async function checkSitemap() {
 }
 
 async function checkCompanyFooterRoutes() {
-  const companyPages = [
-    "index.html",
-    "company.html",
-    "careers.html",
-    "announcement.html",
-    "ir.html",
+  const rawProfile = parseJson(await read("data/publisher-legal-profile.json"), "data/publisher-legal-profile.json");
+  if (!rawProfile) return;
+  let profile;
+  try {
+    profile = normalizePublisherProfile(rawProfile);
+  } catch (error) {
+    fail(`data/publisher-legal-profile.json is invalid: ${error.message}`);
+    return;
+  }
+  const announcementPages = (await listFiles("announcements"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+    .map((entry) => `announcements/${entry.name}`);
+  const englishAnnouncementPages = (await listFiles("en/announcements"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+    .map((entry) => `en/announcements/${entry.name}`);
+  const pages = [
+    ...["index.html", "company.html", "careers.html", "announcement.html", "ir.html"].map((file) => ({ file, locale: "ko" })),
+    ...announcementPages.map((file) => ({ file, locale: "ko" })),
+    ...["en/index.html", "en/company.html", "en/careers.html", "en/announcement.html", "en/ir.html"].map((file) => ({ file, locale: "en" })),
+    ...englishAnnouncementPages.map((file) => ({ file, locale: "en" })),
   ];
-  const appLegalRoutes = [
-    "privacy.html",
-    "terms.html",
-    "data-deletion.html",
-  ];
-  const duplicatedHeaderRoutes = [
-    "company.html",
-    "careers.html",
-    "ir.html",
-    "company.html#notices",
-  ];
+  const appLegalRoutes = ["privacy.html", "terms.html", "data-deletion.html"];
+  const duplicatedHeaderRoutes = ["company.html", "careers.html", "ir.html", "company.html#notices"];
   const footerPattern = /<footer\b[\s\S]*?<\/footer>/i;
+  const compact = (value) => String(value).replace(/\s+/g, " " ).trim();
 
-  for (const file of companyPages) {
-    const source = await read(file);
+  for (const page of pages) {
+    const source = await read(page.file);
     const footer = source.match(footerPattern)?.[0] || "";
-    assert(Boolean(footer), `${file} is missing footer.`);
-    assert(footer.includes('class="site-footer"'), `${file} footer must use the shared site-footer class.`);
-    assert(!footer.includes("careers-footer"), `${file} footer must not use a page-specific careers-footer class.`);
+    assert(Boolean(footer), `${page.file} is missing footer.`);
+    assert(footer.includes("class=\"site-footer\""), `${page.file} footer must use the shared site-footer class.`);
+    assert(!footer.includes("careers-footer"), `${page.file} footer must not use a page-specific careers-footer class.`);
+    assert(!footer.includes(PUBLISHER_PROFILE_MARKER), `${page.file} footer contains an unresolved Publisher Profile marker.`);
+    assert(!footer.includes("캐슬앤파밀리에시티 1단지"), `${page.file} footer exposes the omitted apartment complex name.`);
+    assert(compact(footer).includes(compact(renderPublisherFooter(profile, page.locale))), `${page.file} footer does not match Publisher Profile ${profile.sourceVersionId}.`);
+    assert(!footer.includes(profile.customerSupportEmail), `${page.file} footer exposes customer support email instead of the dedicated support surface.`);
 
     for (const route of appLegalRoutes) {
-      assert(!footer.includes(`href="${route}"`), `${file} footer links to app legal route ${route}.`);
+      assert(!footer.includes(`href="${route}"`), `${page.file} footer links to app legal route ${route}.`);
     }
-
     for (const route of duplicatedHeaderRoutes) {
-      assert(!footer.includes(`href="${route}"`), `${file} footer duplicates header route ${route}.`);
+      assert(!footer.includes(`href="${route}"`), `${page.file} footer duplicates header route ${route}.`);
     }
   }
 }
+
 
 async function checkSharedSiteShell() {
   const shellCss = await read("styles/site-shell.css");
@@ -689,6 +715,9 @@ async function checkSharedSiteShell() {
     "site-footer",
     "footer-row",
     "footer-links",
+    "footer-brand",
+    "publisher-business",
+    "business-verify",
     "brand",
     "download-menu",
     "download-toggle",
@@ -732,6 +761,9 @@ async function checkSharedSiteShell() {
 
   assert(shellCss.includes(".site-header"), "styles/site-shell.css must own the shared site header styles.");
   assert(shellCss.includes(".site-footer"), "styles/site-shell.css must own the shared site footer styles.");
+  assert(shellCss.includes(".publisher-business"), "styles/site-shell.css must own Publisher Profile footer styles.");
+  assert(shellCss.includes(".publisher-business .business-verify"), "styles/site-shell.css must own the business verification link style.");
+  assert(footerPartial.includes(PUBLISHER_PROFILE_MARKER), "partials/site-footer.html must expose the Publisher Profile build marker.");
   assert(/\.site-header\s*{[\s\S]*?position:\s*sticky;[\s\S]*?top:\s*0;[\s\S]*?}/.test(shellCss), "styles/site-shell.css must keep the shared site header sticky.");
   assert(/@media\s*\(max-width:\s*920px\)\s*{[\s\S]*?\.site-header\s+\.shell\s*{[\s\S]*?gap:\s*10px;[\s\S]*?}/.test(shellCss), "styles/site-shell.css must constrain mobile header spacing.");
   assert(/\.mobile-actions\s*{[\s\S]*?flex:\s*0\s+0\s+auto;[\s\S]*?}/.test(shellCss), "styles/site-shell.css must prevent mobile header actions from shrinking away.");
@@ -798,7 +830,8 @@ async function checkSharedSiteShell() {
     assert(!/\.site-header\s*{/.test(source), `${target.file} must not define inline .site-header styles.`);
     assert(!/\.company-detail-page\s+\.site-header\b/.test(source), `${target.file} must not override the shared site header.`);
     assert(source.includes(indent(renderHeader(target))), `${target.file} header is not synced from partials/site-header.html.`);
-    assert(source.includes(indent(footerPartial)), `${target.file} footer is not synced from partials/site-footer.html.`);
+    assert(!source.includes(PUBLISHER_PROFILE_MARKER), `${target.file} contains an unresolved Publisher Profile footer marker.`);
+    assert(source.includes("class=\"publisher-business\""), `${target.file} footer is missing the Publisher Profile disclosure.`);
     assert(source.includes(`  ${scriptPartial}`), `${target.file} must load the shared site shell script.`);
 
     for (const token of pageSpecificShellTokens) {
