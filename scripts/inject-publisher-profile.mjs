@@ -12,10 +12,10 @@ const PROFILE_PATH = process.env.PUBLISHER_PROFILE_JSON_PATH || path.join(ROOT, 
 const ROOT_TARGETS = [
   "index.template.html", "index.html",
   "company.template.html", "company.html",
-  "careers.template.html", "careers.html",
+  "problems.template.html", "problems.html",
   "ir.html", "announcement.template.html", "announcement.html",
 ];
-const EN_TARGETS = ["en/index.html", "en/company.html", "en/careers.html", "en/ir.html", "en/announcement.html"];
+const EN_TARGETS = ["en/index.html", "en/company.html", "en/ir.html", "en/announcement.html"];
 
 async function htmlFiles(relativeDirectory) {
   try {
@@ -49,6 +49,7 @@ async function main() {
   const profile = normalizePublisherProfile(JSON.parse(await readFile(PROFILE_PATH, "utf8")));
   const targets = [...new Set([
     ...ROOT_TARGETS, ...EN_TARGETS,
+    ...await htmlFiles("problems"),
     ...await htmlFiles("announcements"),
     ...await htmlFiles("en/announcements"),
   ])];

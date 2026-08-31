@@ -338,6 +338,7 @@ function renderDetailPage(detailTemplate, shellPartials, item) {
   output = output.replaceAll("__COMPANY_ANNOUNCEMENT_META_DESCRIPTION__", metaDescription);
   output = output.replaceAll("__COMPANY_ANNOUNCEMENT_CANONICAL_URL__", htmlEscape(pageUrl, true));
   output = output.replaceAll("__COMPANY_ANNOUNCEMENT_PAGE_TITLE__", htmlEscape(pageTitle, true));
+  output = output.replaceAll("__COMPANY_ANNOUNCEMENT_BROWSER_TITLE__", "네트멜론");
   output = replaceOnce(output, "<!-- __COMPANY_ANNOUNCEMENT_DETAIL_BUILD_META__ -->", buildMetaComment([item]));
   output = replaceOnce(output, "<!-- __COMPANY_ANNOUNCEMENT_DETAIL_SCHEMA__ -->", escapeScriptJson(renderDetailSchema(item)));
   output = output.replaceAll("__COMPANY_ANNOUNCEMENT_TITLE__", htmlEscape(item.title));

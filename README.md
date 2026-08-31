@@ -6,7 +6,7 @@ This repository deploys the Netmelon company site for `netmelonai.com`.
 
 - Company introduction
 - Product summaries for Naepopquiz App and Naepopquiz Studio
-- Careers
+- Problem-centered collaboration
 - IR request flow
 - Company announcements
 
@@ -18,7 +18,7 @@ The company site footer must not link to app-facing privacy, terms, subscription
 
 The company site header and footer shell is shared through `partials/site-header.html`, `partials/site-footer.html`, `partials/site-shell-script.html`, `styles/site-shell.css`, and `scripts/site-shell.js`. Page-level files must not redefine shared header, navigation, brand, mobile menu, download menu, footer, footer-row, or shell menu behavior.
 
-The global company header exposes company introduction, product introduction, careers, IR, and company announcements. Company announcements live on `announcement.html` and generated `announcements/{slug}.html` detail pages.
+The global company header exposes company introduction, product introduction, open problems, IR, and company announcements. `problems.html` is the problem-centered collaboration surface. The former `careers.html`, `careers.template.html`, and `en/careers.html` remain archived for direct historical access, but builds, global navigation, and the sitemap must not modify or expose them. Company announcements live on `announcement.html` and generated `announcements/{slug}.html` detail pages.
 
 ## Shared system
 
@@ -40,6 +40,7 @@ Production HTML must not hard-code dev or staging API URLs.
 
 - Build-time company source injection uses `data/company-source.ko.json` by default for reproducible local/static builds. Direct script runs may override it with `COMPANY_SOURCE_API_BASE` or `COMPANY_SOURCE_JSON_PATH`.
 - CMS-driven company announcements can be fetched with `COMPANY_PUBLIC_ANNOUNCEMENTS_URL`, which writes `data/company-announcements.ko.json` before static generation.
+- CMS-driven open problems use `COMPANY_PUBLIC_OPEN_PROBLEMS_URL` or `COMPANY_OPEN_PROBLEMS_API_BASE` to fetch `/web-cms/public/company-open-problems?locale=ko`, writing the published snapshot to `data/company-open-problems.ko.json`.
 - CMS-driven company Assets use `COMPANY_ASSETS_API_BASE` to fetch both `/company/assets-v2/public-manifest` and `/company/assets-v2/public-site-bindings`. The combined build snapshot is written to `data/company-assets.{locale}.json`.
 - Instead of `COMPANY_ASSETS_API_BASE`, releases may set both `COMPANY_PUBLIC_ASSETS_URL` and `COMPANY_PUBLIC_ASSET_BINDINGS_URL` explicitly.
 - Asset fetch overrides are `COMPANY_ASSETS_SITE_ID`, `COMPANY_ASSETS_LOCALE`, `COMPANY_ASSETS_JSON_PATH`, and optional `COMPANY_ASSETS_BEARER_TOKEN`.
@@ -49,7 +50,7 @@ Production HTML must not hard-code dev or staging API URLs.
   - `COMPANY_ANNOUNCEMENTS_BEARER_TOKEN`: bearer token for a protected snapshot endpoint.
 - Shared Publisher Legal Profile uses `PUBLISHER_PROFILE_API_BASE` or `PUBLISHER_PROFILE_PUBLIC_URL` to fetch `/web-cms/public/publisher-profile?publisherId=netmelon`. `PUBLISHER_PROFILE_JSON_PATH` overrides the build snapshot path and `PUBLISHER_PROFILE_BEARER_TOKEN` is available only when the public projection is protected.
 - `data/publisher-legal-profile.json` is the current verified static public snapshot for reproducible local builds. It is not a second CMS editing source; `build:with-cms` replaces it with the published shared profile before the static build.
-- Runtime careers Firebase override uses `window.__NPQ_CAREERS_FIREBASE_CONFIG__` or `window.CompanySourceConfig.careersFirebaseConfig`.
+- The archived careers page retains its former runtime configuration for direct historical access only. New builds and public navigation do not depend on it.
 - IR forms use `window.__NPQ_IR_API_BASE__` only when explicitly injected.
 
 Production CMS-driven releases should use a published Company Source snapshot. The committed `data/company-source.ko.json` is the current published public snapshot used for local and GitHub Pages static builds.
@@ -63,7 +64,7 @@ npm run build:with-cms:require-announcement
 npm run check
 ```
 
-`npm run build` syncs the shared site shell, then regenerates `index.html`, `company.html`, `careers.html`, `announcement.html`, and generated company announcement detail pages from local snapshot files. It injects the published Asset binding snapshot when `data/company-assets.ko.json` exists and otherwise keeps the controlled template fallback, then injects the shared Publisher Legal Profile into every company Footer. `npm run build:with-cms` first fetches Company Source, company announcements, the public Asset manifest, public Site Asset Bindings, and the published Publisher Legal Profile, then runs the static build. `npm run build:with-cms:require-announcement` does the same but fails if the fetched public announcement snapshot has zero published announcements. `npm run check` also verifies manifest v2, exact purpose/variant resolution, disclosure, duplicate references, final product screenshot order, and exact KO/EN Footer profile/version binding before deployment.
+`npm run build` syncs the shared site shell, then regenerates `index.html`, `company.html`, `problems.html`, `announcement.html`, and generated company announcement detail pages from local snapshot files. It does not rewrite the archived careers files. It injects the published Asset binding snapshot when `data/company-assets.ko.json` exists and otherwise keeps the controlled template fallback, then injects the shared Publisher Legal Profile into every company Footer. `npm run build:with-cms` first fetches Company Source, company announcements, open problems, the public Asset manifest, public Site Asset Bindings, and the published Publisher Legal Profile, then runs the static build. `npm run build:with-cms:require-announcement` does the same but fails if the fetched public announcement snapshot has zero published announcements. `npm run check` also verifies manifest v2, exact purpose/variant resolution, disclosure, duplicate references, final product screenshot order, and exact KO/EN Footer profile/version binding before deployment.
 
 Company announcement CMS release example:
 

@@ -196,6 +196,7 @@ function robotsMeta() {
 
 function renderHead({ title, description, canonicalPath, schema = null, assetPrefix = "../", sourceVersionId = "unknown" }) {
   const canonicalUrl = pageUrl(canonicalPath);
+  const browserTitle = String(title).split("|", 1)[0].trim();
   return [
     '<meta charset="UTF-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
@@ -221,7 +222,7 @@ function renderHead({ title, description, canonicalPath, schema = null, assetPre
     '<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">',
     `<link rel="stylesheet" href="${assetPrefix}styles/company.css">`,
     `<!-- ${GENERATED_COMMENT}: sourceVersionId=${htmlEscape(sourceVersionId)} -->`,
-    `<title>${htmlEscape(title)}</title>`,
+    `<title>${htmlEscape(browserTitle)}</title>`,
     schema ? `<script type="application/ld+json">${escapeScriptJson(schema)}</script>` : "",
   ].filter(Boolean).join("\n  ");
 }
@@ -230,14 +231,13 @@ function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
   const nav = [
     ["company", "company.html", "About"],
     ["product", "index.html#naepopquiz-app", "Products"],
-    ["careers", "careers.html", "Careers"],
+    ["problems", "../problems.html", "Open problems"],
     ["ir", "ir.html", "IR"],
     ["announcement", "announcement.html", "Company announcements"],
   ];
   const koreanHrefByActive = {
     product: `${assetPrefix}index.html`,
     company: `${assetPrefix}company.html`,
-    careers: `${assetPrefix}careers.html`,
     ir: `${assetPrefix}ir.html`,
     announcement: `${assetPrefix}announcement.html`,
   };
@@ -765,7 +765,6 @@ async function main() {
   await Promise.all([
     writeFile(path.join(OUTPUT_DIR, "index.html"), renderHomePage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "company.html"), renderCompanyPage(source), "utf8"),
-    writeFile(path.join(OUTPUT_DIR, "careers.html"), renderCareersPage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "ir.html"), renderIrPage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "announcement.html"), renderAnnouncementPage(source, announcements), "utf8"),
     cleanupStaleEnglishAnnouncementDetails(announcements),

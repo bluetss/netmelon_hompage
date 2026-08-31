@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { readFile, readdir } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { COMPANY_ASSET_RENDER_SLOTS } from "./company-asset-slots.mjs";
@@ -73,6 +74,13 @@ function nodeHasType(node, type) {
   return Array.isArray(nodeType) ? nodeType.includes(type) : nodeType === type;
 }
 
+function jsonLdHasType(value, type) {
+  if (Array.isArray(value)) return value.some((item) => jsonLdHasType(item, type));
+  if (!value || typeof value !== "object") return false;
+  if (nodeHasType(value, type)) return true;
+  return Object.values(value).some((item) => jsonLdHasType(item, type));
+}
+
 function parseJson(source, file) {
   try {
     return JSON.parse(source);
@@ -83,7 +91,7 @@ function parseJson(source, file) {
 }
 
 async function checkCompanySourceBuild() {
-  const generatedPages = ["index.html", "company.html", "careers.html"];
+  const generatedPages = ["index.html", "company.html"];
   const forbiddenPatterns = [
     /__COMPANY_SOURCE_/,
     /__COMPANY_NOTICES_/,
@@ -418,7 +426,6 @@ async function checkEnglishCmsGeneration() {
     const requiredRoutes = new Set([
       "company.home",
       "company.overview",
-      "company.careers",
       "company.ir",
       "company.announcements",
     ]);
@@ -445,7 +452,6 @@ async function checkEnglishCmsGeneration() {
   const generatedPages = [
     "en/index.html",
     "en/company.html",
-    "en/careers.html",
     "en/ir.html",
     "en/announcement.html",
   ];
@@ -497,18 +503,17 @@ async function checkLocalizationExposure() {
   const koreanPublicFiles = [
     "index.html",
     "company.html",
-    "careers.html",
+    "problems.html",
     "announcement.html",
     "ir.html",
     "index.template.html",
     "company.template.html",
-    "careers.template.html",
+    "problems.template.html",
     "announcement.template.html",
   ];
   const englishFiles = [
     "en/index.html",
     "en/company.html",
-    "en/careers.html",
     "en/ir.html",
   ];
   const optionalEnglishFiles = [
@@ -570,12 +575,17 @@ async function checkLocalizationExposure() {
 async function checkSitemap() {
   const source = await read("sitemap.xml");
   const locs = Array.from(source.matchAll(/<loc>([^<]+)<\/loc>/g)).map((match) => match[1]);
+  const problemPayload = parseJson(await read("data/company-open-problems.ko.json"), "data/company-open-problems.ko.json");
+  const problemUrls = (Array.isArray(problemPayload?.problems) ? problemPayload.problems : [])
+    .map((problem) => "https://netmelonai.com/problems/" + String(problem.slug) + ".html");
+
   const expected = [
     "https://netmelonai.com/",
     "https://netmelonai.com/company.html",
     "https://netmelonai.com/announcement.html",
     "https://netmelonai.com/ir.html",
-    "https://netmelonai.com/careers.html",
+    "https://netmelonai.com/problems.html",
+    ...problemUrls,
   ];
 
   assert(locs.length === expected.length, `sitemap.xml must contain exactly ${expected.length} public URLs.`);
@@ -601,14 +611,18 @@ async function checkCompanyFooterRoutes() {
   const englishAnnouncementPages = (await listFiles("en/announcements"))
     .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
     .map((entry) => `en/announcements/${entry.name}`);
+  const problemPages = (await listFiles("problems"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+    .map((entry) => "problems/" + entry.name);
   const pages = [
-    ...["index.html", "company.html", "careers.html", "announcement.html", "ir.html"].map((file) => ({ file, locale: "ko" })),
+    ...["index.html", "company.html", "problems.html", "announcement.html", "ir.html"].map((file) => ({ file, locale: "ko" })),
     ...announcementPages.map((file) => ({ file, locale: "ko" })),
-    ...["en/index.html", "en/company.html", "en/careers.html", "en/announcement.html", "en/ir.html"].map((file) => ({ file, locale: "en" })),
+    ...problemPages.map((file) => ({ file, locale: "ko" })),
+    ...["en/index.html", "en/company.html", "en/announcement.html", "en/ir.html"].map((file) => ({ file, locale: "en" })),
     ...englishAnnouncementPages.map((file) => ({ file, locale: "en" })),
   ];
   const appLegalRoutes = ["privacy.html", "terms.html", "data-deletion.html"];
-  const duplicatedHeaderRoutes = ["company.html", "careers.html", "ir.html", "company.html#notices"];
+  const duplicatedHeaderRoutes = ["company.html", "problems.html", "ir.html", "company.html#notices"];
   const footerPattern = /<footer\b[\s\S]*?<\/footer>/i;
   const compact = (value) => String(value).replace(/\s+/g, " " ).trim();
 
@@ -642,6 +656,7 @@ async function checkSharedSiteShell() {
   const pageCssFiles = [
     "styles/company.css",
     "styles/careers.css",
+    "styles/problems.css",
   ];
   const shellTargets = [
     {
@@ -673,18 +688,18 @@ async function checkSharedSiteShell() {
       active: "company",
     },
     {
-      file: "careers.template.html",
+      file: "problems.template.html",
       brandHref: "index.html",
       productHref: "index.html#naepopquiz-app",
-      englishHref: "en/careers.html",
-      active: "careers",
+      englishHref: "en/index.html",
+      active: "problems",
     },
     {
-      file: "careers.html",
+      file: "problems.html",
       brandHref: "index.html",
       productHref: "index.html#naepopquiz-app",
-      englishHref: "en/careers.html",
-      active: "careers",
+      englishHref: "en/index.html",
+      active: "problems",
     },
     {
       file: "ir.html",
@@ -754,7 +769,7 @@ async function checkSharedSiteShell() {
     .replaceAll("__SITE_HEADER_BRAND_HREF__", target.brandHref)
     .replaceAll("__SITE_NAV_PRODUCT_HREF__", target.productHref)
     .replaceAll("__SITE_NAV_COMPANY_CLASS__", activeClass("company", target.active))
-    .replaceAll("__SITE_NAV_CAREERS_CLASS__", activeClass("careers", target.active))
+    .replaceAll("__SITE_NAV_PROBLEMS_CLASS__", activeClass("problems", target.active))
     .replaceAll("__SITE_NAV_IR_CLASS__", activeClass("ir", target.active))
     .replaceAll("__SITE_NAV_ANNOUNCEMENT_CLASS__", activeClass("announcement", target.active))
     .replaceAll("__SITE_NAV_ENGLISH_HREF__", target.englishHref);
@@ -786,8 +801,8 @@ async function checkSharedSiteShell() {
   const headerNavLabels = Array.from(headerNav.matchAll(/<a(?:\b|__)[^>]*>([\s\S]*?)<\/a>/gi))
     .map((match) => match[1].replace(/<[^>]*>/g, "").trim());
   assert(
-    headerNavLabels.join("|") === "회사소개|제품소개|채용|IR|회사 공고|ENGLISH",
-    `partials/site-header.html global nav must be exactly 회사소개, 제품소개, 채용, IR, 회사 공고, ENGLISH. Current: ${headerNavLabels.join(", ")}`,
+    headerNavLabels.join("|") === "회사소개|제품소개|풀고 있는 문제|IR|회사 공고|ENGLISH",
+    `partials/site-header.html global nav must be exactly 회사소개, 제품소개, 풀고 있는 문제, IR, 회사 공고, ENGLISH. Current: ${headerNavLabels.join(", ")}`,
   );
 
   for (const route of forbiddenHeaderRoutes) {
@@ -844,6 +859,163 @@ async function checkSharedSiteShell() {
   }
 }
 
+async function checkOpenProblemsAndArchivedCareers() {
+  const archivedFiles = new Map([
+    ["careers.html", "0014ee789f121803aa704eec1a0a15f9d36aca10951820486e50ae1385c80c18"],
+    ["careers.template.html", "a435ed48af94a5b380f1a0d8799ed73cf1456169863c0303af4f750c77e2c0fd"],
+    ["en/careers.html", "3b513686801e8228a6eb4844ee53f557a5b40a4016de1f0af953aec1d61c8d99"],
+  ]);
+  for (const [file, expectedHash] of archivedFiles) {
+    const source = await read(file);
+    const actualHash = createHash("sha256").update(source, "utf8").digest("hex");
+    assert(actualHash === expectedHash, file + " is archived and must remain unchanged. Expected " + expectedHash + ", got " + actualHash + ".");
+  }
+
+
+  const rootHtml = (await listFiles(""))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+    .map((entry) => entry.name);
+  const englishHtml = (await listFiles("en"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+    .map((entry) => `en/${entry.name}`);
+  const announcementHtml = (await listFiles("announcements"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+    .map((entry) => `announcements/${entry.name}`);
+  const problemHtml = (await listFiles("problems"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+    .map((entry) => "problems/" + entry.name);
+  for (const file of [...rootHtml, ...englishHtml, ...announcementHtml, ...problemHtml]) {
+    const source = await read(file);
+    if (!/<html\b/i.test(source)) continue;
+    const title = source.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || "";
+    assert(Boolean(title), file + " is missing a browser title.");
+    assert(!title.includes("|"), file + " browser title must not contain a pipe suffix: " + title);
+  }
+  for (const file of ["careers.html", "careers.template.html"]) {
+    const source = await read(file);
+    assert(!/document\.title\s*=\s*`[^`]*\|/.test(source), file + " must not add a pipe suffix at runtime.");
+  }
+
+  const dataFile = "data/company-open-problems.ko.json";
+  const raw = await read(dataFile);
+  const payload = parseJson(raw, dataFile);
+  if (!payload) return;
+  assert(payload.schemaId === "npq.company_open_problems.v1", dataFile + " has unsupported schemaId.");
+  assert(payload.siteId === "company" && payload.locale === "ko", dataFile + " must target company/ko.");
+  assert(payload.enabled === true && payload.lifecycleStatus === "published", dataFile + " must be an enabled published snapshot.");
+  assert(Boolean(String(payload.sourceVersionId || "").trim()), dataFile + " is missing sourceVersionId.");
+  assert(Boolean(String(payload.sourceHash || "").trim()), dataFile + " is missing sourceHash.");
+
+  const problems = Array.isArray(payload.problems) ? payload.problems : [];
+  assert(problems.length > 0, dataFile + " must include at least one problem.");
+  assert(problems.some((problem) => ["open", "exploring"].includes(problem?.status)), dataFile + " must include an open or exploring problem.");
+  const page = await read("problems.html");
+  assert(page.includes("Open Problem Source generated at build time:"), "problems.html is missing Open Problem Source build metadata.");
+  assert(!page.includes("__OPEN_PROBLEMS_"), "problems.html contains unresolved Open Problem Source markers.");
+  assert(page.includes('<meta name="robots" content="index,follow">'), "problems.html must be indexable.");
+  for (const problem of problems) {
+    assert(page.includes(String(problem.title)), "problems.html is missing problem title: " + problem.title);
+  }
+  const participatingProblems = problems.filter((problem) => ["open", "exploring"].includes(problem?.status));
+  const inlineFormCount = (page.match(/class="problem-application-form"/g) || []).length;
+  const inlineToggleCount = (page.match(/data-problem-application-toggle/g) || []).length;
+  assert(inlineFormCount === participatingProblems.length, "problems.html must render one inline application form per participating problem.");
+  assert(inlineToggleCount === participatingProblems.length, "problems.html must render one application toggle per participating problem.");
+  for (const problem of participatingProblems) {
+    assert(
+      page.includes('name="problemId" value="' + String(problem.problemId) + '"'),
+      "problems.html inline form is missing problem identity: " + problem.problemId,
+    );
+  }
+  assert(!page.includes('id="problem-intake-form"') && !page.includes('id="problem-intake"'), "problems.html must not restore the separate bottom application section.");
+  assert(!page.includes('<select name="problemId"'), "problems.html inline application forms must not ask visitors to select the problem again.");
+  assert(page.includes('scripts/problem-intake.js'), "problems.html is missing the participation form script.");
+  assert(page.includes('data-api-base="https://'), "problems.html is missing the production intake API base.");
+  assert(!/data-problem-id[^>]*href="mailto:/i.test(page), "problems.html must use the online form instead of a mailto problem CTA.");
+  const internalOnlyPhrases = [
+    "정규직 채용 공고",
+    "상시 채용 공고",
+    "45분",
+    "무급 탐색",
+    "관리자 검토",
+    "서로 적합",
+    "후속 범위",
+    "보상 조건",
+    "지식재산 원칙",
+    "담당자:",
+  ];
+  for (const phrase of internalOnlyPhrases) {
+    assert(!page.includes(phrase), "problems.html exposes internal workflow copy: " + phrase);
+  }
+
+  const payloads = extractJsonLd(page, "problems.html");
+  assert(payloads.some((payload) => jsonLdHasType(payload, "CollectionPage")), "problems.html is missing CollectionPage JSON-LD.");
+  assert(payloads.some((payload) => jsonLdHasType(payload, "ItemList")), "problems.html is missing ItemList JSON-LD.");
+  assert(!payloads.some((payload) => jsonLdHasType(payload, "JobPosting")), "problems.html must not claim JobPosting structured data.");
+
+  const expectedDetailFiles = new Set(problems.map((problem) => problem.slug + ".html"));
+  const actualDetailFiles = (await listFiles("problems"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+    .map((entry) => entry.name);
+  assert(actualDetailFiles.length === expectedDetailFiles.size, "problems/ must contain exactly one generated page per published problem.");
+  for (const file of actualDetailFiles) {
+    assert(expectedDetailFiles.has(file), "problems/ contains a stale detail page: " + file);
+  }
+  const rejectedParticipationPhrases = ["지원하기", "지원서", "지원 접수", "관련 경험", "접수가 완료"];
+  for (const problem of problems) {
+    const detailPath = "problems/" + problem.slug + ".html";
+    const detailUrl = "https://netmelonai.com/" + detailPath;
+    const detail = await read(detailPath);
+    assert(page.includes('href="' + detailPath + '"'), "problems.html is missing the external detail link for " + problem.problemId);
+    assert(detail.includes("Open Problem Detail generated at build time:"), detailPath + " is missing generated detail metadata.");
+    assert(detail.includes('<link rel="canonical" href="' + detailUrl + '">'), detailPath + " is missing its unique canonical URL.");
+    assert(detail.includes('<meta property="og:url" content="' + detailUrl + '">'), detailPath + " is missing its unique Open Graph URL.");
+    assert(detail.includes('<meta property="og:title" content="' + String(problem.title)), detailPath + " is missing its problem-specific Open Graph title.");
+    assert(detail.includes('<meta property="og:image" content="https://'), detailPath + " is missing a public Open Graph image.");
+    assert(detail.includes(String(problem.title)) && detail.includes(String(problem.summary)), detailPath + " is missing its public problem copy.");
+    assert(!detail.includes("__OPEN_PROBLEM_"), detailPath + " contains unresolved Open Problem markers.");
+    for (const phrase of rejectedParticipationPhrases) {
+      assert(!detail.includes(phrase), detailPath + " contains obsolete application wording: " + phrase);
+    }
+    if (["open", "exploring"].includes(problem.status)) {
+      assert(detail.includes('name="problemId" value="' + String(problem.problemId) + '"'), detailPath + " form is not bound to its problem identity.");
+      assert(detail.includes("<span>해결 방안</span>"), detailPath + " must request a solution proposal.");
+      assert(detail.includes("<span>자료 링크"), detailPath + " must provide a resource link field.");
+      assert(detail.includes('name="solutionProposal"'), detailPath + " must use the semantic solution proposal field.");
+      assert(detail.includes('name="resourceUrl"'), detailPath + " must use the semantic resource URL field.");
+      assert(detail.includes("해결 방안 보내기"), detailPath + " must use solution proposal language.");
+      const publishedVideos = Array.isArray(problem.videos) ? problem.videos : [];
+      if (publishedVideos.length) {
+        assert(detail.includes("problem-detail-videos"), detailPath + " must render its published problem videos.");
+        assert(detail.includes("https://www.youtube-nocookie.com/embed/"), detailPath + " must use the privacy-enhanced YouTube embed.");
+      }
+    }
+    const detailPayloads = extractJsonLd(detail, detailPath);
+    assert(detailPayloads.some((payload) => jsonLdHasType(payload, "WebPage")), detailPath + " is missing WebPage JSON-LD.");
+    assert(!detailPayloads.some((payload) => jsonLdHasType(payload, "JobPosting")), detailPath + " must not claim JobPosting structured data.");
+  }
+
+  const publicNavigationFiles = [
+    "partials/site-header.html",
+    "index.html",
+    "company.html",
+    "problems.html",
+    "announcement.html",
+    "ir.html",
+    "en/index.html",
+    "en/company.html",
+    "en/announcement.html",
+    "en/ir.html",
+  ];
+  for (const file of publicNavigationFiles) {
+    const source = await read(file);
+    assert(!/href="[^"]*careers\.html/i.test(source), file + " must not expose the archived careers route.");
+  }
+  const sitemap = await read("sitemap.xml");
+  assert(!sitemap.includes("careers.html"), "sitemap.xml must not expose the archived careers route.");
+  assert(sitemap.includes("problems.html"), "sitemap.xml must include the open problems route.");
+}
+
 async function checkStructuredData() {
   const pages = [
     {
@@ -855,8 +1027,8 @@ async function checkStructuredData() {
       types: ["Organization", "AboutPage"],
     },
     {
-      file: "careers.html",
-      types: ["Organization", "CollectionPage", "ItemList", "JobPosting"],
+      file: "problems.html",
+      types: ["CollectionPage", "ItemList"],
     },
     {
       file: "ir.html",
@@ -875,7 +1047,7 @@ async function checkStructuredData() {
 
     assert(payloads.length > 0, `${page.file} is missing JSON-LD structured data.`);
     for (const type of page.types) {
-      assert(nodes.some((node) => nodeHasType(node, type)), `${page.file} is missing JSON-LD type ${type}.`);
+      assert(payloads.some((payload) => jsonLdHasType(payload, type)), `${page.file} is missing JSON-LD type ${type}.`);
     }
 
     for (const node of nodes) {
@@ -891,10 +1063,13 @@ async function checkStructuredData() {
 }
 
 async function checkProductionUrls() {
+  const problemFiles = (await listFiles("problems"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+    .map((entry) => "problems/" + entry.name);
   const files = [
     "index.html",
     "company.html",
-    "careers.html",
+    "problems.html",
     "announcement.html",
     "ir.html",
     "privacy.html",
@@ -903,8 +1078,8 @@ async function checkProductionUrls() {
     "install.html",
     "en/index.html",
     "en/company.html",
-    "en/careers.html",
     "en/ir.html",
+    ...problemFiles,
   ];
   const blocked = [
     /localhost/i,
@@ -930,6 +1105,7 @@ async function main() {
   await checkSitemap();
   await checkCompanyFooterRoutes();
   await checkSharedSiteShell();
+  await checkOpenProblemsAndArchivedCareers();
   await checkStructuredData();
   await checkProductionUrls();
 

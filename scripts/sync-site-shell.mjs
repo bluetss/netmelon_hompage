@@ -40,18 +40,11 @@ const pages = [
     active: "company",
   },
   {
-    file: "careers.template.html",
+    file: "problems.template.html",
     brandHref: "index.html",
     productHref: "index.html#naepopquiz-app",
-    englishHref: "en/careers.html",
-    active: "careers",
-  },
-  {
-    file: "careers.html",
-    brandHref: "index.html",
-    productHref: "index.html#naepopquiz-app",
-    englishHref: "en/careers.html",
-    active: "careers",
+    englishHref: "en/index.html",
+    active: "problems",
   },
   {
     file: "ir.html",
@@ -82,7 +75,7 @@ function renderHeader(template, page) {
     .replaceAll("__SITE_HEADER_BRAND_HREF__", page.brandHref)
     .replaceAll("__SITE_NAV_PRODUCT_HREF__", page.productHref)
     .replaceAll("__SITE_NAV_COMPANY_CLASS__", activeClass("company"))
-    .replaceAll("__SITE_NAV_CAREERS_CLASS__", activeClass("careers"))
+    .replaceAll("__SITE_NAV_PROBLEMS_CLASS__", activeClass("problems"))
     .replaceAll("__SITE_NAV_IR_CLASS__", activeClass("ir"))
     .replaceAll("__SITE_NAV_ANNOUNCEMENT_CLASS__", activeClass("announcement"))
     .replaceAll("__SITE_NAV_ENGLISH_HREF__", page.englishHref);

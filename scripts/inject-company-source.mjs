@@ -598,12 +598,6 @@ const DEFAULT_PAGES = [
     outputPath: path.join(ROOT, "company.html"),
     inject: injectCompany,
   },
-  {
-    key: "careers",
-    templatePath: path.join(ROOT, "careers.template.html"),
-    outputPath: path.join(ROOT, "careers.html"),
-    inject: injectCareers,
-  },
 ];
 
 const CUSTOM_PAGES = [

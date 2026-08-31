@@ -7,15 +7,19 @@
 ```text
 index.template.html                # 사람이 수정하는 홈 템플릿
 company.template.html              # 사람이 수정하는 회사소개 템플릿
-careers.template.html              # 사람이 수정하는 채용 템플릿
+problems.template.html             # 풀고 있는 문제 페이지 템플릿
 scripts/inject-company-source.mjs   # /company/public-source를 읽어 HTML 생성
 scripts/fetch-company-announcements.mjs # 회사 공고 CMS 공개 스냅샷을 data JSON으로 저장
 scripts/generate-company-announcements.mjs # 회사 공고 공개 JSON을 읽어 공고 페이지 생성
 scripts/check-site-release.mjs      # 빌드 산출물과 release 규칙 검증
 data/company-announcements.ko.json  # 회사 공고 원천 JSON
+scripts/fetch-company-open-problems.mjs # 공개 Open Problem Source를 로컬 JSON으로 저장
+scripts/generate-company-open-problems.mjs # 공개 문제 협업 페이지 생성
+data/company-open-problems.ko.json # 풀고 있는 문제 원천 JSON
 index.html                         # 빌드 결과물, 배포 대상
 company.html                       # 빌드 결과물, 배포 대상
-careers.html                       # 빌드 결과물, 배포 대상
+problems.html                      # 빌드 결과물, 배포 대상
+careers.html                       # 보존 아카이브, 빌드에서 수정하거나 노출하지 않음
 announcement.html                  # 빌드 결과물, 배포 대상
 ```
 
@@ -27,7 +31,7 @@ API 주소는 기본값으로 제공하지 않습니다. dev/staging/production 
 COMPANY_SOURCE_API_BASE="https://your-api.example.com" node scripts/inject-company-source.mjs
 ```
 
-기본 실행은 `index.html`, `company.html`, `careers.html`, `announcement.html`을 한 번에 생성합니다.
+기본 실행은 `index.html`, `company.html`, `problems.html`, `announcement.html`을 생성합니다. 기존 `careers.html`, `careers.template.html`, `en/careers.html`은 보존 아카이브이며 빌드가 수정하지 않습니다.
 
 단일 출력 파일만 테스트하려면 기존처럼 template/output을 명시하세요.
 
@@ -43,6 +47,18 @@ node scripts/inject-company-source.mjs
 ```bash
 COMPANY_SOURCE_JSON_PATH="./company-source.json" node scripts/inject-company-source.mjs
 ```
+
+## 풀고 있는 문제 CMS 반영
+
+Studio의 `함께 풀 문제 관리`에서 초안을 저장하고 검토본을 만든 뒤 발행합니다. 정적 사이트는 발행된 public snapshot만 가져옵니다.
+
+```bash
+COMPANY_PUBLIC_OPEN_PROBLEMS_URL="https://your-api.example.com/web-cms/public/company-open-problems?locale=ko" \
+COMPANY_OPEN_PROBLEMS_INTAKE_API_BASE="https://your-api.example.com" \
+npm run build:with-cms
+```
+
+`fetch-company-open-problems.mjs`는 schema, site/locale, published lifecycle, sourceVersionId/sourceHash를 검증한 뒤 `data/company-open-problems.ko.json`을 원자적으로 교체합니다. 이 JSON은 직접 편집하는 원본이 아니라 마지막 공개 snapshot의 빌드 캐시입니다. `generate-company-open-problems.mjs`는 문제 질문, 근거, 현재 시도, 필요한 전문성, 제공 환경과 Studio에서 등록한 YouTube 설명 영상을 목록과 상세 페이지에 렌더링합니다. 후보 등급, 담당자, 접촉 이력과 내부 메모는 공개 projection과 정적 HTML에 포함하지 않습니다. 해결 방안 폼은 `COMPANY_OPEN_PROBLEMS_INTAKE_API_BASE`의 `/web-cms/public/company-open-problem-proposals`를 사용합니다. 구조화 데이터는 `CollectionPage`, `ItemList`, `WebPage`만 사용하며 `JobPosting`을 사용하지 않습니다.
 
 ## 회사 공고 CMS 반영
 
@@ -144,13 +160,14 @@ CI/CD에서는 배포 전 단계에 아래를 추가하세요.
 ## 운영 원칙
 
 - `*.template.html`에는 Studio 공개본에서 주입될 회사 원천 문구를 마커로 둡니다.
-- `index.html`, `company.html`, `careers.html`은 빌드 결과물입니다. Studio 문구를 바꾸면 다시 빌드하고 배포합니다.
+- `index.html`, `company.html`, `problems.html`은 빌드 결과물입니다. Studio 공개본을 바꾸면 다시 빌드하고 배포합니다.
+- `careers.html`, `careers.template.html`, `en/careers.html`은 보존 아카이브입니다. 공통 헤더, sitemap, Company Source/Publisher Profile 빌드가 이 파일을 수정하거나 노출하면 안 됩니다.
 - `data/company-announcements.ko.json`은 회사 공고의 현재 원천입니다. 빌드 시 `announcement.html`의 공고 목록 또는 빈 상태에 주입됩니다.
 - `announcements/*.html`은 generated detail page입니다. 직접 수정하지 말고 CMS snapshot과 빌드 스크립트로 재생성합니다.
-- 빌드 산출물에는 Organization, WebSite, AboutPage, CollectionPage, JobPosting 등 공개 페이지별 JSON-LD 구조화 데이터가 포함됩니다.
+- 현재 공개 surface의 빌드 산출물에는 Organization, WebSite, AboutPage, CollectionPage, ItemList 등 페이지별 JSON-LD가 포함됩니다. 문제 협업 페이지에는 `JobPosting`을 넣지 않습니다.
 - Company Source fetch가 실패하거나 필수 필드가 비어 있으면 빌드가 실패합니다. 잘못된 문구를 배포하지 않기 위해서입니다.
 - Company Announcement fetch가 실패하거나 public snapshot 계약을 위반하면 빌드가 실패합니다. Studio CMS에는 Published로 보이는데 홈페이지에 표시되지 않으면 public snapshot API와 `data/company-announcements.ko.json`을 먼저 확인합니다.
 - production 배포용 Company Source는 published provenance가 있어야 합니다. `sourceVersionId`, `version`, `publishedAt`, `publishedBy`가 비어 있으면 배포하지 않습니다.
-- `company.html`, `careers.html`은 SEO 핵심 문구를 runtime fetch로 교체하지 않습니다.
+- `company.html`, `problems.html`은 SEO 핵심 문구를 runtime fetch로 교체하지 않습니다.
 - production HTML에는 dev/staging API URL을 하드코딩하지 않습니다.
 - 페이지 로딩 중 runtime spinner나 skeleton을 보여주지 않습니다. 사용자는 이미 주입된 완성 HTML을 봅니다.
