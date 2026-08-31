@@ -51,7 +51,7 @@ Production HTML must not hard-code dev or staging API URLs.
 - Shared Publisher Legal Profile uses `PUBLISHER_PROFILE_API_BASE` or `PUBLISHER_PROFILE_PUBLIC_URL` to fetch `/web-cms/public/publisher-profile?publisherId=netmelon`. `PUBLISHER_PROFILE_JSON_PATH` overrides the build snapshot path and `PUBLISHER_PROFILE_BEARER_TOKEN` is available only when the public projection is protected.
 - `data/publisher-legal-profile.json` is the current verified static public snapshot for reproducible local builds. It is not a second CMS editing source; `build:with-cms` replaces it with the published shared profile before the static build.
 - The archived careers page retains its former runtime configuration for direct historical access only. New builds and public navigation do not depend on it.
-- IR forms use `window.__NPQ_IR_API_BASE__` only when explicitly injected.
+- IR and open-problem forms prefer one explicitly injected `window.__NPQ_PUBLIC_INTAKE_API_BASE__`. `window.__NPQ_IR_API_BASE__` and `window.__NPQ_COMPANY_API_BASE__` remain compatibility overrides. Static problem generation uses `COMPANY_OPEN_PROBLEMS_INTAKE_API_BASE`; production cutover must point it at the dedicated max-instance-one public-intake service before the core POST routes are disabled.
 
 Production CMS-driven releases should use a published Company Source snapshot. The committed `data/company-source.ko.json` is the current published public snapshot used for local and GitHub Pages static builds.
 

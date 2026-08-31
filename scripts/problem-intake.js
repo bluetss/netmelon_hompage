@@ -2,6 +2,11 @@
   const toggles = Array.from(document.querySelectorAll("[data-problem-application-toggle]"));
   const forms = Array.from(document.querySelectorAll(".problem-application-form"));
   if (!forms.length) return;
+  const createRequestKey = () => {
+    if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+    return `web-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  };
+
 
   const setToggleLabel = (toggle, expanded) => {
     const label = toggle.querySelector("[data-problem-application-label]");
@@ -56,7 +61,8 @@
     const submitButton = form.querySelector("button[type='submit']");
     const solutionProposal = form.elements.namedItem("solutionProposal");
     const apiBase = String(
-      window.__NPQ_COMPANY_API_BASE__
+      window.__NPQ_PUBLIC_INTAKE_API_BASE__
+      || window.__NPQ_COMPANY_API_BASE__
       || form.dataset.apiBase
       || ""
     ).trim().replace(/\/+$/, "");
@@ -92,11 +98,13 @@
     };
 
     form.addEventListener("input", (event) => {
+      delete form.dataset.requestKey;
       event.target?.closest?.("label")?.classList.remove("invalid");
       if (status.classList.contains("error")) setStatus("");
     });
 
     form.addEventListener("change", (event) => {
+      delete form.dataset.requestKey;
       event.target?.closest?.("label")?.classList.remove("invalid");
       if (status.classList.contains("error")) setStatus("");
     });
@@ -124,11 +132,13 @@
       setSubmitting(true);
       setStatus("");
       try {
+        const requestKey = form.dataset.requestKey || createRequestKey();
+        form.dataset.requestKey = requestKey;
         const response = await fetch(apiBase + "/web-cms/public/company-open-problem-proposals", {
           method: "POST",
           mode: "cors",
           credentials: "omit",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "Idempotency-Key": requestKey },
           body: JSON.stringify({
             problemId: String(data.get("problemId") || "").trim(),
             name: String(data.get("name") || "").trim(),
@@ -138,14 +148,39 @@
             consent: Boolean(data.get("consent")),
             locale: "ko",
             sourcePage: window.location.pathname,
+            website: String(data.get("website") || "").trim(),
           }),
         });
-        if (!response.ok) throw new Error("SUBMIT_FAILED");
+        if (!response.ok) {
+          const detail = await response.json().catch(() => ({}));
+          const retrySeconds = Number(detail.retryAfterSeconds || response.headers.get("Retry-After") || 0);
+          if (response.status === 429) {
+            const minutes = Math.max(1, Math.ceil(retrySeconds / 60));
+            setStatus(`요청이 몰려 접수를 잠시 쉬고 있습니다. ${minutes}분 뒤 다시 시도해 주세요.`, "error");
+            return;
+          }
+          if (response.status === 503) {
+            const pauseMessage = String(detail.error || "").trim();
+            setStatus(pauseMessage || "안전한 운영을 위해 접수를 잠시 중단했습니다. 잠시 후 다시 확인해 주세요.", "error");
+            return;
+          }
+          if (response.status === 403) {
+            setStatus("현재 접수를 잠시 쉬고 있습니다. 잠시 후 다시 확인해 주세요.", "error");
+            return;
+          }
+          if (response.status === 413) {
+            setStatus("입력 내용이 너무 깁니다. 내용을 줄여 주세요.", "error");
+            return;
+          }
+          throw new Error("SUBMIT_FAILED");
+        }
         form.reset();
+        delete form.dataset.requestKey;
         clearInvalid();
         setStatus("제안을 보냈습니다.", "success");
-      } catch {
-        setStatus("제안을 보내지 못했습니다. 다시 시도해 주세요.", "error");
+      } catch (error) {
+        const offline = !window.navigator.onLine;
+        setStatus(offline ? "인터넷 연결을 확인해 주세요." : "현재 접수 서버에 연결할 수 없습니다. 잠시 후 다시 확인해 주세요.", "error");
       } finally {
         setSubmitting(false);
       }

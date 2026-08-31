@@ -236,6 +236,11 @@
                   <input type="checkbox" name="consent" required>
                   <span>IR 자료 제공 검토를 위한 연락처 정보 수집 및 활용에 동의합니다. *</span>
                 </label>
+
+                <label class="intake-honeypot" aria-hidden="true">
+                  <span>웹사이트</span>
+                  <input type="text" name="website" tabindex="-1" autocomplete="off">
+                </label>
               </div>
 
               <div class="ir-form-actions">
@@ -296,7 +301,11 @@
 
       const submitButton = form.querySelector("button[type='submit']");
       const submitLabel = submitButton ? submitButton.querySelector(".ir-submit-label") : null;
-      const API_BASE_OVERRIDE = String(window.__NPQ_IR_API_BASE__ || "").trim();
+      const API_BASE_OVERRIDE = String(
+        window.__NPQ_PUBLIC_INTAKE_API_BASE__
+        || window.__NPQ_IR_API_BASE__
+        || ""
+      ).trim();
 
       const resolveApiBase = () => {
         if (API_BASE_OVERRIDE) return API_BASE_OVERRIDE.replace(/\/+$/, "");
@@ -342,13 +351,22 @@
         return invalidControls;
       };
 
+      const createRequestKey = () => {
+        if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+        return `web-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      };
+      let requestKey = "";
+
+
       form.addEventListener("input", (event) => {
+        requestKey = "";
         const field = event.target && event.target.closest ? event.target.closest(".ir-field") : null;
         if (field) field.classList.remove("invalid");
         if (status.classList.contains("error")) setStatus("");
       });
 
       form.addEventListener("change", (event) => {
+        requestKey = "";
         const field = event.target && event.target.closest ? event.target.closest(".ir-field") : null;
         if (field) field.classList.remove("invalid");
         if (status.classList.contains("error")) setStatus("");
@@ -388,34 +406,51 @@
           locale: "ko",
           sourcePage: "ir.html",
           landingPath: `${window.location.pathname}${window.location.search}`,
+          website: String(data.get("website") ?? "").trim(),
         };
 
         try {
           const endpoint = `${apiBase}/ir/requests`;
+          if (!requestKey) requestKey = createRequestKey();
           const response = await fetch(endpoint, {
             method: "POST",
             mode: "cors",
             credentials: "omit",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "Idempotency-Key": requestKey },
             body: JSON.stringify(payload),
           });
 
           if (!response.ok) {
+            const detail = await response.json().catch(() => ({}));
+            const retrySeconds = Number(detail.retryAfterSeconds || response.headers.get("Retry-After") || 0);
+            if (response.status === 429) {
+              const minutes = Math.max(1, Math.ceil(retrySeconds / 60));
+              setStatus(`요청이 몰려 접수를 잠시 쉬고 있습니다. ${minutes}분 뒤 다시 시도해주세요.`, "error");
+              return;
+            }
+            if (response.status === 503) {
+              const pauseMessage = String(detail.error || "").trim();
+              setStatus(pauseMessage || "안전한 운영을 위해 IR 요청 접수를 잠시 중단했습니다. 이메일로 문의해주세요.", "error");
+              return;
+            }
+            if (response.status === 403) {
+              setStatus("현재 IR 요청 접수를 잠시 쉬고 있습니다. 이메일로 문의해주세요.", "error");
+              return;
+            }
+            if (response.status === 413) {
+              setStatus("입력 내용이 너무 깁니다. 내용을 줄여주세요.", "error");
+              return;
+            }
             throw new Error("REQUEST_FAILED");
           }
 
           setStatus("요청성공!", "success");
           form.reset();
+          requestKey = "";
           clearInvalidState();
         } catch (error) {
-          const raw = error instanceof Error ? error.message : "";
-          const offline =
-            !window.navigator.onLine ||
-            raw === "Failed to fetch" ||
-            raw.includes("NetworkError") ||
-            raw.includes("Load failed");
-
-          setStatus(offline ? "인터넷 연결을 확인해주세요." : "잠시 후 다시 시도해주세요.", "error");
+          const offline = !window.navigator.onLine;
+          setStatus(offline ? "인터넷 연결을 확인해주세요." : "현재 IR 접수 서버에 연결할 수 없습니다. 이메일로 문의해주세요.", "error");
         } finally {
           setSubmitting(false);
         }
