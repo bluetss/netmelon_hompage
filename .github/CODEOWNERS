@@ -1,0 +1,12 @@
+* @bluetss
+/.github/ @bluetss
+/.gitleaks.toml @bluetss
+/.gitleaksignore @bluetss
+/.firebaserc @bluetss
+/firebase.json @bluetss
+/scripts/ @bluetss
+/data/ @bluetss
+/docs/ @bluetss
+/careers.html @bluetss
+/careers.template.html @bluetss
+/index.html @bluetss

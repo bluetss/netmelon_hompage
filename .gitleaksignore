@@ -1,0 +1,13 @@
+# Reviewed public client identifiers and CMS test data at the collaboration cutover.
+careers.html:gcp-api-key:479
+careers.template.html:gcp-api-key:479
+data/company-assets.ko.json:generic-api-key:38
+data/company-assets.ko.json:generic-api-key:50
+data/company-assets.ko.json:generic-api-key:84
+data/company-assets.ko.json:generic-api-key:96
+data/company-assets.ko.json:generic-api-key:132
+data/company-assets.ko.json:generic-api-key:144
+data/company-assets.ko.json:generic-api-key:178
+data/company-assets.ko.json:generic-api-key:190
+index.html:generic-api-key:144
+index.html:generic-api-key:147

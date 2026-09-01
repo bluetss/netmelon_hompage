@@ -1,0 +1,43 @@
+name: fast-ci
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fast-ci-${{ github.repository }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reject credential paths
+        run: bash tools/verify_no_secrets.sh
+      - name: Scan current tree without exposing values
+        run: >-
+          docker run --rm
+          -v "$PWD:/repo:ro"
+          -w /repo
+          zricethezav/gitleaks:v8.29.1
+          dir .
+          --config=.gitleaks.toml
+          --gitleaks-ignore-path=.gitleaksignore
+          --redact
+          --no-banner
+      - name: Reject whitespace drift
+        run: git diff --check "origin/${{ github.base_ref }}...HEAD"
+      - name: Validate static release files
+        run: |
+          test -s index.html
+          test -s privacy.html
+          test -s terms.html
+          python3 -m json.tool privacy.json >/dev/null
+          python3 -m json.tool terms_of_service.json >/dev/null
+          python3 -m json.tool data-deletion.json >/dev/null

@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.29.1
+    hooks:
+      - id: gitleaks
+  - repo: local
+    hooks:
+      - id: npq-forbidden-secret-paths
+        name: NPQ forbidden secret paths
+        entry: bash tools/verify_no_secrets.sh
+        language: system
+        pass_filenames: false
