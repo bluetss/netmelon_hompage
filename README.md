@@ -2,6 +2,11 @@
 
 This repository deploys the Netmelon company site for `netmelonai.com`.
 
+All company-site changes are built and reviewed first on Firebase Hosting site
+`npq-company-dev`. Do not change the GitHub Pages production site or its deployment
+branch before explicit final approval. See
+[the company website release policy](docs/COMPANY_WEBSITE_RELEASE_POLICY.md).
+
 ## Role
 
 - Company introduction
