@@ -177,3 +177,15 @@ CI/CD에서는 배포 전 단계에 아래를 추가하세요.
 ## English Open Problems snapshot
 
 `COMPANY_OPEN_PROBLEMS_LOCALE=en npm run fetch:company-open-problems` 또는 `npm run fetch:company-open-problems:english`는 서버의 `locale=en` 공개 projection만 `data/company-open-problems.en.json`으로 저장합니다. 한국어 projection을 영문 fallback으로 복사하지 않으며, 영문 CMS version이 실제로 게시되기 전에는 fetch가 실패해야 합니다. 영문 정적 페이지는 검수 기간에 `noindex,nofollow`를 유지하고 sitemap과 한국어 hreflang에 추가하지 않습니다.
+
+### Authenticated English review preview
+
+```bash
+COMPANY_OPEN_PROBLEMS_API_BASE=https://<staging-api-base> \
+COMPANY_OPEN_PROBLEMS_BEARER_TOKEN=<firebase-id-token> \
+npm run export:company-open-problems:english-review
+
+npm run build:english:review-open-problems
+```
+
+The bearer token is read only from the environment and must never be committed. The export calls the authenticated Studio source API for `locale=en` and writes the ignored `data/company-open-problems.en.review.json`. The review build accepts a `draft` lifecycle only when `COMPANY_ENGLISH_REVIEW_MODE=1`; normal builds still require a published public projection. Review output remains `noindex,nofollow`, is excluded from the sitemap, and is not deployment authorization.

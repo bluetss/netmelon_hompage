@@ -18,6 +18,7 @@ const ANNOUNCEMENT_DETAIL_DIR = process.env.COMPANY_ENGLISH_ANNOUNCEMENT_DETAIL_
 const OPEN_PROBLEMS_PATH = process.env.COMPANY_OPEN_PROBLEMS_EN_JSON_PATH || path.join(ROOT, "data", "company-open-problems.en.json");
 const OPEN_PROBLEM_DETAIL_DIR = path.join(OUTPUT_DIR, "problems");
 const INDEXABLE = /^(1|true|yes)$/i.test(String(process.env.COMPANY_ENGLISH_INDEXABLE || "").trim());
+const REVIEW_MODE = /^(1|true|yes)$/i.test(String(process.env.COMPANY_ENGLISH_REVIEW_MODE || "").trim());
 
 const SITE_URL = "https://netmelonai.com/";
 const EN_SITE_URL = `${SITE_URL}en/`;
@@ -233,7 +234,7 @@ function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
   const nav = [
     ["company", "company.html", "About"],
     ["product", "index.html#naepopquiz-app", "Products"],
-    ["problems", "../problems.html", "Open problems"],
+    ["problems", "problems.html", "Open problems"],
     ["careers", "careers.html", "Careers"],
     ["ir", "ir.html", "IR"],
     ["announcement", "announcement.html", "Company announcements"],
@@ -244,6 +245,7 @@ function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
     careers: `${assetPrefix}careers.html`,
     ir: `${assetPrefix}ir.html`,
     announcement: `${assetPrefix}announcement.html`,
+    problems: `${assetPrefix}problems.html`,
   };
   const koreanHref = koreanHrefByActive[active] || `${assetPrefix}index.html`;
   return [
@@ -757,7 +759,7 @@ async function readAnnouncementsIfPresent() {
 }
 
 function normalizeOpenProblems(payload) {
-  if (!payload || payload.locale !== "en" || payload.lifecycleStatus !== "published") throw new Error("English Open Problems requires a published locale=en CMS snapshot.");
+  if (!payload || payload.locale !== "en" || (payload.lifecycleStatus !== "published" && !(REVIEW_MODE && payload.lifecycleStatus === "draft"))) throw new Error("English Open Problems requires a published locale=en CMS snapshot, or an explicit review-mode draft.");
   const problems = Array.isArray(payload.problems) ? payload.problems : [];
   for (const item of problems) {
     for (const key of ["problemId", "slug", "title", "summary", "category", "whyItMatters"]) assertEnglishText(`openProblems.${item.problemId}.${key}`, item[key]);
@@ -774,7 +776,7 @@ function openProblemList(items, key) {
 function renderOpenProblemsPage(source, payload, problems) {
   const description = assertEnglishText("openProblems.intro", payload.intro);
   const schema = pageSchema(source, { type: "CollectionPage", id: "problems", name: "Netmelon | Open problems", description, pathName: "problems.html" });
-  const head = renderHead({ title: "Netmelon | Open problems", description, canonicalPath: "problems.html", schema, sourceVersionId: payload.sourceVersionId });
+  const head = renderHead({ title: "Netmelon | Open problems", description, canonicalPath: "problems.html", schema, sourceVersionId: payload.sourceVersionId }) + '\n  <link rel="stylesheet" href="../styles/problems.css">';
   const cards = problems.map((item) => `<article class="problem-card"><div class="problem-meta"><span class="is-open">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h2>${htmlEscape(item.title)}</h2><p>${htmlEscape(item.summary)}</p><a class="problem-detail-link" href="problems/${htmlEscape(item.slug, true)}.html">View problem</a></article>`).join("\n");
   const main = `<main class="problems-main"><section class="problems-hero"><div class="problems-hero-inner"><p class="problems-kicker">${htmlEscape(payload.eyebrow)}</p><h1>${htmlEscape(payload.headline)}</h1><p class="problems-hero-copy">${htmlEscape(description)}</p></div></section><section class="problems-collection"><div class="problems-section-head"><p class="problems-kicker">What we are solving</p><h2>Problems to solve together</h2></div><div class="problem-card-list">${cards}</div></section></main>`;
   return pageShell({ head, headerActive: "problems", main });
@@ -782,7 +784,7 @@ function renderOpenProblemsPage(source, payload, problems) {
 
 function renderOpenProblemDetail(source, payload, item) {
   const pathName = `problems/${item.slug}.html`;
-  const head = renderHead({ title: `Netmelon | ${item.title}`, description: item.summary, canonicalPath: pathName, schema: pageSchema(source, { type: "WebPage", id: item.problemId, name: item.title, description: item.summary, pathName }), assetPrefix: "../../", sourceVersionId: payload.sourceVersionId });
+  const head = renderHead({ title: `Netmelon | ${item.title}`, description: item.summary, canonicalPath: pathName, schema: pageSchema(source, { type: "WebPage", id: item.problemId, name: item.title, description: item.summary, pathName }), assetPrefix: "../../", sourceVersionId: payload.sourceVersionId }) + '\n  <link rel="stylesheet" href="../../styles/problems.css">';
   const sections = [["Why this matters", [item.whyItMatters]], ["What we know", item.currentEvidence], ["Questions to answer", item.unknowns], ["Principles and constraints", item.constraints], ["Experience we are looking for", item.neededExpertise?.length ? item.neededExpertise : item.desiredContributions]].map(([title, values]) => `<section class="problem-detail-section"><h2>${title}</h2>${openProblemList(values)}</section>`).join("\n");
   const main = `<main class="problem-detail-main"><section class="problem-detail-hero"><div class="problem-detail-shell"><a class="problem-detail-back" href="../problems.html">All open problems</a><div class="problem-meta"><span class="is-open">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h1>${htmlEscape(item.title)}</h1><p class="problem-detail-summary">${htmlEscape(item.summary)}</p></div></section><section class="problem-detail-body"><div class="problem-detail-shell">${sections}</div></section></main>`;
   return pageShell({ head, headerActive: "problems", main, hrefPrefix: "../", assetPrefix: "../../" });
