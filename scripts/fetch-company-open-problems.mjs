@@ -8,13 +8,15 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 const API_BASE = String(process.env.COMPANY_OPEN_PROBLEMS_API_BASE || process.env.COMPANY_SOURCE_API_BASE || process.env.VITE_API_BASE || "").replace(/\/+$/, "");
 const SOURCE_URL = String(process.env.COMPANY_PUBLIC_OPEN_PROBLEMS_URL || process.env.COMPANY_OPEN_PROBLEMS_PUBLIC_URL || "").trim();
-const OUTPUT_PATH = process.env.COMPANY_OPEN_PROBLEMS_JSON_PATH || path.join(ROOT, "data", "company-open-problems.ko.json");
+const LOCALE = String(process.env.COMPANY_OPEN_PROBLEMS_LOCALE || "ko").trim().toLowerCase();
+if (!new Set(["ko", "en"]).has(LOCALE)) throw new Error("COMPANY_OPEN_PROBLEMS_LOCALE must be ko or en.");
+const OUTPUT_PATH = process.env.COMPANY_OPEN_PROBLEMS_JSON_PATH || path.join(ROOT, "data", `company-open-problems.${LOCALE}.json`);
 
 function buildUrl() {
   if (SOURCE_URL) return new URL(SOURCE_URL);
   if (!API_BASE) throw new Error("Set COMPANY_PUBLIC_OPEN_PROBLEMS_URL or COMPANY_OPEN_PROBLEMS_API_BASE.");
   const url = new URL(API_BASE + "/web-cms/public/company-open-problems");
-  url.searchParams.set("locale", "ko");
+  url.searchParams.set("locale", LOCALE);
   return url;
 }
 
@@ -22,7 +24,7 @@ async function main() {
   const response = await fetch(buildUrl(), { signal: AbortSignal.timeout(15000) });
   if (!response.ok) throw new Error("Company Open Problems fetch failed: " + response.status + " " + response.statusText);
   const payload = await response.json();
-  if (payload?.schemaId !== "npq.company_open_problems.v1" || payload?.siteId !== "company" || payload?.locale !== "ko" || payload?.lifecycleStatus !== "published") {
+  if (payload?.schemaId !== "npq.company_open_problems.v1" || payload?.siteId !== "company" || payload?.locale !== LOCALE || payload?.lifecycleStatus !== "published") {
     throw new Error("Company Open Problems public snapshot has an invalid schema, target, locale, or lifecycle.");
   }
   if (!payload?.sourceVersionId || !payload?.sourceHash) throw new Error("Company Open Problems public snapshot is missing version provenance.");

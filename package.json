@@ -21,6 +21,7 @@
     "sync:design-system": "node scripts/sync-design-system-css.mjs",
     "fetch:publisher-profile": "node scripts/fetch-publisher-profile.mjs",
     "fetch:company-open-problems": "node scripts/fetch-company-open-problems.mjs",
+    "fetch:company-open-problems:english": "COMPANY_OPEN_PROBLEMS_LOCALE=en node scripts/fetch-company-open-problems.mjs",
     "inject:publisher-profile": "node scripts/inject-publisher-profile.mjs"
   }
 }
