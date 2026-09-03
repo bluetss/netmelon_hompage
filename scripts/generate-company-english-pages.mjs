@@ -232,12 +232,14 @@ function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
     ["company", "company.html", "About"],
     ["product", "index.html#naepopquiz-app", "Products"],
     ["problems", "../problems.html", "Open problems"],
+    ["careers", "careers.html", "Careers"],
     ["ir", "ir.html", "IR"],
     ["announcement", "announcement.html", "Company announcements"],
   ];
   const koreanHrefByActive = {
     product: `${assetPrefix}index.html`,
     company: `${assetPrefix}company.html`,
+    careers: `${assetPrefix}careers.html`,
     ir: `${assetPrefix}ir.html`,
     announcement: `${assetPrefix}announcement.html`,
   };

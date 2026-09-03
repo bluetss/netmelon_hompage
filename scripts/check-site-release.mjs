@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { readFile, readdir } from "node:fs/promises";
-import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { COMPANY_ASSET_RENDER_SLOTS } from "./company-asset-slots.mjs";
@@ -582,6 +581,7 @@ async function checkSitemap() {
   const expected = [
     "https://netmelonai.com/",
     "https://netmelonai.com/company.html",
+    "https://netmelonai.com/careers.html",
     "https://netmelonai.com/announcement.html",
     "https://netmelonai.com/ir.html",
     "https://netmelonai.com/problems.html",
@@ -770,6 +770,7 @@ async function checkSharedSiteShell() {
     .replaceAll("__SITE_NAV_PRODUCT_HREF__", target.productHref)
     .replaceAll("__SITE_NAV_COMPANY_CLASS__", activeClass("company", target.active))
     .replaceAll("__SITE_NAV_PROBLEMS_CLASS__", activeClass("problems", target.active))
+    .replaceAll("__SITE_NAV_CAREERS_CLASS__", activeClass("careers", target.active))
     .replaceAll("__SITE_NAV_IR_CLASS__", activeClass("ir", target.active))
     .replaceAll("__SITE_NAV_ANNOUNCEMENT_CLASS__", activeClass("announcement", target.active))
     .replaceAll("__SITE_NAV_ENGLISH_HREF__", target.englishHref);
@@ -801,8 +802,8 @@ async function checkSharedSiteShell() {
   const headerNavLabels = Array.from(headerNav.matchAll(/<a(?:\b|__)[^>]*>([\s\S]*?)<\/a>/gi))
     .map((match) => match[1].replace(/<[^>]*>/g, "").trim());
   assert(
-    headerNavLabels.join("|") === "회사소개|제품소개|풀고 있는 문제|IR|회사 공고|ENGLISH",
-    `partials/site-header.html global nav must be exactly 회사소개, 제품소개, 풀고 있는 문제, IR, 회사 공고, ENGLISH. Current: ${headerNavLabels.join(", ")}`,
+    headerNavLabels.join("|") === "회사소개|제품소개|풀고 있는 문제|채용|IR|회사 공고|ENGLISH",
+    `partials/site-header.html global nav must be exactly 회사소개, 제품소개, 풀고 있는 문제, 채용, IR, 회사 공고, ENGLISH. Current: ${headerNavLabels.join(", ")}`,
   );
 
   for (const route of forbiddenHeaderRoutes) {
@@ -859,19 +860,7 @@ async function checkSharedSiteShell() {
   }
 }
 
-async function checkOpenProblemsAndArchivedCareers() {
-  const archivedFiles = new Map([
-    ["careers.html", "0014ee789f121803aa704eec1a0a15f9d36aca10951820486e50ae1385c80c18"],
-    ["careers.template.html", "a435ed48af94a5b380f1a0d8799ed73cf1456169863c0303af4f750c77e2c0fd"],
-    ["en/careers.html", "3b513686801e8228a6eb4844ee53f557a5b40a4016de1f0af953aec1d61c8d99"],
-  ]);
-  for (const [file, expectedHash] of archivedFiles) {
-    const source = await read(file);
-    const actualHash = createHash("sha256").update(source, "utf8").digest("hex");
-    assert(actualHash === expectedHash, file + " is archived and must remain unchanged. Expected " + expectedHash + ", got " + actualHash + ".");
-  }
-
-
+async function checkOpenProblemsAndCareers() {
   const rootHtml = (await listFiles(""))
     .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
     .map((entry) => entry.name);
@@ -1009,10 +998,10 @@ async function checkOpenProblemsAndArchivedCareers() {
   ];
   for (const file of publicNavigationFiles) {
     const source = await read(file);
-    assert(!/href="[^"]*careers\.html/i.test(source), file + " must not expose the archived careers route.");
+    assert(/href="[^"]*careers\.html/i.test(source), file + " must expose the careers route.");
   }
   const sitemap = await read("sitemap.xml");
-  assert(!sitemap.includes("careers.html"), "sitemap.xml must not expose the archived careers route.");
+  assert(sitemap.includes("careers.html"), "sitemap.xml must expose the careers route.");
   assert(sitemap.includes("problems.html"), "sitemap.xml must include the open problems route.");
 }
 
@@ -1105,7 +1094,7 @@ async function main() {
   await checkSitemap();
   await checkCompanyFooterRoutes();
   await checkSharedSiteShell();
-  await checkOpenProblemsAndArchivedCareers();
+  await checkOpenProblemsAndCareers();
   await checkStructuredData();
   await checkProductionUrls();
 
