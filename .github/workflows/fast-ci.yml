@@ -12,21 +12,19 @@ concurrency:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.actor == 'bluetss'
+    runs-on: [self-hosted, linux, x64, npq-ci]
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Reject credential paths
         run: bash tools/verify_no_secrets.sh
       - name: Scan current tree without exposing values
         run: >-
-          docker run --rm
-          -v "$PWD:/repo:ro"
-          -w /repo
-          zricethezav/gitleaks:v8.29.1
-          dir .
+          gitleaks dir .
           --config=.gitleaks.toml
           --gitleaks-ignore-path=.gitleaksignore
           --redact
