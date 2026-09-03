@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="네트멜론 채용 페이지입니다. 내팝퀴즈 제품을 함께 만들 포지션과 상세 직무 정보를 확인하세요.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#f4f0e8">
+  <link rel="canonical" href="https://netmelonai.com/careers.html">
+  <link rel="alternate" hreflang="ko" href="https://netmelonai.com/careers.html">
+  <link rel="alternate" hreflang="x-default" href="https://netmelonai.com/careers.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Netmelon">
+  <meta property="og:title" content="네트멜론 채용">
+  <meta property="og:description" content="내팝퀴즈와 언어 학습 기술 제품을 함께 만들 포지션을 확인하세요.">
+  <meta property="og:url" content="https://netmelonai.com/careers.html">
+  <meta property="og:image" content="https://netmelonai.com/images/og-cover.png">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="네트멜론 채용">
+  <meta name="twitter:description" content="내팝퀴즈와 언어 학습 기술 제품을 함께 만들 포지션을 확인하세요.">
+  <meta name="twitter:image" content="https://netmelonai.com/images/og-cover.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/careers.css">
+  <!-- __COMPANY_SOURCE_BUILD_META__ -->
+  <script type="application/ld+json"><!-- __COMPANY_SOURCE_CAREERS_SCHEMA__ --></script>
+
+  <style id="company-source-careers-style">
+    .technology-section {
+      margin-top: 30px;
+      padding: 28px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(248, 250, 252, 0.92), #ffffff 64%);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.05);
+    }
+
+    .technology-section[hidden] {
+      display: none;
+    }
+
+    .technology-header {
+      display: grid;
+      gap: 8px;
+      max-width: 760px;
+      margin-bottom: 18px;
+    }
+
+    .technology-eyebrow {
+      margin: 0;
+      color: #009e8b;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .technology-header h2 {
+      margin: 0;
+      color: #111827;
+      font-size: clamp(1.45rem, 3vw, 2.25rem);
+      line-height: 1.14;
+      letter-spacing: -0.04em;
+    }
+
+    .technology-header p {
+      margin: 0;
+      color: #4e5968;
+      line-height: 1.7;
+    }
+
+    .technology-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .technology-card {
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .technology-card h3 {
+      margin: 0;
+      color: #111827;
+      font-size: 17px;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    .technology-card p {
+      margin: 10px 0 0;
+      color: #4e5968;
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .tech-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tech-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 158, 139, 0.2);
+      background: rgba(236, 255, 251, 0.78);
+      color: #007a6c;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .job-tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .job-experience-tag {
+      background: #fff7ed;
+      border-color: rgba(249, 115, 22, 0.16);
+      color: #9a3412;
+    }
+
+    .job-tool-tag {
+      background: #f1f5f9;
+      border-color: rgba(15, 23, 42, 0.08);
+      color: #475569;
+    }
+
+    .job-tech-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      background: #f8fafc;
+      color: #4e5968;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .detail-tech-stack-section[hidden],
+    .detail-tool-stack-section[hidden],
+    .detail-experience-tags-section[hidden],
+    .detail-technical-challenges-section[hidden] {
+      display: none;
+    }
+
+    @media (max-width: 760px) {
+      .technology-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .technology-section {
+        margin-top: 22px;
+        padding: 20px;
+        border-radius: 20px;
+      }
+    }
+
+
+    .careers-loading {
+      min-height: calc(100svh - 120px);
+      display: grid;
+      align-items: center;
+      padding: clamp(56px, 10vh, 120px) 0;
+    }
+
+    .careers-loading[hidden] {
+      display: none;
+    }
+
+    .careers-loading-card {
+      width: min(720px, 100%);
+      margin: 0 auto;
+      padding: clamp(28px, 5vw, 48px);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(236, 255, 251, 0.72), #ffffff 64%);
+      box-shadow: 0 18px 46px rgba(15, 23, 42, 0.08);
+      text-align: center;
+    }
+
+    .careers-loading-spinner {
+      display: inline-block;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 18px;
+      border: 3px solid rgba(0, 158, 139, 0.18);
+      border-top-color: #009e8b;
+      border-radius: 999px;
+      animation: careersSpin 0.8s linear infinite;
+    }
+
+    .careers-loading-eyebrow {
+      margin: 0 0 10px;
+      color: #009e8b;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .careers-loading-title {
+      margin: 0;
+      color: #111827;
+      font-size: clamp(1.45rem, 3.4vw, 2.35rem);
+      line-height: 1.16;
+      letter-spacing: -0.04em;
+    }
+
+    @keyframes careersSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .careers-loading-spinner {
+        animation: none;
+      }
+    }
+  </style>
+  <title>네트멜론 채용</title>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="shell">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="네트멜론 로고" width="36" height="36">
+        <span>네트멜론</span>
+      </a>
+      <div class="mobile-actions">
+        <div class="download-menu">
+          <button class="download-toggle" type="button" aria-expanded="false" aria-controls="download-menu" aria-label="앱 다운로드 메뉴 열기">앱 다운로드</button>
+          <div class="download-dropdown" id="download-menu">
+            <a href="https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz" target="_blank" rel="noopener noreferrer">Google Play</a>
+            <a href="https://apple.co/4ez9nji" target="_blank" rel="noopener noreferrer">App Store</a>
+          </div>
+        </div>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="메뉴 열기">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary">
+        <a href="company.html">회사소개</a>
+        <a href="index.html#naepopquiz-app">제품소개</a>
+        <a class="is-current" href="careers.html">채용</a>
+        <a href="ir.html">IR</a>
+        <a href="announcement.html">회사 공고</a>
+        <a class="lang-link" href="en/careers.html" lang="en">ENGLISH</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="careers-main">
+    <section class="careers-loading" id="careers-loading" aria-live="polite" aria-busy="true">
+      <div class="shell">
+        <div class="careers-loading-card">
+          <span class="careers-loading-spinner" aria-hidden="true"></span>
+          <p class="careers-loading-eyebrow">NETMELON CAREERS</p>
+          <h1 class="careers-loading-title">채용 정보를 불러오는 중입니다.</h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="view list-view" id="list-view" aria-live="polite" hidden>
+      <div class="shell">
+        <div class="list-hero">
+          <p class="hero-eyebrow" id="hero-tagline"></p>
+          <h1 id="hero-headline"><!-- __COMPANY_SOURCE_CAREERS_HEADLINE__ --></h1>
+          <p id="hero-intro"><!-- __COMPANY_SOURCE_CAREERS_INTRO__ --></p>
+        </div>
+
+        <div class="filters" role="group" aria-label="채용 공고 필터">
+          <label class="sr-only" for="search-input">포지션 검색</label>
+          <input id="search-input" type="search" placeholder="포지션명 또는 키워드 검색">
+
+          <label class="sr-only" for="team-filter">직군 필터</label>
+          <select id="team-filter"></select>
+
+          <label class="sr-only" for="type-filter">고용형태 필터</label>
+          <select id="type-filter"></select>
+        </div>
+
+        <p class="job-count"><strong id="job-count">0</strong>개 의 포지션이 열려있어요.</p>
+        <div class="job-list" id="job-list"></div>
+        <div class="empty-state" id="empty-state" hidden>조건에 맞는 포지션이 없습니다.</div>
+
+        <section class="list-info" aria-label="채용 기준 정보">
+          <article class="info-card">
+            <h2>우리가 찾는 사람</h2>
+            <ul id="traits-list"></ul>
+          </article>
+          <article class="info-card">
+            <h2>공통 보상 철학</h2>
+            <ul id="compensation-list"></ul>
+          </article>
+        </section>
+
+        <section class="list-info" aria-label="지원자 개인정보 및 채용 절차 안내">
+          <article class="info-card">
+            <h2>지원자 개인정보 안내</h2>
+            <ul>
+              <li>지원 서류와 연락처는 채용 검토, 인터뷰 일정 조율, 결과 안내 목적으로만 사용합니다.</li>
+              <li>채용과 직접 관련 없는 민감정보, 가족관계, 출신지역, 재산 정보 등은 요청하지 않습니다.</li>
+              <li>불합격 또는 채용 절차 종료 후 보관이 필요한 경우를 제외하고 합리적인 기간 내 파기합니다.</li>
+              <li>지원자는 채용 서류 반환, 정정, 삭제를 `netmelon@netmelonai.com`으로 요청할 수 있습니다.</li>
+            </ul>
+          </article>
+          <article class="info-card">
+            <h2>채용 절차 안내</h2>
+            <ul>
+              <li>서류 검토, 직무 인터뷰, 과제 또는 포트폴리오 리뷰, 최종 협의 순서로 진행합니다.</li>
+              <li>과제는 직무 역량 확인 범위 안에서만 요청하며, 별도 활용이 필요한 경우 사전 동의를 받습니다.</li>
+              <li>포지션, 일정, 보상 조건은 후보자와의 협의 및 회사 상황에 따라 조정될 수 있습니다.</li>
+            </ul>
+          </article>
+        </section>
+
+        <section class="technology-section" id="technology-section" aria-label="네트멜론 기술스택" hidden>
+          <div class="technology-header">
+            <p class="technology-eyebrow">Technology</p>
+            <h2>네트멜론이 만들고 있는 기술 기반</h2>
+            <p>모바일 앱, 웹 스튜디오, 백엔드, 데이터, 클라우드, AI 콘텐츠 기술이 연결된 언어 학습 제품을 만듭니다.</p>
+          </div>
+          <div class="technology-grid" id="technology-grid"></div>
+        </section>
+
+      </div>
+    </section>
+
+    <section class="view detail-view" id="detail-view" hidden>
+      <div class="shell">
+        <div class="detail-header">
+          <div>
+            <a class="back-link" href="careers.html" id="back-to-list">← 채용 목록으로</a>
+            <p id="detail-updated"></p>
+          </div>
+          <div class="detail-actions">
+            <a class="apply-button" id="apply-button-desktop" href="#" target="_blank" rel="noopener noreferrer">지원하기</a>
+          </div>
+        </div>
+
+        <div id="detail-not-found" class="detail-not-found" hidden>해당 포지션을 찾을 수 없습니다.</div>
+
+        <div class="detail-layout" id="detail-layout" hidden>
+          <div>
+            <div class="detail-title">
+              <h1 id="detail-title"></h1>
+              <div class="detail-meta" id="detail-meta"></div>
+              <p class="detail-mission" id="detail-mission"></p>
+            </div>
+
+            <section class="detail-section detail-tech-stack-section" id="detail-tech-stack-section" hidden>
+              <h2>관련 기술스택</h2>
+              <div class="tech-tag-list" id="detail-tech-stack"></div>
+            </section>
+
+            <section class="detail-section detail-tool-stack-section" id="detail-tool-stack-section" hidden>
+              <h2>개발/협업 도구</h2>
+              <div class="tech-tag-list" id="detail-tool-stack"></div>
+            </section>
+
+            <section class="detail-section detail-experience-tags-section" id="detail-experience-tags-section" hidden>
+              <h2>우대 제품 경험</h2>
+              <div class="tech-tag-list" id="detail-experience-tags"></div>
+            </section>
+
+            <section class="detail-section detail-technical-challenges-section" id="detail-technical-challenges-section" hidden>
+              <h2>이 역할이 마주할 기술 과제</h2>
+              <ul id="detail-technical-challenges"></ul>
+            </section>
+
+            <section class="detail-section">
+              <h2>주요 업무</h2>
+              <ul id="detail-responsibilities"></ul>
+            </section>
+
+            <section class="detail-section">
+              <h2>자격 요건</h2>
+              <ul id="detail-requirements"></ul>
+            </section>
+
+            <section class="detail-section">
+              <h2>우대 사항</h2>
+              <ul id="detail-preferred"></ul>
+            </section>
+
+            <section class="detail-section">
+              <h2>핵심 성과 지표</h2>
+              <ul id="detail-kpi"></ul>
+            </section>
+
+            <section class="detail-section">
+              <h2>지원 시 제출 자료</h2>
+              <ul id="detail-materials"></ul>
+            </section>
+
+            <section class="detail-section">
+              <h2>채용 프로세스</h2>
+              <ol id="detail-process"></ol>
+            </section>
+          </div>
+
+          <aside class="detail-side">
+            <h3>포지션 정보</h3>
+            <ul id="detail-side-info"></ul>
+          </aside>
+        </div>
+      </div>
+
+      <div class="mobile-apply" id="mobile-apply-wrap" hidden>
+        <a class="apply-button" id="apply-button-mobile" href="#" target="_blank" rel="noopener noreferrer">지원하기</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-row">
+      <div class="footer-brand">
+        <strong class="footer-company-name">Netmelon</strong>
+        <p class="footer-copyright">Copyright 2026 Netmelon. All rights reserved.</p>
+      </div>
+      <section class="publisher-business" aria-label="사업자 정보" data-publisher-profile-version="publisher_profile_address_short_20260829" data-publisher-profile-hash="ab7c05126e8247ac582dba0397d6c1be559c4c9ea1cf30b0d6deb7698629492f">
+        <p class="publisher-business-line"><span class="publisher-business-item"><strong>사업자등록번호:</strong> 826-81-02224</span><span class="publisher-business-item"><strong>대표:</strong> 신승우</span></p>
+        <p class="publisher-business-line"><span class="publisher-business-item"><strong>호스팅 서비스:</strong> 구글클라우드 코리아 유한회사</span><span class="publisher-business-item"><strong>통신판매업 신고번호:</strong> 2025-경기김포-5450 <a class="business-verify" href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=8268102224" target="_blank" rel="noopener noreferrer">사업자정보확인</a></span></p>
+        <p class="publisher-business-address">경기도 김포시 고촌읍 태리로 236, 130동 305호</p>
+      </section>
+    </div>
+  </footer>
+
+  <script id="company-source-careers-data" type="application/json"><!-- __COMPANY_SOURCE_CAREERS_DATA__ --></script>
+
+  <script src="scripts/site-shell.js" defer></script>
+  <script type="module">
+    (() => {
+      const FIREBASE_APP_MODULE_URL = "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+      const FIREBASE_FIRESTORE_MODULE_URL = "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-lite.js";
+
+      let firebaseModulesPromise = null;
+
+      const loadFirebaseModules = () => {
+        if (!firebaseModulesPromise) {
+          firebaseModulesPromise = Promise.all([
+            import(FIREBASE_APP_MODULE_URL),
+            import(FIREBASE_FIRESTORE_MODULE_URL),
+          ])
+            .then(([appMod, firestoreMod]) => ({ appMod, firestoreMod }))
+            .catch((error) => {
+              console.warn("[careers] Firebase SDK load failed; fallback JSON will be used.", error);
+              return null;
+            });
+        }
+        return firebaseModulesPromise;
+      };
+
+      const DEFAULT_FIREBASE_CONFIG = {
+        apiKey: "AIzaSyAAa3pAOZ9nBMqGR-JLEdGUj3NBIT3Z9do",
+        authDomain: "naepopquiz.firebaseapp.com",
+        projectId: "naepopquiz",
+        appId: "1:204464087208:web:88015d36bbe3406e51229d",
+        messagingSenderId: "204464087208",
+      };
+
+      const CAREERS_COLLECTION = "careers_jobs";
+      const careersLoading = document.getElementById("careers-loading");
+      const listView = document.getElementById("list-view");
+      const detailView = document.getElementById("detail-view");
+      const heroTagline = document.getElementById("hero-tagline");
+      const heroHeadline = document.getElementById("hero-headline");
+      const heroIntro = document.getElementById("hero-intro");
+      const searchInput = document.getElementById("search-input");
+      const teamFilter = document.getElementById("team-filter");
+      const typeFilter = document.getElementById("type-filter");
+      const jobCount = document.getElementById("job-count");
+      const jobList = document.getElementById("job-list");
+      const emptyState = document.getElementById("empty-state");
+      const traitsList = document.getElementById("traits-list");
+      const compensationList = document.getElementById("compensation-list");
+      const technologySection = document.getElementById("technology-section");
+      const technologyGrid = document.getElementById("technology-grid");
+
+      const detailNotFound = document.getElementById("detail-not-found");
+      const detailLayout = document.getElementById("detail-layout");
+      const detailUpdated = document.getElementById("detail-updated");
+      const detailTitle = document.getElementById("detail-title");
+      const detailMeta = document.getElementById("detail-meta");
+      const detailMission = document.getElementById("detail-mission");
+      const detailTechStackSection = document.getElementById("detail-tech-stack-section");
+      const detailTechStack = document.getElementById("detail-tech-stack");
+      const detailToolStackSection = document.getElementById("detail-tool-stack-section");
+      const detailToolStack = document.getElementById("detail-tool-stack");
+      const detailExperienceTagsSection = document.getElementById("detail-experience-tags-section");
+      const detailExperienceTags = document.getElementById("detail-experience-tags");
+      const detailTechnicalChallengesSection = document.getElementById("detail-technical-challenges-section");
+      const detailTechnicalChallenges = document.getElementById("detail-technical-challenges");
+      const detailResponsibilities = document.getElementById("detail-responsibilities");
+      const detailRequirements = document.getElementById("detail-requirements");
+      const detailPreferred = document.getElementById("detail-preferred");
+      const detailKpi = document.getElementById("detail-kpi");
+      const detailMaterials = document.getElementById("detail-materials");
+      const detailProcess = document.getElementById("detail-process");
+      const detailSideInfo = document.getElementById("detail-side-info");
+
+      const applyDesktop = document.getElementById("apply-button-desktop");
+      const applyMobile = document.getElementById("apply-button-mobile");
+      const mobileApplyWrap = document.getElementById("mobile-apply-wrap");
+
+      const params = new URLSearchParams(window.location.search);
+      const jobId = params.get("job_id");
+
+      const hideLoading = () => {
+        if (careersLoading) {
+          careersLoading.hidden = true;
+          careersLoading.setAttribute("aria-busy", "false");
+        }
+      };
+
+      const isValidLink = (value) => /^https?:\/\//i.test(value) || /^mailto:/i.test(value);
+
+      const DEFAULT_TECHNOLOGY = [
+        {
+          category: "Mobile App",
+          description: "내팝퀴즈 앱과 쉐도잉 훈련 경험을 구현합니다.",
+          items: ["Flutter", "Dart", "Swift", "Kotlin"],
+          order: 1,
+        },
+        {
+          category: "Web Studio",
+          description: "콘텐츠 제작과 운영을 위한 내부 웹 도구를 관리합니다.",
+          items: ["React", "TypeScript", "Vite", "Firebase"],
+          order: 2,
+        },
+        {
+          category: "Backend",
+          description: "콘텐츠 생성, 퀴즈 생성, 인증 연동, API 요청 처리를 담당합니다.",
+          items: ["Python", "Flask", "REST API"],
+          order: 3,
+        },
+        {
+          category: "Data",
+          description: "단어, 뜻, 문장, 대화, 사용자 학습 데이터를 구조화합니다.",
+          items: ["PostgreSQL", "Cloud SQL", "Firestore"],
+          order: 4,
+        },
+        {
+          category: "Cloud & Storage",
+          description: "앱과 콘텐츠 운영에 필요한 클라우드, 저장소, 배포 흐름을 관리합니다.",
+          items: ["Google Cloud Run", "Firebase Storage", "Docker"],
+          order: 5,
+        },
+        {
+          category: "AI & Content",
+          description: "고품질 대화 콘텐츠 생성과 검수 흐름을 제품에 연결합니다.",
+          items: ["OpenAI API", "LLM", "Google ML Kit"],
+          order: 6,
+        },
+        {
+          category: "Quality & Operations",
+          description: "앱 안정성, 배포, 오류 추적, 협업 흐름을 관리합니다.",
+          items: ["Firebase Crashlytics", "Firebase Analytics", "GitHub", "Figma"],
+          order: 7,
+        },
+      ];
+
+      const renderListItems = (el, items) => {
+        el.innerHTML = "";
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          el.appendChild(li);
+        });
+      };
+
+      const updateMeta = (selector, value) => {
+        const el = document.querySelector(selector);
+        const text = String(value || "").trim();
+        if (!el || !text) return;
+        el.setAttribute("content", text);
+      };
+
+      const readBuildTimeCompanySource = () => {
+        try {
+          const el = document.getElementById("company-source-careers-data");
+          const data = JSON.parse(el?.textContent || "{}");
+          return {
+            recruitingOneLiner: String(data?.recruitingOneLiner || "").trim(),
+          };
+        } catch (error) {
+          console.warn("[careers] build-time company source is unavailable.", error);
+          return null;
+        }
+      };
+
+      const markdownToHtml = (text) => text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+      const normalizeList = (value) => {
+        if (Array.isArray(value)) {
+          return value.map((item) => String(item ?? "").trim()).filter((item) => item.length > 0);
+        }
+        if (typeof value === "string") {
+          return value
+            .split(/[\n,]/)
+            .map((item) => item.trim())
+            .filter((item) => item.length > 0);
+        }
+        return [];
+      };
+
+      const resolveTechStack = (job) => {
+        const techStack = normalizeList(job?.techStack);
+        return techStack.length > 0 ? techStack : normalizeList(job?.requiredStack);
+      };
+
+      const resolveToolStack = (job) => {
+        const toolStack = normalizeList(job?.toolStack);
+        return toolStack.length > 0 ? toolStack : normalizeList(job?.preferredStack);
+      };
+
+      const normalizeTechStackGroups = (value) => {
+        const raw = Array.isArray(value) ? value : [];
+        return raw
+          .map((item, index) => {
+            const category = String(item?.category || "").trim();
+            const description = String(item?.description || "").trim();
+            const items = normalizeList(item?.items);
+            const order = Number.isFinite(Number(item?.order)) ? Number(item.order) : index + 1;
+            if (!category || items.length === 0) return null;
+            return { category, description, items, order };
+          })
+          .filter(Boolean)
+          .sort((a, b) => a.order - b.order)
+          .map((item, index) => ({ ...item, order: index + 1 }));
+      };
+
+      const normalizeCommonTechnology = (commonRaw) => {
+        const raw = commonRaw && typeof commonRaw === "object" ? commonRaw : {};
+        const technology = normalizeTechStackGroups(raw.technology);
+        if (technology.length > 0) return technology;
+
+        const platformStack = normalizeList(raw.platformStack);
+        const collaborationTools = normalizeList(raw.collaborationTools);
+        const domainTechnology = normalizeTechStackGroups(raw.domainTechnology);
+        const converted = [
+          platformStack.length > 0
+            ? {
+                category: "Company Platform",
+                description: "포지션과 관계없이 공통으로 쓰는 플랫폼/인프라 기술입니다.",
+                items: platformStack,
+                order: 1,
+              }
+            : null,
+          collaborationTools.length > 0
+            ? {
+                category: "Development Tools",
+                description: "협업, 디자인, 배포, 운영에 사용하는 도구입니다.",
+                items: collaborationTools,
+                order: 2,
+              }
+            : null,
+          ...domainTechnology.map((group, index) => ({ ...group, order: index + 3 })),
+        ].filter(Boolean);
+        return normalizeTechStackGroups(converted).length > 0 ? normalizeTechStackGroups(converted) : DEFAULT_TECHNOLOGY;
+      };
+
+      const createTechTag = (label, className = "tech-tag") => {
+        const span = document.createElement("span");
+        span.className = className;
+        span.textContent = label;
+        return span;
+      };
+
+      const renderTagList = (el, items, className = "tech-tag") => {
+        if (!el) return;
+        el.innerHTML = "";
+        normalizeList(items).forEach((item) => {
+          el.appendChild(createTechTag(item, className));
+        });
+      };
+
+      const renderTechnologyGroups = (groups) => {
+        const normalized = normalizeTechStackGroups(groups);
+        if (!technologySection || !technologyGrid) return;
+
+        technologyGrid.innerHTML = "";
+
+        if (normalized.length === 0) {
+          technologySection.hidden = true;
+          return;
+        }
+
+        normalized.forEach((group) => {
+          const card = document.createElement("article");
+          card.className = "technology-card";
+
+          const title = document.createElement("h3");
+          title.textContent = group.category;
+          card.appendChild(title);
+
+          if (group.description) {
+            const description = document.createElement("p");
+            description.textContent = group.description;
+            card.appendChild(description);
+          }
+
+          const tags = document.createElement("div");
+          tags.className = "tech-tag-list";
+          renderTagList(tags, group.items);
+          card.appendChild(tags);
+
+          technologyGrid.appendChild(card);
+        });
+
+        technologySection.hidden = false;
+      };
+
+      const normalizeDate = (value) => {
+        if (!value) return null;
+        if (value instanceof Date) return value;
+
+        if (typeof value === "object") {
+          if (typeof value.toDate === "function") {
+            try {
+              const date = value.toDate();
+              if (!Number.isNaN(date.getTime())) return date;
+            } catch {
+              // ignore
+            }
+          }
+
+          const seconds =
+            typeof value.seconds === "number"
+              ? value.seconds
+              : typeof value._seconds === "number"
+                ? value._seconds
+                : null;
+          const nanos =
+            typeof value.nanoseconds === "number"
+              ? value.nanoseconds
+              : typeof value._nanoseconds === "number"
+                ? value._nanoseconds
+                : 0;
+
+          if (seconds !== null) {
+            return new Date(seconds * 1000 + Math.floor(nanos / 1000000));
+          }
+        }
+
+        if (typeof value === "string" || typeof value === "number") {
+          const date = new Date(value);
+          if (!Number.isNaN(date.getTime())) return date;
+        }
+
+        return null;
+      };
+
+      const toDateLabel = (value) => {
+        if (!value) return "-";
+        return value.toLocaleDateString("ko-KR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        });
+      };
+
+      const formatHiringPeriod = (job) => {
+        const periodType = String(job.hiringPeriodType ?? "until_filled").trim().toLowerCase();
+        const start = String(job.hiringStartDate ?? "").trim();
+        const end = String(job.hiringEndDate ?? "").trim();
+        if (periodType !== "fixed_term") return "채용 시까지";
+        if (start && end) return `${start} ~ ${end}`;
+        if (start || end) return `${start || "-"} ~ ${end || "-"}`;
+        return "기간 지정";
+      };
+
+      const fallbackApplyUrl = (job) => {
+        const direct = String(job.applyUrl ?? "").trim();
+        if (isValidLink(direct)) return direct;
+        return `mailto:netmelon@netmelonai.com?subject=${encodeURIComponent(`[채용지원] ${job.title}`)}`;
+      };
+
+      const hasConfig = (config) => {
+        if (!config || typeof config !== "object") return false;
+        return ["apiKey", "authDomain", "projectId", "appId", "messagingSenderId"].every(
+          (key) => typeof config[key] === "string" && config[key].trim().length > 0,
+        );
+      };
+
+      const resolveFirebaseConfig = () => {
+        const override =
+          window.__NPQ_CAREERS_FIREBASE_CONFIG__ ||
+          window.CompanySourceConfig?.careersFirebaseConfig;
+        if (hasConfig(override)) return override;
+        return DEFAULT_FIREBASE_CONFIG;
+      };
+
+      const fetchLocalData = async () => {
+        const response = await fetch("data/careers.ko.json", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error("채용 데이터 로드 실패");
+        }
+        return response.json();
+      };
+
+      const fetchJobsFromFirestore = async () => {
+        const config = resolveFirebaseConfig();
+        if (!hasConfig(config)) return null;
+
+        const modules = await loadFirebaseModules();
+        if (!modules) return null;
+
+        const { appMod, firestoreMod } = modules;
+        const { getApp, getApps, initializeApp } = appMod;
+        const { collection, doc, getDoc, getDocs, getFirestore, query, where } = firestoreMod;
+
+        try {
+          const app = getApps().length > 0 ? getApp() : initializeApp(config);
+          const firestore = getFirestore(app);
+
+          const jobsQuery = query(collection(firestore, CAREERS_COLLECTION), where("status", "==", "open"));
+          const snap = await getDocs(jobsQuery);
+
+          const jobs = snap.docs
+            .map((jobDoc) => {
+              const raw = jobDoc.data() || {};
+              const title = String(raw.title ?? "").trim();
+              const team = String(raw.team ?? "").trim();
+              if (!title || !team) return null;
+
+              const updatedAt = normalizeDate(raw.updatedAt);
+              const applyUrl = String(raw.applyUrl ?? "").trim();
+              const requiredStack = normalizeList(raw.requiredStack);
+              const preferredStack = normalizeList(raw.preferredStack);
+              const legacyTechStack = normalizeList(raw.techStack);
+              const legacyToolStack = normalizeList(raw.toolStack);
+
+              return {
+                id: String(raw.id ?? raw.slug ?? jobDoc.id).trim() || jobDoc.id,
+                slug: String(raw.slug ?? "").trim(),
+                title,
+                team,
+                mission: String(raw.mission ?? "").trim(),
+                responsibilities: normalizeList(raw.responsibilities),
+                requirements: normalizeList(raw.requirements),
+                preferred: normalizeList(raw.preferred),
+                kpi: normalizeList(raw.kpi),
+                requiredStack,
+                preferredStack,
+                techStack: legacyTechStack.length > 0 ? legacyTechStack : requiredStack,
+                toolStack: legacyToolStack.length > 0 ? legacyToolStack : preferredStack,
+                primaryDomain: String(raw.primaryDomain ?? "").trim(),
+                experienceTags: normalizeList(raw.experienceTags),
+                technicalChallenges: normalizeList(raw.technicalChallenges),
+                employmentType: String(raw.employmentType ?? "정규직").trim() || "정규직",
+                location: String(raw.location ?? "Seoul, KR").trim() || "Seoul, KR",
+                workMode: String(raw.workMode ?? "하이브리드").trim() || "하이브리드",
+                seniority: String(raw.seniority ?? "미들").trim() || "미들",
+                experienceBand: String(raw.experienceBand ?? "3-5년").trim() || "3-5년",
+                hiringPeriodType: String(raw.hiringPeriodType ?? "until_filled").trim().toLowerCase() === "fixed_term" ? "fixed_term" : "until_filled",
+                hiringStartDate: String(raw.hiringStartDate ?? "").trim(),
+                hiringEndDate: String(raw.hiringEndDate ?? "").trim(),
+                priority: String(raw.priority ?? "High").trim() || "High",
+                applyUrl: isValidLink(applyUrl) ? applyUrl : "",
+                updatedAt,
+              };
+            })
+            .filter(Boolean);
+
+          jobs.sort((a, b) => {
+            const aTime = a.updatedAt ? a.updatedAt.getTime() : 0;
+            const bTime = b.updatedAt ? b.updatedAt.getTime() : 0;
+            if (aTime !== bTime) return bTime - aTime;
+            return a.title.localeCompare(b.title, "ko");
+          });
+
+          let updatedDate = "";
+          if (jobs.length > 0) {
+            const newest = jobs[0].updatedAt;
+            updatedDate = newest ? toDateLabel(newest) : "";
+          }
+
+          let common = null;
+          try {
+            const commonSnap = await getDoc(doc(firestore, "careers_meta", "common_ko"));
+            if (commonSnap.exists()) {
+              const commonRaw = commonSnap.data() || {};
+              const materials = normalizeList(commonRaw.materials);
+              const process = normalizeList(commonRaw.process);
+              const values = normalizeList(commonRaw.values);
+              const technology = normalizeCommonTechnology(commonRaw);
+              common = {
+                materials,
+                process,
+                values,
+                technology,
+              };
+            }
+          } catch (commonError) {
+            console.warn("[careers] common meta load failed; fallback common data will be used.", commonError);
+          }
+
+          return { jobs, updatedDate, common };
+        } catch (error) {
+          console.warn("[careers] Firestore load failed; fallback JSON will be used.", error);
+          return null;
+        }
+      };
+
+      const fetchData = async () => {
+        const fallback = await fetchLocalData();
+        const companySource = readBuildTimeCompanySource();
+        const [fromFirestore] = await Promise.all([
+          fetchJobsFromFirestore(),
+        ]);
+
+        const fallbackCommon = fallback.common || {};
+        const commonFromFirestore = fromFirestore?.common || {};
+        const fallbackTechnology = normalizeCommonTechnology(fallbackCommon);
+        const firestoreTechnology = normalizeCommonTechnology(commonFromFirestore);
+        const hasFirestoreCommon = fromFirestore?.common && Object.keys(fromFirestore.common).length > 0;
+        const nextData = fromFirestore
+          ? {
+              ...fallback,
+              jobs: fromFirestore.jobs,
+              updatedDate: fromFirestore.updatedDate || fallback.updatedDate,
+              common: {
+                materials: (commonFromFirestore.materials || []).length > 0
+                  ? commonFromFirestore.materials
+                  : (fallbackCommon.materials || []),
+                process: (commonFromFirestore.process || []).length > 0
+                  ? commonFromFirestore.process
+                  : (fallbackCommon.process || []),
+                values: (commonFromFirestore.values || []).length > 0
+                  ? commonFromFirestore.values
+                  : (fallbackCommon.values || []),
+                technology: hasFirestoreCommon ? firestoreTechnology : fallbackTechnology,
+              },
+            }
+          : {
+              ...fallback,
+              common: {
+                ...fallbackCommon,
+                technology: fallbackTechnology,
+              },
+            };
+
+        if (companySource?.recruitingOneLiner) {
+          nextData.headline = companySource.recruitingOneLiner;
+        }
+
+        return nextData;
+      };
+
+      const createMetaChip = (label, className) => {
+        const span = document.createElement("span");
+        span.className = className ? `meta-chip ${className}` : "meta-chip";
+        span.textContent = label;
+        return span;
+      };
+
+      const createJobRow = (job) => {
+        const link = document.createElement("a");
+        link.className = "job-row";
+        link.href = `careers.html?job_id=${encodeURIComponent(job.id)}`;
+        link.setAttribute("aria-label", `${job.title} 상세 보기`);
+
+        const left = document.createElement("div");
+        left.className = "job-main";
+
+        const title = document.createElement("h2");
+        title.className = "job-title";
+        title.textContent = job.title;
+
+        const mission = document.createElement("p");
+        mission.className = "job-mission";
+        mission.textContent = job.mission;
+
+        left.appendChild(title);
+        left.appendChild(mission);
+
+        const previewTags = [
+          ...resolveTechStack(job).slice(0, 4).map((tag) => ({ label: tag, className: "job-tech-tag" })),
+          ...resolveToolStack(job).slice(0, 2).map((tag) => ({ label: tag, className: "job-tech-tag job-tool-tag" })),
+          ...normalizeList(job.experienceTags).slice(0, 2).map((tag) => ({ label: tag, className: "job-tech-tag job-experience-tag" })),
+        ].slice(0, 7);
+        if (previewTags.length > 0) {
+          const tags = document.createElement("div");
+          tags.className = "job-tech-tags";
+          previewTags.forEach((tag) => tags.appendChild(createTechTag(tag.label, tag.className)));
+          left.appendChild(tags);
+        }
+
+        const right = document.createElement("div");
+        right.className = "job-side";
+        right.appendChild(createMetaChip(job.team, "team"));
+        right.appendChild(createMetaChip(job.employmentType));
+
+        const arrow = document.createElement("span");
+        arrow.className = "job-arrow";
+        arrow.textContent = "→";
+        right.appendChild(arrow);
+
+        link.appendChild(left);
+        link.appendChild(right);
+        return link;
+      };
+
+      const setDetailSection = (el, items) => {
+        el.innerHTML = "";
+        (items || []).forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          el.appendChild(li);
+        });
+      };
+
+      const setOptionalDetailListSection = (sectionEl, listEl, items) => {
+        const normalized = normalizeList(items);
+        if (!sectionEl || !listEl) return;
+        if (normalized.length === 0) {
+          sectionEl.hidden = true;
+          listEl.innerHTML = "";
+          return;
+        }
+        setDetailSection(listEl, normalized);
+        sectionEl.hidden = false;
+      };
+
+      const setOptionalDetailTagSection = (sectionEl, tagEl, items) => {
+        const normalized = normalizeList(items);
+        if (!sectionEl || !tagEl) return;
+        if (normalized.length === 0) {
+          sectionEl.hidden = true;
+          tagEl.innerHTML = "";
+          return;
+        }
+        renderTagList(tagEl, normalized);
+        sectionEl.hidden = false;
+      };
+
+      const renderDetail = (data, job) => {
+        hideLoading();
+        listView.hidden = true;
+        detailView.hidden = false;
+        applyDesktop.hidden = false;
+
+        if (!job) {
+          detailNotFound.hidden = false;
+          detailLayout.hidden = true;
+          mobileApplyWrap.hidden = true;
+          applyDesktop.hidden = true;
+          document.title = "네트멜론 채용";
+          return;
+        }
+
+        detailNotFound.hidden = true;
+        detailLayout.hidden = false;
+        mobileApplyWrap.hidden = false;
+
+        document.title = job.title;
+
+        detailUpdated.textContent = `업데이트: ${data.updatedDate || "-"}`;
+        detailTitle.textContent = job.title;
+
+        detailMeta.innerHTML = "";
+        detailMeta.appendChild(createMetaChip(job.team, "team"));
+        detailMeta.appendChild(createMetaChip(`job_id: ${job.id}`));
+
+        detailMission.textContent = job.mission;
+
+        setOptionalDetailTagSection(detailTechStackSection, detailTechStack, resolveTechStack(job));
+        setOptionalDetailTagSection(detailToolStackSection, detailToolStack, resolveToolStack(job));
+        setOptionalDetailTagSection(detailExperienceTagsSection, detailExperienceTags, job.experienceTags);
+        setOptionalDetailListSection(detailTechnicalChallengesSection, detailTechnicalChallenges, job.technicalChallenges);
+
+        setDetailSection(detailResponsibilities, job.responsibilities);
+        setDetailSection(detailRequirements, job.requirements);
+        setDetailSection(detailPreferred, job.preferred);
+        setDetailSection(detailKpi, job.kpi);
+        setDetailSection(detailMaterials, data.common.materials || []);
+        setDetailSection(detailProcess, data.common.process || []);
+
+        detailSideInfo.innerHTML = "";
+        [
+          `job_id: ${job.id}`,
+          `직군: ${job.team}`,
+          `고용형태: ${job.employmentType}`,
+          `근무지: ${job.location || "-"}`,
+          `근무방식: ${job.workMode || "-"}`,
+          `레벨: ${job.seniority || "-"}`,
+          `경력구간: ${job.experienceBand || "-"}`,
+          `공고기간: ${formatHiringPeriod(job)}`,
+          `우선순위: ${job.priority}`,
+          ...(resolveTechStack(job).length > 0
+            ? [`관련기술: ${resolveTechStack(job).slice(0, 6).join(", ")}`]
+            : []),
+          ...(resolveToolStack(job).length > 0
+            ? [`개발/협업 도구: ${resolveToolStack(job).slice(0, 6).join(", ")}`]
+            : []),
+        ].forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          detailSideInfo.appendChild(li);
+        });
+
+        const targetUrl = fallbackApplyUrl(job);
+        applyDesktop.href = targetUrl;
+        applyMobile.href = targetUrl;
+      };
+
+      const renderList = (data) => {
+        hideLoading();
+        listView.hidden = false;
+        detailView.hidden = true;
+        document.title = "네트멜론 채용";
+
+        heroTagline.textContent = data.tagline || "";
+        heroHeadline.textContent = data.headline || "";
+        heroIntro.innerHTML = (data.intro || []).map(markdownToHtml).join(" ");
+        heroTagline.hidden = !data.tagline;
+        heroHeadline.hidden = !data.headline;
+        heroIntro.hidden = !(data.intro && data.intro.length);
+
+        if (data.headline) {
+          updateMeta('meta[name="description"]', data.headline);
+          updateMeta('meta[property="og:description"]', data.headline);
+        }
+
+        renderListItems(traitsList, data.traits || []);
+        renderListItems(compensationList, data.compensation || []);
+        renderTechnologyGroups(data.common?.technology || DEFAULT_TECHNOLOGY);
+        const teams = [...new Set((data.jobs || []).map((job) => job.team))];
+        const types = [...new Set((data.jobs || []).map((job) => job.employmentType))];
+
+        teamFilter.innerHTML = '<option value="">모든 직군</option>';
+        teams.forEach((team) => {
+          const option = document.createElement("option");
+          option.value = team;
+          option.textContent = team;
+          teamFilter.appendChild(option);
+        });
+
+        typeFilter.innerHTML = '<option value="">모든 고용형태</option>';
+        types.forEach((type) => {
+          const option = document.createElement("option");
+          option.value = type;
+          option.textContent = type;
+          typeFilter.appendChild(option);
+        });
+
+        const runFilter = () => {
+          const queryText = searchInput.value.trim().toLowerCase();
+          const team = teamFilter.value;
+          const type = typeFilter.value;
+
+          const filtered = (data.jobs || []).filter((job) => {
+            const queryHit = !queryText || [
+              job.title,
+              job.mission,
+              job.team,
+              ...(job.kpi || []),
+              ...resolveTechStack(job),
+              ...resolveToolStack(job),
+              ...(job.technicalChallenges || []),
+            ].join(" ").toLowerCase().includes(queryText);
+            const teamHit = !team || job.team === team;
+            const typeHit = !type || job.employmentType === type;
+            return queryHit && teamHit && typeHit;
+          });
+
+          jobList.innerHTML = "";
+          filtered.forEach((job) => {
+            jobList.appendChild(createJobRow(job));
+          });
+
+          jobCount.textContent = String(filtered.length);
+          emptyState.hidden = filtered.length !== 0;
+        };
+
+        searchInput.addEventListener("input", runFilter);
+        teamFilter.addEventListener("change", runFilter);
+        typeFilter.addEventListener("change", runFilter);
+        runFilter();
+      };
+
+      const renderError = () => {
+        hideLoading();
+        listView.hidden = false;
+        detailView.hidden = true;
+        heroTagline.hidden = true;
+        heroHeadline.hidden = false;
+        heroIntro.hidden = false;
+        heroHeadline.textContent = "채용 정보를 불러오지 못했습니다.";
+        heroIntro.textContent = "잠시 후 다시 시도해 주세요.";
+        jobList.innerHTML = "";
+        emptyState.hidden = false;
+        emptyState.textContent = "데이터 로드 오류";
+        if (technologySection) technologySection.hidden = true;
+      };
+
+      fetchData()
+        .then((data) => {
+          if (jobId) {
+            const job = (data.jobs || []).find((item) => item.id === jobId);
+            renderDetail(data, job);
+          } else {
+            renderList(data);
+          }
+        })
+        .catch((error) => {
+          console.error("[careers] load failed", error);
+          renderError();
+        });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+{
+  "sourceVersionId": "mvc_v0_2",
+  "version": "en-US:v0.2",
+  "publishedAt": "2026-07-10T00:00:00+09:00",
+  "publishedBy": "codex-localization",
+  "locale": "en",
+  "sourceLocale": "ko",
+  "isDefault": false,
+  "identity": {
+    "companyName": "Netmelon",
+    "companyNameKo": "Netmelon",
+    "email": "netmelon@netmelonai.com",
+    "brandSignatureMessage": {
+      "lines": [
+        {
+          "order": 1,
+          "segments": [
+            {
+              "text": "Netmelon helps people",
+              "order": 1
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "segments": [
+            {
+              "text": "think, speak, and connect",
+              "order": 1
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "segments": [
+            {
+              "text": "more freely through language.",
+              "order": 1
+            }
+          ]
+        }
+      ]
+    },
+    "freedomStatement": "Language is more than something to translate. It is a way of thinking. People learn a new language not just to swap words from one language to another, but to form thoughts, express themselves, and see more choices in front of them. Netmelon builds speaking-training technology that helps people move past language barriers so they can learn, work, and build relationships with more freedom.",
+    "mission": "Netmelon turns language learning into practical speaking training, so people can stop leaving a language on the page and start thinking, speaking, and connecting with the world in it.",
+    "vision": "We want to build a world where language never decides who gets to learn, work, belong, or take the next opportunity.",
+    "companyIntroTitle": "About Netmelon",
+    "companyIntroBody": "Netmelon builds language-learning technology that helps people move from studying a language to actually speaking it.",
+    "appIntroTitle": "Stop studying a language.\nStart speaking it.",
+    "appIntroBody": "Naepopquiz is a language-training app that turns vocabulary, phrases, and conversations into repeatable listen-and-speak practice, helping learners build the reflex to speak in real situations.",
+    "studioIntroTitle": "Build speaking-practice content faster, and run it with less friction.",
+    "studioIntroBody": "Naepopquiz Studio gives teams a faster way to create, edit, and publish language-training content that can be used directly in the app.",
+    "recruitingOneLiner": "We are looking for teammates who want to build technology that helps people, not technology for its own sake.",
+    "irOneLiner": "IR materials are shared only after we review the request and confirm the right context.",
+    "announcementEmptyTitle": "Updates are on the way.",
+    "announcementEmptyBody": "When company announcements are published, they will appear here."
+  },
+  "coreValues": [
+    {
+      "key": "make_people_speak",
+      "title": "Make People Speak",
+      "body": "We measure our work by whether users actually open their mouths and speak.",
+      "order": 1
+    },
+    {
+      "key": "think_beyond_translation",
+      "title": "Think Beyond Translation",
+      "body": "We see language not as word-for-word conversion, but as a wider way to think and express yourself.",
+      "order": 2
+    },
+    {
+      "key": "freedom_through_language",
+      "title": "Freedom Through Language",
+      "body": "We help people gain more choices, opportunities, and confidence by thinking and speaking in a new language.",
+      "order": 3
+    },
+    {
+      "key": "technology_for_training",
+      "title": "Technology for Training",
+      "body": "We build technology that supports repetition, practice, and real speaking, not just more explanations.",
+      "order": 4
+    },
+    {
+      "key": "build_from_truth",
+      "title": "Build from Truth",
+      "body": "We build on verified content, accurate data, and consistent messages.",
+      "order": 5
+    },
+    {
+      "key": "from_speaking_to_action",
+      "title": "From Speaking to Action",
+      "body": "We want speaking practice to lead to real learning, work, relationships, and opportunity.",
+      "order": 6
+    }
+  ]
+}

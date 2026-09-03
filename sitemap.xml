@@ -1,26 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 홈 -->
   <url>
     <loc>https://netmelonai.com/</loc>
-    <lastmod>2025-08-29</lastmod>
-  </url>
-
-  <!-- 주요 정적 페이지 -->
-  <url>
-    <loc>https://netmelonai.com/install.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2026-07-09</lastmod>
   </url>
   <url>
-    <loc>https://netmelonai.com/terms.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <loc>https://netmelonai.com/company.html</loc>
+    <lastmod>2026-07-09</lastmod>
   </url>
   <url>
-    <loc>https://netmelonai.com/privacy.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <loc>https://netmelonai.com/careers.html</loc>
+    <lastmod>2026-07-09</lastmod>
   </url>
   <url>
-    <loc>https://netmelonai.com/data-deletion.html</loc>
-    <lastmod>2025-08-29</lastmod>
+    <loc>https://netmelonai.com/announcement.html</loc>
+    <lastmod>2026-07-09</lastmod>
   </url>
+  <url>
+    <loc>https://netmelonai.com/ir.html</loc>
+    <lastmod>2026-07-09</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/problems.html</loc>
+    <lastmod>2026-08-30</lastmod>
+  </url>
+  <!-- GENERATED_OPEN_PROBLEM_URLS_START -->
+  <url>
+    <loc>https://netmelonai.com/problems/consumer-marketplace-growth.html</loc>
+    <lastmod>2026-08-31</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/problems/ai-business-model.html</loc>
+    <lastmod>2026-08-31</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/problems/product-design.html</loc>
+    <lastmod>2026-08-31</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/problems/learning-content-lead.html</loc>
+    <lastmod>2026-08-31</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/problems/multilingual-pronunciation.html</loc>
+    <lastmod>2026-08-31</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/problems/adaptive-shadowing-stream.html</loc>
+    <lastmod>2026-08-31</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/problems/llm-content-engineering.html</loc>
+    <lastmod>2026-08-31</lastmod>
+  </url>
+  <url>
+    <loc>https://netmelonai.com/problems/content-rights.html</loc>
+    <lastmod>2026-08-31</lastmod>
+  </url>
+  <!-- GENERATED_OPEN_PROBLEM_URLS_END -->
 </urlset>

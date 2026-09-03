@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="canonical" href="https://naepopquiz.com/terms.html" />
   <title id="terms-title">네트멜론 - 이용약관</title>
   <style>
     /* ==================== COLOR SYSTEM ==================== */
@@ -215,7 +217,7 @@
       if (homeLink) {
         homeLink.addEventListener('click', function(e) {
           e.preventDefault();
-          window.location.href = `index.html?lang=${currentLang}#hero`;
+	          window.location.href = currentLang === 'en' ? '/en/' : '/';
         });
       }
     });
