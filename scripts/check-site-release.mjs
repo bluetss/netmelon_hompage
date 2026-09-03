@@ -614,12 +614,16 @@ async function checkCompanyFooterRoutes() {
   const problemPages = (await listFiles("problems"))
     .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
     .map((entry) => "problems/" + entry.name);
+  const englishProblemPages = (await listFiles("en/problems"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+    .map((entry) => `en/problems/${entry.name}`);
   const pages = [
     ...["index.html", "company.html", "problems.html", "announcement.html", "ir.html"].map((file) => ({ file, locale: "ko" })),
     ...announcementPages.map((file) => ({ file, locale: "ko" })),
     ...problemPages.map((file) => ({ file, locale: "ko" })),
-    ...["en/index.html", "en/company.html", "en/announcement.html", "en/ir.html"].map((file) => ({ file, locale: "en" })),
+    ...["en/index.html", "en/company.html", "en/announcement.html", "en/ir.html", "en/problems.html"].map((file) => ({ file, locale: "en" })),
     ...englishAnnouncementPages.map((file) => ({ file, locale: "en" })),
+    ...englishProblemPages.map((file) => ({ file, locale: "en" })),
   ];
   const appLegalRoutes = ["privacy.html", "terms.html", "data-deletion.html"];
   const duplicatedHeaderRoutes = ["company.html", "problems.html", "ir.html", "company.html#notices"];
@@ -635,6 +639,9 @@ async function checkCompanyFooterRoutes() {
     assert(!footer.includes(PUBLISHER_PROFILE_MARKER), `${page.file} footer contains an unresolved Publisher Profile marker.`);
     assert(!footer.includes("캐슬앤파밀리에시티 1단지"), `${page.file} footer exposes the omitted apartment complex name.`);
     assert(compact(footer).includes(compact(renderPublisherFooter(profile, page.locale))), `${page.file} footer does not match Publisher Profile ${profile.sourceVersionId}.`);
+    if (page.locale === "en") {
+      assert(!/[가-힣]/.test(footer), `${page.file} English footer contains Korean fallback text.`);
+    }
     assert(!footer.includes(profile.customerSupportEmail), `${page.file} footer exposes customer support email instead of the dedicated support surface.`);
 
     for (const route of appLegalRoutes) {

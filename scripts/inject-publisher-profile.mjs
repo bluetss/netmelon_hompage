@@ -15,7 +15,9 @@ const ROOT_TARGETS = [
   "problems.template.html", "problems.html",
   "ir.html", "announcement.template.html", "announcement.html",
 ];
-const EN_TARGETS = ["en/index.html", "en/company.html", "en/ir.html", "en/announcement.html"];
+const EN_TARGETS = [
+  "en/index.html", "en/company.html", "en/ir.html", "en/announcement.html", "en/problems.html",
+];
 
 async function htmlFiles(relativeDirectory) {
   try {
@@ -52,6 +54,7 @@ async function main() {
     ...await htmlFiles("problems"),
     ...await htmlFiles("announcements"),
     ...await htmlFiles("en/announcements"),
+    ...await htmlFiles("en/problems"),
   ])];
   let updated = 0;
   for (const file of targets) {
