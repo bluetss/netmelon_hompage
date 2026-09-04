@@ -15,7 +15,8 @@ scripts/check-site-release.mjs      # 빌드 산출물과 release 규칙 검증
 data/company-announcements.ko.json  # 회사 공고 원천 JSON
 scripts/fetch-company-open-problems.mjs # 공개 Open Problem Source를 로컬 JSON으로 저장
 scripts/generate-company-open-problems.mjs # 공개 문제 협업 페이지 생성
-data/company-open-problems.ko.json # 풀고 있는 문제 원천 JSON
+data/company-open-problems.ko.json # 한국어 풀고 있는 문제 공개 snapshot
+data/company-open-problems.en.json # 영문 풀고 있는 문제 공개 snapshot (검수 완료 후에만 생성)
 index.html                         # 빌드 결과물, 배포 대상
 company.html                       # 빌드 결과물, 배포 대상
 problems.html                      # 빌드 결과물, 배포 대상
@@ -171,3 +172,20 @@ CI/CD에서는 배포 전 단계에 아래를 추가하세요.
 - `company.html`, `problems.html`은 SEO 핵심 문구를 runtime fetch로 교체하지 않습니다.
 - production HTML에는 dev/staging API URL을 하드코딩하지 않습니다.
 - 페이지 로딩 중 runtime spinner나 skeleton을 보여주지 않습니다. 사용자는 이미 주입된 완성 HTML을 봅니다.
+
+
+## English Open Problems snapshot
+
+`COMPANY_OPEN_PROBLEMS_LOCALE=en npm run fetch:company-open-problems` 또는 `npm run fetch:company-open-problems:english`는 서버의 `locale=en` 공개 projection만 `data/company-open-problems.en.json`으로 저장합니다. 한국어 projection을 영문 fallback으로 복사하지 않으며, 영문 CMS version이 실제로 게시되기 전에는 fetch가 실패해야 합니다. 영문 정적 페이지는 검수 기간에 `noindex,nofollow`를 유지하고 sitemap과 한국어 hreflang에 추가하지 않습니다.
+
+### Authenticated English review preview
+
+```bash
+COMPANY_OPEN_PROBLEMS_API_BASE=https://<staging-api-base> \
+COMPANY_OPEN_PROBLEMS_BEARER_TOKEN=<firebase-id-token> \
+npm run export:company-open-problems:english-review
+
+npm run build:english:review-open-problems
+```
+
+The bearer token is read only from the environment and must never be committed. The export calls the authenticated Studio source API for `locale=en` and writes the ignored `data/company-open-problems.en.review.json`. The review build accepts a `draft` lifecycle only when `COMPANY_ENGLISH_REVIEW_MODE=1`; normal builds still require a published public projection. Review output remains `noindex,nofollow`, is excluded from the sitemap, and is not deployment authorization.

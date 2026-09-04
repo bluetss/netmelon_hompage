@@ -28,6 +28,12 @@ const REQUIRED_FOOTER_ROUTES = new Set([
 
 const clean = (value) => String(value ?? "").trim();
 const OMITTED_FOOTER_ADDRESS_SUFFIX = " (캐슬앤파밀리에시티 1단지)";
+const ENGLISH_PUBLISHER_VALUES = new Map([
+  ["신승우", "Seungwoo Shin"],
+  ["구글클라우드 코리아 유한회사", "Google Cloud Korea LLC"],
+  ["2025-경기김포-5450", "2025-Gyeonggi Gimpo-5450"],
+  ["경기도 김포시 고촌읍 태리로 236, 130동 305호", "Unit 305, Building 130, 236 Taeri-ro, Gochon-eup, Gimpo-si, Gyeonggi-do, Republic of Korea"],
+]);
 
 export function publisherBusinessAddressForFooter(value) {
   const address = clean(value);
@@ -146,7 +152,10 @@ export function renderPublisherFooter(profile, locale = "ko") {
     mailOrder: "통신판매업 신고번호",
     verify: "사업자정보확인",
   };
-  const registeredValue = (value) => locale === "en" ? `<span lang="ko">${htmlEscape(value)}</span>` : htmlEscape(value);
+  const registeredValue = (value) => {
+    if (locale !== "en") return htmlEscape(value);
+    return htmlEscape(ENGLISH_PUBLISHER_VALUES.get(clean(value)) || value);
+  };
   const item = (label, value, suffix = "") => `<span class="publisher-business-item"><strong>${htmlEscape(label)}:</strong> ${registeredValue(value)}${suffix}</span>`;
   const verifyLink = ` <a class="business-verify" href="${htmlEscape(profile.businessInfoVerificationUrl, true)}" target="_blank" rel="noopener noreferrer">${htmlEscape(labels.verify)}</a>`;
   return [
