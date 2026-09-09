@@ -529,6 +529,8 @@
 
       const params = new URLSearchParams(window.location.search);
       const jobId = params.get("job_id");
+      const previewRequested = params.get("preview") === "1";
+      const previewAllowed = previewRequested && ["npq-company-dev.web.app", "localhost", "127.0.0.1"].includes(window.location.hostname);
 
       const hideLoading = () => {
         if (careersLoading) {
@@ -929,6 +931,11 @@
 
       const fetchData = async () => {
         const fallback = await fetchLocalData();
+        const fallbackJobs = Array.isArray(fallback.jobs) ? fallback.jobs : [];
+        const publicFallbackJobs = fallbackJobs.filter((job) => String(job.status || "open").toLowerCase() !== "closed");
+        const previewJob = previewAllowed && jobId
+          ? fallbackJobs.find((job) => String(job.id) === jobId || String(job.slug) === jobId)
+          : null;
         const companySource = readBuildTimeCompanySource();
         const [fromFirestore] = await Promise.all([
           fetchJobsFromFirestore(),
@@ -942,7 +949,7 @@
         const nextData = fromFirestore
           ? {
               ...fallback,
-              jobs: fromFirestore.jobs,
+              jobs: previewJob ? [previewJob, ...fromFirestore.jobs] : fromFirestore.jobs,
               updatedDate: fromFirestore.updatedDate || fallback.updatedDate,
               common: {
                 materials: (commonFromFirestore.materials || []).length > 0
@@ -959,6 +966,7 @@
             }
           : {
               ...fallback,
+              jobs: previewJob ? [previewJob, ...publicFallbackJobs] : publicFallbackJobs,
               common: {
                 ...fallbackCommon,
                 technology: fallbackTechnology,

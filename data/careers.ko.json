@@ -521,6 +521,66 @@
         "Hiring manager satisfaction",
         "Quality of hire"
       ]
+    },
+    {
+      "num": 14,
+      "id": "founding-growth-creator-partnerships",
+      "slug": "founding-growth-creator-partnerships",
+      "title": "Founding Growth & Creator Partnerships",
+      "team": "Growth & Partnerships",
+      "status": "closed",
+      "employmentType": "프로젝트 단기계약",
+      "location": "협의",
+      "workMode": "하이브리드",
+      "seniority": "주니어",
+      "experienceBand": "1-3년",
+      "hiringPeriodType": "until_filled",
+      "priority": "P0 - Critical",
+      "mission": "첫 유료 학습자가 내팝퀴즈를 발견해 첫 발화를 완료하고 다시 결제하는 경로와, 그 학습 경험을 반복 공급할 첫 크리에이터 파트너십을 직접 만듭니다.",
+      "responsibilities": [
+        "첫 anchor learner cohort를 정하고 고객 접촉부터 유입, 첫 발화, 재사용, 결제까지 funnel을 검증합니다.",
+        "채널과 메시지별 실험을 직접 설계·실행하고 CAC, activation, paid conversion, retention을 연결해 판단합니다.",
+        "교육·언어·콘텐츠 크리에이터를 발굴하고 개인화된 outreach, 미팅, 조건 협상, 계약과 pilot 운영을 책임집니다.",
+        "creator outreach부터 반복 공급, 학습자 선택 또는 구매까지 pipeline을 구축하고 운영합니다.",
+        "고객의 거절·이탈·사용 언어를 제품 결정에 필요한 증거로 정리해 founder와 주 단위로 결정합니다.",
+        "콘텐츠 출처, 사용 범위, 보상과 계약 기록을 지키며 권리·신뢰 위험을 즉시 escalation합니다.",
+        "AI를 조사·초안·분석 자동화에 활용하되 사람과의 접촉, 협상과 결과 검증은 직접 책임집니다."
+      ],
+      "requirements": [
+        "광고, 앱, 구독 서비스 또는 creator campaign에서 본인이 직접 획득·전환·계약 결과를 만든 증거가 있는 분",
+        "낯선 고객 또는 creator에게 직접 연락하고 거절 이유에 따라 target·message·offer를 바꿀 수 있는 분",
+        "노출과 조회가 아니라 acquisition, 첫 가치 경험, 결제와 재사용을 하나의 funnel로 볼 수 있는 분",
+        "작은 예산과 불완전한 데이터에서도 다음 실험과 중단 기준을 스스로 정할 수 있는 분",
+        "creator·partner의 조건을 협상하고 장기 신뢰를 해치지 않으면서 실행할 수 있는 분",
+        "founder의 가정을 그대로 수행하지 않고 고객 증거로 반론하고 대안을 제안할 수 있는 분"
+      ],
+      "preferred": [
+        "앱·구독 상품을 담당한 performance/growth marketing 실무 경험",
+        "에듀테크 또는 consumer subscription의 acquisition, CRM, lifecycle 경험",
+        "MCN·influencer marketing에서 creator sourcing, outreach, 협상과 campaign 성과를 소유한 경험",
+        "Meta Ads, Google Ads, TikTok Ads 또는 creator channel을 결제·retention까지 측정한 경험",
+        "초기 팀에서 직접 만들고, 팔고, 실패한 가설을 종료한 경험",
+        "AI를 활용해 반복 desk work를 줄이고 외부 접촉과 판단에 시간을 재배치한 경험"
+      ],
+      "kpi": [
+        "첫 anchor learner cohort와 검증된 problem/message 정의",
+        "acquisition→첫 발화→재사용→결제 funnel baseline 구축",
+        "반복 가능한 acquisition motion 1개 검증 또는 실패 channel의 증거 기반 종료",
+        "첫 creator cohort·content category 선정과 3~5명 규모 유급 pilot 운영",
+        "outreach→응답→미팅→계약→공급→학습자 사용 creator pipeline 구축",
+        "반복 outreach와 campaign operation의 founder 의존도 감소"
+      ],
+      "techStack": ["Meta Ads", "Google Ads", "TikTok Ads", "GA4", "Firebase Analytics"],
+      "toolStack": ["Notion", "Google Sheets", "CRM", "AI research agents"],
+      "experienceTags": ["에듀테크 앱", "구독 서비스", "퍼포먼스 마케팅", "크리에이터 파트너십", "소비자 앱"],
+      "technicalChallenges": [
+        "Primary · paid-learner-growth — 첫 유료 학습자 성장",
+        "Primary · creator-supply — 반복 가능한 크리에이터 공급",
+        "Supporting · first-speech-product-research — 첫 발화 과정의 이탈과 고객 언어 관찰",
+        "Guardrail · content-rights — 출처·사용 범위·보상·계약 기록 준수",
+        "Input · ai-business-model — CAC·결제·해지·creator 비용 증거 제공",
+        "노출·설치 최적화가 아니라 첫 발화, 재사용과 결제까지 이어지는 attribution을 만듭니다."
+      ]
     }
   ],
   "common": {
