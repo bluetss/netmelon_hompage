@@ -529,8 +529,7 @@
 
       const params = new URLSearchParams(window.location.search);
       const jobId = params.get("job_id");
-      const previewRequested = params.get("preview") === "1";
-      const previewAllowed = previewRequested && ["npq-company-dev.web.app", "localhost", "127.0.0.1"].includes(window.location.hostname);
+      const previewAllowed = ["npq-company-dev.web.app", "localhost", "127.0.0.1"].includes(window.location.hostname);
 
       const hideLoading = () => {
         if (careersLoading) {
