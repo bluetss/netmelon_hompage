@@ -40,6 +40,20 @@ const pages = [
     active: "company",
   },
   {
+    file: "careers.template.html",
+    brandHref: "index.html",
+    productHref: "index.html#naepopquiz-app",
+    englishHref: "en/careers.html",
+    active: "careers",
+  },
+  {
+    file: "careers.html",
+    brandHref: "index.html",
+    productHref: "index.html#naepopquiz-app",
+    englishHref: "en/careers.html",
+    active: "careers",
+  },
+  {
     file: "problems.template.html",
     brandHref: "index.html",
     productHref: "index.html#naepopquiz-app",
