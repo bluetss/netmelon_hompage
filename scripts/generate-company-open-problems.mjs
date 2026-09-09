@@ -7,6 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 const DATA_PATH = process.env.COMPANY_OPEN_PROBLEMS_JSON_PATH || path.join(ROOT, "data", "company-open-problems.ko.json");
+const CAREERS_DATA_PATH = process.env.COMPANY_CAREERS_JSON_PATH || path.join(ROOT, "data", "careers.ko.json");
 const TEMPLATE_PATH = path.join(ROOT, "problems.template.html");
 const DETAIL_TEMPLATE_PATH = path.join(ROOT, "problem-detail.template.html");
 const DETAIL_OUTPUT_DIR = path.join(ROOT, "problems");
@@ -25,6 +26,10 @@ const INTAKE_API_BASE = String(
 ).replace(/\/+$/, "");
 const ALLOWED_STATUSES = new Set(["exploring", "open", "paused", "closed"]);
 const STATUS_LABEL = { exploring: "논의 중", open: "참여 가능", paused: "잠시 멈춤", closed: "마감" };
+const LEGACY_PROBLEM_IDS = {
+  "consumer-marketplace-growth": ["paid-learner-growth", "creator-supply"],
+  "product-design": ["first-speech-product-research"],
+};
 
 const clean = (value) => String(value ?? "").trim();
 const htmlEscape = (value, quote = false) => clean(value)
@@ -120,13 +125,54 @@ function renderApplicationForm(problem, privacyHref = "privacy.html") {
   ].join("\n");
 }
 
-function renderApplication(problem) {
+function mappedProblemIds(job) {
+  return (Array.isArray(job?.technicalChallenges) ? job.technicalChallenges : [])
+    .map((item) => clean(item).match(/^(?:Primary|Supporting|Guardrail|Input)\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1] || "")
+    .filter(Boolean);
+}
+
+function careersByProblem(careersSource) {
+  const jobs = Array.isArray(careersSource?.jobs) ? careersSource.jobs : [];
+  const result = new Map();
+  for (const job of jobs) {
+    const id = clean(job?.id);
+    const title = clean(job?.title);
+    const status = clean(job?.status);
+    if (!id || !title || !["open", "closed"].includes(status)) continue;
+    for (const problemId of mappedProblemIds(job)) {
+      const current = result.get(problemId) || [];
+      if (!current.some((item) => item.id === id)) current.push({ id, title, status });
+      result.set(problemId, current);
+    }
+  }
+  return result;
+}
+
+function careersForProblem(problem, careerMap) {
+  const ids = [problem.problemId, ...(LEGACY_PROBLEM_IDS[problem.problemId] || [])];
+  const seen = new Set();
+  return ids.flatMap((id) => careerMap.get(id) || []).filter((job) => {
+    if (seen.has(job.id)) return false;
+    seen.add(job.id);
+    return true;
+  });
+}
+
+function renderCareerLinks(careers, hrefPrefix = "") {
+  return careers.map((job) => {
+    const reviewOnly = job.status !== "open";
+    return '<a class="problem-career-link" href="' + hrefPrefix + 'careers.html?job_id=' + encodeURIComponent(job.id) + '" data-career-status="' + htmlEscape(job.status, true) + '" aria-label="' + htmlEscape(job.title + " 지원하기", true) + '"' + (reviewOnly ? " hidden" : "") + '>채용 포지션 지원하기</a>';
+  }).join("\n");
+}
+
+function renderApplication(problem, careers) {
   const panelId = "problem-application-" + problem.slug;
   const titleId = panelId + "-title";
   return [
     '<div class="problem-card-actions">',
     '<a class="problem-detail-link" href="problems/' + htmlEscape(problem.slug, true) + '.html">문제 자세히 보기</a>',
     '<button class="problem-interest" type="button" data-problem-application-toggle aria-expanded="false" aria-controls="' + htmlEscape(panelId, true) + '"><span data-problem-application-label>해결 방안 보내기</span></button>',
+    renderCareerLinks(careers),
     "</div>",
     '<section class="problem-application" id="' + htmlEscape(panelId, true) + '" aria-labelledby="' + htmlEscape(titleId, true) + '" hidden>',
     '<div class="problem-application-head"><h4 id="' + htmlEscape(titleId, true) + '">' + htmlEscape(problem.category) + ' 해결 방안</h4><p>이 문제를 어떻게 풀고 확인할지 보내주세요.</p></div>',
@@ -135,7 +181,7 @@ function renderApplication(problem) {
   ].join("\n");
 }
 
-function renderProblem(problem) {
+function renderProblem(problem, careerMap) {
   const isOpen = problem.status === "open" || problem.status === "exploring";
   return [
     '<details class="problem-card" id="' + htmlEscape(problem.slug, true) + '">',
@@ -154,7 +200,7 @@ function renderProblem(problem) {
     '<section class="problem-contribution"><h4>이 문제에 필요한 전문성</h4><div class="problem-contribution-list">',
     problem.desiredContributions.map((item) => "<span>" + htmlEscape(item) + "</span>").join(""),
     "</div></section>",
-    isOpen ? renderApplication(problem) : "",
+    isOpen ? renderApplication(problem, careersForProblem(problem, careerMap)) : "",
     "</div>",
     "</details>",
   ].join("\n");
@@ -281,7 +327,7 @@ function renderDetailParticipation(problem) {
   ].join("\n");
 }
 
-function renderDetailPage(detailTemplate, shellPartials, source, problem) {
+function renderDetailPage(detailTemplate, shellPartials, source, problem, careerMap) {
   const pageUrl = detailPageUrl(problem);
   const isOpen = problem.status === "open" || problem.status === "exploring";
   const buildMeta = "<!-- Open Problem Detail generated at build time: sourceVersionId=" + htmlEscape(source.sourceVersionId, true) + ", problemId=" + htmlEscape(problem.problemId, true) + " -->";
@@ -296,7 +342,11 @@ function renderDetailPage(detailTemplate, shellPartials, source, problem) {
   output = output.replaceAll("__OPEN_PROBLEM_SUMMARY__", htmlEscape(problem.summary));
   output = replaceOnce(output, "<!-- __OPEN_PROBLEM_BUILD_META__ -->", buildMeta);
   output = replaceOnce(output, "<!-- __OPEN_PROBLEM_SCHEMA__ -->", escapeScriptJson(buildDetailSchema(problem)));
-  output = replaceOnce(output, "<!-- __OPEN_PROBLEM_HERO_ACTION__ -->", isOpen ? '<a class="problem-detail-primary-action" href="#participate">해결 방안 제안하기</a>' : "");
+  const heroActions = isOpen ? [
+    '<a class="problem-detail-primary-action" href="#participate">해결 방안 제안하기</a>',
+    renderCareerLinks(careersForProblem(problem, careerMap), "../"),
+  ].filter(Boolean).join("\n") : "";
+  output = replaceOnce(output, "<!-- __OPEN_PROBLEM_HERO_ACTION__ -->", heroActions);
   output = replaceOnce(output, "<!-- __OPEN_PROBLEM_DETAIL_CONTENT__ -->", renderDetailContent(problem));
   output = replaceOnce(output, "<!-- __OPEN_PROBLEM_PARTICIPATION__ -->", renderDetailParticipation(problem));
   output = replaceOnce(output, "<!-- __SITE_HEADER__ -->", renderDetailHeader(shellPartials.header).split("\n").map((line) => "  " + line).join("\n"));
@@ -316,11 +366,11 @@ async function cleanupStaleDetailPages(problems) {
   await Promise.all(staleFiles.map((file) => unlink(path.join(DETAIL_OUTPUT_DIR, file))));
 }
 
-async function writeDetailPages(detailTemplate, shellPartials, source, problems) {
+async function writeDetailPages(detailTemplate, shellPartials, source, problems, careerMap) {
   await cleanupStaleDetailPages(problems);
   await Promise.all(problems.map((problem) => writeFile(
     path.join(DETAIL_OUTPUT_DIR, problem.slug + ".html"),
-    renderDetailPage(detailTemplate, shellPartials, source, problem),
+    renderDetailPage(detailTemplate, shellPartials, source, problem, careerMap),
     "utf8",
   )));
 }
@@ -366,8 +416,9 @@ function buildSchema(source, problems) {
 }
 
 async function main() {
-  const [rawSource, template, detailTemplate, header, footer] = await Promise.all([
+  const [rawSource, rawCareers, template, detailTemplate, header, footer] = await Promise.all([
     readFile(DATA_PATH, "utf8"),
+    readFile(CAREERS_DATA_PATH, "utf8"),
     readFile(TEMPLATE_PATH, "utf8"),
     readFile(DETAIL_TEMPLATE_PATH, "utf8"),
     readFile(path.join(ROOT, "partials", "site-header.html"), "utf8"),
@@ -375,6 +426,7 @@ async function main() {
   ]);
   const source = JSON.parse(rawSource);
   const problems = validate(source);
+  const careerMap = careersByProblem(JSON.parse(rawCareers));
   let output = template;
   const buildMeta = "<!-- Open Problem Source generated at build time: sourceVersionId=" + htmlEscape(source.sourceVersionId, true) + ", sourceHash=" + htmlEscape(source.sourceHash, true) + ", publishedAt=" + htmlEscape(source.publishedAt || "unknown", true) + " -->";
   output = replaceOnce(output, "<!-- __OPEN_PROBLEMS_BUILD_META__ -->", buildMeta);
@@ -382,11 +434,11 @@ async function main() {
   output = replaceOnce(output, "<!-- __OPEN_PROBLEMS_EYEBROW__ -->", htmlEscape(source.eyebrow));
   output = replaceOnce(output, "<!-- __OPEN_PROBLEMS_HEADLINE__ -->", htmlEscape(source.headline));
   output = replaceOnce(output, "<!-- __OPEN_PROBLEMS_INTRO__ -->", htmlEscape(source.intro));
-  output = replaceOnce(output, "<!-- __OPEN_PROBLEMS_CARDS__ -->", problems.map((problem) => renderProblem(problem)).join("\n"));
+  output = replaceOnce(output, "<!-- __OPEN_PROBLEMS_CARDS__ -->", problems.map((problem) => renderProblem(problem, careerMap)).join("\n"));
   if (/__OPEN_PROBLEMS_/.test(output)) throw new Error("problems.html contains unresolved Open Problem Source markers.");
   await writeFile(OUTPUT_PATH, output, "utf8");
   const shellPartials = { header: header.trim(), footer: footer.trim() };
-  await Promise.all([writeDetailPages(detailTemplate, shellPartials, source, problems), updateSitemap(source, problems)]);
+  await Promise.all([writeDetailPages(detailTemplate, shellPartials, source, problems, careerMap), updateSitemap(source, problems)]);
   console.log("Generated problems.html and " + problems.length + " detail page(s) from " + source.sourceVersionId + ".");
 }
 
