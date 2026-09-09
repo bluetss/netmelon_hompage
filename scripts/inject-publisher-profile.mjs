@@ -12,6 +12,7 @@ const PROFILE_PATH = process.env.PUBLISHER_PROFILE_JSON_PATH || path.join(ROOT, 
 const ROOT_TARGETS = [
   "index.template.html", "index.html",
   "company.template.html", "company.html",
+  "careers.template.html", "careers.html",
   "problems.template.html", "problems.html",
   "ir.html", "announcement.template.html", "announcement.html",
 ];
