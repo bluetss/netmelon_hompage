@@ -1,0 +1,549 @@
+{
+  "tagline": "",
+  "headline": "기술 그 자체를 넘어, 사람을 위한 기술을 함께 만들 동료를 찾습니다.",
+  "intro": [],
+  "traits": [
+    "스스로 문제를 정의하고 끝까지 해결하는 사람",
+    "제품, 기술, 사용자 경험을 함께 보는 사람",
+    "빠르게 만들고, 데이터로 보고, 다시 고치는 사람",
+    "업계 최고 수준의 결과물을 만들고 싶은 사람",
+    "작은 팀에서 큰 책임과 큰 보상을 원하는 사람"
+  ],
+  "compensation": [
+    "업계 최고 수준의 보상을 지향합니다.",
+    "초기 합류자에게 의미 있는 스톡옵션을 제공합니다.",
+    "성과와 기여도에 따라 보상을 빠르게 조정합니다.",
+    "최고의 커리어 경험을 제공합니다."
+  ],
+  "jobs": [
+    {
+      "num": 1,
+      "title": "Product Manager, Shadowing Experience",
+      "id": "7686375003",
+      "team": "Product",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "사용자가 앱을 설치한 첫날부터 “따라 말하면 진짜 말이 나온다”는 경험을 느끼게 만드는 제품 책임자입니다.",
+      "responsibilities": [
+        "쉐도잉 플레이어, 훈련 루프, 온보딩, 구독 전환 UX 기획",
+        "Free, Plus, Pro 플랜별 사용자 경험 설계",
+        "D1, D7, D30 retention, paid conversion, repeat rate 개선",
+        "개발, 디자인, 콘텐츠, AI 팀과 함께 제품 실험 설계",
+        "국가별 출시 단계에서 제품 현지화 우선순위 결정",
+        "사용자 인터뷰, 데이터 분석, A/B 테스트 기반 의사결정"
+      ],
+      "requirements": [
+        "모바일 앱 또는 소비자 구독 제품 PM 경험",
+        "사용자 행동 데이터를 기반으로 제품을 개선한 경험",
+        "개발자, 디자이너와 빠르게 일할 수 있는 제품 문서화 능력",
+        "복잡한 기능을 단순한 UX로 바꾸는 능력",
+        "영어 학습, 말하기 훈련, AI 제품에 대한 관심"
+      ],
+      "preferred": [
+        "에듀테크, 언어학습, AI consumer app 경험",
+        "구독 전환, retention, onboarding 개선 경험",
+        "초기 스타트업에서 0 to 1 제품을 만든 경험",
+        "SQL, Amplitude, Firebase, GA 등 분석 도구 활용 경험"
+      ],
+      "kpi": [
+        "First session completion rate",
+        "D7, D30 retention",
+        "Shadowing repeat count per user",
+        "Free to Plus conversion",
+        "Pro activation rate"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Senior Flutter Product Engineer",
+      "id": "7686376003",
+      "team": "Engineering",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "내팝퀴즈의 핵심 경험인 쉐도잉 플레이어를 빠르고 안정적이며 감각적인 모바일 제품으로 구현합니다.",
+      "responsibilities": [
+        "Flutter 기반 iOS, Android 앱 개발",
+        "쉐도잉 플레이어, 오디오 재생, 자막 싱크, 오프라인 재생 구현",
+        "Free, Plus, Pro 플랜별 기능 게이팅 구현",
+        "카메라, 갤러리, PDF, 음성, 다운로드 등 네이티브 기능 연동",
+        "성능 최적화, 크래시 대응, 앱스토어 배포",
+        "PM, UX 디자이너와 함께 사용자 행동을 바꾸는 UI 구현"
+      ],
+      "requirements": [
+        "Flutter 실무 경험",
+        "모바일 앱 상태관리, 네트워크, 로컬 저장소, 오디오 처리 경험",
+        "iOS, Android 배포 및 디버깅 경험",
+        "제품 관점에서 UI와 성능을 함께 고민하는 능력",
+        "코드 품질, 테스트, 유지보수성에 대한 기준"
+      ],
+      "preferred": [
+        "오디오, 음성, 동영상, 자막 싱크 기능 개발 경험",
+        "Firebase, Cloud Run, REST API 연동 경험",
+        "앱 구독, 결제, 다운로드, 오프라인 모드 구현 경험",
+        "네이티브 Swift/Kotlin 연동 경험",
+        "초기 스타트업에서 빠르게 제품을 출시한 경험"
+      ],
+      "kpi": [
+        "App crash-free rate",
+        "Player load time",
+        "Audio sync accuracy",
+        "Offline playback success rate",
+        "Release cycle speed"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Backend / Platform Engineer",
+      "id": "7686377003",
+      "team": "Engineering",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "사용자가 계속 따라 말하게 만드는 훈련 데이터, 콘텐츠, 결제, 추천 시스템의 백엔드 기반을 만듭니다.",
+      "responsibilities": [
+        "API 서버, DB, 인증, 권한, 결제, 구독 시스템 개발",
+        "훈련 기록, 플레이리스트, 콘텐츠 추천 데이터 모델 설계",
+        "Free, Plus, Pro, AI Credits 과금 로직 구현",
+        "국가별 출시를 위한 확장 가능한 서버 아키텍처 구축",
+        "관리자 도구, 콘텐츠 운영 도구, B2B 관리 기능 개발",
+        "장애 대응, 모니터링, 로그, 보안, 비용 최적화"
+      ],
+      "requirements": [
+        "Python, Node.js, Go 중 하나 이상 백엔드 실무 경험",
+        "PostgreSQL 또는 유사 RDBMS 설계 경험",
+        "클라우드 환경에서 서버 배포와 운영 경험",
+        "API 설계, 인증, 권한, 결제 시스템 이해",
+        "장애를 추적하고 재발 방지하는 운영 감각"
+      ],
+      "preferred": [
+        "Flask, FastAPI, SQLAlchemy, Firebase, GCP 경험",
+        "구독형 서비스 또는 결제 시스템 경험",
+        "검색, 추천, 콘텐츠 플랫폼 개발 경험",
+        "Cloud Run, Docker, CI/CD, observability 경험",
+        "대규모 사용자 트래픽 처리 경험"
+      ],
+      "kpi": [
+        "API latency",
+        "Uptime",
+        "Payment success rate",
+        "Training data integrity",
+        "Cloud cost per active user"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "LLM / Voice / ML Engineer",
+      "id": "7686378003",
+      "team": "AI / ML",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "사용자의 발화를 이해하고, 평가하고, 다시 말하게 만드는 AI 음성 기술 레이어를 구축합니다.",
+      "responsibilities": [
+        "STT, TTS, LLM 기반 말하기 피드백 시스템 개발",
+        "발음, 억양, 리듬, 유창성, 문장 완성도 평가 모델 설계",
+        "AI Credits 기반 고비용 피드백 기능의 비용 최적화",
+        "음성 데이터 파이프라인, 평가셋, 품질 측정 시스템 구축",
+        "shadowing unit 생성, 추천, 난이도 조정 모델 개발",
+        "제품팀과 함께 AI 기능을 실제 사용자 경험으로 연결"
+      ],
+      "requirements": [
+        "ML, speech, NLP, LLM 중 하나 이상 실무 경험",
+        "Python 기반 모델 개발 및 실험 경험",
+        "음성 인식, 음성 합성, 평가 시스템에 대한 이해",
+        "모델 성능과 제품 지표를 함께 보는 능력",
+        "production 환경에서 AI 기능을 운영하거나 배포한 경험"
+      ],
+      "preferred": [
+        "ASR, TTS, pronunciation assessment 경험",
+        "LLM evaluation, prompt evaluation, data quality pipeline 경험",
+        "음성 또는 언어학습 제품 경험",
+        "GPU, inference, latency, cost optimization 경험",
+        "영어 음성 데이터, 한국어 학습 데이터 처리 경험"
+      ],
+      "kpi": [
+        "Feedback accuracy",
+        "Inference cost per session",
+        "AI latency",
+        "User repeat after feedback",
+        "Model evaluation pass rate"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "AI Product Engineer",
+      "id": "7686379003",
+      "team": "AI / Product Engineering",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "LLM과 음성 기술을 사용자가 매일 쓰는 제품 기능으로 빠르게 바꾸는 역할입니다.",
+      "responsibilities": [
+        "LLM 기반 훈련 리스트 생성, 문장 추천, 피드백 UX 구현",
+        "AI Credits 기능의 front to back prototype 개발",
+        "PM, ML Engineer, Designer와 함께 AI 기능 실험",
+        "프롬프트, 모델 라우팅, API, UI를 연결한 제품 기능 구현",
+        "사용자 행동 데이터를 기반으로 AI 기능 개선",
+        "빠른 프로토타입 제작 후 production 전환"
+      ],
+      "requirements": [
+        "풀스택 개발 역량",
+        "LLM API 기반 제품 기능 개발 경험",
+        "빠르게 프로토타입을 만들고 사용자 반응을 보는 능력",
+        "제품 감각과 엔지니어링 구현력을 함께 갖춘 분",
+        "AI 기능의 비용, 품질, latency를 함께 관리할 수 있는 분"
+      ],
+      "preferred": [
+        "AI consumer app 개발 경험",
+        "음성, 교육, 콘텐츠 생성 제품 경험",
+        "LangChain, OpenAI API, vector search, evaluation 경험",
+        "Flutter 또는 React 기반 UI 구현 경험",
+        "초기 스타트업에서 product velocity를 만든 경험"
+      ],
+      "kpi": [
+        "AI feature activation",
+        "Cost per AI task",
+        "Prototype to production speed",
+        "AI feature retention lift",
+        "User satisfaction with feedback"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "UX / Product Designer",
+      "id": "7686380003",
+      "team": "Design",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "사용자가 생각하지 않고 바로 듣고 따라 말하게 만드는 UX를 설계합니다.",
+      "responsibilities": [
+        "쉐도잉 플레이어, 온보딩, 구독 전환, 훈련 루프 UX 설계",
+        "Free, Plus, Pro 플랜별 기능 차이를 직관적으로 표현",
+        "모바일 앱 전체 디자인 시스템 구축",
+        "사용자의 반복 행동을 유도하는 인터랙션 설계",
+        "PM, Flutter Engineer와 함께 빠르게 실험하고 개선",
+        "국가별 출시를 고려한 localization-ready UX 설계"
+      ],
+      "requirements": [
+        "모바일 앱 UX/UI 디자인 경험",
+        "Figma 기반 디자인 시스템 구축 경험",
+        "사용자 행동을 바꾸는 product design 경험",
+        "복잡한 기능을 단순한 화면으로 만드는 능력",
+        "개발자와 세부 구현까지 협업할 수 있는 능력"
+      ],
+      "preferred": [
+        "에듀테크, AI, 음성, 구독 앱 디자인 경험",
+        "onboarding, paywall, retention UX 개선 경험",
+        "motion, interaction, audio UI 경험",
+        "디자인 QA와 product analytics 경험",
+        "고연령 사용자도 이해할 수 있는 high-readability UX 경험"
+      ],
+      "kpi": [
+        "First session completion",
+        "Shadowing start rate",
+        "Repeat rate",
+        "Paywall conversion",
+        "UX issue reduction"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Content Writer / Language Editor",
+      "id": "7686381003",
+      "team": "Content",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "사용자가 실제로 따라 말하고 싶어지는 자연스러운 영어 말하기 콘텐츠를 만듭니다.",
+      "responsibilities": [
+        "영어회화, 면접, 발표, 피치용 speaking unit 작성",
+        "쉐도잉에 적합한 짧고 자연스러운 문장 설계",
+        "원어민성, 회화성, 반복 가능성, 난이도 검수",
+        "AI 생성 콘텐츠의 품질 검수와 수정",
+        "한국어 학습용 콘텐츠 확장을 위한 구조 설계",
+        "콘텐츠 태그, 상황, 역할, 목표 발화 데이터 정리"
+      ],
+      "requirements": [
+        "영어 콘텐츠 작성 또는 교육 콘텐츠 제작 경험",
+        "실제 회화에서 자연스러운 문장 감각",
+        "학습자가 따라 말하기 좋은 문장을 고르는 능력",
+        "꼼꼼한 검수와 문장 수정 능력",
+        "영어교육, 언어학습, 쉐도잉에 대한 이해"
+      ],
+      "preferred": [
+        "원어민 또는 원어민 수준의 영어 감각",
+        "ESL/EFL 교재, 회화 콘텐츠, 시험 말하기 콘텐츠 제작 경험",
+        "영상, 드라마, 인터뷰, 팟캐스트 기반 회화 분석 경험",
+        "AI 콘텐츠 생성 워크플로우 경험",
+        "한국어 교육 콘텐츠 기획 경험"
+      ],
+      "kpi": [
+        "Content completion rate",
+        "Repeat count per content",
+        "User save rate",
+        "Content quality review score",
+        "AI content correction rate"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Growth / Marketing Lead",
+      "id": "7686382003",
+      "team": "Growth",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "국가별 출시마다 사용자 유입, 무료 사용, 유료 전환이 반복되는 growth playbook을 만듭니다.",
+      "responsibilities": [
+        "한국 초기 출시 growth strategy 수립",
+        "Free to Plus conversion funnel 설계",
+        "paid acquisition, creator marketing, community, referral 실험",
+        "국가별 출시 마케팅 예산과 CAC 관리",
+        "retention, activation, paywall, pricing 실험",
+        "PM, 콘텐츠, 데이터 팀과 growth 실험 운영"
+      ],
+      "requirements": [
+        "모바일 앱 또는 구독 서비스 growth 경험",
+        "CAC, LTV, payback, conversion funnel 이해",
+        "퍼포먼스 마케팅과 organic growth를 함께 다룬 경험",
+        "데이터 기반 실험 설계와 실행 능력",
+        "빠르게 실험하고 학습하는 태도"
+      ],
+      "preferred": [
+        "에듀테크, 언어학습, consumer AI 앱 growth 경험",
+        "글로벌 앱 국가별 런칭 경험",
+        "influencer, teacher community, creator marketing 경험",
+        "pricing, plan packaging, referral 설계 경험",
+        "SQL 또는 product analytics 도구 활용 경험"
+      ],
+      "kpi": [
+        "CAC",
+        "LTV / CAC",
+        "Free to Plus conversion",
+        "Referral rate",
+        "Country launch payback"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Country Launch Manager",
+      "id": "7686383003",
+      "team": "Global Expansion",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "한국에서 검증된 말하기 훈련 playbook을 일본, 동남아, 북미, 유럽 시장으로 확장합니다.",
+      "responsibilities": [
+        "국가별 출시 우선순위와 launch plan 수립",
+        "현지 가격, 콘텐츠, 마케팅, 파트너십 조사",
+        "로컬 콘텐츠 QA와 localization 프로세스 운영",
+        "현지 크리에이터, 교사, 학교, 커뮤니티 파트너 발굴",
+        "국가별 KPI 관리",
+        "본사 product, growth, content 팀과 협업"
+      ],
+      "requirements": [
+        "해외 시장 출시, localization, 사업개발 경험",
+        "데이터와 현지 맥락을 함께 보는 능력",
+        "빠른 실행력과 강한 커뮤니케이션 능력",
+        "영어 커뮤니케이션 가능",
+        "새로운 국가의 사용자를 직접 이해하려는 태도"
+      ],
+      "preferred": [
+        "일본, 동남아, 북미, 유럽 중 하나 이상의 시장 경험",
+        "모바일 앱, SaaS, edtech, consumer subscription 출시 경험",
+        "학교, 교육기관, 크리에이터 네트워크 경험",
+        "다국어 콘텐츠 운영 경험",
+        "초기 스타트업 글로벌 확장 경험"
+      ],
+      "kpi": [
+        "Country launch timeline",
+        "Local activation rate",
+        "Paid conversion by country",
+        "CAC payback by country",
+        "Local content quality score"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Customer / B2B Success Manager",
+      "id": "7686384003",
+      "team": "Business",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "학교, 기업, 팀 고객이 내팝퀴즈를 실제 말하기 훈련 도구로 도입하고 계속 사용하게 만듭니다.",
+      "responsibilities": [
+        "학교, 학원, 기업 고객 온보딩",
+        "B2B 관리자 기능과 리포트 요구사항 정리",
+        "고객별 사용률, 완료율, 반복률 모니터링",
+        "고객 피드백을 제품팀에 전달하고 개선 우선순위 제안",
+        "계약 갱신, 업셀, 교육 프로그램 운영",
+        "고객지원 프로세스와 FAQ 구축"
+      ],
+      "requirements": [
+        "B2B SaaS, 교육기관, 기업 고객 관리 경험",
+        "고객 문제를 제품 요구사항으로 정리하는 능력",
+        "사용 데이터를 보고 action item을 도출하는 능력",
+        "명확하고 친절한 커뮤니케이션 능력",
+        "교육 현장 또는 HRD에 대한 이해"
+      ],
+      "preferred": [
+        "학교, 학원, 국제학교, 기업 교육 경험",
+        "SaaS customer success 경험",
+        "영어 교육, 말하기 교육, LMS 경험",
+        "고객 리포트와 대시보드 기획 경험",
+        "계약 갱신과 업셀 경험"
+      ],
+      "kpi": [
+        "B2B activation",
+        "Training completion rate",
+        "Renewal rate",
+        "Expansion revenue",
+        "Support resolution time"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Legal Counsel, IP / Privacy / Commercial",
+      "id": "7686385003",
+      "team": "Legal",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "콘텐츠, 음성 데이터, AI 기능, 글로벌 출시를 안전하게 확장할 수 있는 법무 기반을 만듭니다.",
+      "responsibilities": [
+        "콘텐츠 저작권, 라이선스, 크리에이터 계약 검토",
+        "개인정보, 음성 데이터, AI 학습 데이터 관련 법무 검토",
+        "B2B 계약, 파트너십 계약, 서비스 약관, 개인정보처리방침 관리",
+        "국가별 출시 관련 법적 리스크 검토",
+        "제품팀, 개발팀, 콘텐츠팀에 실시간 법무 가이드 제공",
+        "특허, 상표, IP 포트폴리오 관리"
+      ],
+      "requirements": [
+        "스타트업 또는 IT 기업 법무 경험",
+        "개인정보, IP, 상업 계약에 대한 이해",
+        "제품과 기술을 이해하고 실용적인 법무 판단을 내릴 수 있는 분",
+        "빠른 제품 출시 환경에서 리스크를 균형 있게 판단하는 능력",
+        "한국어와 영어 계약 검토 가능"
+      ],
+      "preferred": [
+        "AI, 음성, 콘텐츠, 교육 플랫폼 법무 경험",
+        "글로벌 개인정보 규제 관련 경험",
+        "저작권 라이선싱, 크리에이터 수익배분 계약 경험",
+        "특허, 상표, IP 전략 경험",
+        "사내 첫 법무 담당자 또는 founding counsel 경험"
+      ],
+      "kpi": [
+        "Contract turnaround time",
+        "IP risk reduction",
+        "Privacy review SLA",
+        "Content licensing coverage",
+        "Product launch legal readiness"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Finance / Accounting Manager",
+      "id": "7686386003",
+      "team": "Finance",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "Seed 이후 빠르게 성장하는 기술 회사를 투자, 회계, 세무, 비용 관리 측면에서 IPO-ready한 구조로 만듭니다.",
+      "responsibilities": [
+        "월별 결산, 회계, 세무, 자금 관리",
+        "매출, 구독, 앱스토어 정산, 크리에이터 수익배분 회계 처리",
+        "예산, 현금흐름, burn multiple, runway 관리",
+        "투자자 보고자료와 재무모델 업데이트",
+        "인건비, 스톡옵션, 4대보험, 퇴직급여 관리",
+        "외부 회계법인, 세무사, 법무팀과 협업"
+      ],
+      "requirements": [
+        "스타트업 또는 IT 기업 회계, 재무 경험",
+        "월결산, AP/AR, 세무, 현금흐름 관리 경험",
+        "엑셀 또는 스프레드시트 기반 재무모델링 능력",
+        "숫자를 경영 의사결정 언어로 바꾸는 능력",
+        "꼼꼼함과 빠른 실행력"
+      ],
+      "preferred": [
+        "구독 매출, 앱스토어 매출, 글로벌 결제 정산 경험",
+        "VC 투자 유치, 투자자 리포팅 경험",
+        "스톡옵션, 주주명부, cap table 관리 경험",
+        "IPO 준비 또는 외부감사 대응 경험",
+        "영어 재무자료 작성 가능"
+      ],
+      "kpi": [
+        "Monthly close timeline",
+        "Budget variance",
+        "Cash runway accuracy",
+        "Investor reporting quality",
+        "Audit readiness"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Technical Recruiter / People Partner",
+      "id": "7686387003",
+      "team": "People",
+      "employmentType": "정규직",
+      "location": "Seoul, KR",
+      "priority": "High",
+      "mission": "내팝퀴즈가 업계 최고 전문가들을 모실 수 있도록 초기 talent engine을 만듭니다.",
+      "responsibilities": [
+        "개발자, AI, 제품, 디자인, 콘텐츠, 법무, 재무 핵심 인재 채용",
+        "founder, hiring manager와 채용 우선순위 설계",
+        "sourcing, outreach, screening, interview, offer close 전 과정 운영",
+        "후보자 경험 설계",
+        "보상, 스톡옵션, 채용 브랜딩 메시지 정리",
+        "초기 조직문화, 평가, 온보딩 프로세스 구축"
+      ],
+      "requirements": [
+        "기술직 채용 경험",
+        "우수 후보자를 직접 찾아 설득하고 closing한 경험",
+        "hiring manager와 깊게 협업할 수 있는 커뮤니케이션 능력",
+        "빠른 스타트업 환경에서 채용 프로세스를 직접 만든 경험",
+        "높은 기준을 유지하면서 속도를 낼 수 있는 분"
+      ],
+      "preferred": [
+        "AI, infra, backend, mobile, product engineer 채용 경험",
+        "초기 스타트업 founding recruiter 경험",
+        "스톡옵션과 보상 패키지 설계 경험",
+        "글로벌 후보자 sourcing 경험",
+        "채용 브랜딩 콘텐츠 작성 경험"
+      ],
+      "kpi": [
+        "Time to hire",
+        "Offer acceptance rate",
+        "Sourcing response rate",
+        "Hiring manager satisfaction",
+        "Quality of hire"
+      ]
+    }
+  ],
+  "common": {
+    "materials": [
+      "이력서 또는 LinkedIn",
+      "GitHub, 포트폴리오, 작업물 링크",
+      "본인이 가장 강하게 소유했던 프로젝트 1개",
+      "만들고 싶은 기능 또는 개선 아이디어 1개"
+    ],
+    "process": [
+      "서류 검토",
+      "인터뷰",
+      "직무 과제 또는 포트폴리오 리뷰",
+      "처우 협의"
+    ],
+    "values": [
+      "빠른 실행",
+      "높은 기준",
+      "제품 감각",
+      "기술적 깊이",
+      "사용자 행동에 대한 집요함",
+      "장기적 ownership"
+    ]
+  },
+  "updatedDate": "2026-05-28"
+}

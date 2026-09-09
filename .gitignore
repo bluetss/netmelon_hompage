@@ -19,3 +19,5 @@ firebase-debug.log
 **/id_rsa
 **/*-debug.log
 **/*.log
+
+data/company-open-problems.en.review.json

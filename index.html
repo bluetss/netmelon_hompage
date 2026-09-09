@@ -1,878 +1,251 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="naver-site-verification"content="naver06243b8eb7a75493dc79247ee6d73c01.html" />
-
-  <!-- ★ 폰트 성능 최적화 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="네트멜론은 외국어 학습을 공부에 머물지 않게 하고, 실제로 말할 수 있는 훈련으로 바꾸어 누구나 새로운 언어로 생각하고 표현하며 더 넓은 세상과 자유롭게 연결되게 합니다.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#f4f0e8">
+  <meta name="naver-site-verification" content="naver06243b8eb7a75493dc79247ee6d73c01.html">
+  <link rel="canonical" href="https://netmelonai.com/">
+  <link rel="alternate" hreflang="ko" href="https://netmelonai.com/">
+  <link rel="alternate" hreflang="x-default" href="https://netmelonai.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Netmelon">
+  <meta property="og:title" content="네트멜론">
+  <meta property="og:description" content="네트멜론은 외국어 학습을 공부에 머물지 않게 하고, 실제로 말할 수 있는 훈련으로 바꾸어 누구나 새로운 언어로 생각하고 표현하며 더 넓은 세상과 자유롭게 연결되게 합니다.">
+  <meta property="og:url" content="https://netmelonai.com/">
+  <meta property="og:image" content="https://netmelonai.com/images/og-cover.png">
+  <meta property="og:image:alt" content="Netmelon official company homepage">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="네트멜론">
+  <meta name="twitter:description" content="네트멜론은 외국어 학습을 공부에 머물지 않게 하고, 실제로 말할 수 있는 훈련으로 바꾸어 누구나 새로운 언어로 생각하고 표현하며 더 넓은 세상과 자유롭게 연결되게 합니다.">
+  <meta name="twitter:image" content="https://netmelonai.com/images/og-cover.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-
-  <!-- ★ SEO: canonical & 다국어 hreflang -->
-  <link rel="canonical" href="https://netmelonai.com/"/>
-  <link rel="alternate" hreflang="ko" href="https://netmelonai.com/?lang=ko"/>
-  <link rel="alternate" hreflang="en" href="https://netmelonai.com/?lang=en"/>
-  <link rel="alternate" hreflang="x-default" href="https://netmelonai.com/"/>
-
-  <!-- ★ SEO 기본 메타 -->
-  <meta name="description" content="내팝퀴즈 — AI가 출제해주는 영단어 팝퀴즈앱. 영어 선생님을 위한 출제 자동화."/>
-  <meta name="robots" content="index,follow"/>
-  <meta name="theme-color" content="#FFFF66"/>
-
-  <!-- ★ 소셜(미리보기) Open Graph -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="네트멜론"/>
-  <meta property="og:title" content="내팝퀴즈: AI가 출제해주는 영단어 팝퀴즈앱"/>
-  <meta property="og:description" content="AI가 영단어 자동으로 뽑아 퀴즈를 만드는 영어 학습 앱"/>
-  <meta property="og:url" content="https://netmelonai.com/"/>
-  <meta property="og:image" content="https://netmelonai.com/images/og-cover.png?v=20250831"/>
-  <meta property="og:image:width"  content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="내팝퀴즈 — AI가 출제해주는 영단어 팝퀴즈앱">
-  <meta property="og:locale" content="ko_KR"/>
-  <meta property="og:locale:alternate" content="en_US"/>
-
-  <!-- ★ 트위터 카드 -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="네트멜론 — 내팝퀴즈"/>
-  <meta name="twitter:description" content="AI가 영단어 자동으로 뽑아 퀴즈를 만드는 영어 학습 앱"/>
-  <meta name="twitter:image" content="https://netmelonai.com/images/og-cover.png?v=20250831"/>
-
-  <!-- ★ 파비콘/아이콘 -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <!-- <link rel="icon" href="/images/favicon.ico"> -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-
-  <!-- ★ 구조화 데이터: Organization -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"Netmelon",
-    "url":"https://netmelonai.com",
-    "logo":"https://netmelonai.com/images/logo.png",
-    "sameAs":[
-      "https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz",
-      "https://apple.co/4ez9nji"
-    ]
-  }
-  </script>
-
-  <!-- ★ 구조화 데이터: SoftwareApplication (앱 소개) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"SoftwareApplication",
-    "name":"내팝퀴즈",
-    "applicationCategory":"EducationalApplication",
-    "operatingSystem":"Android, iOS",
-    "offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},
-    "downloadUrl":"https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz",
-    "screenshot":[
-      "https://netmelonai.com/images/screenshots_no_1.png",
-      "https://netmelonai.com/images/screenshots_no_2.png"
-    ]
-  }
-  </script>
-
-   <!-- ★ 추가: 런타임 canonical/og/lang 동기화 (최소 수정 SEO 보정) -->
-  <script>
-  (function () {
-    var p = new URLSearchParams(location.search);
-    var hasLang = p.has('lang');
-    var lang = p.get('lang') === 'en' ? 'en' : 'ko';
-
-    // ?lang 파라미터가 없으면 ko로 정규화
-    if (!hasLang) {
-      var hash = location.hash || '';
-      location.replace(location.pathname + '?lang=ko' + hash);
-      return; // 이후 코드는 리다이렉트 후 실행
-    }
-
-    // 1) canonical 갱신
-    var canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    var canonicalUrl = location.origin + location.pathname + (lang === 'ko' ? '?lang=ko' : '?lang=en');
-    canonical.setAttribute('href', canonicalUrl);
-
-    // 2) hreflang alternate 보정
-    var altKo = document.querySelector('link[rel="alternate"][hreflang="ko"]');
-    var altEn = document.querySelector('link[rel="alternate"][hreflang="en"]');
-    var altXd = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
-    if (altKo) altKo.setAttribute('href', location.origin + location.pathname + '?lang=ko');
-    if (altEn) altEn.setAttribute('href', location.origin + location.pathname + '?lang=en');
-    if (altXd) altXd.setAttribute('href', location.origin + location.pathname);
-
-    // 3) og:url 갱신
-    var ogUrl = document.querySelector('meta[property="og:url"]');
-    if (!ogUrl) {
-      ogUrl = document.createElement('meta');
-      ogUrl.setAttribute('property', 'og:url');
-      document.head.appendChild(ogUrl);
-    }
-    ogUrl.setAttribute('content', canonicalUrl);
-
-    // 4) og:locale & <html lang> 갱신
-    var ogLocale = document.querySelector('meta[property="og:locale"]');
-    if (!ogLocale) {
-      ogLocale = document.createElement('meta');
-      ogLocale.setAttribute('property', 'og:locale');
-      document.head.appendChild(ogLocale);
-    }
-    var locale = (lang === 'en') ? 'en_US' : 'ko_KR';
-    ogLocale.setAttribute('content', locale);
-    document.documentElement.setAttribute('lang', lang);
-  })();
-  </script>
-  
-  <title>네트멜론</title>
-  <style>
-    /* ==================== COLOR SYSTEM ==================== */
-    :root {
-      /* Primary */
-      --primary:             #FFFF66;  /* 메인 컬러 (레몬 옐로우) */
-      --on-primary:          #4C4C1A;  /* 주황/어두운 올리브 (노랑 위에서 읽기 쉬운 색) */
-      --primary-container:   #FFFECB;  /* 밝은 옐로우(컨테이너 배경) */
-      --on-primary-container:#474710;  /* 더 진한 옐로우/올리브 (텍스트 등) */
-
-      /* Secondary */
-      --secondary:           #FFD700;  /* 선명한 골드 */
-      --on-secondary:        #4C4C1A;  /* 어두운 올리브 */
-      --secondary-container: #FFF9CC;  /* 아주 연한 노랑 */
-      --on-secondary-container:#48480C;/* 올리브 톤 */
-
-      /* Tertiary */
-      --tertiary-container: #E0F7FA;   /* 예: 청록빛 톤, 실제 팔레트에 맞춰 변경 */
-      --on-tertiary-container: #004D40;/* 대비용 텍스트 컬러 */
-
-      /* Surface / Background */
-      --surface:             #FFFEF4;  /* 거의 흰색에 가까운 따뜻한 노랑 */
-      --surface-low:         #FFFDE8;  /* 약간 더 노란기 */
-      --surface-container:   #FFF9C4;  /* 연한 크림색 */
-      --surface-container-low:#FFFDE8; /* 동일, 연한 크림 */
-
-      /* Text / Border */
-      --on-surface:          #232304;  /* 아주 진한 올리브/카키 */
-      --on-surface-variant:  #75750D;  /* 노랑 계열의 어두운 텍스트 */
-      --outline:             #C2B900;  /* 밝은 머스타드 (테두리 등) */
-
-      /* Elevation shadows */
-      --elev1: 0 1px 3px rgba(220,200,0,.09),0 1px 2px rgba(220,200,0,.13);
-      --elev2: 0 2px 6px rgba(220,200,0,.13),0 1px 2px rgba(220,200,0,.17);
-      --elev3: 0 1px 3px rgba(220,200,0,.15),0 4px 8px rgba(220,200,0,.08);
-    }
-
-    /* ==================== TYPOGRAPHY ==================== */
-    /* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap'); */
-    html, body {
-      margin: 0; padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background: var(--surface);
-      color: var(--on-surface);
-    }
-    h1, h2 { margin: 0; }
-    h1 { font-size: 28px; line-height: 36px; font-weight: 500; }
-    h2 { font-size: 24px; line-height: 32px; font-weight: 500; color: var(--secondary); }
-    p, a { font-size: 14px; line-height: 20px; color: var(--on-surface-variant); text-decoration: none; }
-
-    /* ==================== HEADER & NAV ==================== */
-    header {
-      position: fixed; top: 0; left: 0; right: 0;
-      padding: 16px 0;
-      background: rgba(255,255,102,0.6);
-      backdrop-filter: blur(8px);
-      box-shadow: var(--elev2);
-      transition: background .3s;
-      z-index: 100;
-    }
-    header.scrolled {
-      background: var(--primary) !important;
-    }
-    header .container {
-      max-width: 1200px; margin: auto;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 24px;   /* 좌우에 32px 패딩 추가 */
-    }
-    nav {
-      display: flex;
-      align-items: center;
-      padding-right: 24px; /* 스크롤바와 겹치지 않게 */
-    }
-    nav a {
-      margin-left: 8px;
-      margin-right: 16px;
-      color: var(--on-primary);
-      font-weight: 500;
-      transition: color .2s;
-    }
-    nav a:hover {
-      color: var(--on-surface);
-    }
-    nav a:first-child {
-      margin-left: 0;     /* 첫 메뉴는 왼쪽 여백 없음 */
-    }
-    .lang-switch {
-      display: flex; gap: 8px;
-      margin-left: 12px; /* '제품' 메뉴와 언어버튼 사이 여백 */
-    }
-    .lang-switch button {
-      background: var(--secondary-container);
-      color: var(--on-secondary-container);
-      border: none; padding: 6px 12px;
-      border-radius: 8px; cursor: pointer;
-      font-weight: 500;
-    }
-    .lang-switch button:hover {
-      background: var(--secondary-container);
-      color: var(--on-secondary-container);
-    }
-
-    /* ==================== HERO BANNER ==================== */
-    .hero {
-      position: relative;
-      height: 100vh;
-      background: url('images/hero_bg.png') center 40%/cover no-repeat;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center;
-      color: var(--on-primary);
-    }
-    .hero::after {
-      content: "";
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,0.4);
-    }
-    .hero .content {
-      position: relative; 
-      z-index: 1;
-      max-width: 800px;      
-    }
-    .hero h1 {
-      font-size: clamp(28px, 6vw, 54px); /* 최소28, 최대54, 화면폭에 따라 유동 */
-      line-height: 1.15;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: var(--primary-container);  /* 밝은 레몬 */
-      text-shadow: 0 6px 24px rgba(44,44,0,0.27), 0 1px 2px rgba(44,44,0,0.38);
-      word-break: keep-all;    /* 한국어는 keep-all이 더 자연스러움 */
-    }
-    .hero p {
-      font-size: clamp(10px, 6vw, 20px); /* 최소28, 최대54, 화면폭에 따라 유동 */
-      line-height: 1.5;
-      font-weight: 400;
-      margin-bottom: 32px;
-      color: var(--surface);  /* 거의 흰색에 가까운 밝은색 */
-      text-shadow: 0 3px 12px rgba(44,44,0,0.32);
-      word-break: keep-all;    /* 한국어는 keep-all이 더 자연스러움 */
-    }
-    .hero .btn {
-      /* background: var(--primary-container); */
-      background: rgba(255, 254, 203, 0.60);  /* 60% 불투명 (var(--primary-container)은 #FFFECB) */
-      color: var(--on-surface);
-      padding: 12px 28px;
-      border-radius: 8px;
-      box-shadow: var(--elev1);
-      font-weight: 500;
-      transition: transform .2s, box-shadow .2s;
-      /* ↓ 추가로 backdrop-blur 주고 싶으면 */
-      backdrop-filter: blur(2px);
-      /* 필요하면 text-shadow로 밝기 강조 */
-      text-shadow: 0 1px 10px rgba(255,255,255,0.15);
-    }
-    .hero .btn:hover {
-      background: rgba(255, 254, 203, 0.92);  /* hover 시 살짝 더 선명하게 */
-      color: var(--on-primary-container);      /* hover시 기존 어두운 글씨로 */
-      transform: translateY(-2px);
-      box-shadow: var(--elev2);
-    }
-
-    /* ★ ADDED: 브랜드(로고 + 타이틀) 레이아웃 */
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;              /* 로고와 텍스트 간격 */
-    }
-
-    /* ★ ADDED: 로고 크기 — 텍스트 높이에 맞춤 */
-    #brand-logo {
-      height: 28px;           /* 데스크톱 헤더 높이에 맞춘 값 */
-      width: auto;            /* 비율 유지 */
-      border-radius: 6px;     /* (선택) 살짝 라운드 */
-    }
-    
-    @media (max-width: 600px) {
-      /* 모바일에선 타이틀이 작아지므로 로고도 축소 */
-      #brand-logo { height: 22px; }
-    }
-
-    /* ==================== SECTIONS ==================== */
-    .section {
-      padding: 80px 0;
-    }
-    .section .container {
-      max-width: 1200px; margin: auto;
-      text-align: center;
-    }
-    .section p {
-      margin-bottom: 40px;
-    }
-
-    /* ABOUT 섹션 배경색 */
-    #about {
-      background: var(--primary)
-    }
-
-    /* PRODUCT 섹션 배경색 */
-    #product {
-      background: #E0EBE9;
-    }
-
-    #about h2,
-    #product h2 {
-      color: var(--on-surface);
-    }
-
-    /* ABOUT 섹션 브랜드 심볼 (장식용) */
-    #about .brand-symbol{
-      display:block;
-      margin:16px auto 12px;         /* 제목 아래 간격 */
-      width:min(560px, 80%);         /* 데스크톱에선 560px, 모바일에선 컨테이너 80% */
-      aspect-ratio:1200 / 630;       /* OG 비율 유지 */
-      border-radius:16px;
-      box-shadow: var(--elev2);
-      background:#fff;               /* 투명 PNG 대비 */
-      object-fit:cover;
-      pointer-events:none;           /* ★ 클릭 차단 (장식용) */
-      cursor:default;                /* ★ 손가락 커서 방지 */
-    }
-    @media (max-width: 600px){
-      #about .brand-symbol{
-        border-radius:12px;
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/company.css">
+  <!-- Company Source injected at build time: sourceVersionId=mvc_v0_2, version=v0.2, publishedAt=2026-05-31T14:33:49.295000+00:00 -->
+  <style id="home-mobile-display-type-system">
+    @media (max-width: 640px) {
+      :root {
+        --home-mobile-display-font-size: clamp(1.42rem, 5.9vw, 1.78rem);
+        --home-mobile-display-line-height: 1.14;
+        --home-mobile-hero-line-height: 1.22;
+        --home-mobile-display-letter-spacing: -0.045em;
+        --home-mobile-display-weight: 800;
+        --home-mobile-section-title-top-gap: clamp(28px, 7svh, 84px);
       }
-    }
 
-    /* ==================== PRODUCT ==================== */
-    #play-store-badge {
-      display: flex; gap: 16px; justify-content: center; margin-top: 16px;
-    }
-    #play-store-badge img {
-      height: 48px; width: auto;
-    }
-
-    /* ★ ADDED: 제품 섹션의 앱 아이콘 스타일 */
-      #about .brand-symbol {
-      display:block;
-      margin:16px auto 12px;
-      max-width:100%;     /* 기기 가로폭 넘지 않게 */
-      height:auto;        /* 세로는 원본 비율 유지 */
-      border-radius:0;     /* 둥근 모서리 제거 */
-      box-shadow:none;     /* 그림자 제거 */
-      background:none;     /* 배경 제거 */
-      pointer-events:none; /* 클릭 차단 */
-      cursor:default;      /* 기본 커서 */
-    }
-    
-    /* ABOUT 본문 패딩 */
-    #about #about-content {
-      padding-left:16px;
-      padding-right:16px;
-      box-sizing:border-box; /* 패딩으로 레이아웃 깨짐 방지 */
-      word-break: keep-all;   /* 단어(띄어쓰기 단위) 기준 줄바꿈 */
-    }
-    @media (max-width:600px){
-      #about .brand-symbol{ border-radius:12px; }
-    }
-
-    /* ★ ADDED: Product screenshots layout */
-    /* ★ UPDATED: 제품 스크린샷을 항상 2열 그리드로 배치 (모바일 포함) */
-    #product-screenshots {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2열 고정 */
-      gap: 0;
-      margin: 16px 0 8px;
-      justify-items: center; /* 각 셀에서 중앙 정렬 */
-    }
-    #product-screenshots img{
-      width: 100%;              /* 셀 너비에 맞춤 */
-      height: auto;
-      border-radius: 0;
-      
-      /* 배경을 tertiary-container로
-      background: var(--tertiary-container);
-      
-      padding: 6px;
-      box-shadow: var(--elev2); */
-      box-shadow: none;       /* ← 그림자 겹침 방지 (필요시 유지 가능) */
-      object-fit: contain;
-      aspect-ratio: 1320 / 2868;
-
-      /* 불필요한 테두리/패딩 제거 */
-      background: none;
-      padding: 0;
-    }
-    /* ★ ADDED: 모바일에서 제품 섹션 좌우 패딩 살짝 추가 */
-    @media (max-width: 600px){
-      #product .container{
-        padding-left: 12px;
-        padding-right: 12px;
-        box-sizing: border-box; /* 패딩으로 인해 가로가 넘치지 않도록 */
+      .hero-motto #home-hero-lines,
+      .story-section #home-app-title,
+      .story-section #home-studio-title {
+        font-size: var(--home-mobile-display-font-size);
+        line-height: var(--home-mobile-display-line-height);
+        letter-spacing: var(--home-mobile-display-letter-spacing);
+        font-weight: var(--home-mobile-display-weight);
       }
-    }
-    /* ===== Desktop: 두 스크린샷 중앙에 딱 붙게 + 살짝 축소 ===== */
-    @media (min-width: 1024px){
-      #product-screenshots{
-        display: inline-flex !important;   /* 컨텐츠 폭만큼만 줄어듦 */
-        gap: 0 !important;
-        column-gap: 0 !important;
-        row-gap: 0 !important;
-        margin: 16px auto 8px !important;  /* 부모 .container가 text-align:center라 가운데 정렬 */
-        vertical-align: top;
+
+      .hero-motto #home-hero-lines {
+        line-height: var(--home-mobile-hero-line-height);
       }
-      #product-screenshots img{
+
+      .hero-motto .hero-motto-copy {
+        padding-top: var(--home-mobile-section-title-top-gap);
+      }
+
+      .hero-motto #home-hero-lines {
+        margin-top: 0;
+      }
+
+      .hero-motto #home-hero-lines .hero-line {
         display: block;
-        width: auto !important;            /* 가로는 이미지 비율대로 */
-        height: min(600px, 60vh);          /* 데스크탑에서 살짝 작게 보이도록 */
-        margin: 0 !important;
-        padding: 0 !important;
-        border: 0 !important;
+        white-space: nowrap;
+      }
+
+      .story-end-spacer {
+        height: calc(100svh - var(--header-offset));
+        pointer-events: none;
       }
     }
 
-    /* 모바일/태블릿은 기존 레이아웃 유지(원하시면 여기도 조정 가능) */
-
-    /* ★ ADDED END */
-
-    /* QR 영역 */
-    #qr-area{
-      margin-top:32px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:12px;
-    }
-    #qr-install-img{
-      width:160px;
-      height:auto;
-      box-shadow: var(--elev1);
-      border-radius:12px;
-      background:#fff;
-      padding:8px;
-    }
-    #qr-caption{
-      font-size:14px;
-      color:var(--on-surface-variant);
-    }
-    @media (max-width:600px){
-      #qr-install-img{ width:140px; }
-    }
-
-    /* ==================== TESTIMONIALS ==================== */
-    .testimonials {
-      background: var(--surface-low);
-    }
-    .testimonials .cards {
-      display: flex; gap: 24px;
-      overflow-x: auto; padding-bottom: 16px;
-    }
-    .testimonials .card {
-      flex: 0 0 300px;
-      background: var(--surface-container);
-      border-radius: 16px;
-      box-shadow: var(--elev1);
-      padding: 24px;
-      display: flex; flex-direction: column;
-    }
-    .testimonials .author {
-      margin-top: 16px;
-      text-align: right;
-      font-weight: 500;
-      color: var(--primary);
-    }
-
-    /* ==================== EVENTS (예시) ==================== */
-    .events .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-    .events .event {
-      background: var(--surface-container);
-      border-radius: 16px;
-      box-shadow: var(--elev1);
-      overflow: hidden;
-      display: flex; flex-direction: column;
-    }
-    .events .event img {
-      width: 100%; height: 180px; object-fit: cover;
-    }
-    .events .event .info {
-      padding: 16px; flex: 1;
-    }
-    .events .event h3 {
-      font-size: 20px; margin-bottom: 8px;
-      color: var(--primary);
-    }
-    .events .event a.btn {
-      margin-top: 16px;
-      display: inline-block;
-      background: var(--primary-container);
-      color: var(--on-primary-container);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 500;
-      box-shadow: var(--elev1);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .events .event a.btn:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--elev2);
-    }
-
-    /* ==================== FOOTER ==================== */
-    footer {
-      background: var(--on-surface);
-      color: var(--surface);
-      padding: 40px 0;
-    }
-    footer .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;  /* ← ★ 추가: 좌우 24px 패딩 */
-      box-sizing: border-box;
-    }
-    .footer-menu {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      margin-bottom: 16px;
-
-      /* ↓ 핵심 */
-      flex-wrap: nowrap;              /* 줄바꿈 금지 */
-      overflow-x: auto;               /* 넘치면 가로 스크롤 */
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;          /* Firefox 스크롤바 숨김 */
-    }
-    .footer-menu::-webkit-scrollbar { /* 크롬 등 스크롤바 숨김 */
-      display: none;
-    }
-    .footer-link {
-      white-space: nowrap;            /* 단어 내부 줄바꿈 방지 */
-      flex: 0 0 auto;                 /* 수축 금지(한 칸으로 취급) */
-    }
-    .footer-info {
-      text-align: center;
-      font-size: 14px;
-    }
-    /* 좁은 화면에서 간격/폰트 살짝 줄여주면 거의 스크롤 없이도 맞는 경우가 많음 */
-    @media (max-width: 600px) {
-      .footer-menu { 
-        gap: clamp(8px, 3.5vw, 16px); 
-        padding: 0 8px;
+    @media (min-width: 921px) {
+      .story-section.studio-panel {
+        min-height: calc(120svh - var(--header-offset));
       }
-      .footer-link { font-size: 13px; }
+
+      .story-end-spacer {
+        height: calc(100svh - var(--header-offset));
+        pointer-events: none;
+      }
     }
-    
-    /* ==================== MOBILE ==================== */
-    @media (max-width: 600px) {
-    header .container {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 8px;
-    }
-    header h1 {
-      font-size: 20px;
-      line-height: 26px;
-      margin-bottom: 0;
-      white-space: nowrap;
-    }
-    nav {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 0;
-      padding-right: 0;
-    }
-    nav a {
-      font-size: 14px;
-      margin: 0 4px;
-      padding: 0 2px;
-      white-space: nowrap;
-    }
-    .lang-switch {
-      margin-left: 8px;
-      gap: 3px;
-    }
-    .lang-switch button {
-      padding: 3px 8px;
-      font-size: 13px;
-    }
-  }
   </style>
+  <title>네트멜론</title>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://netmelonai.com/#organization","name":"Netmelon","alternateName":"네트멜론","url":"https://netmelonai.com/","logo":"https://netmelonai.com/images/logo.png","image":"https://netmelonai.com/images/og-cover.png","description":"네트멜론은 외국어 학습을 공부에 머물지 않게 하고, 실제로 말할 수 있는 훈련으로 바꾸어 누구나 새로운 언어로 생각하고 표현하며 더 넓은 세상과 자유롭게 연결되게 합니다.","email":"netmelon@netmelonai.com","sameAs":["https://naepopquiz.com/","https://studio.naepopquiz.com/","https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz","https://apple.co/4ez9nji"],"contactPoint":[{"@type":"ContactPoint","contactType":"customer support","email":"netmelon@netmelonai.com","url":"https://netmelonai.com/","availableLanguage":["ko"]}]},{"@type":"WebSite","@id":"https://netmelonai.com/#website","name":"Netmelon","url":"https://netmelonai.com/","inLanguage":"ko-KR","publisher":{"@id":"https://netmelonai.com/#organization"}},{"@type":"WebPage","@id":"https://netmelonai.com/#webpage","url":"https://netmelonai.com/","name":"네트멜론","description":"네트멜론은 외국어 학습을 공부에 머물지 않게 하고, 실제로 말할 수 있는 훈련으로 바꾸어 누구나 새로운 언어로 생각하고 표현하며 더 넓은 세상과 자유롭게 연결되게 합니다.","inLanguage":"ko-KR","isPartOf":{"@id":"https://netmelonai.com/#website"},"about":{"@id":"https://netmelonai.com/#organization"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://netmelonai.com/images/og-cover.png"}},{"@type":"SoftwareApplication","@id":"https://naepopquiz.com/#app","name":"내팝퀴즈","url":"https://naepopquiz.com/","applicationCategory":"EducationalApplication","operatingSystem":"iOS, Android","publisher":{"@id":"https://netmelonai.com/#organization"}},{"@type":"WebApplication","@id":"https://studio.naepopquiz.com/#studio","name":"내팝퀴즈 스튜디오","url":"https://studio.naepopquiz.com/","applicationCategory":"EducationalApplication","publisher":{"@id":"https://netmelonai.com/#organization"}},{"@type":"FAQPage","@id":"https://netmelonai.com/#faq","inLanguage":"ko-KR","mainEntity":[{"@type":"Question","name":"네트멜론은 어떤 회사인가요?","acceptedAnswer":{"@type":"Answer","text":"네트멜론은 외국어 학습을 공부에 머물지 않게 하고, 실제로 말할 수 있는 훈련으로 바꾸어 누구나 새로운 언어로 생각하고 표현하며 더 넓은 세상과 자유롭게 연결되게 합니다."}},{"@type":"Question","name":"내팝퀴즈와 네트멜론의 관계는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"네트멜론은 내팝퀴즈 앱과 내팝퀴즈 스튜디오를 기획, 운영, 퍼블리싱하는 회사입니다."}},{"@type":"Question","name":"공식 사이트는 어떻게 구분되나요?","acceptedAnswer":{"@type":"Answer","text":"회사 홈페이지는 netmelonai.com, 앱 랜딩 사이트는 naepopquiz.com, 스튜디오는 studio.naepopquiz.com에서 제공합니다."}}]}]}</script>
 </head>
 <body>
-  <!-- HEADER -->
-  <header id="site-header">
-    <div class="container">
-      <div class="brand">
-        <img
-          id="brand-logo"
-          src="images/logo.png"
-          alt="네트멜론 로고"
-          width="32" height="32"
-          decoding="async"
-        />
-        <h1 id="company-name">네트멜론</h1>
-      </div>
-      <nav>
-        <a id="nav-home"    href="#hero">HOME</a>
-        <a id="nav-about"   href="#about">회사소개</a>
-        <a id="nav-product" href="#product">제품</a>
-        <div class="lang-switch">
-          <button id="btn-ko" onclick="switchLanguage('ko')" style="display:none">한국어</button>
-          <button id="btn-en" onclick="switchLanguage('en')">English</button>
+  <header class="site-header" id="top">
+    <div class="shell">
+      <a class="brand" href="https://netmelonai.com/">
+        <img src="images/logo.png" alt="네트멜론 로고" width="36" height="36">
+        <span>네트멜론</span>
+      </a>
+      <div class="mobile-actions">
+        <div class="download-menu">
+          <button class="download-toggle" type="button" aria-expanded="false" aria-controls="download-menu" aria-label="앱 다운로드 메뉴 열기">앱 다운로드</button>
+          <div class="download-dropdown" id="download-menu">
+            <a href="https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz" target="_blank" rel="noopener noreferrer">Google Play</a>
+            <a href="https://apple.co/4ez9nji" target="_blank" rel="noopener noreferrer">App Store</a>
+          </div>
         </div>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="메뉴 열기">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary">
+        <a href="company.html">회사소개</a>
+        <a href="#naepopquiz-app">제품소개</a>
+        <a href="problems.html">풀고 있는 문제</a>
+        <a href="careers.html">채용</a>
+        <a href="ir.html">IR</a>
+        <a href="announcement.html">회사 공고</a>
+        <a class="lang-link" href="en/index.html" lang="en">ENGLISH</a>
       </nav>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div class="content">
-      <h1 id="hero-title">네트멜론과 함께하면,<br>선생님의 하루가 달라집니다.</h1>      
-      <p id="hero-subtitle">반복되는 업무는 AI에 맡기고, 진짜 교육에 집중하세요!</p>
-      <a href="#product" class="btn" id="hero-cta">제품 보러 가기</a>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="section">
-    <div class="container">
-      <h2 id="about-title">회사소개</h2>
-      <!-- ★ 장식용 브랜드 심볼: 클릭 불가 + 스크린리더 숨김 -->
-      <img
-        class="brand-symbol"
-        src="images/company_logo.png"
-        alt=""
-        aria-hidden="true"
-        loading="lazy"
-        decoding="async"
-      />
-      <p id="about-content">네트멜론은 고객의 요구에 맞춘 혁신적인 인공지능 기술이 결합된 모바일 어플리케이션 개발 기업입니다.</p>
-    </div>
-  </section>
-
-  <!-- PRODUCT -->
-  <section id="product" class="section">
-    <div class="container">
-      <h2 id="product-title">제품</h2>
-      <!-- ★ ADDED: 제품 제목과 설명 사이에 앱 아이콘 -->
-      <img
-        id="app-icon"
-        src="images/app_icon.png"
-        alt=""
-        aria-hidden="true"
-        width="96" height="96"
-        loading="lazy"
-        decoding="async"
-      />
-      <!-- ★ ADDED END -->
-      <p id="product-description">내팝퀴즈 — AI 기반 영단어 학습 퀴즈 생성 앱</p>
-       <!-- ★ ADDED: 제품 스크린샷 (product-title ~ play-store-badge 사이) -->
-      <div id="product-screenshots">
-        <!-- ★ ADD: width/height로 고유 비율 예약 -->
-        <img
-          id="product-screenshot-1"
-          src="images/screenshots_no_1.png"
-          alt="내팝퀴즈 앱 스크린샷 1"
-          loading="lazy"
-          decoding="async"
-          width="1320" height="2868"
-        />
-
-        <img
-          id="product-screenshot-2"
-          src="images/screenshots_no_2.png"
-          alt="내팝퀴즈 앱 스크린샷 2"
-          loading="lazy"
-          decoding="async"
-          width="1320" height="2868"
-        />
+  <main>
+    <section class="hero hero-motto" id="company">
+      <div class="shell">
+        <div class="hero-motto-copy">
+          <h1 id="home-hero-lines">
+            <span class="hero-line">네트멜론은</span>
+            <span class="hero-line">언어를 통해</span>
+            <span class="hero-line"><span class="hero-emphasis">생각과 기회의 자유</span>를 넓힙니다.</span>
+          </h1>
+        </div>
       </div>
-      <!-- ★ ADDED END -->
-      <div id="play-store-badge">
-        <a href="https://apple.co/4ez9nji" target="_blank">
-          <img id="apple-appstore-badge" src="images/appstore_black_ko.svg" alt="Apple App Store Badge">
-        </a>
-        <a href="https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz" target="_blank">
-          <img id="google-play-badge" src="images/GetItOnGooglePlay_Badge_Web_color_Korean_resized.png" alt="Google Play Store Badge">
-        </a>
-      </div>
-      <div id="qr-area">
-        <img id="qr-install-img" src="images/qr_install.png" alt="앱 설치 QR 코드" loading="lazy">
-        <p id="qr-caption">QR 코드로 설치하기</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PRIVACY -->
-  <!-- <section id="privacy" class="section">
-    <div class="container">
-      <h2 id="privacy-title">개인정보처리방침</h2>
-      <p id="privacy-snippet">네트멜론은 고객의 개인정보를 안전하게 보호합니다.</p>
-      <a href="javascript:void(0);" id="view-full-privacy" onclick="toggleFullPrivacy()">전문 보기</a>
-      <div id="full-privacy-content-ko" style="display:none; text-align:left;"></div>
-      <div id="full-privacy-content-en" style="display:none; text-align:left;"></div>
-    </div>
-  </section> -->
+    <section class="story-scroll">
+      <article class="story-section magnetic-section app-panel" id="naepopquiz-app">
+        <div class="story-content">
+          <h2 id="home-app-title">공부하지 마세요.<br>그냥 따라 말하세요.</h2>
+          <p id="home-app-copy">내팝퀴즈는 단어장부터 회화장까지, 듣고 따라 말하는 반복 훈련으로 외국어를 실제로 말할 수 있게 만드는 언어 훈련 앱입니다.</p>
+          <a class="story-link" href="https://naepopquiz.com/" target="_blank" rel="noopener noreferrer">앱 홈페이지 보기</a>
+          <div class="app-shotcase" aria-label="내팝퀴즈 앱 화면">
+            <div class="app-shot-track">
+              <!-- __COMPANY_ASSET_PRODUCT_SHOTS_START__ -->
+              <figure class="app-shot shot-1" data-asset-id="npq_app_training_shadowing_ko_android">
+                <img src="https://firebasestorage.googleapis.com/v0/b/npq-staging.firebasestorage.app/o/asset-registry%2Fpublic%2Fnaepopquiz_app%2Fko%2Fnpq_app_training_shadowing_ko_android%2Fnpq_app_training_shadowing_ko_android_web_product_section_ko%2Fb609251ef55c485191e52f6c1711a65c821ce3a71474a1bf41c611b8918a126b.png?alt=media&amp;token=0d1c53f6-7445-4327-89a9-f7656861ec73" alt="내팝퀴즈 앱의 쉐도잉 트레이닝 화면" width="1080" height="2424" loading="lazy" decoding="async">
+              </figure>
+              <figure class="app-shot shot-2" data-asset-id="npq_app_unified_content_studio_ko_android">
+                <img src="https://firebasestorage.googleapis.com/v0/b/npq-staging.firebasestorage.app/o/asset-registry%2Fpublic%2Fnaepopquiz_app%2Fko%2Fnpq_app_unified_content_studio_ko_android%2Fnpq_app_unified_content_studio_ko_android_web_product_section_ko%2Fdff6e5cc7864043215226cf1be3a938d4b9b176a8fe75fa90f17e77925112596.png?alt=media&amp;token=669c0968-0257-4146-bf6b-2ca0ba7c834f" alt="내팝퀴즈 앱의 통합 콘텐츠 스튜디오 화면" width="1080" height="2424" loading="lazy" decoding="async">
+              </figure>
+              <!-- __COMPANY_ASSET_PRODUCT_SHOTS_END__ -->
+            </div>
+          </div>
+        </div>
+      </article>
 
-  <!-- TERMS -->
-  <!-- <section id="terms" class="section">
-    <div class="container">
-      <h2 id="terms-title">이용약관</h2>
-      <p id="terms-snippet">내팝퀴즈 서비스 이용약관을 안내합니다.</p>
-      <a href="javascript:void(0);" id="view-full-terms" onclick="toggleFullTerms()">전문 보기</a>
-      <div id="full-terms-content-ko" style="display:none; text-align:left;"></div>
-      <div id="full-terms-content-en" style="display:none; text-align:left;"></div>
-    </div>
-  </section> -->
+      <article class="story-section magnetic-section studio-panel" id="naepopquiz-studio">
+        <div class="story-content">
+          <h2 id="home-studio-title">말하기 훈련 콘텐츠를 더 빠르게 만들고, 더 쉽게 운영합니다.</h2>
+          <p id="home-studio-copy">내팝퀴즈 스튜디오는 어학 콘텐츠를 생성하고 수정해 앱에서 바로 사용할 수 있게 하는 콘텐츠 운영 도구입니다.</p>
+          <a class="story-link studio-cta" href="https://studio.naepopquiz.com/" target="_blank" rel="noopener noreferrer">스튜디오 사용하기</a>
+          <div class="studio-shotcase" aria-label="내팝퀴즈 스튜디오 화면">
+            <div class="studio-shot-track">
+              <!-- __COMPANY_ASSET_STUDIO_SHOTS_START__ -->
+              <!-- __COMPANY_ASSET_STUDIO_SHOTS_END__ -->
+            </div>
+          </div>
+        </div>
+      </article>
 
-  <!-- CONTACT -->
-  <!-- <section id="contact" class="section">
-    <div class="container">
-      <h2 id="contact-title">연락처</h2>
-      <p id="contact-content">이메일: <a href="mailto:netmelondev@gmail.com">netmelondev@gmail.com</a></p>
-    </div>
-  </section> -->
+      <div class="story-end-spacer" aria-hidden="true"></div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="footer-menu">        
-        <!-- ▶ id를 footer-privacy → nav-privacy 로 바꾸고 href 초기값은 # 으로 두세요 -->
-        <a href="#" class="footer-link" id="nav-privacy">개인정보처리방침</a>
-        <!-- ▶ id를 footer-terms → nav-terms 로 바꾸고 href 초기값은 # 으로 두세요 -->
-        <a href="#" class="footer-link" id="nav-terms">이용약관</a>
-        <!-- ▶ NEW: 계정 및 데이터 삭제 안내 -->
-        <a href="#" class="footer-link" id="nav-data-deletion">계정 · 데이터 삭제</a>
-        <!-- ▶ id nav-contact 이미 올바름, mailto는 switchLanguage 에서 고정 세팅 -->
-        <a href="#" class="footer-link" id="nav-contact">문의</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-row">
+      <div class="footer-brand">
+        <strong class="footer-company-name">Netmelon</strong>
+        <p class="footer-copyright">Copyright 2026 Netmelon. All rights reserved.</p>
       </div>
-      <div class="footer-info">
-        © 2025 Netmelon. All rights reserved.
-      </div>
+      <section class="publisher-business" aria-label="사업자 정보" data-publisher-profile-version="publisher_netmelon_2026-09-05_1" data-publisher-profile-hash="6c7e7675e7e3060a1784b00b65505f0a5713941f1cab1d7c6a3b0ed1e3c394a3">
+        <p class="publisher-business-line"><span class="publisher-business-item"><strong>사업자등록번호:</strong> 826-81-02224</span><span class="publisher-business-item"><strong>대표:</strong> 신승우</span></p>
+        <p class="publisher-business-line"><span class="publisher-business-item"><strong>호스팅 서비스:</strong> 구글클라우드 코리아 유한회사</span><span class="publisher-business-item"><strong>통신판매업 신고번호:</strong> 2025-경기김포-5450 <a class="business-verify" href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=8268102224" target="_blank" rel="noopener noreferrer">사업자정보확인</a></span></p>
+        <p class="publisher-business-address">경기도 김포시 고촌읍 태리로 236, 130동 305호</p>
+      </section>
     </div>
   </footer>
-
+  <!-- Company Source is injected at build time by scripts/inject-company-source.mjs. -->
+  <script src="scripts/site-shell.js" defer></script>
   <script>
-    // 1. 초기 언어 결정
-    const urlParams = new URLSearchParams(window.location.search);
-    let currentLang = urlParams.get('lang') === 'en' ? 'en' : 'ko';
+    (() => {
+      const appPanel = document.querySelector("#naepopquiz-app");
+      const appShotcase = document.querySelector(".app-shotcase");
+      const appShotTrack = document.querySelector(".app-shot-track");
+      if (!appPanel || !appShotcase || !appShotTrack) return;
+      let shotRafId = null;
 
-    // 2. 데이터 전역 변수
-    let translations, privacyPolicies, termsOfService;
-
-    // 3. DOMContentLoaded 이벤트에서 초기 데이터 fetch 및 언어 적용
-    document.addEventListener("DOMContentLoaded", async () => {
-      translations    = await fetchJsonData('translations.json');
-      privacyPolicies = await fetchJsonData('privacy.json');
-      termsOfService  = await fetchJsonData('terms_of_service.json');
-      switchLanguage(currentLang); // 페이지 진입 시 lang 반영
-      setAllLinksLang();           // 네비, 푸터, 내부 anchor 등에도 lang 반영
-    });
-
-    // 4. 언어 전환 함수
-    function switchLanguage(lang) {
-      currentLang = lang;
-      document.querySelectorAll("[id]").forEach(el => {
-        const key = el.id;
-        if (translations[lang][key]) {
-          // ★ IMG 같은 요소는 innerText 대신 alt만 바꿔준다
-          if (el.tagName === 'IMG') {
-            el.alt = translations[lang][key];
-          } else {
-            el.innerText = translations[lang][key];
-          }
+      const updateAppShots = () => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          appShotTrack.style.setProperty("--shots-track-x", "0px");
+          return;
         }
-      });
-      document.getElementById("btn-ko").style.display = lang==='en'?'inline-block':'none';
-      document.getElementById("btn-en").style.display = lang==='ko'?'inline-block':'none';
-      document.getElementById("google-play-badge").src =
-        lang==='ko'
-          ? "images/GetItOnGooglePlay_Badge_Web_color_Korean_resized.png"
-          : "images/GetItOnGooglePlay_Badge_Web_color_English.png";
-      document.getElementById("apple-appstore-badge").src =
-        lang==='ko'
-          ? "images/appstore_black_ko.svg"
-          : "images/appstore_black_en.svg";
-
-      // ★ QR 영역 텍스트/alt (있을 때만 처리)
-      const qrCaptionEl = document.getElementById("qr-caption");
-      if (qrCaptionEl && translations[lang]["qr-caption"]) {
-        qrCaptionEl.innerText = translations[lang]["qr-caption"];
-      }
-      const qrImgEl = document.getElementById("qr-install-img");
-      if (qrImgEl && translations[lang]["qr-alt"]) {
-        qrImgEl.alt = translations[lang]["qr-alt"];
-      }
-      
-      // footer 메뉴 링크
-      document.getElementById("nav-privacy").href = `privacy.html?lang=${lang}`;
-      document.getElementById("nav-terms"  ).href = `terms.html?lang=${lang}`;
-      document.getElementById("nav-data-deletion").href = `data-deletion.html?lang=${lang}`;
-      document.getElementById("nav-contact").href = `mailto:netmelon@netmelonai.com`;
-
-      // footer 텍스트
-      document.getElementById("nav-privacy").innerText = translations[lang]["nav-privacy"];
-      document.getElementById("nav-terms"  ).innerText = translations[lang]["nav-terms"];
-      document.getElementById("nav-data-deletion").innerText = translations[lang]["nav-data-deletion"];
-      document.getElementById("nav-contact").innerText = translations[lang]["nav-contact"];
-
-      // <html> lang도 변경
-      document.documentElement.lang = lang;
-      document.title = translations[lang]["company-name"] || "Netmelon";
-
-      // 내부 anchor 이동 시 lang 파라미터 유지
-      setAllLinksLang();
-    }
-
-    // 5. 모든 주요 링크에 lang 파라미터 추가(내부 anchor 이동도 포함)
-    function setAllLinksLang() {
-      // 헤더 메뉴 (HOME 등은 앵커+lang)
-      document.getElementById('nav-home').href    = `index.html?lang=${currentLang}#hero`;
-      document.getElementById('nav-about').href   = `index.html?lang=${currentLang}#about`;
-      document.getElementById('nav-product').href = `index.html?lang=${currentLang}#product`;
-      // 푸터는 위 switchLanguage에서 반영
-
-      // 앵커(a) 태그 중 #으로 시작하는 내부링크도 모두 lang 반영
-      document.querySelectorAll('a[href^="#"]').forEach(a => {
-        if (!a.id.startsWith('nav-')) {
-          a.href = `${window.location.pathname}?lang=${currentLang}${a.getAttribute('href')}`;
+        if (!window.matchMedia("(max-width: 920px)").matches) {
+          appShotTrack.style.setProperty("--shots-track-x", "0px");
+          return;
         }
+
+        const rect = appPanel.getBoundingClientRect();
+        const vh = window.innerHeight || 1;
+        const startTop = vh * 0.95;
+        const stickyTop = parseFloat(window.getComputedStyle(document.documentElement).getPropertyValue("--header-offset")) || 76;
+        const holdUntilTop = (startTop + stickyTop) / 2;
+        const firstShot = appShotTrack.querySelector(".shot-1");
+        const shotWidth = firstShot ? firstShot.getBoundingClientRect().width : 0;
+        const gap = parseFloat(window.getComputedStyle(appShotTrack).columnGap || window.getComputedStyle(appShotTrack).gap || "0");
+        if (shotWidth <= 0) {
+          appShotTrack.style.setProperty("--shots-track-x", "0px");
+          return;
+        }
+        const centerOffset = (appShotcase.clientWidth - shotWidth) / 2;
+        const shiftDistance = shotWidth + gap;
+        if (shiftDistance <= 1) {
+          appShotTrack.style.setProperty("--shots-track-x", `${centerOffset.toFixed(1)}px`);
+          return;
+        }
+        const slideDenominator = Math.max(1, holdUntilTop - stickyTop);
+        const slideProgress = rect.top >= holdUntilTop
+          ? 0
+          : Math.max(0, Math.min(1, (holdUntilTop - rect.top) / slideDenominator));
+        const shotsTrackX = centerOffset - shiftDistance * slideProgress;
+        appShotTrack.style.setProperty("--shots-track-x", `${shotsTrackX.toFixed(1)}px`);
+      };
+
+      const requestShotUpdate = () => {
+        if (shotRafId !== null) return;
+        shotRafId = window.requestAnimationFrame(() => {
+          shotRafId = null;
+          updateAppShots();
+        });
+      };
+
+      window.addEventListener("resize", () => {
+        requestShotUpdate();
       });
-    }
 
-    // 6. lang 파라미터 없을 때 디폴트(ko)로 세팅
-    if (!urlParams.has('lang')) {
-      history.replaceState({}, '', `${location.pathname}?lang=ko${location.hash}`);
-    }
-
-    // 7. 헤더 배경 전환 (기존과 동일)
-    const hdr = document.getElementById('site-header');
-    window.addEventListener('scroll', () => {
-      hdr.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // 8. JSON fetch 함수
-    async function fetchJsonData(url) {
-      const res = await fetch(url);
-      return await res.json();
-    }
+      window.addEventListener("scroll", requestShotUpdate, { passive: true });
+      requestShotUpdate();
+    })();
   </script>
 </body>
 </html>
