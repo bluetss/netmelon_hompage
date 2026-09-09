@@ -127,7 +127,7 @@ function renderApplicationForm(problem, privacyHref = "privacy.html") {
 
 function mappedProblemIds(job) {
   return (Array.isArray(job?.technicalChallenges) ? job.technicalChallenges : [])
-    .map((item) => clean(item).match(/^(?:Primary|Supporting|Guardrail|Input)\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1] || "")
+    .map((item) => clean(item).match(/^Primary\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1] || "")
     .filter(Boolean);
 }
 
