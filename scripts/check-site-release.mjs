@@ -926,7 +926,7 @@ async function checkOpenProblemsAndCareers() {
   const mappedJobs = (problem) => {
     const acceptedIds = new Set([problem.problemId, ...(legacyProblemIds[problem.problemId] || [])]);
     return careerJobs.filter((job) => (Array.isArray(job?.technicalChallenges) ? job.technicalChallenges : []).some((item) => {
-      const mappedId = String(item || "").trim().match(/^(?:Primary|Supporting|Guardrail|Input)\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1];
+      const mappedId = String(item || "").trim().match(/^Primary\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1];
       return mappedId && acceptedIds.has(mappedId);
     }));
   };
@@ -942,8 +942,11 @@ async function checkOpenProblemsAndCareers() {
   const participatingProblems = problems.filter((problem) => ["open", "exploring"].includes(problem?.status));
   const inlineFormCount = (page.match(/class="problem-application-form"/g) || []).length;
   const inlineToggleCount = (page.match(/data-problem-application-toggle/g) || []).length;
+  const expectedCareerLinkCount = participatingProblems.reduce((count, problem) => count + mappedJobs(problem).length, 0);
+  const actualCareerLinkCount = (page.match(/class="problem-career-link"/g) || []).length;
   assert(inlineFormCount === participatingProblems.length, "problems.html must render one inline application form per participating problem.");
   assert(inlineToggleCount === participatingProblems.length, "problems.html must render one application toggle per participating problem.");
+  assert(actualCareerLinkCount === expectedCareerLinkCount, "problems.html must render careers actions only for directly owned Primary problems.");
   for (const problem of participatingProblems) {
     assert(
       page.includes('name="problemId" value="' + String(problem.problemId) + '"'),
@@ -997,7 +1000,10 @@ async function checkOpenProblemsAndCareers() {
     assert(detail.includes('<meta property="og:image" content="https://'), detailPath + " is missing a public Open Graph image.");
     assert(detail.includes(String(problem.title)) && detail.includes(String(problem.summary)), detailPath + " is missing its public problem copy.");
     assert(!detail.includes("__OPEN_PROBLEM_"), detailPath + " contains unresolved Open Problem markers.");
-    for (const job of mappedJobs(problem)) {
+    const directJobs = mappedJobs(problem);
+    const detailCareerLinkCount = (detail.match(/class="problem-career-link"/g) || []).length;
+    assert(detailCareerLinkCount === directJobs.length, detailPath + " must render careers actions only for directly owned Primary problems.");
+    for (const job of directJobs) {
       const listHref = 'careers.html?job_id=' + encodeURIComponent(String(job.id));
       const detailHref = '../' + listHref;
       assert(page.includes('href="' + listHref + '"'), "problems.html is missing the mapped careers action for " + problem.problemId);
