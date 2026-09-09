@@ -933,9 +933,13 @@
         const fallback = await fetchLocalData();
         const fallbackJobs = Array.isArray(fallback.jobs) ? fallback.jobs : [];
         const publicFallbackJobs = fallbackJobs.filter((job) => String(job.status || "open").toLowerCase() !== "closed");
-        const previewJob = previewAllowed && jobId
-          ? fallbackJobs.find((job) => String(job.id) === jobId || String(job.slug) === jobId)
-          : null;
+        const previewJobs = previewAllowed
+          ? fallbackJobs.filter((job) => String(job.status || "open").toLowerCase() === "closed")
+          : [];
+        const withPreviewJobs = (publicJobs) => {
+          const previewIds = new Set(previewJobs.flatMap((job) => [String(job.id || ""), String(job.slug || "")]).filter(Boolean));
+          return [...previewJobs, ...publicJobs.filter((job) => !previewIds.has(String(job.id || "")) && !previewIds.has(String(job.slug || "")))];
+        };
         const companySource = readBuildTimeCompanySource();
         const [fromFirestore] = await Promise.all([
           fetchJobsFromFirestore(),
@@ -949,7 +953,7 @@
         const nextData = fromFirestore
           ? {
               ...fallback,
-              jobs: previewJob ? [previewJob, ...fromFirestore.jobs] : fromFirestore.jobs,
+              jobs: withPreviewJobs(fromFirestore.jobs),
               updatedDate: fromFirestore.updatedDate || fallback.updatedDate,
               common: {
                 materials: (commonFromFirestore.materials || []).length > 0
@@ -966,7 +970,7 @@
             }
           : {
               ...fallback,
-              jobs: previewJob ? [previewJob, ...publicFallbackJobs] : publicFallbackJobs,
+              jobs: withPreviewJobs(publicFallbackJobs),
               common: {
                 ...fallbackCommon,
                 technology: fallbackTechnology,
