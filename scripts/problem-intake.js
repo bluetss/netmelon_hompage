@@ -1,4 +1,8 @@
 (() => {
+  const isStagingPreview = window.location.hostname === "npq-company-dev.web.app";
+  document.querySelectorAll('[data-career-status="closed"]').forEach((link) => {
+    link.hidden = !isStagingPreview;
+  });
   const toggles = Array.from(document.querySelectorAll("[data-problem-application-toggle]"));
   const forms = Array.from(document.querySelectorAll(".problem-application-form"));
   if (!forms.length) return;

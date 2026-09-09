@@ -917,6 +917,19 @@ async function checkOpenProblemsAndCareers() {
   assert(Boolean(String(payload.sourceHash || "").trim()), dataFile + " is missing sourceHash.");
 
   const problems = Array.isArray(payload.problems) ? payload.problems : [];
+  const careersPayload = parseJson(await read("data/careers.ko.json"), "data/careers.ko.json") || {};
+  const careerJobs = Array.isArray(careersPayload.jobs) ? careersPayload.jobs : [];
+  const legacyProblemIds = {
+    "consumer-marketplace-growth": ["paid-learner-growth", "creator-supply"],
+    "product-design": ["first-speech-product-research"],
+  };
+  const mappedJobs = (problem) => {
+    const acceptedIds = new Set([problem.problemId, ...(legacyProblemIds[problem.problemId] || [])]);
+    return careerJobs.filter((job) => (Array.isArray(job?.technicalChallenges) ? job.technicalChallenges : []).some((item) => {
+      const mappedId = String(item || "").trim().match(/^(?:Primary|Supporting|Guardrail|Input)\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1];
+      return mappedId && acceptedIds.has(mappedId);
+    }));
+  };
   assert(problems.length > 0, dataFile + " must include at least one problem.");
   assert(problems.some((problem) => ["open", "exploring"].includes(problem?.status)), dataFile + " must include an open or exploring problem.");
   const page = await read("problems.html");
@@ -971,7 +984,7 @@ async function checkOpenProblemsAndCareers() {
   for (const file of actualDetailFiles) {
     assert(expectedDetailFiles.has(file), "problems/ contains a stale detail page: " + file);
   }
-  const rejectedParticipationPhrases = ["지원하기", "지원서", "지원 접수", "관련 경험", "접수가 완료"];
+  const rejectedParticipationPhrases = ["지원서", "지원 접수", "관련 경험", "접수가 완료"];
   for (const problem of problems) {
     const detailPath = "problems/" + problem.slug + ".html";
     const detailUrl = "https://netmelonai.com/" + detailPath;
@@ -984,6 +997,15 @@ async function checkOpenProblemsAndCareers() {
     assert(detail.includes('<meta property="og:image" content="https://'), detailPath + " is missing a public Open Graph image.");
     assert(detail.includes(String(problem.title)) && detail.includes(String(problem.summary)), detailPath + " is missing its public problem copy.");
     assert(!detail.includes("__OPEN_PROBLEM_"), detailPath + " contains unresolved Open Problem markers.");
+    for (const job of mappedJobs(problem)) {
+      const listHref = 'careers.html?job_id=' + encodeURIComponent(String(job.id));
+      const detailHref = '../' + listHref;
+      assert(page.includes('href="' + listHref + '"'), "problems.html is missing the mapped careers action for " + problem.problemId);
+      assert(detail.includes('href="' + detailHref + '"'), detailPath + " is missing its mapped careers action.");
+      if (job.status !== "open") {
+        assert(page.includes('data-career-status="' + String(job.status) + '"') && page.includes(" hidden"), "review-only careers actions must be hidden outside staging preview.");
+      }
+    }
     for (const phrase of rejectedParticipationPhrases) {
       assert(!detail.includes(phrase), detailPath + " contains obsolete application wording: " + phrase);
     }
