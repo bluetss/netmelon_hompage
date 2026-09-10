@@ -17,7 +17,7 @@
   ],
   "jobs": [
     {
-      "num": 1,
+      "num": 3,
       "title": "Product Manager, Shadowing Experience",
       "id": "7686375003",
       "team": "Product",
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "num": 2,
+      "num": 4,
       "title": "Senior Flutter Product Engineer",
       "id": "7686376003",
       "team": "Engineering",
@@ -94,7 +94,7 @@
       ]
     },
     {
-      "num": 3,
+      "num": 5,
       "title": "Backend / Platform Engineer",
       "id": "7686377003",
       "team": "Engineering",
@@ -133,7 +133,7 @@
       ]
     },
     {
-      "num": 4,
+      "num": 6,
       "title": "LLM / Voice / ML Engineer",
       "id": "7686378003",
       "team": "AI / ML",
@@ -172,7 +172,7 @@
       ]
     },
     {
-      "num": 5,
+      "num": 7,
       "title": "AI Product Engineer",
       "id": "7686379003",
       "team": "AI / Product Engineering",
@@ -211,7 +211,7 @@
       ]
     },
     {
-      "num": 6,
+      "num": 8,
       "title": "UX / Product Designer",
       "id": "7686380003",
       "team": "Design",
@@ -250,7 +250,7 @@
       ]
     },
     {
-      "num": 7,
+      "num": 9,
       "title": "Content Writer / Language Editor",
       "id": "7686381003",
       "team": "Content",
@@ -289,7 +289,7 @@
       ]
     },
     {
-      "num": 8,
+      "num": 10,
       "title": "Growth / Marketing Lead",
       "id": "7686382003",
       "team": "Growth",
@@ -328,7 +328,7 @@
       ]
     },
     {
-      "num": 9,
+      "num": 11,
       "title": "Country Launch Manager",
       "id": "7686383003",
       "team": "Global Expansion",
@@ -367,7 +367,7 @@
       ]
     },
     {
-      "num": 10,
+      "num": 12,
       "title": "Customer / B2B Success Manager",
       "id": "7686384003",
       "team": "Business",
@@ -406,7 +406,7 @@
       ]
     },
     {
-      "num": 11,
+      "num": 13,
       "title": "Legal Counsel, IP / Privacy / Commercial",
       "id": "7686385003",
       "team": "Legal",
@@ -445,7 +445,7 @@
       ]
     },
     {
-      "num": 12,
+      "num": 14,
       "title": "Finance / Accounting Manager",
       "id": "7686386003",
       "team": "Finance",
@@ -484,7 +484,7 @@
       ]
     },
     {
-      "num": 13,
+      "num": 15,
       "title": "Technical Recruiter / People Partner",
       "id": "7686387003",
       "team": "People",
@@ -523,7 +523,66 @@
       ]
     },
     {
-      "num": 14,
+      "num": 2,
+      "id": "founding-conversation-learning-scientist",
+      "slug": "founding-conversation-learning-scientist",
+      "title": "Founding Conversation Learning Scientist",
+      "team": "Learning Science & Product",
+      "status": "closed",
+      "employmentType": "유급 프로젝트 후 채용 검토",
+      "location": "협의",
+      "workMode": "하이브리드",
+      "seniority": "협의",
+      "experienceBand": "무관",
+      "hiringPeriodType": "until_filled",
+      "priority": "P1 - High",
+      "mission": "한국어 화자가 실제 상황에서 목적과 청자에 맞게 영어 대화를 구성하고 지속하도록 만드는 훈련·평가 시스템을 설계합니다.",
+      "responsibilities": [
+        "관습·기능·목적·공감 대화와 발화 생성 난이도를 연결한 conversation capability model을 설계합니다.",
+        "쉐도잉에서 회상, 변형, 자기 경험 설명, 설득과 예측하지 못한 질문 대응으로 이어지는 훈련 progression을 만듭니다.",
+        "한국어 화자의 실제 발화를 관찰하고 인출, 담화 구성, 유창성, 상호작용과 불안 등 실패 원인을 분류합니다.",
+        "말하기 수행의 전이를 측정할 rubric, 평가 과제와 학습 전후 비교 기준을 구축합니다.",
+        "AI가 생성한 대화 과제와 피드백의 언어적 타당성, 교육 효과와 오판 위험을 검수합니다.",
+        "학습자 연구와 실험 결과를 제품 요구사항으로 바꾸고 founder·product·engineering과 우선순위를 결정합니다.",
+        "효과가 없는 훈련 가설을 증거로 종료하고 curriculum과 제품의 다음 실험을 설계합니다."
+      ],
+      "requirements": [
+        "응용언어학, 제2언어 습득, 영어교육 또는 학습과학을 실제 수업·연구·제품에 적용한 경험",
+        "한국어 화자의 말하기 오류를 관찰하고 원인을 구조적으로 진단할 수 있는 분",
+        "과업 중심 훈련, curriculum 또는 말하기 평가 rubric을 직접 설계하고 개선한 경험",
+        "학습자 인터뷰와 발화 증거를 교육 또는 제품 의사결정으로 전환하는 능력",
+        "영어 유창성과 별개로 자신의 가설을 측정 가능한 실험으로 만들 수 있는 분",
+        "AI 출력을 정답으로 수용하지 않고 언어적 타당성과 학습 효과를 독립적으로 검증할 수 있는 분"
+      ],
+      "preferred": [
+        "한국인 성인 학습자의 영어회화 수업·연구 또는 curriculum 운영 경험",
+        "에듀테크, 말하기 훈련 또는 consumer learning product 개발 경험",
+        "CEFR, ACTFL 등 말하기 proficiency framework와 수행평가 설계 경험",
+        "학습 실험, 질적 연구와 기초 통계 분석을 함께 수행한 경험",
+        "AI tutor, LLM feedback 또는 speech assessment 품질을 평가한 경험",
+        "초기 팀에서 연구 결과를 빠르게 prototype과 제품 결정으로 연결한 경험"
+      ],
+      "kpi": [
+        "검증 가능한 conversation capability model과 발화 실패 taxonomy 구축",
+        "쉐도잉→회상→변형→자기 경험 설명→상호작용 훈련 prototype 운영",
+        "학습 전후 말하기 전이를 비교할 rubric과 평가 표본 구축",
+        "핵심 학습자 cohort의 발화 실패 원인과 개선 증거 도출",
+        "AI 대화 과제·피드백의 정확성 및 교육 효과 평가 기준 확립",
+        "학습 증거를 curriculum과 product roadmap 결정으로 반복 전환"
+      ],
+      "techStack": ["Learning Analytics", "Speech Assessment", "LLM Evaluation"],
+      "toolStack": ["Research repository", "Annotation tools", "Notion", "Google Sheets", "AI research agents"],
+      "experienceTags": ["응용언어학", "제2언어 습득", "영어교육", "학습과학", "말하기 평가", "에듀테크"],
+      "technicalChallenges": [
+        "Primary · learning-content-lead — 실제 대화로 전이되는 학습·콘텐츠 설계",
+        "Supporting · first-speech-product-research — 첫 발화 실패 원인 관찰",
+        "Input · adaptive-shadowing-stream — 숙련도·오류·전이 신호 제공",
+        "Guardrail · llm-content-engineering — AI 과제와 피드백의 교육적 타당성 검수",
+        "콘텐츠 양이나 이용 시간이 아니라 낯선 상황에서 목적과 청자에 맞게 말하는 수행 전이를 검증합니다."
+      ]
+    },
+    {
+      "num": 1,
       "id": "founding-growth-creator-partnerships",
       "slug": "founding-growth-creator-partnerships",
       "title": "Founding Growth & Creator Partnerships",
@@ -605,5 +664,5 @@
       "장기적 ownership"
     ]
   },
-  "updatedDate": "2026-05-28"
+  "updatedDate": "2026-09-10"
 }
