@@ -917,8 +917,19 @@ async function checkOpenProblemsAndCareers() {
   assert(Boolean(String(payload.sourceHash || "").trim()), dataFile + " is missing sourceHash.");
 
   const problems = Array.isArray(payload.problems) ? payload.problems : [];
+  const rankedProblems = problems.slice().sort((left, right) => Number(left?.sortOrder || 0) - Number(right?.sortOrder || 0));
+  assert(rankedProblems[0]?.problemId === "consumer-marketplace-growth", "Consumer marketplace growth must remain open-problem priority 1.");
+  assert(rankedProblems[1]?.problemId === "learning-content-lead", "Learning and content transfer must remain open-problem priority 2.");
   const careersPayload = parseJson(await read("data/careers.ko.json"), "data/careers.ko.json") || {};
   const careerJobs = Array.isArray(careersPayload.jobs) ? careersPayload.jobs : [];
+  const rankedCareerJobs = careerJobs.slice().sort((left, right) => Number(left?.num || 0) - Number(right?.num || 0));
+  assert(rankedCareerJobs[0]?.id === "founding-growth-creator-partnerships", "Founding Growth must remain hiring priority 1.");
+  assert(rankedCareerJobs[1]?.id === "founding-conversation-learning-scientist", "Conversation Learning Scientist must remain hiring priority 2.");
+  assert(
+    Array.isArray(rankedCareerJobs[1]?.technicalChallenges)
+      && rankedCareerJobs[1].technicalChallenges.some((item) => /^Primary\s*·\s*learning-content-lead\b/.test(String(item || "").trim())),
+    "Conversation Learning Scientist must directly own only the learning-content-lead problem mapping.",
+  );
   const legacyProblemIds = {
     "consumer-marketplace-growth": ["paid-learner-growth", "creator-supply"],
     "product-design": ["first-speech-product-research"],
