@@ -32,6 +32,7 @@ for (const forbidden of ["CNAME", "firebase.json", ".firebaserc", "package.json"
 assert(!files.some((name) => name.endsWith(".template.html")), "Templates must not be deployed.");
 assert(!files.some((name) => name.startsWith("scripts/") && ![
   "scripts/problem-intake.js",
+  "scripts/ir-intake.js",
   "scripts/runtime-config.js",
   "scripts/site-shell.js",
 ].includes(name)), "Build or CMS scripts must not be deployed.");
@@ -48,10 +49,11 @@ for (const relativePath of files.filter((name) => name.endsWith(".html") || name
   assert(!source.includes(forbiddenCoreApi), `${relativePath} contains the core production API.`);
 }
 
-for (const relativePath of ["ir.html", "problems.html", ...files.filter((name) => name.startsWith("problems/") && name.endsWith(".html"))]) {
+for (const relativePath of files.filter((name) => name.endsWith(".html"))) {
   const source = await readFile(path.join(DIST, relativePath), "utf8");
-  const prefix = relativePath.includes("/") ? "../" : "";
-  assert(source.includes(`<script src="${prefix}scripts/runtime-config.js"></script>`), `${relativePath} is missing runtime config.`);
+  if (!source.includes('id="ir-request-form"') && !source.includes('class="problem-application-form"')) continue;
+  const prefix = "../".repeat(relativePath.split("/").length - 1);
+  assert(source.includes(`<script src="${prefix}scripts/runtime-config.js"></script>`), `${relativePath} intake form is missing runtime config.`);
 }
 
 const manifest = JSON.parse(await readFile(path.join(DIST, "release-manifest.json"), "utf8"));

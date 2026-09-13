@@ -144,6 +144,7 @@ export function renderPublisherFooter(profile, locale = "ko") {
     hosting: "Hosting service",
     mailOrder: "Mail-order registration",
     verify: "Verify business information",
+    privacy: "Privacy Policy",
   } : {
     aria: "사업자 정보",
     businessNumber: "사업자등록번호",
@@ -151,6 +152,7 @@ export function renderPublisherFooter(profile, locale = "ko") {
     hosting: "호스팅 서비스",
     mailOrder: "통신판매업 신고번호",
     verify: "사업자정보확인",
+    privacy: "개인정보처리방침",
   };
   const registeredValue = (value) => {
     if (locale !== "en") return htmlEscape(value);
@@ -162,6 +164,7 @@ export function renderPublisherFooter(profile, locale = "ko") {
     "<div class=\"footer-brand\">",
     "  <strong class=\"footer-company-name\">Netmelon</strong>",
     `  <p class="footer-copyright">${htmlEscape(profile.copyrightNotice)}</p>`,
+    `  <nav class="footer-links" aria-label="${htmlEscape(labels.privacy, true)}"><a href="${locale === "en" ? "/en/company-privacy" : "/company-privacy"}">${htmlEscape(labels.privacy)}</a></nav>`,
     "</div>",
     `<section class="publisher-business" aria-label="${htmlEscape(labels.aria, true)}" data-publisher-profile-version="${htmlEscape(profile.sourceVersionId, true)}" data-publisher-profile-hash="${htmlEscape(profile.sourceHash, true)}">`,
     `  <p class="publisher-business-line">${item(labels.businessNumber, profile.businessRegistrationNumber)}${item(labels.representative, profile.representativeName)}</p>`,

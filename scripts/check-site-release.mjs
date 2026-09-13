@@ -618,10 +618,10 @@ async function checkCompanyFooterRoutes() {
     .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
     .map((entry) => `en/problems/${entry.name}`);
   const pages = [
-    ...["index.html", "company.html", "problems.html", "announcement.html", "ir.html"].map((file) => ({ file, locale: "ko" })),
+    ...["index.html", "company.html", "company-privacy.html", "problems.html", "announcement.html", "ir.html"].map((file) => ({ file, locale: "ko" })),
     ...announcementPages.map((file) => ({ file, locale: "ko" })),
     ...problemPages.map((file) => ({ file, locale: "ko" })),
-    ...["en/index.html", "en/company.html", "en/announcement.html", "en/ir.html", "en/problems.html"].map((file) => ({ file, locale: "en" })),
+    ...["en/index.html", "en/company.html", "en/company-privacy.html", "en/careers.html", "en/announcement.html", "en/ir.html", "en/problems.html"].map((file) => ({ file, locale: "en" })),
     ...englishAnnouncementPages.map((file) => ({ file, locale: "en" })),
     ...englishProblemPages.map((file) => ({ file, locale: "en" })),
   ];
@@ -643,6 +643,8 @@ async function checkCompanyFooterRoutes() {
       assert(!/[가-힣]/.test(footer), `${page.file} English footer contains Korean fallback text.`);
     }
     assert(!footer.includes(profile.customerSupportEmail), `${page.file} footer exposes customer support email instead of the dedicated support surface.`);
+    const privacyRoute = page.locale === "en" ? "/en/company-privacy" : "/company-privacy";
+    assert(footer.includes(`href="${privacyRoute}"`), `${page.file} footer is missing the company-site privacy route ${privacyRoute}.`);
 
     for (const route of appLegalRoutes) {
       assert(!footer.includes(`href="${route}"`), `${page.file} footer links to app legal route ${route}.`);
@@ -668,65 +670,65 @@ async function checkSharedSiteShell() {
   const shellTargets = [
     {
       file: "index.template.html",
-      brandHref: "https://netmelonai.com/",
+      brandHref: "/",
       productHref: "#naepopquiz-app",
-      englishHref: "en/index.html",
+      englishHref: "/en",
       active: "",
     },
     {
       file: "index.html",
-      brandHref: "https://netmelonai.com/",
+      brandHref: "/",
       productHref: "#naepopquiz-app",
-      englishHref: "en/index.html",
+      englishHref: "/en",
       active: "",
     },
     {
       file: "company.template.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/company.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/company",
       active: "company",
     },
     {
       file: "company.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/company.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/company",
       active: "company",
     },
     {
       file: "problems.template.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/index.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/problems",
       active: "problems",
     },
     {
       file: "problems.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/index.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/problems",
       active: "problems",
     },
     {
       file: "ir.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/ir.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/ir",
       active: "ir",
     },
     {
       file: "announcement.template.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/announcement.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/announcement",
       active: "announcement",
     },
     {
       file: "announcement.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/announcement.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/announcement",
       active: "announcement",
     },
   ];
@@ -767,8 +769,6 @@ async function checkSharedSiteShell() {
     "account-deletion",
     "refund",
     "support",
-    "/en/",
-    "en/",
   ];
   const indent = (source) => source.split("\n").map((line) => `  ${line}`).join("\n");
   const activeClass = (target, active) => (target === active ? ' class="is-current"' : "");
@@ -1005,7 +1005,7 @@ async function checkOpenProblemsAndCareers() {
   ];
   for (const file of publicNavigationFiles) {
     const source = await read(file);
-    assert(/href="[^"]*careers\.html/i.test(source), file + " must expose the careers route.");
+    assert(/href="(?:\/en)?\/careers"/i.test(source), file + " must expose the locale-aware careers route.");
   }
   const sitemap = await read("sitemap.xml");
   assert(sitemap.includes("careers.html"), "sitemap.xml must expose the careers route.");
@@ -1092,6 +1092,30 @@ async function checkProductionUrls() {
   }
 }
 
+async function checkLocaleRouteAndUiParity() {
+  const englishPages = ["en/index.html", "en/company.html", "en/careers.html", "en/problems.html", "en/ir.html", "en/announcement.html"];
+  const expectedEnglishRoutes = ["/en/company", "/en#naepopquiz-app", "/en/problems", "/en/careers", "/en/ir", "/en/announcement"];
+  for (const file of englishPages) {
+    const source = await read(file);
+    for (const route of expectedEnglishRoutes) assert(source.includes(`href="${route}"`), `${file} is missing locale-safe route ${route}.`);
+    assert(!/href="(?:\.\.\/)*problems\.html"/.test(source), `${file} contains a relative Open Problems route that can escape /en.`);
+  }
+  const home = await read("index.html");
+  const englishHome = await read("en/index.html");
+  assert(home.includes("data-app-homepage-link"), "index.html app homepage CTA must use the environment-aware link marker.");
+  assert(englishHome.includes("data-app-homepage-link"), "en/index.html app homepage CTA must use the environment-aware link marker.");
+  const englishCareers = await read("en/careers.html");
+  const englishIr = await read("en/ir.html");
+  assert(englishCareers.includes('id="list-view"') && englishCareers.includes('class="filters"'), "en/careers.html must preserve the careers list UI structure.");
+  assert(englishIr.includes('id="ir-request-form"') && englishIr.includes('name="consent"'), "en/ir.html must preserve the IR request and consent structure.");
+  const englishProblems = await read("en/problems.html");
+  assert(englishProblems.includes('class="problem-application-form"'), "en/problems.html review preview must expose the proposal form structure.");
+  const companyPrivacy = await read("company-privacy.html");
+  const englishCompanyPrivacy = await read("en/company-privacy.html");
+  assert(companyPrivacy.includes("접수일로부터 1년"), "company-privacy.html must disclose the company intake retention period.");
+  assert(englishCompanyPrivacy.includes("one year from submission"), "en/company-privacy.html must disclose the company intake retention period.");
+}
+
 async function main() {
   await checkCompanySourceBuild();
   await checkCompanyAnnouncements();
@@ -1103,6 +1127,7 @@ async function main() {
   await checkSharedSiteShell();
   await checkOpenProblemsAndCareers();
   await checkStructuredData();
+  await checkLocaleRouteAndUiParity();
   await checkProductionUrls();
 
   if (failures.length) {

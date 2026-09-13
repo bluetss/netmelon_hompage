@@ -232,26 +232,26 @@ function renderHead({ title, description, canonicalPath, schema = null, assetPre
 
 function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
   const nav = [
-    ["company", "company.html", "About"],
-    ["product", "index.html#naepopquiz-app", "Products"],
-    ["problems", "problems.html", "Open problems"],
-    ["careers", "careers.html", "Careers"],
-    ["ir", "ir.html", "IR"],
-    ["announcement", "announcement.html", "Company announcements"],
+    ["company", "/en/company", "About"],
+    ["product", "/en#naepopquiz-app", "Products"],
+    ["problems", "/en/problems", "Open problems"],
+    ["careers", "/en/careers", "Careers"],
+    ["ir", "/en/ir", "IR"],
+    ["announcement", "/en/announcement", "Company announcements"],
   ];
   const koreanHrefByActive = {
-    product: `${assetPrefix}index.html`,
-    company: `${assetPrefix}company.html`,
-    careers: `${assetPrefix}careers.html`,
-    ir: `${assetPrefix}ir.html`,
-    announcement: `${assetPrefix}announcement.html`,
-    problems: `${assetPrefix}problems.html`,
+    product: "/",
+    company: "/company",
+    careers: "/careers",
+    ir: "/ir",
+    announcement: "/announcement",
+    problems: "/problems",
   };
   const koreanHref = koreanHrefByActive[active] || `${assetPrefix}index.html`;
   return [
     '<header class="site-header" id="top">',
     '    <div class="shell">',
-    `      <a class="brand" href="${hrefPrefix}index.html">`,
+    '      <a class="brand" href="/en">',
     `        <img src="${assetPrefix}images/logo.png" alt="Netmelon logo" width="36" height="36">`,
     '        <span>Netmelon</span>',
     '      </a>',
@@ -270,7 +270,7 @@ function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
     '        </button>',
     '      </div>',
     '      <nav class="site-nav" id="primary-navigation" aria-label="Primary">',
-    ...nav.map(([key, href, label]) => `        <a${key === active ? ' class="is-current"' : ""} href="${hrefPrefix}${href}">${label}</a>`),
+    ...nav.map(([key, href, label]) => `        <a${key === active ? ' class="is-current"' : ""} href="${href}">${label}</a>`),
     `        <a class="lang-link" href="${koreanHref}" lang="ko">KOREAN</a>`,
     '      </nav>',
     '    </div>',
@@ -386,7 +386,7 @@ function renderHomePage(source) {
     '        <div class="story-content">',
     `          <h2 id="home-app-title">${textWithBreaks(identity.appIntroTitle)}</h2>`,
     `          <p id="home-app-copy">${textWithBreaks(identity.appIntroBody)}</p>`,
-    '          <a class="story-link" href="https://naepopquiz.com/" target="_blank" rel="noopener noreferrer">Open app homepage</a>',
+    '          <a class="story-link" data-app-homepage-link href="https://naepopquiz.com/" target="_blank" rel="noopener noreferrer">Open app homepage</a>',
     '          <div class="app-shotcase" aria-label="Naepopquiz app screens">',
     '            <div class="app-shot-track">',
     '              <!-- __COMPANY_ASSET_PRODUCT_SHOTS_START__ -->',
@@ -524,17 +524,26 @@ function renderCareersPage(source) {
     canonicalPath: "careers.html",
     schema,
     sourceVersionId: source.sourceVersionId,
-  });
+  }) + '\n  <link rel="stylesheet" href="../styles/careers.css">';
   const main = [
     '  <main class="careers-main">',
-    '    <section class="careers-hero" aria-label="Careers">',
-    '      <div class="shell careers-hero-grid">',
-    '        <div class="careers-hero-copy">',
-    '          <p class="story-kicker">Careers</p>',
+    '    <section class="view list-view" id="list-view">',
+    '      <div class="shell">',
+    '        <div class="list-hero"><p class="hero-eyebrow">NETMELON CAREERS</p>',
     `          <h1 id="hero-headline">${htmlEscape(description)}</h1>`,
-    '          <p id="hero-intro"></p>',
-    "        </div>",
-    "      </div>",
+    '          <p id="hero-intro">English role descriptions will appear here when reviewed openings are published.</p></div>',
+    '        <div class="filters" role="group" aria-label="Job filters">',
+    '          <label class="sr-only" for="search-input">Search positions</label><input id="search-input" type="search" placeholder="Search positions or keywords" disabled>',
+    '          <label class="sr-only" for="team-filter">Team filter</label><select id="team-filter" disabled><option>All teams</option></select>',
+    '          <label class="sr-only" for="type-filter">Employment type filter</label><select id="type-filter" disabled><option>All types</option></select>',
+    '        </div>',
+    '        <p class="job-count"><strong id="job-count">0</strong> open positions</p><div class="job-list" id="job-list"></div>',
+    '        <div class="empty-state">There are no reviewed English openings at this time.</div>',
+    '        <section class="list-info" aria-label="Applicant privacy and hiring process">',
+    '          <article class="info-card"><h2>Applicant privacy</h2><ul><li>Application materials and contact details are used only for recruitment review and communication.</li><li>Do not submit sensitive information unrelated to recruitment.</li><li>You may request correction or deletion at netmelon@netmelonai.com.</li></ul><p><a href="/en/company-privacy">Privacy Policy</a></p></article>',
+    '          <article class="info-card"><h2>Hiring process</h2><ul><li>Document review, role interview, task or portfolio review, and final discussion.</li><li>Steps may change depending on the role and company circumstances.</li></ul></article>',
+    '        </section>',
+    '      </div>',
     "    </section>",
     "  </main>",
   ].join("\n");
@@ -561,22 +570,30 @@ function renderIrPage(source) {
   const main = [
     '  <main class="ir-main">',
     '    <section class="ir-flow" aria-label="IR request overview">',
-    '      <article class="ir-slide ir-hero-slide" id="ir-overview">',
-    '        <div class="ir-slide-inner ir-hero-grid">',
-    '          <div class="ir-hero-copy">',
-    '            <p class="ir-kicker">Investor Relations</p>',
-    `            <h1 class="ir-title">${htmlEscape(description)}</h1>`,
-    '            <p class="ir-subtitle">Public IR materials are shared only after request review.</p>',
-    '            <div class="ir-hero-cta">',
-    '              <a class="button primary" href="mailto:netmelon@netmelonai.com?subject=%5BIR%20Request%5D">Request IR materials</a>',
-    "            </div>",
-    "          </div>",
-    "        </div>",
+    '      <article class="ir-slide ir-request-slide" id="ir-request"><div class="ir-slide-inner ir-request-grid">',
+    `        <section class="ir-card"><p class="ir-kicker">Investor Relations</p><h1 class="ir-title wide">${htmlEscape(description)}</h1><p class="ir-subtitle">Leave your contact details and review purpose. We will respond after reviewing the request.</p></section>`,
+    '        <section class="ir-form-card" aria-label="IR materials request form"><h2>Request IR materials</h2>',
+    '          <form id="ir-request-form" novalidate><div class="ir-form-grid">',
+    '            <label class="ir-field"><span>Name *</span><input type="text" name="name" autocomplete="name" required></label>',
+    '            <label class="ir-field"><span>Email *</span><input type="email" name="email" autocomplete="email" required></label>',
+    '            <label class="ir-field"><span>Organization *</span><input type="text" name="organization" autocomplete="organization" required></label>',
+    '            <label class="ir-field"><span>Title *</span><input type="text" name="title" autocomplete="organization-title" required></label>',
+    '            <label class="ir-field"><span>Phone *</span><input type="tel" name="phone" autocomplete="tel" required></label>',
+    '            <label class="ir-field"><span>Investor type *</span><select name="investor_type" required><option value="" disabled selected>Select</option><option>VC</option><option>PE</option><option>CVC</option><option>Family Office</option><option value="Angel">Angel / Individual</option><option value="Other">Other</option></select></label>',
+    '            <label class="ir-field"><span>Requested materials *</span><select name="requested_material" required><option value="" disabled selected>Select</option><option>IR Deck</option><option>Financial Model</option><option>IR Deck + Financial Model</option></select></label>',
+    '            <label class="ir-field"><span>NDA availability *</span><select name="nda_preference" required><option value="" disabled selected>Select</option><option value="possible">Available</option><option value="needs_discussion">Needs discussion</option><option value="impossible">Unavailable</option></select></label>',
+    '            <label class="ir-field full"><span>Purpose and background *</span><textarea name="request_note" required maxlength="4000" rows="5"></textarea></label>',
+    '            <label class="ir-field full ir-check"><input type="checkbox" name="consent" required><span>I consent to the collection and use of the submitted information to review and respond to this request. <a href="/en/company-privacy">Privacy Policy</a> *</span></label>',
+    '            <label class="intake-honeypot" aria-hidden="true"><span>Website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>',
+    '          </div><div class="ir-form-actions"><button type="submit" class="button primary"><span class="ir-submit-label">Submit request</span><span class="ir-submit-spinner" aria-hidden="true"></span></button><p class="ir-status" id="ir-request-status" aria-live="polite"></p></div></form>',
+    '        </section></div>',
     "      </article>",
+    '      <article class="ir-slide ir-policy-slide" id="ir-policy"><div class="ir-slide-inner"><p class="ir-kicker">IR Policy</p><h2 class="ir-title wide">Materials are shared in stages after review.</h2><div class="ir-policy-grid"><section class="ir-card"><h3>Scope</h3><p>Detailed materials are shared after the requester and purpose have been reviewed.</p></section><section class="ir-card"><h3>Response</h3><p>We respond by email or a follow-up meeting after reviewing the request and NDA preference.</p></section><section class="ir-card"><h3>Personal information</h3><p>Submitted information is used only for request review, follow-up contact, and internal request records.</p></section></div></div></article>',
     "    </section>",
     "  </main>",
+    '  <script src="../scripts/ir-intake.js" defer></script>',
   ].join("\n");
-  return pageShell({ head, headerActive: "ir", main });
+  return pageShell({ head, bodyClass: "ir-request-page", headerActive: "ir", main });
 }
 
 function renderAnnouncementList(announcements, source) {
@@ -773,12 +790,22 @@ function openProblemList(items, key) {
   return values.length ? `<ul>${values.map((item) => `<li>${htmlEscape(item)}</li>`).join("")}</ul>` : "";
 }
 
+function renderEnglishProblemForm(item, privacyHref) {
+  return `<form class="problem-application-form" novalidate><input type="hidden" name="problemId" value="${htmlEscape(item.problemId, true)}"><label class="problem-intake-field"><span>Name</span><input type="text" name="name" autocomplete="name" maxlength="200" required></label><label class="problem-intake-field"><span>Email</span><input type="email" name="email" autocomplete="email" maxlength="240" required></label><label class="problem-intake-field full"><span>Proposed solution</span><textarea name="solutionProposal" rows="6" minlength="10" maxlength="5000" placeholder="Tell us how you would approach and validate this problem." required></textarea></label><label class="problem-intake-field full"><span>Resource URL <small>optional</small></span><input type="url" name="resourceUrl" inputmode="url" maxlength="1000" placeholder="https://"></label><label class="problem-intake-honeypot" aria-hidden="true"><span>Website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label><label class="problem-intake-consent full"><input type="checkbox" name="consent" required><span>I consent to the collection of my name, email, and proposal for review and contact. <a href="${privacyHref}">Privacy Policy</a></span></label><div class="problem-intake-actions full"><button class="problem-intake-submit" type="submit"><span>Send solution</span><i aria-hidden="true"></i></button><p class="problem-intake-status" aria-live="polite"></p></div></form>`;
+}
+
+function renderEnglishProblemCard(item) {
+  const accepting = item.status === "open" || item.status === "exploring";
+  const panelId = `problem-application-${item.slug}`;
+  return `<details class="problem-card" id="${htmlEscape(item.slug, true)}"><summary><div class="problem-meta"><span class="${accepting ? "is-open" : ""}">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h2>${htmlEscape(item.title)}</h2><p>${htmlEscape(item.summary)}</p></summary><div class="problem-card-body"><div class="problem-card-actions"><a class="problem-detail-link" href="/en/problems/${htmlEscape(item.slug, true)}">View problem</a>${accepting ? `<button class="problem-interest" type="button" data-problem-application-toggle aria-expanded="false" aria-controls="${panelId}"><span data-problem-application-label>Send solution</span></button>` : ""}</div>${accepting ? `<section class="problem-application" id="${panelId}" hidden><div class="problem-application-head"><h3>${htmlEscape(item.category)} solution</h3><p>Tell us how you would approach and validate this problem.</p></div>${renderEnglishProblemForm(item, "/en/company-privacy")}</section>` : ""}</div></details>`;
+}
+
 function renderOpenProblemsPage(source, payload, problems) {
   const description = assertEnglishText("openProblems.intro", payload.intro);
   const schema = pageSchema(source, { type: "CollectionPage", id: "problems", name: "Netmelon | Open problems", description, pathName: "problems.html" });
   const head = renderHead({ title: "Netmelon | Open problems", description, canonicalPath: "problems.html", schema, sourceVersionId: payload.sourceVersionId }) + '\n  <link rel="stylesheet" href="../styles/problems.css">';
-  const cards = problems.map((item) => `<article class="problem-card"><div class="problem-meta"><span class="is-open">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h2>${htmlEscape(item.title)}</h2><p>${htmlEscape(item.summary)}</p><a class="problem-detail-link" href="problems/${htmlEscape(item.slug, true)}.html">View problem</a></article>`).join("\n");
-  const main = `<main class="problems-main"><section class="problems-hero"><div class="problems-hero-inner"><p class="problems-kicker">${htmlEscape(payload.eyebrow)}</p><h1>${htmlEscape(payload.headline)}</h1><p class="problems-hero-copy">${htmlEscape(description)}</p></div></section><section class="problems-collection"><div class="problems-section-head"><p class="problems-kicker">What we are solving</p><h2>Problems to solve together</h2></div><div class="problem-card-list">${cards}</div></section></main>`;
+  const cards = problems.map(renderEnglishProblemCard).join("\n");
+  const main = `<main class="problems-main"><section class="problems-hero"><div class="problems-hero-inner"><p class="problems-kicker">${htmlEscape(payload.eyebrow)}</p><h1>${htmlEscape(payload.headline)}</h1><p class="problems-hero-copy">${htmlEscape(description)}</p></div></section><section class="problems-collection"><div class="problems-section-head"><p class="problems-kicker">What we are solving</p><h2>Problems to solve together</h2></div><div class="problem-card-list">${cards}</div></section></main><script src="../scripts/problem-intake.js" defer></script>`;
   return pageShell({ head, headerActive: "problems", main });
 }
 
@@ -786,7 +813,9 @@ function renderOpenProblemDetail(source, payload, item) {
   const pathName = `problems/${item.slug}.html`;
   const head = renderHead({ title: `Netmelon | ${item.title}`, description: item.summary, canonicalPath: pathName, schema: pageSchema(source, { type: "WebPage", id: item.problemId, name: item.title, description: item.summary, pathName }), assetPrefix: "../../", sourceVersionId: payload.sourceVersionId }) + '\n  <link rel="stylesheet" href="../../styles/problems.css">';
   const sections = [["Why this matters", [item.whyItMatters]], ["What we know", item.currentEvidence], ["Questions to answer", item.unknowns], ["Principles and constraints", item.constraints], ["Experience we are looking for", item.neededExpertise?.length ? item.neededExpertise : item.desiredContributions]].map(([title, values]) => `<section class="problem-detail-section"><h2>${title}</h2>${openProblemList(values)}</section>`).join("\n");
-  const main = `<main class="problem-detail-main"><section class="problem-detail-hero"><div class="problem-detail-shell"><a class="problem-detail-back" href="../problems.html">All open problems</a><div class="problem-meta"><span class="is-open">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h1>${htmlEscape(item.title)}</h1><p class="problem-detail-summary">${htmlEscape(item.summary)}</p></div></section><section class="problem-detail-body"><div class="problem-detail-shell">${sections}</div></section></main>`;
+  const accepting = item.status === "open" || item.status === "exploring";
+  const participation = accepting ? `<section class="problem-detail-participation" id="participate"><div class="problem-application-head"><p class="problems-kicker">Solution</p><h2>Send your solution</h2><p>Tell us how you would approach and validate this problem.</p></div>${renderEnglishProblemForm(item, "/en/company-privacy")}</section>` : "";
+  const main = `<main class="problem-detail-main"><section class="problem-detail-hero"><div class="problem-detail-shell"><a class="problem-detail-back" href="/en/problems">All open problems</a><div class="problem-meta"><span class="is-open">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h1>${htmlEscape(item.title)}</h1><p class="problem-detail-summary">${htmlEscape(item.summary)}</p>${accepting ? '<a class="problem-detail-primary-action" href="#participate">Propose a solution</a>' : ""}</div></section><section class="problem-detail-body"><div class="problem-detail-shell">${sections}</div></section>${participation}</main><script src="../../scripts/problem-intake.js" defer></script>`;
   return pageShell({ head, headerActive: "problems", main, hrefPrefix: "../", assetPrefix: "../../" });
 }
 
@@ -810,6 +839,7 @@ async function main() {
   await Promise.all([
     writeFile(path.join(OUTPUT_DIR, "index.html"), renderHomePage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "company.html"), renderCompanyPage(source), "utf8"),
+    writeFile(path.join(OUTPUT_DIR, "careers.html"), renderCareersPage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "ir.html"), renderIrPage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "announcement.html"), renderAnnouncementPage(source, announcements), "utf8"),
     cleanupStaleEnglishAnnouncementDetails(announcements),

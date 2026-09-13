@@ -1,5 +1,34 @@
 @import url("./site-shell.css");
 
+.company-privacy-document {
+  max-width: 860px;
+  padding-top: 72px;
+  padding-bottom: 96px;
+}
+
+.company-privacy-document h1 {
+  margin: 10px 0 28px;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.12;
+}
+
+.company-privacy-document h2 {
+  margin: 38px 0 12px;
+  font-size: 1.25rem;
+}
+
+.company-privacy-document p,
+.company-privacy-document li {
+  color: var(--site-muted);
+  line-height: 1.8;
+}
+
+.company-privacy-document a {
+  color: var(--site-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 :root {
   --bg: var(--npq-color-surface-container-low);
   --bg-alt: var(--npq-color-surface-dim);

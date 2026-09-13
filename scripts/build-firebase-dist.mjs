@@ -11,10 +11,15 @@ const DIST = path.join(ROOT, "dist");
 const environment = String(process.env.COMPANY_SITE_ENV || "staging").trim();
 const rawApiBase = String(process.env.COMPANY_PUBLIC_INTAKE_API_BASE || "").trim();
 const apiBase = rawApiBase.replace(/\/+$/, "");
+const APP_HOMEPAGE_BY_ENVIRONMENT = Object.freeze({
+  staging: "https://npq-landing-dev.web.app/",
+});
+const appHomepageUrl = APP_HOMEPAGE_BY_ENVIRONMENT[environment];
 
 if (environment !== "staging") {
   throw new Error("Firebase company build only supports COMPANY_SITE_ENV=staging.");
 }
+if (!appHomepageUrl) throw new Error(`No app homepage URL is registered for ${environment}.`);
 if (apiBase && !/^https:\/\/[^/]+(?:\/[^?#]*)?$/.test(apiBase)) {
   throw new Error("COMPANY_PUBLIC_INTAKE_API_BASE must be an absolute HTTPS URL.");
 }
@@ -23,6 +28,7 @@ const topLevelFiles = [
   "announcement.html",
   "app-ads.txt",
   "careers.html",
+  "company-privacy.html",
   "company.html",
   "data-deletion.html",
   "data-deletion.json",
@@ -40,7 +46,7 @@ const topLevelFiles = [
   "translations.json",
 ];
 const htmlDirectories = ["announcements", "en", "problems"];
-const runtimeScripts = ["problem-intake.js", "site-shell.js"];
+const runtimeScripts = ["ir-intake.js", "problem-intake.js", "site-shell.js"];
 
 async function copyFile(relativePath) {
   const source = path.join(ROOT, relativePath);
@@ -54,6 +60,8 @@ async function copyHtmlDirectory(directory) {
   for (const item of names) {
     if (item.isFile() && item.name.endsWith(".html")) {
       await copyFile(path.join(directory, item.name));
+    } else if (item.isDirectory()) {
+      await copyHtmlDirectory(path.join(directory, item.name));
     }
   }
 }
@@ -77,13 +85,38 @@ function gitValue(args, fallback) {
 async function injectRuntimeConfig(relativePath) {
   const target = path.join(DIST, relativePath);
   let html = await readFile(target, "utf8");
-  const prefix = relativePath.includes("/") ? "../" : "";
+  const depth = relativePath.split(path.sep).length - 1;
+  const prefix = "../".repeat(depth);
   const runtimeTag = `<script src="${prefix}scripts/runtime-config.js"></script>`;
   if (!html.includes(runtimeTag)) {
     if (!html.includes("</head>")) throw new Error(`${relativePath} is missing </head>.`);
     html = html.replace("</head>", `  ${runtimeTag}\n</head>`);
   }
   html = html.replaceAll(/data-api-base="[^"]*"/g, `data-api-base="${apiBase}"`);
+  await writeFile(target, html, "utf8");
+}
+
+async function listHtmlFiles(directory = DIST, prefix = "") {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const relativePath = path.join(prefix, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...await listHtmlFiles(path.join(directory, entry.name), relativePath));
+    } else if (entry.isFile() && entry.name.endsWith(".html")) {
+      files.push(relativePath);
+    }
+  }
+  return files;
+}
+
+async function injectPublicLinks(relativePath) {
+  const target = path.join(DIST, relativePath);
+  let html = await readFile(target, "utf8");
+  html = html.replace(
+    /(<a\b[^>]*\bdata-app-homepage-link\b[^>]*\bhref=")[^"]*(")/g,
+    `$1${appHomepageUrl}$2`,
+  );
   await writeFile(target, html, "utf8");
 }
 
@@ -104,14 +137,13 @@ await writeFile(
   "utf8",
 );
 
-for (const relativePath of [
-  "ir.html",
-  "problems.html",
-  ...(await readdir(path.join(DIST, "problems")))
-    .filter((name) => name.endsWith(".html"))
-    .map((name) => path.join("problems", name)),
-]) {
-  await injectRuntimeConfig(relativePath);
+const htmlFiles = await listHtmlFiles();
+for (const relativePath of htmlFiles) {
+  const html = await readFile(path.join(DIST, relativePath), "utf8");
+  if (html.includes('id="ir-request-form"') || html.includes('class="problem-application-form"')) {
+    await injectRuntimeConfig(relativePath);
+  }
+  await injectPublicLinks(relativePath);
 }
 
 await writeFile(
