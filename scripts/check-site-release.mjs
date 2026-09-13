@@ -1101,9 +1101,11 @@ async function checkLocaleRouteAndUiParity() {
     assert(!/href="(?:\.\.\/)*problems\.html"/.test(source), `${file} contains a relative Open Problems route that can escape /en.`);
   }
   const home = await read("index.html");
+  const companyCss = await read("styles/company.css");
   const englishHome = await read("en/index.html");
   assert(home.includes("data-app-homepage-link"), "index.html app homepage CTA must use the environment-aware link marker.");
   assert(englishHome.includes("data-app-homepage-link"), "en/index.html app homepage CTA must use the environment-aware link marker.");
+  assert(/\.app-shotcase\s*{[\s\S]*?pointer-events:\s*none;[\s\S]*?}/.test(companyCss), "App screenshots must not intercept the app-homepage CTA click target.");
   const englishCareers = await read("en/careers.html");
   const englishIr = await read("en/ir.html");
   assert(englishCareers.includes('id="list-view"') && englishCareers.includes('class="filters"'), "en/careers.html must preserve the careers list UI structure.");

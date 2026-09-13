@@ -280,6 +280,7 @@ img {
   margin-top: clamp(8px, 1.6svh, 14px);
   width: min(520px, 100%);
   align-self: center;
+  pointer-events: none;
 }
 
 .app-shot-track {
