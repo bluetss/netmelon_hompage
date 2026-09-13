@@ -7,6 +7,22 @@ All company-site changes are built and reviewed first on Firebase Hosting site
 branch before explicit final approval. See
 [the company website release policy](docs/COMPANY_WEBSITE_RELEASE_POLICY.md).
 
+로컬에서도 Firebase Hosting의 `cleanUrls`, trailing-slash, header 규칙을 동일하게
+검증한다. 단순 파일 서버 대신 다음 명령을 사용한다.
+
+```bash
+# 제출 API를 호출하지 않는 안전한 UI·라우팅 미리보기
+npm run preview:staging
+
+# staging 공개 인입 API까지 연결하는 미리보기
+COMPANY_PUBLIC_INTAKE_API_BASE=https://<approved-staging-public-intake> \
+  npm run preview:staging:api
+```
+
+두 모드 모두 `http://127.0.0.1:4174`에서 `/problems`, `/careers` 같은 실제
+확장자 없는 경로를 제공한다. `preview:staging:api`는 승인된 staging HTTPS 주소가
+없으면 fail-closed하며 production API나 비밀 값을 기본값으로 사용하지 않는다.
+
 ## Role
 
 - Company introduction
