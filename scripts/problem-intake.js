@@ -1,4 +1,9 @@
 (() => {
+  const previewHosts = new Set(["npq-company-dev.web.app", "localhost", "127.0.0.1"]);
+  const isStagingPreview = previewHosts.has(window.location.hostname);
+  document.querySelectorAll('[data-career-status="closed"]').forEach((link) => {
+    link.hidden = !isStagingPreview;
+  });
   const toggles = Array.from(document.querySelectorAll("[data-problem-application-toggle]"));
   const forms = Array.from(document.querySelectorAll(".problem-application-form"));
   if (!forms.length) return;

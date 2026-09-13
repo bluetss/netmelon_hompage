@@ -22,6 +22,8 @@ COMPANY_PUBLIC_INTAKE_API_BASE=https://<approved-staging-public-intake> \
 두 모드 모두 `http://127.0.0.1:4174`에서 `/problems`, `/careers` 같은 실제
 확장자 없는 경로를 제공한다. `preview:staging:api`는 승인된 staging HTTPS 주소가
 없으면 fail-closed하며 production API나 비밀 값을 기본값으로 사용하지 않는다.
+`closed` 상태의 검토용 채용 공고와 Open Problems 연결은 production에서는 숨기고
+`npq-company-dev.web.app`, `localhost`, `127.0.0.1`에서만 표시한다.
 
 ## Role
 

@@ -926,6 +926,11 @@ async function checkOpenProblemsAndCareers() {
   assert(!page.includes('id="problem-intake-form"') && !page.includes('id="problem-intake"'), "problems.html must not restore the separate bottom application section.");
   assert(!page.includes('<select name="problemId"'), "problems.html inline application forms must not ask visitors to select the problem again.");
   assert(page.includes('scripts/problem-intake.js'), "problems.html is missing the participation form script.");
+  const problemIntakeScript = await read("scripts/problem-intake.js");
+  for (const previewHost of ["npq-company-dev.web.app", "localhost", "127.0.0.1"]) {
+    assert(problemIntakeScript.includes(`"${previewHost}"`), `problem-intake.js must recognize preview host ${previewHost}.`);
+  }
+  assert(problemIntakeScript.includes('[data-career-status="closed"]'), "problem-intake.js must control review-only career links.");
   assert(page.includes('data-api-base="https://'), "problems.html is missing the production intake API base.");
   assert(!/data-problem-id[^>]*href="mailto:/i.test(page), "problems.html must use the online form instead of a mailto problem CTA.");
   const internalOnlyPhrases = [
