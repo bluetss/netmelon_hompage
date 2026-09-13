@@ -105,7 +105,7 @@ function replaceOnce(source, marker, replacement) {
 }
 
 
-function renderApplicationForm(problem, privacyHref = "privacy.html") {
+function renderApplicationForm(problem, privacyHref = "/company-privacy") {
   return [
     '<form class="problem-application-form" data-api-base="' + htmlEscape(INTAKE_API_BASE, true) + '" novalidate>',
     '<input type="hidden" name="problemId" value="' + htmlEscape(problem.problemId, true) + '">',
@@ -276,7 +276,7 @@ function renderDetailParticipation(problem) {
     '<h2 id="participate-title">해결 방안을 보내주세요</h2>',
     "<p>이 문제에 대한 접근과 검증 방법을 알려주세요.</p>",
     "</div>",
-    renderApplicationForm(problem, "../privacy.html"),
+    renderApplicationForm(problem, "/company-privacy"),
     "</section>",
   ].join("\n");
 }
