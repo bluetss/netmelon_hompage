@@ -903,6 +903,11 @@ async function checkOpenProblemsAndCareers() {
   assert(Boolean(String(payload.sourceHash || "").trim()), dataFile + " is missing sourceHash.");
 
   const problems = Array.isArray(payload.problems) ? payload.problems : [];
+  const rankedProblems = problems.slice().sort((left, right) => Number(left?.sortOrder || 0) - Number(right?.sortOrder || 0));
+  assert(payload.headline === "네트멜론이 내팝퀴즈를 통해 풀고 있는 문제들입니다.", "Open Problems preview headline regressed.");
+  assert(payload.previewReviewRevision === "company-problems-review-2026-09-16", "Open Problems preview review revision is missing.");
+  assert(rankedProblems[0]?.problemId === "consumer-marketplace-growth", "Consumer marketplace growth must remain priority 1.");
+  assert(rankedProblems[1]?.problemId === "learning-content-lead", "Language learning and content must remain priority 2.");
   assert(problems.length > 0, dataFile + " must include at least one problem.");
   assert(problems.some((problem) => ["open", "exploring"].includes(problem?.status)), dataFile + " must include an open or exploring problem.");
   const page = await read("problems.html");
@@ -939,6 +944,8 @@ async function checkOpenProblemsAndCareers() {
   const reviewJobs = careersPayload.jobs.filter((job) => job.status === "closed");
   assert(reviewJobs.length === 2, "careers preview must preserve the two review-only roles.");
   assert(page.includes('class="problem-career-link"'), "problems.html must render mapped career actions.");
+  const problemsCss = await read("styles/problems.css");
+  assert(/\.problem-career-link\s*\{[^}]*display:\s*inline-flex;[^}]*border-radius:\s*999px;/s.test(problemsCss), "mapped career links must render as pill buttons.");
   assert(page.includes('data-api-base="https://'), "problems.html is missing the production intake API base.");
   assert(!/data-problem-id[^>]*href="mailto:/i.test(page), "problems.html must use the online form instead of a mailto problem CTA.");
   const internalOnlyPhrases = [

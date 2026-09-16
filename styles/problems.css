@@ -48,6 +48,8 @@ button,input,select,textarea { font:inherit; }
 .problem-interest { display:inline-flex; width:max-content; min-height:46px; align-items:center; justify-content:center; border:0; border-radius:999px; padding:0 18px; background:var(--problem-primary); color:#fff; font-size:14px; font-weight:800; cursor:pointer; }
 .problem-card-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 .problem-detail-link { display:inline-flex; min-height:46px; align-items:center; justify-content:center; border:1px solid var(--problem-line); border-radius:999px; padding:0 18px; color:var(--problem-primary-strong); font-size:14px; font-weight:800; text-decoration:none; }
+.problem-career-link { display:inline-flex; min-height:46px; align-items:center; justify-content:center; border:1px solid var(--problem-primary); border-radius:999px; padding:0 18px; color:var(--problem-primary); font-size:14px; font-weight:800; text-decoration:none; }
+.problem-career-link[hidden] { display:none; }
 .problem-interest[aria-expanded="true"] { background:var(--problem-primary-strong); }
 .problem-application { display:grid; gap:20px; border-top:1px solid var(--problem-line); padding-top:30px; }
 .problem-application[hidden] { display:none; }
@@ -106,4 +108,4 @@ button,input,select,textarea { font:inherit; }
 @keyframes problem-intake-spin { to { transform:rotate(360deg); } }
 @media (max-width:640px){ .problems-hero-inner,.problems-section-head,.problem-card-list{width:min(100% - 28px,1120px);} .problems-hero h1{font-size:clamp(2.35rem,12.5vw,3.8rem);} .problems-hero-copy{margin-top:22px;} .problem-card{border-radius:20px;} .problem-card summary{grid-template-columns:1fr;} .problem-card summary::after{justify-self:start;} .problem-interest{width:100%;} .problem-application-form{grid-template-columns:1fr;border-radius:18px;padding:18px;} .problem-intake-field.full,.problem-intake-consent.full,.problem-intake-actions.full{grid-column:auto;} .problem-intake-submit{width:100%;} }
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .problems-hero{position:relative;top:0;min-height:auto;} .problem-intake-submit i{animation:none;} }
-@media (max-width:640px){ .problem-card-actions{display:grid;grid-template-columns:1fr;} .problem-detail-link{width:100%;} .problem-detail-shell{width:min(100% - 28px,960px);} .problem-detail-hero h1{font-size:clamp(2.25rem,11vw,3.7rem);} .problem-detail-grid{grid-template-columns:1fr;} }
+@media (max-width:640px){ .problem-card-actions{display:grid;grid-template-columns:1fr;} .problem-detail-link,.problem-career-link{width:100%;} .problem-detail-shell{width:min(100% - 28px,960px);} .problem-detail-hero h1{font-size:clamp(2.25rem,11vw,3.7rem);} .problem-detail-grid{grid-template-columns:1fr;} }
