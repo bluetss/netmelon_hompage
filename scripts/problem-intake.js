@@ -1,6 +1,9 @@
 (() => {
-  const previewHosts = new Set(["npq-company-dev.web.app", "localhost", "127.0.0.1"]);
-  const isStagingPreview = previewHosts.has(window.location.hostname);
+  const hostname = window.location.hostname;
+  const isStagingPreview = hostname === "npq-company-dev.web.app"
+    || /^npq-company-dev--[a-z0-9-]+\.web\.app$/.test(hostname)
+    || hostname === "localhost"
+    || hostname === "127.0.0.1";
   document.querySelectorAll('[data-career-status="closed"]').forEach((link) => {
     link.hidden = !isStagingPreview;
   });

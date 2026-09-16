@@ -931,6 +931,14 @@ async function checkOpenProblemsAndCareers() {
     assert(problemIntakeScript.includes(`"${previewHost}"`), `problem-intake.js must recognize preview host ${previewHost}.`);
   }
   assert(problemIntakeScript.includes('[data-career-status="closed"]'), "problem-intake.js must control review-only career links.");
+  assert(problemIntakeScript.includes("npq-company-dev--[a-z0-9-]+"), "problem-intake.js must recognize Firebase Preview channel hosts.");
+  const careersTemplate = await read("careers.template.html");
+  assert(careersTemplate.includes("withPreviewJobs"), "careers preview must merge review-only roles with the public source.");
+  assert(careersTemplate.includes("npq-company-dev--[a-z0-9-]+"), "careers preview must recognize Firebase Preview channel hosts.");
+  const careersPayload = parseJson(await read("data/careers.ko.json"), "data/careers.ko.json");
+  const reviewJobs = careersPayload.jobs.filter((job) => job.status === "closed");
+  assert(reviewJobs.length === 2, "careers preview must preserve the two review-only roles.");
+  assert(page.includes('class="problem-career-link"'), "problems.html must render mapped career actions.");
   assert(page.includes('data-api-base="https://'), "problems.html is missing the production intake API base.");
   assert(!/data-problem-id[^>]*href="mailto:/i.test(page), "problems.html must use the online form instead of a mailto problem CTA.");
   const internalOnlyPhrases = [

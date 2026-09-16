@@ -529,6 +529,11 @@
 
       const params = new URLSearchParams(window.location.search);
       const jobId = params.get("job_id");
+      const previewHostname = window.location.hostname;
+      const previewAllowed = previewHostname === "npq-company-dev.web.app"
+        || /^npq-company-dev--[a-z0-9-]+\.web\.app$/.test(previewHostname)
+        || previewHostname === "localhost"
+        || previewHostname === "127.0.0.1";
 
       const hideLoading = () => {
         if (careersLoading) {
@@ -929,6 +934,15 @@
 
       const fetchData = async () => {
         const fallback = await fetchLocalData();
+        const fallbackJobs = Array.isArray(fallback.jobs) ? fallback.jobs : [];
+        const publicFallbackJobs = fallbackJobs.filter((job) => String(job.status || "open").toLowerCase() !== "closed");
+        const previewJobs = previewAllowed
+          ? fallbackJobs.filter((job) => String(job.status || "open").toLowerCase() === "closed")
+          : [];
+        const withPreviewJobs = (publicJobs) => {
+          const previewIds = new Set(previewJobs.flatMap((job) => [String(job.id || ""), String(job.slug || "")]).filter(Boolean));
+          return [...previewJobs, ...publicJobs.filter((job) => !previewIds.has(String(job.id || "")) && !previewIds.has(String(job.slug || "")))];
+        };
         const companySource = readBuildTimeCompanySource();
         const [fromFirestore] = await Promise.all([
           fetchJobsFromFirestore(),
@@ -942,7 +956,7 @@
         const nextData = fromFirestore
           ? {
               ...fallback,
-              jobs: fromFirestore.jobs,
+              jobs: withPreviewJobs(fromFirestore.jobs),
               updatedDate: fromFirestore.updatedDate || fallback.updatedDate,
               common: {
                 materials: (commonFromFirestore.materials || []).length > 0
@@ -959,6 +973,7 @@
             }
           : {
               ...fallback,
+              jobs: withPreviewJobs(publicFallbackJobs),
               common: {
                 ...fallbackCommon,
                 technology: fallbackTechnology,

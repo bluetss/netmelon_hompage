@@ -18,6 +18,80 @@
   "jobs": [
     {
       "num": 1,
+      "id": "founding-growth-creator-partnerships",
+      "slug": "founding-growth-creator-partnerships",
+      "title": "Founding Growth & Creator Partnerships",
+      "team": "Growth & Partnerships",
+      "status": "closed",
+      "employmentType": "프로젝트 단기계약",
+      "location": "협의",
+      "workMode": "하이브리드",
+      "seniority": "주니어",
+      "experienceBand": "1-3년",
+      "hiringPeriodType": "until_filled",
+      "priority": "P0 - Critical",
+      "mission": "첫 유료 학습자가 내팝퀴즈를 발견해 첫 발화를 완료하고 다시 결제하는 경로와, 그 학습 경험을 반복 공급할 첫 크리에이터 파트너십을 직접 만듭니다.",
+      "responsibilities": [
+        "첫 anchor learner cohort의 유입, 첫 발화, 재사용과 결제 funnel을 검증합니다.",
+        "채널과 메시지별 실험을 실행하고 CAC, activation, paid conversion과 retention을 연결합니다.",
+        "교육·언어·콘텐츠 크리에이터를 발굴하고 outreach, 협상, 계약과 pilot 운영을 책임집니다."
+      ],
+      "requirements": [
+        "앱, 구독 서비스 또는 creator campaign에서 획득·전환·계약 결과를 만든 경험",
+        "고객 또는 creator에게 직접 연락하고 증거에 따라 target·message·offer를 바꾸는 능력",
+        "작은 예산과 불완전한 데이터에서도 실험과 중단 기준을 정하는 능력"
+      ],
+      "preferred": ["에듀테크 또는 consumer subscription growth 경험", "creator sourcing과 partnership 운영 경험"],
+      "kpi": ["acquisition→첫 발화→재사용→결제 funnel baseline", "첫 creator cohort 유급 pilot 운영"],
+      "techStack": ["Meta Ads", "Google Ads", "GA4", "Firebase Analytics"],
+      "toolStack": ["Notion", "Google Sheets", "CRM", "AI research agents"],
+      "experienceTags": ["에듀테크 앱", "구독 서비스", "퍼포먼스 마케팅", "크리에이터 파트너십"],
+      "technicalChallenges": [
+        "Primary · paid-learner-growth — 첫 유료 학습자 성장",
+        "Primary · creator-supply — 반복 가능한 크리에이터 공급",
+        "Supporting · first-speech-product-research — 첫 발화 과정의 이탈과 고객 언어 관찰",
+        "Guardrail · content-rights — 출처·사용 범위·보상·계약 기록 준수"
+      ]
+    },
+    {
+      "num": 2,
+      "id": "founding-conversation-learning-scientist",
+      "slug": "founding-conversation-learning-scientist",
+      "title": "Founding Conversation Learning Scientist",
+      "team": "Learning Science & Product",
+      "status": "closed",
+      "employmentType": "유급 프로젝트 후 채용 검토",
+      "location": "협의",
+      "workMode": "하이브리드",
+      "seniority": "협의",
+      "experienceBand": "무관",
+      "hiringPeriodType": "until_filled",
+      "priority": "P1 - High",
+      "mission": "한국어 화자가 실제 상황에서 목적과 청자에 맞게 영어 대화를 구성하고 지속하도록 만드는 훈련·평가 시스템을 설계합니다.",
+      "responsibilities": [
+        "conversation capability model과 쉐도잉 이후의 훈련 progression을 설계합니다.",
+        "한국어 화자의 실제 발화를 관찰하고 실패 원인을 분류합니다.",
+        "말하기 수행 전이를 측정할 rubric과 평가 과제를 구축합니다."
+      ],
+      "requirements": [
+        "응용언어학, 제2언어 습득, 영어교육 또는 학습과학을 실제 수업·연구·제품에 적용한 경험",
+        "한국어 화자의 말하기 오류를 구조적으로 진단하는 능력",
+        "과업 중심 훈련 또는 말하기 평가 rubric을 설계한 경험"
+      ],
+      "preferred": ["성인 영어회화 curriculum 운영 경험", "AI tutor 또는 speech assessment 평가 경험"],
+      "kpi": ["conversation capability model과 발화 실패 taxonomy", "학습 전후 말하기 전이 평가 표본"],
+      "techStack": ["Learning Analytics", "Speech Assessment", "LLM Evaluation"],
+      "toolStack": ["Research repository", "Annotation tools", "Notion", "Google Sheets"],
+      "experienceTags": ["응용언어학", "제2언어 습득", "영어교육", "학습과학", "말하기 평가"],
+      "technicalChallenges": [
+        "Primary · learning-content-lead — 실제 대화로 전이되는 학습·콘텐츠 설계",
+        "Supporting · first-speech-product-research — 첫 발화 실패 원인 관찰",
+        "Input · adaptive-shadowing-stream — 숙련도·오류·전이 신호 제공",
+        "Guardrail · llm-content-engineering — AI 과제와 피드백의 교육적 타당성 검수"
+      ]
+    },
+    {
+      "num": 3,
       "title": "Product Manager, Shadowing Experience",
       "id": "7686375003",
       "team": "Product",
@@ -545,5 +619,5 @@
       "장기적 ownership"
     ]
   },
-  "updatedDate": "2026-05-28"
+  "updatedDate": "2026-09-16"
 }
