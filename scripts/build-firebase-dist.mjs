@@ -63,7 +63,7 @@ const topLevelFiles = [
   "translations.json",
 ];
 const htmlDirectories = ["announcements", "en", "problems"];
-const runtimeScripts = ["ir-intake.js", "problem-intake.js", "site-shell.js"];
+const runtimeScripts = ["careers-en.js", "ir-intake.js", "problem-intake.js", "site-shell.js"];
 
 async function copyFile(relativePath) {
   const source = path.join(ROOT, relativePath);

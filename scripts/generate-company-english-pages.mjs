@@ -11,6 +11,8 @@ const COMPANY_SOURCE_PATH = process.env.COMPANY_SOURCE_EN_JSON_PATH ||
   path.join(ROOT, "data", "company-source.en.json");
 const ANNOUNCEMENTS_PATH = process.env.COMPANY_ANNOUNCEMENTS_EN_JSON_PATH ||
   path.join(ROOT, "data", "company-announcements.en.json");
+const CAREERS_PATH = process.env.COMPANY_CAREERS_EN_JSON_PATH ||
+  path.join(ROOT, "data", "careers.en.json");
 const OUTPUT_DIR = process.env.COMPANY_ENGLISH_OUTPUT_DIR ||
   path.join(ROOT, "en");
 const ANNOUNCEMENT_DETAIL_DIR = process.env.COMPANY_ENGLISH_ANNOUNCEMENT_DETAIL_DIR ||
@@ -508,7 +510,57 @@ function renderCompanyPage(source) {
   return pageShell({ head, headerActive: "company", main });
 }
 
-function renderCareersPage(source) {
+function renderCareerListItem(job) {
+  return `<a class="job-row" href="careers.html?job_id=${encodeURIComponent(job.id)}"><div class="job-main"><h2 class="job-title">${htmlEscape(job.title)}</h2><p class="job-mission">${htmlEscape(job.mission)}</p></div><div class="job-side"><span class="meta-chip team">${htmlEscape(job.team)}</span><span class="job-arrow">→</span></div></a>`;
+}
+
+function renderCareerSection(title, items) {
+  return `<section class="detail-section"><h2>${htmlEscape(title)}</h2><ul>${items.map((item) => `<li>${htmlEscape(item)}</li>`).join("")}</ul></section>`;
+}
+
+function renderCareerDetail(job) {
+  return [
+    `<section class="view detail-view" data-english-job-detail="${htmlEscape(job.id, true)}" hidden>`,
+    '  <div class="shell">',
+    '    <div class="detail-header"><a class="back-link" href="careers.html">← All positions</a></div>',
+    '    <div class="detail-layout"><article>',
+    `      <div class="detail-title"><h1 tabindex="-1">${htmlEscape(job.title)}</h1><div class="detail-meta"><span class="meta-chip team">${htmlEscape(job.team)}</span><span class="meta-chip">${htmlEscape(job.employmentType)}</span><span class="meta-chip">${htmlEscape(job.location)}</span><span class="meta-chip">${htmlEscape(job.workMode)}</span></div><p class="detail-mission">${htmlEscape(job.mission)}</p></div>`,
+    `      ${renderCareerSection("What you will do", job.responsibilities)}`,
+    `      ${renderCareerSection("What we are looking for", job.requirements)}`,
+    `      ${renderCareerSection("Preferred experience", job.preferred)}`,
+    '    </article><aside class="detail-side"><h3>Position status</h3><ul><li>This review position is not currently accepting applications.</li><li>Questions: netmelon@netmelonai.com</li></ul></aside></div>',
+    '  </div>',
+    '</section>',
+  ].join("\n");
+}
+
+function normalizeEnglishCareers(payload) {
+  if (!payload || payload.locale !== "en" || !Array.isArray(payload.jobs) || !payload.jobs.length) {
+    throw new Error("English careers source must contain locale=en and at least one job.");
+  }
+  const ids = new Set();
+  return payload.jobs.map((job) => {
+    const normalized = {
+      ...job,
+      id: plainText(job.id),
+      title: assertEnglishText(`careers.${job.id}.title`, job.title),
+      team: assertEnglishText(`careers.${job.id}.team`, job.team),
+      employmentType: assertEnglishText(`careers.${job.id}.employmentType`, job.employmentType),
+      location: assertEnglishText(`careers.${job.id}.location`, job.location),
+      workMode: assertEnglishText(`careers.${job.id}.workMode`, job.workMode),
+      mission: assertEnglishText(`careers.${job.id}.mission`, job.mission),
+    };
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(normalized.id) || ids.has(normalized.id)) throw new Error(`Invalid or duplicate English career id: ${normalized.id}`);
+    ids.add(normalized.id);
+    for (const key of ["responsibilities", "requirements", "preferred"]) {
+      if (!Array.isArray(job[key]) || !job[key].length) throw new Error(`English career ${normalized.id} is missing ${key}.`);
+      normalized[key] = job[key].map((item, index) => assertEnglishText(`careers.${normalized.id}.${key}.${index}`, item));
+    }
+    return normalized;
+  });
+}
+
+function renderCareersPage(source, jobs) {
   const identity = source.identity;
   const description = plainText(identity.recruitingOneLiner);
   const schema = pageSchema(source, {
@@ -531,15 +583,14 @@ function renderCareersPage(source) {
     '      <div class="shell">',
     '        <div class="list-hero"><p class="hero-eyebrow">NETMELON CAREERS</p>',
     `          <h1 id="hero-headline">${htmlEscape(description)}</h1>`,
-    '          <p id="hero-intro">English role descriptions will appear here when reviewed openings are published.</p></div>',
+    '          <p id="hero-intro">Review each role\'s mission, responsibilities, and qualifications.</p></div>',
     '        <div class="filters" role="group" aria-label="Job filters">',
     '          <label class="sr-only" for="search-input">Search positions</label><input id="search-input" type="search" placeholder="Search positions or keywords" disabled>',
     '          <label class="sr-only" for="team-filter">Team filter</label><select id="team-filter" disabled><option>All teams</option></select>',
     '          <label class="sr-only" for="type-filter">Employment type filter</label><select id="type-filter" disabled><option>All types</option></select>',
     '        </div>',
-    '        <p class="job-count"><strong id="job-count">2</strong> review positions</p><div class="job-list" id="job-list">',
-    '          <a class="job-row" href="careers.html?job_id=founding-growth-creator-partnerships"><div class="job-main"><h2 class="job-title">Founding Growth &amp; Creator Partnerships</h2><p class="job-mission">Build the first repeatable path from learner acquisition to speaking, payment, and creator supply.</p></div><div class="job-side"><span class="meta-chip team">Growth &amp; Partnerships</span><span class="job-arrow">→</span></div></a>',
-    '          <a class="job-row" href="careers.html?job_id=founding-conversation-learning-scientist"><div class="job-main"><h2 class="job-title">Founding Conversation Learning Scientist</h2><p class="job-mission">Design training and assessment that transfers shadowing into real conversation.</p></div><div class="job-side"><span class="meta-chip team">Learning Science &amp; Product</span><span class="job-arrow">→</span></div></a>',
+    `        <p class="job-count"><strong id="job-count">${jobs.length}</strong> review positions</p><div class="job-list" id="job-list">`,
+    ...jobs.map((job) => `          ${renderCareerListItem(job)}`),
     '        </div>',
     '        <section class="list-info" aria-label="Applicant privacy and hiring process">',
     '          <article class="info-card"><h2>Applicant privacy</h2><ul><li>Application materials and contact details are used only for recruitment review and communication.</li><li>Do not submit sensitive information unrelated to recruitment.</li><li>You may request correction or deletion at netmelon@netmelonai.com.</li></ul><p><a href="/en/company-privacy">Privacy Policy</a></p></article>',
@@ -547,7 +598,9 @@ function renderCareersPage(source) {
     '        </section>',
     '      </div>',
     "    </section>",
+    ...jobs.map(renderCareerDetail),
     "  </main>",
+    '  <script src="../scripts/careers-en.js" defer></script>',
   ].join("\n");
   return pageShell({ head, headerActive: "careers", main });
 }
@@ -827,8 +880,11 @@ function renderOpenProblemDetail(source, payload, item) {
   const head = renderHead({ title: `Netmelon | ${item.title}`, description: item.summary, canonicalPath: pathName, schema: pageSchema(source, { type: "WebPage", id: item.problemId, name: item.title, description: item.summary, pathName }), assetPrefix: "../../", sourceVersionId: payload.sourceVersionId }) + '\n  <link rel="stylesheet" href="../../styles/problems.css">';
   const sections = [["Why this matters", [item.whyItMatters]], ["What we know", item.currentEvidence], ["Questions to answer", item.unknowns], ["Principles and constraints", item.constraints], ["Experience we are looking for", item.neededExpertise?.length ? item.neededExpertise : item.desiredContributions]].map(([title, values]) => `<section class="problem-detail-section"><h2>${title}</h2>${openProblemList(values)}</section>`).join("\n");
   const accepting = item.status === "open" || item.status === "exploring";
+  const careerLink = renderEnglishCareerLink(item, "../");
+  const primaryAction = accepting ? '<a class="problem-detail-primary-action" href="#participate">Propose a solution</a>' : "";
+  const heroActions = careerLink ? `<div class="problem-card-actions">${primaryAction}${careerLink}</div>` : primaryAction;
   const participation = accepting ? `<section class="problem-detail-participation" id="participate"><div class="problem-application-head"><p class="problems-kicker">Solution</p><h2>Send your solution</h2><p>Tell us how you would approach and validate this problem.</p></div>${renderEnglishProblemForm(item, "/en/company-privacy")}</section>` : "";
-  const main = `<main class="problem-detail-main"><section class="problem-detail-hero"><div class="problem-detail-shell"><a class="problem-detail-back" href="/en/problems">All open problems</a><div class="problem-meta"><span class="is-open">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h1>${htmlEscape(item.title)}</h1><p class="problem-detail-summary">${htmlEscape(item.summary)}</p>${accepting ? '<a class="problem-detail-primary-action" href="#participate">Propose a solution</a>' : ""}</div></section><section class="problem-detail-body"><div class="problem-detail-shell">${sections}</div></section>${participation}</main><script src="../../scripts/problem-intake.js" defer></script>`;
+  const main = `<main class="problem-detail-main"><section class="problem-detail-hero"><div class="problem-detail-shell"><a class="problem-detail-back" href="/en/problems">All open problems</a><div class="problem-meta"><span class="is-open">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h1>${htmlEscape(item.title)}</h1><p class="problem-detail-summary">${htmlEscape(item.summary)}</p>${heroActions}</div></section><section class="problem-detail-body"><div class="problem-detail-shell">${sections}</div></section>${participation}</main><script src="../../scripts/problem-intake.js" defer></script>`;
   return pageShell({ head, headerActive: "problems", main, hrefPrefix: "../", assetPrefix: "../../" });
 }
 
@@ -847,6 +903,7 @@ async function cleanupStaleEnglishProblemDetails(problems) {
 async function main() {
   const source = JSON.parse(await readFile(COMPANY_SOURCE_PATH, "utf8"));
   assertSource(source);
+  const careers = normalizeEnglishCareers(JSON.parse(await readFile(CAREERS_PATH, "utf8")));
 
   const announcementsPayload = await readAnnouncementsIfPresent();
   const announcements = normalizeAnnouncements(announcementsPayload);
@@ -859,7 +916,7 @@ async function main() {
   await Promise.all([
     writeFile(path.join(OUTPUT_DIR, "index.html"), renderHomePage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "company.html"), renderCompanyPage(source), "utf8"),
-    writeFile(path.join(OUTPUT_DIR, "careers.html"), renderCareersPage(source), "utf8"),
+    writeFile(path.join(OUTPUT_DIR, "careers.html"), renderCareersPage(source, careers), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "ir.html"), renderIrPage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "announcement.html"), renderAnnouncementPage(source, announcements), "utf8"),
     cleanupStaleEnglishAnnouncementDetails(announcements),

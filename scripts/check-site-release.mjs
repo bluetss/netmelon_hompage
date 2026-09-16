@@ -1149,10 +1149,18 @@ async function checkLocaleRouteAndUiParity() {
   assert(englishHome.includes("data-app-homepage-link"), "en/index.html app homepage CTA must use the environment-aware link marker.");
   assert(/\.app-shotcase\s*{[\s\S]*?pointer-events:\s*none;[\s\S]*?}/.test(companyCss), "App screenshots must not intercept the app-homepage CTA click target.");
   const englishCareers = await read("en/careers.html");
+  const englishCareersRuntime = await read("scripts/careers-en.js");
   const englishIr = await read("en/ir.html");
-  assert(englishCareers.includes('id="list-view"') && englishCareers.includes('class="filters"'), "en/careers.html must preserve the careers list UI structure.");
-  assert(englishIr.includes('id="ir-request-form"') && englishIr.includes('name="consent"'), "en/ir.html must preserve the IR request and consent structure.");
   const englishProblems = await read("en/problems.html");
+  assert(englishCareers.includes('id="list-view"') && englishCareers.includes('class="filters"'), "en/careers.html must preserve the careers list UI structure.");
+  for (const jobId of ["founding-growth-creator-partnerships", "founding-conversation-learning-scientist"]) {
+    assert(englishCareers.includes(`href="careers.html?job_id=${jobId}"`), `en/careers.html must link the ${jobId} list item to its detail route.`);
+    assert(englishCareers.includes(`data-english-job-detail="${jobId}"`), `en/careers.html must render detail content for ${jobId}.`);
+    assert(englishProblems.includes(`careers.html?job_id=${jobId}`), `en/problems.html must link its mapped problem to ${jobId}.`);
+  }
+  assert(englishCareers.includes('scripts/careers-en.js'), "en/careers.html must load the English career detail router.");
+  assert(englishCareersRuntime.includes('new URLSearchParams(window.location.search).get("job_id")'), "English career detail router must resolve job_id from the URL.");
+  assert(englishIr.includes('id="ir-request-form"') && englishIr.includes('name="consent"'), "en/ir.html must preserve the IR request and consent structure.");
   assert(englishProblems.includes('class="problem-application-form"'), "en/problems.html review preview must expose the proposal form structure.");
   assert(englishProblems.includes('<summary><div class="problem-card-title">'), "en/problems.html must keep each card copy in the shared title column.");
   assert(englishProblems.includes('class="problem-summary"'), "en/problems.html must use the shared summary wrapping contract.");
