@@ -1154,6 +1154,8 @@ async function checkLocaleRouteAndUiParity() {
   assert(englishIr.includes('id="ir-request-form"') && englishIr.includes('name="consent"'), "en/ir.html must preserve the IR request and consent structure.");
   const englishProblems = await read("en/problems.html");
   assert(englishProblems.includes('class="problem-application-form"'), "en/problems.html review preview must expose the proposal form structure.");
+  assert(englishProblems.includes('<summary><div class="problem-card-title">'), "en/problems.html must keep each card copy in the shared title column.");
+  assert(englishProblems.includes('class="problem-summary"'), "en/problems.html must use the shared summary wrapping contract.");
   const companyPrivacy = await read("company-privacy.html");
   const englishCompanyPrivacy = await read("en/company-privacy.html");
   assert(companyPrivacy.includes("접수일로부터 1년"), "company-privacy.html must disclose the company intake retention period.");
