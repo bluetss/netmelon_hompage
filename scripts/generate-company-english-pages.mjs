@@ -537,8 +537,10 @@ function renderCareersPage(source) {
     '          <label class="sr-only" for="team-filter">Team filter</label><select id="team-filter" disabled><option>All teams</option></select>',
     '          <label class="sr-only" for="type-filter">Employment type filter</label><select id="type-filter" disabled><option>All types</option></select>',
     '        </div>',
-    '        <p class="job-count"><strong id="job-count">0</strong> open positions</p><div class="job-list" id="job-list"></div>',
-    '        <div class="empty-state">There are no reviewed English openings at this time.</div>',
+    '        <p class="job-count"><strong id="job-count">2</strong> review positions</p><div class="job-list" id="job-list">',
+    '          <a class="job-row" href="careers.html?job_id=founding-growth-creator-partnerships"><div class="job-main"><h2 class="job-title">Founding Growth &amp; Creator Partnerships</h2><p class="job-mission">Build the first repeatable path from learner acquisition to speaking, payment, and creator supply.</p></div><div class="job-side"><span class="meta-chip team">Growth &amp; Partnerships</span><span class="job-arrow">→</span></div></a>',
+    '          <a class="job-row" href="careers.html?job_id=founding-conversation-learning-scientist"><div class="job-main"><h2 class="job-title">Founding Conversation Learning Scientist</h2><p class="job-mission">Design training and assessment that transfers shadowing into real conversation.</p></div><div class="job-side"><span class="meta-chip team">Learning Science &amp; Product</span><span class="job-arrow">→</span></div></a>',
+    '        </div>',
     '        <section class="list-info" aria-label="Applicant privacy and hiring process">',
     '          <article class="info-card"><h2>Applicant privacy</h2><ul><li>Application materials and contact details are used only for recruitment review and communication.</li><li>Do not submit sensitive information unrelated to recruitment.</li><li>You may request correction or deletion at netmelon@netmelonai.com.</li></ul><p><a href="/en/company-privacy">Privacy Policy</a></p></article>',
     '          <article class="info-card"><h2>Hiring process</h2><ul><li>Document review, role interview, task or portfolio review, and final discussion.</li><li>Steps may change depending on the role and company circumstances.</li></ul></article>',
@@ -782,8 +784,16 @@ function normalizeOpenProblems(payload) {
     for (const key of ["problemId", "slug", "title", "summary", "category", "whyItMatters"]) assertEnglishText(`openProblems.${item.problemId}.${key}`, item[key]);
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.slug)) throw new Error("English Open Problems has an invalid slug.");
   }
+  if (REVIEW_MODE && problems.some((item) => item.problemId === "consumer-marketplace-growth")) {
+    const byId = Object.fromEntries(problems.map((item) => [item.problemId, item]));
+    const clone = (sourceId, problemId, sortOrder, title, category) => ({ ...byId[sourceId], problemId, slug: problemId, sortOrder, title, category });
+    return [clone("consumer-marketplace-growth", "paid-learner-growth", 1, "How do we acquire the first paying learners and keep them speaking?", "Paid Learner Growth"), { ...byId["learning-content-lead"], sortOrder: 2 }, clone("consumer-marketplace-growth", "creator-supply", 3, "How do we build a repeatable supply of trusted creator content?", "Creator Supply"), { ...byId["content-rights"], sortOrder: 4 }, { ...byId["ai-business-model"], sortOrder: 5 }, clone("product-design", "first-speech-product-research", 6, "How do we help learners reach their first successful spoken response?", "First Speech Product Research"), { ...byId["multilingual-pronunciation"], sortOrder: 7 }, { ...byId["adaptive-shadowing-stream"], sortOrder: 8 }, { ...byId["llm-content-engineering"], sortOrder: 9 }];
+  }
   return problems.slice().sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0));
 }
+
+const ENGLISH_CAREER_BY_PROBLEM = { "paid-learner-growth": "founding-growth-creator-partnerships", "creator-supply": "founding-growth-creator-partnerships", "learning-content-lead": "founding-conversation-learning-scientist" };
+function renderEnglishCareerLink(item, prefix = "") { const id = ENGLISH_CAREER_BY_PROBLEM[item.problemId]; return id ? `<a class="problem-career-link" href="${prefix}careers.html?job_id=${id}">View related position</a>` : ""; }
 
 function openProblemList(items, key) {
   const values = Array.isArray(items) ? items : [];
@@ -797,7 +807,10 @@ function renderEnglishProblemForm(item, privacyHref) {
 function renderEnglishProblemCard(item) {
   const accepting = item.status === "open" || item.status === "exploring";
   const panelId = `problem-application-${item.slug}`;
-  return `<details class="problem-card" id="${htmlEscape(item.slug, true)}"><summary><div class="problem-meta"><span class="${accepting ? "is-open" : ""}">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h2>${htmlEscape(item.title)}</h2><p>${htmlEscape(item.summary)}</p></summary><div class="problem-card-body"><div class="problem-card-actions"><a class="problem-detail-link" href="/en/problems/${htmlEscape(item.slug, true)}">View problem</a>${accepting ? `<button class="problem-interest" type="button" data-problem-application-toggle aria-expanded="false" aria-controls="${panelId}"><span data-problem-application-label>Send solution</span></button>` : ""}</div>${accepting ? `<section class="problem-application" id="${panelId}" hidden><div class="problem-application-head"><h3>${htmlEscape(item.category)} solution</h3><p>Tell us how you would approach and validate this problem.</p></div>${renderEnglishProblemForm(item, "/en/company-privacy")}</section>` : ""}</div></details>`;
+  const career = renderEnglishCareerLink(item);
+  const solution = accepting ? `<button class="problem-interest" type="button" data-problem-application-toggle aria-expanded="false" aria-controls="${panelId}"><span data-problem-application-label>Send solution</span></button>` : "";
+  const form = accepting ? `<section class="problem-application" id="${panelId}" hidden><div class="problem-application-head"><h3>${htmlEscape(item.category)} solution</h3><p>Tell us how you would approach and validate this problem.</p></div>${renderEnglishProblemForm(item, "/en/company-privacy")}</section>` : "";
+  return `<details class="problem-card" id="${htmlEscape(item.slug, true)}"><summary><div class="problem-meta"><span class="${accepting ? "is-open" : ""}">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h2>${htmlEscape(item.title)}</h2><p>${htmlEscape(item.summary)}</p></summary><div class="problem-card-body"><div class="problem-card-actions"><a class="problem-detail-link" href="/en/problems/${htmlEscape(item.slug, true)}">View problem</a>${solution}${career}</div>${form}</div></details>`;
 }
 
 function renderOpenProblemsPage(source, payload, problems) {
@@ -824,6 +837,13 @@ async function readOpenProblemsIfPresent() {
   catch (error) { if (error?.code === "ENOENT") return null; throw error; }
 }
 
+async function cleanupStaleEnglishProblemDetails(problems) {
+  await mkdir(OPEN_PROBLEM_DETAIL_DIR, { recursive: true });
+  const expected = new Set(problems.map((item) => `${item.slug}.html`));
+  const entries = await readdir(OPEN_PROBLEM_DETAIL_DIR, { withFileTypes: true }).catch(() => []);
+  await Promise.all(entries.filter((entry) => entry.isFile() && entry.name.endsWith(".html") && !expected.has(entry.name)).map((entry) => unlink(path.join(OPEN_PROBLEM_DETAIL_DIR, entry.name))));
+}
+
 async function main() {
   const source = JSON.parse(await readFile(COMPANY_SOURCE_PATH, "utf8"));
   assertSource(source);
@@ -843,7 +863,7 @@ async function main() {
     writeFile(path.join(OUTPUT_DIR, "ir.html"), renderIrPage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "announcement.html"), renderAnnouncementPage(source, announcements), "utf8"),
     cleanupStaleEnglishAnnouncementDetails(announcements),
-    ...(openProblemsPayload ? [mkdir(OPEN_PROBLEM_DETAIL_DIR, { recursive: true }), writeFile(path.join(OUTPUT_DIR, "problems.html"), renderOpenProblemsPage(source, openProblemsPayload, openProblems), "utf8")] : []),
+    ...(openProblemsPayload ? [cleanupStaleEnglishProblemDetails(openProblems), writeFile(path.join(OUTPUT_DIR, "problems.html"), renderOpenProblemsPage(source, openProblemsPayload, openProblems), "utf8")] : []),
   ]);
   await Promise.all(announcements.map((item) => (
     writeFile(path.join(ANNOUNCEMENT_DETAIL_DIR, `${item.slug}.html`), renderAnnouncementDetailPage(source, item), "utf8")
