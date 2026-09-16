@@ -34,6 +34,7 @@ for (const forbidden of ["CNAME", "firebase.json", ".firebaserc", "package.json"
 }
 assert(!files.some((name) => name.endsWith(".template.html")), "Templates must not be deployed.");
 assert(!files.some((name) => name.startsWith("scripts/") && ![
+  "scripts/careers-en.js",
   "scripts/problem-intake.js",
   "scripts/ir-intake.js",
   "scripts/runtime-config.js",
