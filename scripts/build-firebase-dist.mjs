@@ -57,6 +57,7 @@ const topLevelFiles = [
   "privacy.html",
   "privacy.json",
   "problems.html",
+  "sitemap.xml",
   "terms.html",
   "terms_of_service.json",
   "translations.json",

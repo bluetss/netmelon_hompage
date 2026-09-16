@@ -40,6 +40,10 @@ assert(!files.some((name) => name.startsWith("scripts/") && ![
   "scripts/site-shell.js",
 ].includes(name)), "Build or CMS scripts must not be deployed.");
 assert(!files.some((name) => name.startsWith("data/") && name !== "data/careers.ko.json"), "CMS source data must not be deployed.");
+assert(files.includes("sitemap.xml"), "staging artifact must include the generated sitemap.");
+const sitemap = await readFile(path.join(DIST, "sitemap.xml"), "utf8");
+const problemUrls = sitemap.match(/<loc>https:\/\/netmelonai\.com\/problems\/[^<]+<\/loc>/g) || [];
+assert(problemUrls.length === 9, "staging sitemap must contain the nine canonical problem detail URLs.");
 
 const robots = await readFile(path.join(DIST, "robots.txt"), "utf8");
 assert(robots === "User-agent: *\nDisallow: /\n", "staging robots.txt must block all crawling.");
