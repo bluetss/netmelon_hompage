@@ -61,5 +61,13 @@ assert(manifest.schemaId === "npq.company_site_release.v1", "release manifest sc
 assert(manifest.environment === "staging", "release manifest must target staging.");
 assert(manifest.hostingSite === "npq-company-dev", "release manifest has the wrong hosting site.");
 assert(manifest.publicIntakeConfigured === Boolean(expectedApiBase), "release manifest intake state is inconsistent.");
+assert(manifest.origins?.company === "https://npq-company-dev.web.app", "release manifest company origin is invalid.");
+assert(manifest.origins?.appLanding === "https://npq-landing-dev.web.app", "release manifest app landing origin is invalid.");
+assert(manifest.origins?.studio === "https://studio-dev.naepopquiz.com", "release manifest Studio origin is invalid.");
+
+for (const relativePath of files.filter((name) => name.endsWith(".html") || name.endsWith(".js"))) {
+  const source = await readFile(path.join(DIST, relativePath), "utf8");
+  assert(!source.includes('href="https://studio.naepopquiz.com'), `${relativePath} contains a production Studio navigation link.`);
+}
 
 console.log(`Firebase company staging artifact is valid (${files.length} files).`);

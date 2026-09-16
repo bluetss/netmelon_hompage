@@ -11,15 +11,19 @@ const DIST = path.join(ROOT, "dist");
 const environment = String(process.env.COMPANY_SITE_ENV || "staging").trim();
 const rawApiBase = String(process.env.COMPANY_PUBLIC_INTAKE_API_BASE || "").trim();
 const apiBase = rawApiBase.replace(/\/+$/, "");
-const APP_HOMEPAGE_BY_ENVIRONMENT = Object.freeze({
-  staging: "https://npq-landing-dev.web.app/",
+const WEB_ORIGINS_BY_ENVIRONMENT = Object.freeze({
+  staging: Object.freeze({
+    company: "https://npq-company-dev.web.app",
+    appLanding: "https://npq-landing-dev.web.app",
+    studio: "https://studio-dev.naepopquiz.com",
+  }),
 });
-const appHomepageUrl = APP_HOMEPAGE_BY_ENVIRONMENT[environment];
+const webOrigins = WEB_ORIGINS_BY_ENVIRONMENT[environment];
 
 if (environment !== "staging") {
   throw new Error("Firebase company build only supports COMPANY_SITE_ENV=staging.");
 }
-if (!appHomepageUrl) throw new Error(`No app homepage URL is registered for ${environment}.`);
+if (!webOrigins) throw new Error(`No web origin matrix is registered for ${environment}.`);
 if (apiBase && !/^https:\/\/[^/]+(?:\/[^?#]*)?$/.test(apiBase)) {
   throw new Error("COMPANY_PUBLIC_INTAKE_API_BASE must be an absolute HTTPS URL.");
 }
@@ -115,7 +119,11 @@ async function injectPublicLinks(relativePath) {
   let html = await readFile(target, "utf8");
   html = html.replace(
     /(<a\b[^>]*\bdata-app-homepage-link\b[^>]*\bhref=")[^"]*(")/g,
-    `$1${appHomepageUrl}$2`,
+    `$1${webOrigins.appLanding}/$2`,
+  );
+  html = html.replace(
+    /(<a\b[^>]*\bhref=")https:\/\/studio\.naepopquiz\.com(?=\/[^\"]*\")/g,
+    `$1${webOrigins.studio}`,
   );
   await writeFile(target, html, "utf8");
 }
@@ -163,6 +171,7 @@ const manifest = {
   sourceDirty: Boolean(gitValue(["status", "--porcelain"], "")),
   builtAt: new Date().toISOString(),
   publicIntakeConfigured: Boolean(apiBase),
+  origins: webOrigins,
   cms: {
     companySourceVersion: companySource.sourceVersionId || companySource.version || null,
     companySourceHash: companySource.sourceHash || null,
