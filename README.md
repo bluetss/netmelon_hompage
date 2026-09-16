@@ -25,6 +25,17 @@ COMPANY_PUBLIC_INTAKE_API_BASE=https://<approved-staging-public-intake> \
 `closed` 상태의 검토용 채용 공고와 Open Problems 연결은 production에서는 숨기고
 `npq-company-dev.web.app`, `localhost`, `127.0.0.1`에서만 표시한다.
 
+세션 Preview용 Firebase 산출물은 검증할 정확한 커밋을 40자리 SHA로 명시한다.
+이는 관리형 실행 환경에서 빌드 프로세스의 `git` 호출이 제한되더라도 릴리스
+매니페스트가 검증 대상을 잃지 않게 한다.
+
+```bash
+COMPANY_SOURCE_COMMIT=<exact-40-character-git-sha> \
+COMPANY_PUBLIC_INTAKE_API_BASE=https://<approved-staging-public-intake> \
+COMPANY_APP_LANDING_ORIGIN=https://npq-landing-dev--<preview-channel>.web.app \
+npm run build:firebase:staging
+```
+
 ## Role
 
 - Company introduction

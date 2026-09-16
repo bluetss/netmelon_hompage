@@ -12,6 +12,7 @@ const environment = String(process.env.COMPANY_SITE_ENV || "staging").trim();
 const rawApiBase = String(process.env.COMPANY_PUBLIC_INTAKE_API_BASE || "").trim();
 const apiBase = rawApiBase.replace(/\/+$/, "");
 const appLandingOverride = String(process.env.COMPANY_APP_LANDING_ORIGIN || "").trim().replace(/\/+$/, "");
+const sourceCommitOverride = String(process.env.COMPANY_SOURCE_COMMIT || "").trim().toLowerCase();
 const WEB_ORIGINS_BY_ENVIRONMENT = Object.freeze({
   staging: Object.freeze({
     company: "https://npq-company-dev.web.app",
@@ -27,6 +28,9 @@ if (environment !== "staging") {
 if (!webOrigins) throw new Error(`No web origin matrix is registered for ${environment}.`);
 if (appLandingOverride && !/^https:\/\/npq-landing-dev(?:--[a-z0-9-]+)?\.web\.app$/.test(appLandingOverride)) {
   throw new Error("COMPANY_APP_LANDING_ORIGIN must be the staging app site or one of its Firebase Preview channels.");
+}
+if (sourceCommitOverride && !/^[0-9a-f]{40}$/.test(sourceCommitOverride)) {
+  throw new Error("COMPANY_SOURCE_COMMIT must be an exact 40-character Git SHA.");
 }
 const resolvedWebOrigins = Object.freeze({
   ...webOrigins,
@@ -175,7 +179,7 @@ const manifest = {
   schemaId: "npq.company_site_release.v1",
   environment,
   hostingSite: "npq-company-dev",
-  sourceCommit: gitValue(["rev-parse", "HEAD"], "unknown"),
+  sourceCommit: sourceCommitOverride || gitValue(["rev-parse", "HEAD"], "unknown"),
   sourceDirty: Boolean(gitValue(["status", "--porcelain"], "")),
   builtAt: new Date().toISOString(),
   publicIntakeConfigured: Boolean(apiBase),
