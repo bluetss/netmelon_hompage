@@ -26,10 +26,6 @@ const INTAKE_API_BASE = String(
 ).replace(/\/+$/, "");
 const ALLOWED_STATUSES = new Set(["exploring", "open", "paused", "closed"]);
 const STATUS_LABEL = { exploring: "논의 중", open: "참여 가능", paused: "잠시 멈춤", closed: "마감" };
-const LEGACY_PROBLEM_IDS = {
-  "consumer-marketplace-growth": ["paid-learner-growth", "creator-supply"],
-  "product-design": ["first-speech-product-research"],
-};
 
 const clean = (value) => String(value ?? "").trim();
 const htmlEscape = (value, quote = false) => clean(value)
@@ -148,13 +144,7 @@ function careersByProblem(careersSource) {
 }
 
 function careersForProblem(problem, careerMap) {
-  const acceptedIds = [problem.problemId, ...(LEGACY_PROBLEM_IDS[problem.problemId] || [])];
-  const seen = new Set();
-  return acceptedIds.flatMap((id) => careerMap.get(id) || []).filter((job) => {
-    if (seen.has(job.id)) return false;
-    seen.add(job.id);
-    return true;
-  });
+  return careerMap.get(problem.problemId) || [];
 }
 
 function renderCareerLinks(careers, hrefPrefix = "") {

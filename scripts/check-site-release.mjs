@@ -904,10 +904,20 @@ async function checkOpenProblemsAndCareers() {
 
   const problems = Array.isArray(payload.problems) ? payload.problems : [];
   const rankedProblems = problems.slice().sort((left, right) => Number(left?.sortOrder || 0) - Number(right?.sortOrder || 0));
+  const canonicalProblemOrder = [
+    "paid-learner-growth",
+    "learning-content-lead",
+    "creator-supply",
+    "content-rights",
+    "ai-business-model",
+    "first-speech-product-research",
+    "multilingual-pronunciation",
+    "adaptive-shadowing-stream",
+    "llm-content-engineering",
+  ];
   assert(payload.headline === "네트멜론이 내팝퀴즈를 통해 풀고 있는 문제들입니다.", "Open Problems preview headline regressed.");
   assert(payload.previewReviewRevision === "company-problems-review-2026-09-16", "Open Problems preview review revision is missing.");
-  assert(rankedProblems[0]?.problemId === "consumer-marketplace-growth", "Consumer marketplace growth must remain priority 1.");
-  assert(rankedProblems[1]?.problemId === "learning-content-lead", "Language learning and content must remain priority 2.");
+  assert(JSON.stringify(rankedProblems.map((problem) => problem.problemId)) === JSON.stringify(canonicalProblemOrder), "Open problems must contain the nine canonical problem IDs in public priority order.");
   assert(problems.length > 0, dataFile + " must include at least one problem.");
   assert(problems.some((problem) => ["open", "exploring"].includes(problem?.status)), dataFile + " must include an open or exploring problem.");
   const page = await read("problems.html");
@@ -943,6 +953,18 @@ async function checkOpenProblemsAndCareers() {
   const careersPayload = parseJson(await read("data/careers.ko.json"), "data/careers.ko.json");
   const reviewJobs = careersPayload.jobs.filter((job) => job.status === "closed");
   assert(reviewJobs.length === 2, "careers preview must preserve the two review-only roles.");
+  const expectedCareerOwners = {
+    "paid-learner-growth": ["founding-growth-creator-partnerships"],
+    "learning-content-lead": ["founding-conversation-learning-scientist"],
+    "creator-supply": ["founding-growth-creator-partnerships"],
+  };
+  for (const problem of rankedProblems) {
+    const actualOwners = careersPayload.jobs.filter((job) => (Array.isArray(job?.technicalChallenges) ? job.technicalChallenges : []).some((item) => {
+      return String(item || "").trim().match(/^Primary\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1] === problem.problemId;
+    })).map((job) => job.id).sort();
+    const expectedOwners = (expectedCareerOwners[problem.problemId] || []).slice().sort();
+    assert(JSON.stringify(actualOwners) === JSON.stringify(expectedOwners), problem.problemId + " must render only its directly owned career position.");
+  }
   assert(page.includes('class="problem-career-link"'), "problems.html must render mapped career actions.");
   const problemsCss = await read("styles/problems.css");
   assert(/\.problem-career-link\s*\{[^}]*display:\s*inline-flex;[^}]*border-radius:\s*999px;/s.test(problemsCss), "mapped career links must render as pill buttons.");
