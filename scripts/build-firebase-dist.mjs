@@ -11,6 +11,7 @@ const DIST = path.join(ROOT, "dist");
 const environment = String(process.env.COMPANY_SITE_ENV || "staging").trim();
 const rawApiBase = String(process.env.COMPANY_PUBLIC_INTAKE_API_BASE || "").trim();
 const apiBase = rawApiBase.replace(/\/+$/, "");
+const appLandingOverride = String(process.env.COMPANY_APP_LANDING_ORIGIN || "").trim().replace(/\/+$/, "");
 const WEB_ORIGINS_BY_ENVIRONMENT = Object.freeze({
   staging: Object.freeze({
     company: "https://npq-company-dev.web.app",
@@ -24,6 +25,13 @@ if (environment !== "staging") {
   throw new Error("Firebase company build only supports COMPANY_SITE_ENV=staging.");
 }
 if (!webOrigins) throw new Error(`No web origin matrix is registered for ${environment}.`);
+if (appLandingOverride && !/^https:\/\/npq-landing-dev(?:--[a-z0-9-]+)?\.web\.app$/.test(appLandingOverride)) {
+  throw new Error("COMPANY_APP_LANDING_ORIGIN must be the staging app site or one of its Firebase Preview channels.");
+}
+const resolvedWebOrigins = Object.freeze({
+  ...webOrigins,
+  appLanding: appLandingOverride || webOrigins.appLanding,
+});
 if (apiBase && !/^https:\/\/[^/]+(?:\/[^?#]*)?$/.test(apiBase)) {
   throw new Error("COMPANY_PUBLIC_INTAKE_API_BASE must be an absolute HTTPS URL.");
 }
@@ -119,7 +127,7 @@ async function injectPublicLinks(relativePath) {
   let html = await readFile(target, "utf8");
   html = html.replace(
     /(<a\b[^>]*\bdata-app-homepage-link\b[^>]*\bhref=")[^"]*(")/g,
-    `$1${webOrigins.appLanding}/$2`,
+    `$1${resolvedWebOrigins.appLanding}/$2`,
   );
   html = html.replace(
     /(<a\b[^>]*\bhref=")https:\/\/studio\.naepopquiz\.com(?=\/[^\"]*\")/g,
@@ -171,7 +179,7 @@ const manifest = {
   sourceDirty: Boolean(gitValue(["status", "--porcelain"], "")),
   builtAt: new Date().toISOString(),
   publicIntakeConfigured: Boolean(apiBase),
-  origins: webOrigins,
+  origins: resolvedWebOrigins,
   cms: {
     companySourceVersion: companySource.sourceVersionId || companySource.version || null,
     companySourceHash: companySource.sourceHash || null,
