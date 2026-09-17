@@ -845,7 +845,7 @@ function normalizeOpenProblems(payload) {
   return problems.slice().sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0));
 }
 
-const ENGLISH_CAREER_BY_PROBLEM = { "paid-learner-growth": "founding-growth-creator-partnerships", "creator-supply": "founding-growth-creator-partnerships", "learning-content-lead": "founding-conversation-learning-scientist" };
+const ENGLISH_CAREER_BY_PROBLEM = { "paid-learner-growth": "founding-growth-creator-partnerships", "creator-supply": "founding-growth-creator-partnerships" };
 function renderEnglishCareerLink(item, prefix = "") { const id = ENGLISH_CAREER_BY_PROBLEM[item.problemId]; return id ? `<a class="problem-career-link" href="${prefix}careers.html?job_id=${id}">View related position</a>` : ""; }
 
 function openProblemList(items, key) {

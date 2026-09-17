@@ -32,39 +32,6 @@
         "Experience measuring paid or creator channels through payment and retention.",
         "Experience building in an early-stage team and stopping failed hypotheses with evidence."
       ]
-    },
-    {
-      "id": "founding-conversation-learning-scientist",
-      "title": "Founding Conversation Learning Scientist",
-      "team": "Learning Science & Product",
-      "status": "closed",
-      "employmentType": "Paid project followed by hiring review",
-      "location": "To be agreed",
-      "workMode": "Hybrid",
-      "mission": "Design training and assessment that helps Korean speakers construct and sustain English conversations for real purposes and audiences.",
-      "responsibilities": [
-        "Design a conversation capability model connecting convention, function, purpose, empathy, and the difficulty of generating speech.",
-        "Build a progression from shadowing to recall, variation, personal explanation, persuasion, and unexpected-question response.",
-        "Observe real learner speech and classify failures in retrieval, discourse, fluency, interaction, and anxiety.",
-        "Create rubrics, assessment tasks, and before-and-after measures of speaking transfer.",
-        "Review AI-generated conversation tasks and feedback for linguistic validity, learning impact, and misjudgment risk.",
-        "Turn learner research into product requirements and prioritize them with the founder, product, and engineering teams."
-      ],
-      "requirements": [
-        "Experience applying applied linguistics, second-language acquisition, English education, or learning science in teaching, research, or a product.",
-        "Ability to observe Korean speakers' errors and diagnose their causes systematically.",
-        "Experience designing and improving task-based training, curricula, or speaking-assessment rubrics.",
-        "Ability to turn learner interviews and speech evidence into educational or product decisions.",
-        "Ability to express hypotheses as measurable experiments independently of your own English fluency.",
-        "Ability to validate AI output independently for linguistic validity and learning impact."
-      ],
-      "preferred": [
-        "Experience teaching, researching, or operating curricula for Korean adult English learners.",
-        "Experience developing edtech, speaking-training, or consumer learning products.",
-        "Experience with CEFR, ACTFL, or another speaking-proficiency framework and performance assessment.",
-        "Experience combining qualitative research, learning experiments, and basic statistical analysis.",
-        "Experience evaluating AI tutors, LLM feedback, or speech assessment quality."
-      ]
     }
   ]
 }

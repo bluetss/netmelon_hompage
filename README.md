@@ -22,8 +22,10 @@ COMPANY_PUBLIC_INTAKE_API_BASE=https://<approved-staging-public-intake> \
 두 모드 모두 `http://127.0.0.1:4174`에서 `/problems`, `/careers` 같은 실제
 확장자 없는 경로를 제공한다. `preview:staging:api`는 승인된 staging HTTPS 주소가
 없으면 fail-closed하며 production API나 비밀 값을 기본값으로 사용하지 않는다.
-`closed` 상태의 검토용 채용 공고와 Open Problems 연결은 production에서는 숨기고
-`npq-company-dev.web.app`, `localhost`, `127.0.0.1`에서만 표시한다.
+명시적으로 검토 승인을 받은 `closed` 상태 채용 공고와 Open Problems 연결만
+`npq-company-dev.web.app`, `localhost`, `127.0.0.1`에서 표시한다. `closed` 상태 자체는
+검토 승인을 의미하지 않으며, 승인되지 않은 공고는 locale별 snapshot과 생성 페이지,
+문제 연결에서 모두 제외한다. production에서는 모든 `closed` 공고를 숨긴다.
 
 세션 Preview용 Firebase 산출물은 검증할 정확한 커밋을 40자리 SHA로 명시한다.
 이는 관리형 실행 환경에서 빌드 프로세스의 `git` 호출이 제한되더라도 릴리스

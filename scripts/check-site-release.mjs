@@ -952,10 +952,10 @@ async function checkOpenProblemsAndCareers() {
   assert(careersTemplate.includes("npq-company-dev--[a-z0-9-]+"), "careers preview must recognize Firebase Preview channel hosts.");
   const careersPayload = parseJson(await read("data/careers.ko.json"), "data/careers.ko.json");
   const reviewJobs = careersPayload.jobs.filter((job) => job.status === "closed");
-  assert(reviewJobs.length === 2, "careers preview must preserve the two review-only roles.");
+  assert(reviewJobs.length === 1, "careers preview must preserve only the approved review role.");
+  assert(!careersPayload.jobs.some((job) => job.id === "founding-conversation-learning-scientist"), "careers preview must not preserve an unapproved review role.");
   const expectedCareerOwners = {
     "paid-learner-growth": ["founding-growth-creator-partnerships"],
-    "learning-content-lead": ["founding-conversation-learning-scientist"],
     "creator-supply": ["founding-growth-creator-partnerships"],
   };
   for (const problem of rankedProblems) {
@@ -1153,11 +1153,13 @@ async function checkLocaleRouteAndUiParity() {
   const englishIr = await read("en/ir.html");
   const englishProblems = await read("en/problems.html");
   assert(englishCareers.includes('id="list-view"') && englishCareers.includes('class="filters"'), "en/careers.html must preserve the careers list UI structure.");
-  for (const jobId of ["founding-growth-creator-partnerships", "founding-conversation-learning-scientist"]) {
+  for (const jobId of ["founding-growth-creator-partnerships"]) {
     assert(englishCareers.includes(`href="careers.html?job_id=${jobId}"`), `en/careers.html must link the ${jobId} list item to its detail route.`);
     assert(englishCareers.includes(`data-english-job-detail="${jobId}"`), `en/careers.html must render detail content for ${jobId}.`);
     assert(englishProblems.includes(`careers.html?job_id=${jobId}`), `en/problems.html must link its mapped problem to ${jobId}.`);
   }
+  assert(!englishCareers.includes("founding-conversation-learning-scientist"), "en/careers.html must not expose an unapproved review role.");
+  assert(!englishProblems.includes("founding-conversation-learning-scientist"), "en/problems.html must not link an unapproved review role.");
   assert(englishCareers.includes('scripts/careers-en.js'), "en/careers.html must load the English career detail router.");
   assert(englishCareersRuntime.includes('new URLSearchParams(window.location.search).get("job_id")'), "English career detail router must resolve job_id from the URL.");
   assert(englishIr.includes('id="ir-request-form"') && englishIr.includes('name="consent"'), "en/ir.html must preserve the IR request and consent structure.");
