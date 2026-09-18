@@ -14,12 +14,12 @@ Firebase staging에는 저장소 root가 아니라 `dist/` 공개 산출물만 �
 | 환경 | 회사 홈페이지 | 앱 랜딩 링크 | Studio 링크 | 공개 인입 API | 데이터 |
 | --- | --- | --- | --- | --- | --- |
 | local | local server | local preview 또는 명시한 staging origin | 명시한 staging origin | 기본 disabled | local snapshot 또는 명시한 staging source |
-| staging | `https://npq-company-dev.web.app` | `https://npq-landing-dev.web.app` | `https://studio-dev.naepopquiz.com` | staging 전용 public-intake Cloud Run | OIDC core를 통한 staging 저장소 |
+| staging | `https://company-dev.netmelonai.com` | `https://app-dev.naepopquiz.com` | `https://studio-dev.naepopquiz.com` | staging 전용 public-intake Cloud Run | OIDC core를 통한 staging 저장소 |
 | production | `https://netmelonai.com` | `https://naepopquiz.com` | `https://studio.naepopquiz.com` | production 전용 public-intake Cloud Run | OIDC core를 통한 production 저장소 |
 
 회사 홈페이지의 앱·Studio 링크는 빌드 환경 설정으로 resolve한다. staging 산출물에 production 교차 사이트 origin이 있거나 production 산출물에 `*-dev`, staging `web.app` origin이 있으면 배포 검사를 실패시킨다. CMS 문구에 환경별 절대 URL을 저장하지 않는다.
 
-`studio-dev.naepopquiz.com`은 Cloudflare IP allowlist를 적용한 검수 origin이다. 반면 Firebase 기본 `npq-company-dev.web.app`과 `npq-landing-dev.web.app`은 Cloudflare를 통과하지 않으므로 동일한 접근 통제를 받는다고 간주하지 않는다. 두 기본 origin의 staging 산출물에는 비밀, 사용자 데이터 또는 관리자 기능을 포함하지 않고 `noindex`를 유지한다. 회사와 앱 랜딩에 Cloudflare 보호 custom domain이 마련되면 URL registry와 build 검사를 해당 origin으로 함께 전환한다.
+세 staging custom domain은 Firebase ownership과 `CERT_ACTIVE` 확인 뒤 단기 검수 기간에만 Cloudflare Proxy와 Access를 사용할 수 있다. Firebase 기본 `npq-company-dev.web.app`, `npq-landing-dev.web.app`, `npq-studio-dev.web.app`은 Cloudflare를 우회하므로 동일한 접근 통제를 받는다고 간주하지 않는다. 기본 origin의 staging 산출물에는 비밀, 사용자 데이터 또는 관리자 기능을 포함하지 않고 `noindex`를 유지한다. production custom domain은 기본적으로 `DNS only`로 Firebase Hosting CDN에 직접 연결하며, 홈페이지 Proxy는 public-intake 또는 core API의 DDoS 방어를 대체하지 않는다.
 
 로컬·staging build가 기존 제품 핵심 Cloud Run 주소로 fallback하면 안 된다. 공개 인입
 API base가 없으면 IR과 문제 해결 방안 form만 비활성 안내를 표시하고 정적 페이지는 계속
