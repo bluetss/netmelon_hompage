@@ -918,8 +918,21 @@ async function checkOpenProblemsAndCareers() {
 
   const problems = Array.isArray(payload.problems) ? payload.problems : [];
   const rankedProblems = problems.slice().sort((left, right) => Number(left?.sortOrder || 0) - Number(right?.sortOrder || 0));
-  assert(rankedProblems[0]?.problemId === "consumer-marketplace-growth", "Consumer marketplace growth must remain open-problem priority 1.");
-  assert(rankedProblems[1]?.problemId === "learning-content-lead", "Learning and content transfer must remain open-problem priority 2.");
+  const canonicalProblemOrder = [
+    "paid-learner-growth",
+    "learning-content-lead",
+    "creator-supply",
+    "content-rights",
+    "ai-business-model",
+    "first-speech-product-research",
+    "multilingual-pronunciation",
+    "adaptive-shadowing-stream",
+    "llm-content-engineering",
+  ];
+  assert(
+    JSON.stringify(rankedProblems.map((problem) => problem.problemId)) === JSON.stringify(canonicalProblemOrder),
+    "Open problems must contain the nine canonical problem IDs in public priority order.",
+  );
   const careersPayload = parseJson(await read("data/careers.ko.json"), "data/careers.ko.json") || {};
   const careerJobs = Array.isArray(careersPayload.jobs) ? careersPayload.jobs : [];
   const rankedCareerJobs = careerJobs.slice().sort((left, right) => Number(left?.num || 0) - Number(right?.num || 0));
@@ -930,17 +943,25 @@ async function checkOpenProblemsAndCareers() {
       && rankedCareerJobs[1].technicalChallenges.some((item) => /^Primary\s*·\s*learning-content-lead\b/.test(String(item || "").trim())),
     "Conversation Learning Scientist must directly own only the learning-content-lead problem mapping.",
   );
-  const legacyProblemIds = {
-    "consumer-marketplace-growth": ["paid-learner-growth", "creator-supply"],
-    "product-design": ["first-speech-product-research"],
-  };
   const mappedJobs = (problem) => {
-    const acceptedIds = new Set([problem.problemId, ...(legacyProblemIds[problem.problemId] || [])]);
     return careerJobs.filter((job) => (Array.isArray(job?.technicalChallenges) ? job.technicalChallenges : []).some((item) => {
       const mappedId = String(item || "").trim().match(/^Primary\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1];
-      return mappedId && acceptedIds.has(mappedId);
+      return mappedId === problem.problemId;
     }));
   };
+  const expectedCareerOwners = {
+    "paid-learner-growth": ["founding-growth-creator-partnerships"],
+    "learning-content-lead": ["founding-conversation-learning-scientist"],
+    "creator-supply": ["founding-growth-creator-partnerships"],
+  };
+  for (const problem of rankedProblems) {
+    const actualOwners = mappedJobs(problem).map((job) => job.id).sort();
+    const expectedOwners = (expectedCareerOwners[problem.problemId] || []).slice().sort();
+    assert(
+      JSON.stringify(actualOwners) === JSON.stringify(expectedOwners),
+      problem.problemId + " must render only its directly owned career position.",
+    );
+  }
   assert(problems.length > 0, dataFile + " must include at least one problem.");
   assert(problems.some((problem) => ["open", "exploring"].includes(problem?.status)), dataFile + " must include an open or exploring problem.");
   const page = await read("problems.html");

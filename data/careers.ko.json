@@ -523,6 +523,60 @@
       ]
     },
     {
+      "num": 15,
+      "id": "english-speaking-content-contributor",
+      "slug": "english-speaking-content-contributor",
+      "title": "영어 말하기 콘텐츠 기여자",
+      "team": "Content & Learning",
+      "status": "closed",
+      "employmentType": "건별 유급 콘텐츠 기여",
+      "location": "원격(국내)",
+      "workMode": "원격",
+      "seniority": "협의",
+      "experienceBand": "무관",
+      "hiringPeriodType": "fixed_term",
+      "priority": "P2 - Normal",
+      "mission": "내팝퀴즈의 초기 콘텐츠 콜드스타트를 해결하기 위해 실제 대화에서 쓸 수 있는 단어·숙어·구동사와 말하기 상황을 작은 단위로 작성하고 검증합니다.",
+      "responsibilities": [
+        "공개된 미션 중 원하는 단어·숙어·구동사 또는 대화 상황을 선택해 제출합니다.",
+        "표현의 핵심 의미, 실제 사용 상황, 직접 작성한 영어 예문과 자연스러운 한국어 설명을 작성합니다.",
+        "상대방이 이어서 말할 수 있는 짧은 응답과 난이도·격식 정보를 함께 기록합니다.",
+        "AI를 초안 작성에 사용할 수 있지만 의미·문형·자연스러움과 참고 근거를 직접 확인합니다.",
+        "검수자가 수정을 요청한 항목은 안내된 기한 안에 1회 보완할 수 있습니다.",
+        "승인된 콘텐츠는 단어장·숙어장·구동사장·리허설팩과 홈피드 훈련 재료로 조합됩니다."
+      ],
+      "requirements": [
+        "영어와 한국어로 짧고 정확한 설명과 예문을 작성할 수 있는 분",
+        "교재·사전·영상 자막·블로그의 예문을 복사하지 않고 직접 작성할 수 있는 분",
+        "참고한 자료와 작성 근거를 정해진 형식으로 기록할 수 있는 분",
+        "승인 기준과 저작권·콘텐츠 안전 기준을 준수할 수 있는 분",
+        "근무시간이나 계속 참여 의무 없이 원하는 미션만 자율적으로 선택하는 단기 기여 방식에 동의하는 분"
+      ],
+      "preferred": [
+        "영어영문학·영어교육·통번역·응용언어학·TESOL 관련 전공자",
+        "번역·교정·영어교육·교재 또는 대화문 작성 경험",
+        "한국어 학습자가 자주 틀리는 영어 표현을 설명해 본 경험",
+        "리허설·쉐도잉·회화 콘텐츠를 직접 사용하거나 제작해 본 경험"
+      ],
+      "kpi": [
+        "승인된 콘텐츠 1건당 1,000원, 1인 최대 20건, 총 20,000원 지급",
+        "승인된 콘텐츠 원자 수와 첫 검수 통과율",
+        "중복·의미 오류·부자연스러운 표현·출처 누락 건수",
+        "단어장·숙어장·구동사장·리허설팩으로 실제 조합 가능한 비율",
+        "수정 요청에 대한 정확한 보완과 제출 형식 준수"
+      ],
+      "techStack": ["Naepopquiz Studio", "Content Validation"],
+      "toolStack": ["웹 작성 폼", "사전·코퍼스 참고자료", "AI 보조 도구"],
+      "experienceTags": ["영어영문학", "영어교육", "통번역", "응용언어학", "TESOL", "번역", "교정", "콘텐츠 작성"],
+      "technicalChallenges": [
+        "프로그램 - initial-content-cold-start — 홈피드와 훈련에 필요한 최소 기본 콘텐츠 축적",
+        "Supporting - learning-content-lead — 실제 대화로 전이되는 학습·콘텐츠 설계",
+        "Supporting - creator-supply — 반복 가능한 언어 콘텐츠 공급 후보 발굴",
+        "Guardrail - content-rights — 직접 작성·참고 근거·이용 범위 준수",
+        "Guardrail - llm-content-engineering — AI 초안을 그대로 제출하지 않고 의미와 자연스러움을 검증"
+      ]
+    },
+    {
       "num": 2,
       "id": "founding-conversation-learning-scientist",
       "slug": "founding-conversation-learning-scientist",
@@ -664,5 +718,5 @@
       "장기적 ownership"
     ]
   },
-  "updatedDate": "2026-09-10"
+  "updatedDate": "2026-09-18"
 }
