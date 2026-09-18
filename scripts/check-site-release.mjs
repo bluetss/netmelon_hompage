@@ -950,6 +950,12 @@ async function checkOpenProblemsAndCareers() {
   const careersTemplate = await read("careers.template.html");
   assert(careersTemplate.includes("withPreviewJobs"), "careers preview must merge review-only roles with the public source.");
   assert(careersTemplate.includes("npq-company-dev--[a-z0-9-]+"), "careers preview must recognize Firebase Preview channel hosts.");
+  assert(
+    careersTemplate.includes("Promise.race([")
+      && careersTemplate.includes("Firestore load timed out; fallback JSON will be used.")
+      && careersTemplate.includes("}, 3000);"),
+    "careers runtime must bound Firestore loading and fall back to the staged JSON snapshot.",
+  );
   const careersPayload = parseJson(await read("data/careers.ko.json"), "data/careers.ko.json");
   const reviewJobs = careersPayload.jobs.filter((job) => job.status === "closed");
   assert(reviewJobs.length === 1, "careers preview must preserve only the approved review role.");

@@ -938,8 +938,14 @@
           return [...previewJobs, ...publicJobs.filter((job) => !previewIds.has(String(job.id || "")) && !previewIds.has(String(job.slug || "")))];
         };
         const companySource = readBuildTimeCompanySource();
-        const [fromFirestore] = await Promise.all([
+        const fromFirestore = await Promise.race([
           fetchJobsFromFirestore(),
+          new Promise((resolve) => {
+            window.setTimeout(() => {
+              console.warn("[careers] Firestore load timed out; fallback JSON will be used.");
+              resolve(null);
+            }, 3000);
+          }),
         ]);
 
         const fallbackCommon = fallback.common || {};
