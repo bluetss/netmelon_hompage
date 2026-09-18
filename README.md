@@ -23,7 +23,7 @@ COMPANY_PUBLIC_INTAKE_API_BASE=https://<approved-staging-public-intake> \
 확장자 없는 경로를 제공한다. `preview:staging:api`는 승인된 staging HTTPS 주소가
 없으면 fail-closed하며 production API나 비밀 값을 기본값으로 사용하지 않는다.
 명시적으로 검토 승인을 받은 `closed` 상태 채용 공고와 Open Problems 연결만
-`npq-company-dev.web.app`, `localhost`, `127.0.0.1`에서 표시한다. `closed` 상태 자체는
+`company-dev.netmelonai.com`, Firebase Preview channel, `localhost`, `127.0.0.1`에서 표시한다. `closed` 상태 자체는
 검토 승인을 의미하지 않으며, 승인되지 않은 공고는 locale별 snapshot과 생성 페이지,
 문제 연결에서 모두 제외한다. production에서는 모든 `closed` 공고를 숨긴다.
 
@@ -90,7 +90,7 @@ Production HTML must not hard-code dev or staging API URLs.
 - `data/publisher-legal-profile.json` is the current verified static public snapshot for reproducible local builds. It is not a second CMS editing source; `build:with-cms` replaces it with the published shared profile before the static build.
 - Careers remains a public navigation surface. The English build preserves its list/filter, privacy, and hiring-process structure while showing an explicit empty state until reviewed English openings are published.
 - IR and open-problem forms prefer one explicitly injected `window.__NPQ_PUBLIC_INTAKE_API_BASE__`. `window.__NPQ_IR_API_BASE__` and `window.__NPQ_COMPANY_API_BASE__` remain compatibility overrides. Static problem generation uses `COMPANY_OPEN_PROBLEMS_INTAKE_API_BASE`; production cutover must point it at the dedicated max-instance-one public-intake service before the core POST routes are disabled.
-- Firebase staging builds replace links marked with `data-app-homepage-link` with `https://npq-landing-dev.web.app/`. A session review build may set `COMPANY_APP_LANDING_ORIGIN` only to that staging site or one of its Firebase Preview channel origins so the company and app reviews remain linked without changing either live channel. Production source keeps the canonical `https://naepopquiz.com/` target; production deployment must wait for its DNS and TLS readiness.
+- Firebase staging builds replace links marked with `data-app-homepage-link` with `https://app-dev.naepopquiz.com/`. A session review build may set `COMPANY_APP_LANDING_ORIGIN` only to that staging custom domain or one of its Firebase Preview channel origins so the company and app reviews remain linked without changing either live channel. Production source keeps the canonical `https://naepopquiz.com/` target; production deployment must wait for its DNS and TLS readiness.
 
 Production CMS-driven releases should use a published Company Source snapshot. The committed `data/company-source.ko.json` is the current published public snapshot used for local and GitHub Pages static builds.
 

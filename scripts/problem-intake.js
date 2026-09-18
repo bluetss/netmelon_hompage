@@ -1,6 +1,7 @@
 (() => {
   const hostname = window.location.hostname;
-  const isStagingPreview = hostname === "npq-company-dev.web.app"
+  const isStagingPreview = hostname === "company-dev.netmelonai.com"
+    || hostname === "npq-company-dev.web.app"
     || /^npq-company-dev--[a-z0-9-]+\.web\.app$/.test(hostname)
     || hostname === "localhost"
     || hostname === "127.0.0.1";

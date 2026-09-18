@@ -942,7 +942,7 @@ async function checkOpenProblemsAndCareers() {
   assert(!page.includes('<select name="problemId"'), "problems.html inline application forms must not ask visitors to select the problem again.");
   assert(page.includes('scripts/problem-intake.js'), "problems.html is missing the participation form script.");
   const problemIntakeScript = await read("scripts/problem-intake.js");
-  for (const previewHost of ["npq-company-dev.web.app", "localhost", "127.0.0.1"]) {
+  for (const previewHost of ["company-dev.netmelonai.com", "npq-company-dev.web.app", "localhost", "127.0.0.1"]) {
     assert(problemIntakeScript.includes(`"${previewHost}"`), `problem-intake.js must recognize preview host ${previewHost}.`);
   }
   assert(problemIntakeScript.includes('[data-career-status="closed"]'), "problem-intake.js must control review-only career links.");

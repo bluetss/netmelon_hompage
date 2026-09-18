@@ -9,7 +9,7 @@ const ROOT = path.resolve(__dirname, "..");
 const DIST = path.join(ROOT, "dist");
 const expectedApiBase = String(process.env.COMPANY_PUBLIC_INTAKE_API_BASE || "").trim().replace(/\/+$/, "");
 const expectedAppLandingOrigin = String(
-  process.env.COMPANY_APP_LANDING_ORIGIN || "https://npq-landing-dev.web.app",
+  process.env.COMPANY_APP_LANDING_ORIGIN || "https://app-dev.naepopquiz.com",
 ).trim().replace(/\/+$/, "");
 const forbiddenCoreApi = "https://naepopquiz-flask-server-djbccwoo6a-uc.a.run.app";
 
@@ -69,7 +69,7 @@ assert(manifest.schemaId === "npq.company_site_release.v1", "release manifest sc
 assert(manifest.environment === "staging", "release manifest must target staging.");
 assert(manifest.hostingSite === "npq-company-dev", "release manifest has the wrong hosting site.");
 assert(manifest.publicIntakeConfigured === Boolean(expectedApiBase), "release manifest intake state is inconsistent.");
-assert(manifest.origins?.company === "https://npq-company-dev.web.app", "release manifest company origin is invalid.");
+assert(manifest.origins?.company === "https://company-dev.netmelonai.com", "release manifest company origin is invalid.");
 assert(manifest.origins?.appLanding === expectedAppLandingOrigin, "release manifest app landing origin is invalid.");
 assert(manifest.origins?.studio === "https://studio-dev.naepopquiz.com", "release manifest Studio origin is invalid.");
 

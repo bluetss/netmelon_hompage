@@ -523,7 +523,8 @@
       const params = new URLSearchParams(window.location.search);
       const jobId = params.get("job_id");
       const previewHostname = window.location.hostname;
-      const previewAllowed = previewHostname === "npq-company-dev.web.app"
+      const previewAllowed = previewHostname === "company-dev.netmelonai.com"
+        || previewHostname === "npq-company-dev.web.app"
         || /^npq-company-dev--[a-z0-9-]+\.web\.app$/.test(previewHostname)
         || previewHostname === "localhost"
         || previewHostname === "127.0.0.1";

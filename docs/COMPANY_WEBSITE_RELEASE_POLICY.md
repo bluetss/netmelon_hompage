@@ -48,7 +48,7 @@ rollback, cache, 비용 검토가 있어야 한다.
 | 항목 | 값 |
 | --- | --- |
 | Hosting site/version | `npq-company-dev` / `43a3ba9829f1b316` |
-| URL | `https://npq-company-dev.web.app` |
+| URL | `https://company-dev.netmelonai.com` |
 | 공개 인입 API | `https://npq-public-intake-dwg6e75nqq-uc.a.run.app` |
 | 산출물 | 59 files, `publicIntakeConfigured=true` |
 | staging header | `noindex, nofollow, noarchive`; `no-cache, no-store, must-revalidate` |

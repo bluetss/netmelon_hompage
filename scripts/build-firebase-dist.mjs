@@ -15,8 +15,8 @@ const appLandingOverride = String(process.env.COMPANY_APP_LANDING_ORIGIN || "").
 const sourceCommitOverride = String(process.env.COMPANY_SOURCE_COMMIT || "").trim().toLowerCase();
 const WEB_ORIGINS_BY_ENVIRONMENT = Object.freeze({
   staging: Object.freeze({
-    company: "https://npq-company-dev.web.app",
-    appLanding: "https://npq-landing-dev.web.app",
+    company: "https://company-dev.netmelonai.com",
+    appLanding: "https://app-dev.naepopquiz.com",
     studio: "https://studio-dev.naepopquiz.com",
   }),
 });
@@ -26,7 +26,7 @@ if (environment !== "staging") {
   throw new Error("Firebase company build only supports COMPANY_SITE_ENV=staging.");
 }
 if (!webOrigins) throw new Error(`No web origin matrix is registered for ${environment}.`);
-if (appLandingOverride && !/^https:\/\/npq-landing-dev(?:--[a-z0-9-]+)?\.web\.app$/.test(appLandingOverride)) {
+if (appLandingOverride && !/^https:\/\/(?:app-dev\.naepopquiz\.com|npq-landing-dev--[a-z0-9-]+\.web\.app)$/.test(appLandingOverride)) {
   throw new Error("COMPANY_APP_LANDING_ORIGIN must be the staging app site or one of its Firebase Preview channels.");
 }
 if (sourceCommitOverride && !/^[0-9a-f]{40}$/.test(sourceCommitOverride)) {
