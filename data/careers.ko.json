@@ -577,6 +577,65 @@
       ]
     },
     {
+      "num": 16,
+      "id": "conversation-content-producer-pd",
+      "slug": "conversation-content-producer-pd",
+      "title": "Conversation Content Producer (PD)",
+      "team": "Content Studio",
+      "status": "closed",
+      "employmentType": "프로젝트 제작 도급",
+      "location": "협의",
+      "workMode": "프로젝트 협의",
+      "seniority": "경력 무관·포트폴리오 필수",
+      "experienceBand": "무관",
+      "hiringPeriodType": "fixed_term",
+      "priority": "P1 - High",
+      "mission": "출연자에게 맞는 영어회화 콘텐츠 포맷을 만들고, 4~6편의 파일럿을 시청에서 내팝퀴즈 훈련·재사용·구매까지 연결합니다.",
+      "responsibilities": [
+        "대상 학습자와 반복 가능한 프로그램 포맷을 정의하고 4~6편의 회차 구성·제작 일정을 완성합니다.",
+        "포맷에 맞는 출연자를 발굴·섭외하고 회차별 출연 조건과 제작 일정을 조율합니다.",
+        "대본, 촬영, 편집, 제목, 썸네일과 숏폼 제작을 직접 수행하거나 사전 협의한 협업자를 구성해 최종 납품을 책임집니다.",
+        "교육 전문가의 표현·번역·학습 난이도 검수를 조율하고 내팝퀴즈 훈련팩으로 전환할 원천 자료를 제공합니다.",
+        "출처, 음악·영상 저작권, 출연자의 성명·초상·음성 이용 동의와 광고 표시 자료를 회차별로 정리합니다.",
+        "각 회차에 추적 가능한 CTA와 campaign/deep-link 식별자를 적용해 시청 이후 앱 진입과 학습 행동을 측정합니다.",
+        "성과 보고서에서 포맷 유지·수정·종료와 시즌 도급 또는 공동 IP 전환안을 제안합니다."
+      ],
+      "requirements": [
+        "YouTube·TikTok 등 디지털 영상의 기획부터 공개까지 끝낸 포트폴리오가 있는 분",
+        "출연자의 강점을 발견해 반복 가능한 인터뷰·예능·교육 포맷으로 구체화할 수 있는 분",
+        "작은 예산에서 캐스팅, 촬영, 편집과 외부 협업자의 일정·품질을 끝까지 관리할 수 있는 분",
+        "조회수뿐 아니라 CTA, 앱 진입, 훈련 시작·완료와 구매를 콘텐츠 성과로 해석할 수 있는 분",
+        "저작권·초상권·광고 표시와 합의된 사용 범위를 제작 과정에서 기록할 수 있는 분",
+        "근무시간이 아니라 합의한 결과물·기한·검수 기준으로 독립적으로 프로젝트를 수행할 수 있는 분"
+      ],
+      "preferred": [
+        "웹예능, 인터뷰, 교육 또는 creator-led show의 파일럿·시즌 제작 경험",
+        "신인 출연자·전문가·교육 creator를 직접 발굴하고 섭외한 경험",
+        "한 촬영물을 본편·Shorts·Reels와 교육용 파생 콘텐츠로 재구성한 경험",
+        "에듀테크, 영어회화, 쉐도잉 또는 학습 콘텐츠 제작 경험",
+        "브랜디드 콘텐츠, 협찬 또는 creator revenue-share 프로젝트 경험",
+        "GA4·Firebase Analytics·YouTube Analytics 등으로 시청 이후 행동을 분석한 경험"
+      ],
+      "kpi": [
+        "합의한 일정·예산 안에서 포맷 바이블과 4~6편 파일럿 납품",
+        "본편별 숏폼·훈련팩 원천·권리 증빙의 완결성",
+        "편당 제작기간·비용과 수정 횟수의 재현 가능한 기준선",
+        "영상 시청→앱 진입→훈련 시작→완료→재사용·구매 funnel 측정",
+        "복수 회차에서 재현되는 포맷 성과와 출연자·포맷 의존성 분석",
+        "종료·수정·시즌 도급·공동 IP 중 증거에 따른 다음 단계 제안"
+      ],
+      "techStack": ["YouTube", "TikTok", "Naepopquiz Studio", "Firebase Analytics"],
+      "toolStack": ["촬영·편집 도구", "YouTube Studio", "Notion", "Google Sheets", "AI 제작 보조 도구"],
+      "experienceTags": ["콘텐츠 PD", "웹예능", "인터뷰", "교육 콘텐츠", "출연자 섭외", "유튜브 제작", "숏폼"],
+      "technicalChallenges": [
+        "Primary · creator-supply — 반복 가능한 creator·출연자·전문가 콘텐츠 공급",
+        "Supporting · paid-learner-growth — 시청을 앱 진입·첫 발화·재사용·구매로 연결",
+        "Supporting · learning-content-lead — 교육 전문가 검수와 훈련팩 전환 조율",
+        "Guardrail · content-rights — 출처·저작권·초상·음성·광고 표시 증빙",
+        "Input · ai-business-model — 편당 제작비·출연료·감수비와 전환 가치 기준선 제공"
+      ]
+    },
+    {
       "num": 2,
       "id": "founding-conversation-learning-scientist",
       "slug": "founding-conversation-learning-scientist",
@@ -688,7 +747,7 @@
       "experienceTags": ["에듀테크 앱", "구독 서비스", "퍼포먼스 마케팅", "크리에이터 파트너십", "소비자 앱"],
       "technicalChallenges": [
         "Primary · paid-learner-growth — 첫 유료 학습자 성장",
-        "Primary · creator-supply — 반복 가능한 크리에이터 공급",
+        "Supporting · creator-supply — 콘텐츠 PD 파일럿의 creator 발굴·조건 협상 지원",
         "Supporting · first-speech-product-research — 첫 발화 과정의 이탈과 고객 언어 관찰",
         "Guardrail · content-rights — 출처·사용 범위·보상·계약 기록 준수",
         "Input · ai-business-model — CAC·결제·해지·creator 비용 증거 제공",
@@ -718,5 +777,5 @@
       "장기적 ownership"
     ]
   },
-  "updatedDate": "2026-09-18"
+  "updatedDate": "2026-09-23"
 }

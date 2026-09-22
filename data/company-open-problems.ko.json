@@ -101,42 +101,43 @@
     {
       "problemId": "creator-supply",
       "title": "어떤 creator가 어떤 회화 콘텐츠를 지속적으로 공급하고, 그 참여가 학습자 사용과 정당한 보상으로 이어질까요?",
-      "summary": "Creator 관계, 콘텐츠 공급과 학습자 수요를 검증하는 플랫폼 공급 문제.",
+      "summary": "Creator 제휴와 회사 주도 포맷 제작을 함께 검증하고, 콘텐츠 공급을 학습자 사용과 보상으로 연결하는 문제.",
       "category": "Next · Creator Supply",
       "status": "exploring",
       "whyItMatters": "Creator marketplace를 가정하기 전에 실제로 반복 제작할 사람, 학습자가 원하는 콘텐츠와 지속 가능한 보상 경로를 확인해야 합니다.",
       "currentEvidence": [
-        "Studio 제작과 creator 표시·구독 기반은 있지만 creator 재참여와 콘텐츠 구매의 반복성은 아직 시장에서 검증되지 않았습니다."
+        "Studio 제작과 creator 표시·구독 기반은 있지만, creator 제휴 또는 회사가 PD·출연자·교육 전문가를 결합하는 제작 방식의 반복성과 학습자 구매는 아직 시장에서 검증되지 않았습니다."
       ],
       "unknowns": [
-        "어떤 creator와 콘텐츠 범주가 첫 공급 집단이며 무엇이 반복 제작과 학습자 선택을 함께 만들까요?"
+        "기존 creator 제휴와 회사 주도 포맷 제작 중 어떤 방식이 반복 공급과 학습자 선택을 만들며, 출연료·성과보상·공동 IP를 어떻게 조합해야 할까요?"
       ],
       "constraints": [
         "무료 콘텐츠·관계 확보를 성공으로 보지 않고 권리, 품질, 반복 공급과 보상을 함께 검증합니다."
       ],
       "desiredContributions": [
-        "교육 creator 섭외, partnership, community와 marketplace 공급 운영 경험"
+        "출연자 발굴, 반복 가능한 프로그램 포맷, 영상 제작과 학습·구매 전환을 함께 책임진 콘텐츠 PD 경험"
       ],
       "successCriteria": [
-        "첫 creator cohort와 콘텐츠 범주를 확정합니다.",
-        "합의된 기간 동안 반복 제작·발행과 학습자 선택 또는 구매의 기준선을 확인합니다."
+        "PD·출연자·교육 검수 역할과 첫 콘텐츠 포맷을 확정합니다.",
+        "4~6편의 유급 파일럿에서 반복 제작비·기간과 앱 진입, 훈련 시작·완료·재사용 또는 구매 기준선을 확인합니다.",
+        "증거에 따라 종료, 시즌 도급 또는 공동 IP 전환을 결정합니다."
       ],
       "currentAttempts": [
-        "Studio 제작, creator identity, 콘텐츠 발행과 구독·구매 기반을 연결하고 있습니다."
+        "Studio 제작, creator identity, 콘텐츠 발행과 구독·구매 기반에 회사 주도 포맷 제작 파일럿을 연결하려고 합니다."
       ],
       "whatWeProvide": [
         "제작 도구, 제품 내 발행·노출 환경, 권리·품질 기준과 founder 의사결정 접근을 제공합니다."
       ],
-      "collaborationType": "partnership",
-      "estimatedCommitment": "초기 creator 3~5명과 4~8주 pilot을 설계한 뒤 지속 운영 필요성을 판단합니다.",
+      "collaborationType": "project",
+      "estimatedCommitment": "포맷 설계와 1편의 유상 사전 과제 후, 합의한 4~6편·약 8주 파일럿 도급으로 확장합니다.",
       "compensationType": "paid",
-      "compensationDescription": "섭외·운영 작업과 creator 보상은 pilot 전에 범위와 기준을 합의합니다.",
+      "compensationDescription": "PD 제작비, 출연료, 교육 감수비와 성과보상은 파일럿 전에 분리해 합의하며 무상 시안을 요구하지 않습니다.",
       "intellectualPropertyPolicy": "Creator의 기존 자산과 인격적 권리를 존중하고 신규 콘텐츠의 라이선스와 수익 조건을 사전 합의합니다.",
-      "eligibility": "기존 follower 수보다 creator와 신뢰 관계를 만들고 반복 공급을 운영한 증거를 봅니다.",
-      "contactOwner": "Netmelon Partnerships",
+      "eligibility": "직함이나 follower 수보다 포맷 기획, 캐스팅, 제작 완료와 시청 이후 행동을 연결한 실제 작업물을 봅니다.",
+      "contactOwner": "Netmelon Content Studio",
       "slug": "creator-supply",
       "neededExpertise": [
-        "교육 creator 섭외, partnership, community와 marketplace 공급 운영 경험"
+        "출연자 발굴, 반복 가능한 프로그램 포맷, 영상 제작과 학습·구매 전환을 함께 책임진 콘텐츠 PD 경험"
       ],
       "sortOrder": 3,
       "videos": [],

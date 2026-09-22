@@ -952,7 +952,7 @@ async function checkOpenProblemsAndCareers() {
   const expectedCareerOwners = {
     "paid-learner-growth": ["founding-growth-creator-partnerships"],
     "learning-content-lead": ["founding-conversation-learning-scientist"],
-    "creator-supply": ["founding-growth-creator-partnerships"],
+    "creator-supply": ["conversation-content-producer-pd"],
   };
   for (const problem of rankedProblems) {
     const actualOwners = mappedJobs(problem).map((job) => job.id).sort();
