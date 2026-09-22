@@ -954,6 +954,12 @@ async function checkOpenProblemsAndCareers() {
     "learning-content-lead": ["founding-conversation-learning-scientist"],
     "creator-supply": ["conversation-content-producer-pd"],
   };
+  const careersTemplate = await read("careers.template.html");
+  assert(careersTemplate.includes('"app-dev.naepopquiz.com"'), "Careers staging preview must allow the app-dev custom domain.");
+  const careersPage = await read("careers.html");
+  assert(careersPage.includes('"app-dev.naepopquiz.com"'), "Generated careers staging preview must allow the app-dev custom domain.");
+  const problemIntakeScript = await read("scripts/problem-intake.js");
+  assert(problemIntakeScript.includes('"app-dev.naepopquiz.com"'), "Problem CTA staging preview must allow the app-dev custom domain.");
   for (const problem of rankedProblems) {
     const actualOwners = mappedJobs(problem).map((job) => job.id).sort();
     const expectedOwners = (expectedCareerOwners[problem.problemId] || []).slice().sort();

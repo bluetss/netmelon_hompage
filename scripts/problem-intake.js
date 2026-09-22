@@ -1,5 +1,5 @@
 (() => {
-  const isStagingPreview = window.location.hostname === "npq-company-dev.web.app";
+  const isStagingPreview = ["app-dev.naepopquiz.com", "npq-company-dev.web.app"].includes(window.location.hostname);
   document.querySelectorAll('[data-career-status="closed"]').forEach((link) => {
     link.hidden = !isStagingPreview;
   });

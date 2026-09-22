@@ -532,7 +532,7 @@
 
       const params = new URLSearchParams(window.location.search);
       const jobId = params.get("job_id");
-      const previewAllowed = ["npq-company-dev.web.app", "localhost", "127.0.0.1"].includes(window.location.hostname);
+      const previewAllowed = ["app-dev.naepopquiz.com", "npq-company-dev.web.app", "localhost", "127.0.0.1"].includes(window.location.hostname);
 
       const hideLoading = () => {
         if (careersLoading) {
