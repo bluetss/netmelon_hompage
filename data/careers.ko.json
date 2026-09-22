@@ -571,7 +571,7 @@
       "technicalChallenges": [
         "프로그램 - initial-content-cold-start — 홈피드와 훈련에 필요한 최소 기본 콘텐츠 축적",
         "Supporting - learning-content-lead — 실제 대화로 전이되는 학습·콘텐츠 설계",
-        "Supporting - creator-supply — 반복 가능한 언어 콘텐츠 공급 후보 발굴",
+        "Primary · creator-supply — 반복 가능한 언어 콘텐츠 원천 공급",
         "Guardrail - content-rights — 직접 작성·참고 근거·이용 범위 준수",
         "Guardrail - llm-content-engineering — AI 초안을 그대로 제출하지 않고 의미와 자연스러움을 검증"
       ]

@@ -148,7 +148,11 @@ function careersForProblem(problem, careerMap) {
   return careerMap.get(problem.problemId) || [];
 }
 
-function renderCareerLinks(careers, hrefPrefix = "") {
+function renderCareerLinks(careers, hrefPrefix = "", problemId = "") {
+  if (careers.length > 1) {
+    const reviewOnly = !careers.some((job) => job.status === "open");
+    return '<a class="problem-career-link" href="' + hrefPrefix + 'careers.html?problem_id=' + encodeURIComponent(problemId) + '" data-career-status="' + (reviewOnly ? "closed" : "open") + '" aria-label="관련 채용 포지션 ' + careers.length + '개 보기"' + (reviewOnly ? " hidden" : "") + '>관련 채용 포지션 ' + careers.length + '개 보기</a>';
+  }
   return careers.map((job) => {
     const reviewOnly = job.status !== "open";
     return '<a class="problem-career-link" href="' + hrefPrefix + 'careers.html?job_id=' + encodeURIComponent(job.id) + '" data-career-status="' + htmlEscape(job.status, true) + '" aria-label="' + htmlEscape(job.title + " 지원하기", true) + '"' + (reviewOnly ? " hidden" : "") + '>채용 포지션 지원하기</a>';
@@ -162,7 +166,7 @@ function renderApplication(problem, careers) {
     '<div class="problem-card-actions">',
     '<a class="problem-detail-link" href="problems/' + htmlEscape(problem.slug, true) + '.html">문제 자세히 보기</a>',
     '<button class="problem-interest" type="button" data-problem-application-toggle aria-expanded="false" aria-controls="' + htmlEscape(panelId, true) + '"><span data-problem-application-label>해결 방안 보내기</span></button>',
-    renderCareerLinks(careers),
+    renderCareerLinks(careers, "", problem.problemId),
     "</div>",
     '<section class="problem-application" id="' + htmlEscape(panelId, true) + '" aria-labelledby="' + htmlEscape(titleId, true) + '" hidden>',
     '<div class="problem-application-head"><h4 id="' + htmlEscape(titleId, true) + '">' + htmlEscape(problem.category) + ' 해결 방안</h4><p>이 문제를 어떻게 풀고 확인할지 보내주세요.</p></div>',
@@ -334,7 +338,7 @@ function renderDetailPage(detailTemplate, shellPartials, source, problem, career
   output = replaceOnce(output, "<!-- __OPEN_PROBLEM_SCHEMA__ -->", escapeScriptJson(buildDetailSchema(problem)));
   const heroActions = isOpen ? [
     '<a class="problem-detail-primary-action" href="#participate">해결 방안 제안하기</a>',
-    renderCareerLinks(careersForProblem(problem, careerMap), "../"),
+    renderCareerLinks(careersForProblem(problem, careerMap), "../", problem.problemId),
   ].filter(Boolean).join("\n") : "";
   output = replaceOnce(output, "<!-- __OPEN_PROBLEM_HERO_ACTION__ -->", heroActions);
   output = replaceOnce(output, "<!-- __OPEN_PROBLEM_DETAIL_CONTENT__ -->", renderDetailContent(problem));

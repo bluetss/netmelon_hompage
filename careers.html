@@ -532,6 +532,7 @@
 
       const params = new URLSearchParams(window.location.search);
       const jobId = params.get("job_id");
+      const problemId = params.get("problem_id");
       const previewAllowed = ["company-dev.netmelonai.com", "app-dev.naepopquiz.com", "npq-company-dev.web.app", "localhost", "127.0.0.1"].includes(window.location.hostname);
 
       const hideLoading = () => {
@@ -542,6 +543,9 @@
       };
 
       const isValidLink = (value) => /^https?:\/\//i.test(value) || /^mailto:/i.test(value);
+      const mappedPrimaryProblemIds = (job) => (Array.isArray(job?.technicalChallenges) ? job.technicalChallenges : [])
+        .map((item) => String(item || "").trim().match(/^Primary\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1] || "")
+        .filter(Boolean);
 
       const DEFAULT_TECHNOLOGY = [
         {
@@ -1164,8 +1168,11 @@
         renderListItems(traitsList, data.traits || []);
         renderListItems(compensationList, data.compensation || []);
         renderTechnologyGroups(data.common?.technology || DEFAULT_TECHNOLOGY);
-        const teams = [...new Set((data.jobs || []).map((job) => job.team))];
-        const types = [...new Set((data.jobs || []).map((job) => job.employmentType))];
+        const scopedJobs = problemId
+          ? (data.jobs || []).filter((job) => mappedPrimaryProblemIds(job).includes(problemId))
+          : (data.jobs || []);
+        const teams = [...new Set(scopedJobs.map((job) => job.team))];
+        const types = [...new Set(scopedJobs.map((job) => job.employmentType))];
 
         teamFilter.innerHTML = '<option value="">모든 직군</option>';
         teams.forEach((team) => {
@@ -1188,7 +1195,7 @@
           const team = teamFilter.value;
           const type = typeFilter.value;
 
-          const filtered = (data.jobs || []).filter((job) => {
+          const filtered = scopedJobs.filter((job) => {
             const queryHit = !queryText || [
               job.title,
               job.mission,

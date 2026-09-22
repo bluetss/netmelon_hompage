@@ -952,9 +952,11 @@ async function checkOpenProblemsAndCareers() {
   const expectedCareerOwners = {
     "paid-learner-growth": ["founding-growth-creator-partnerships"],
     "learning-content-lead": ["founding-conversation-learning-scientist"],
-    "creator-supply": ["conversation-content-producer-pd"],
+    "creator-supply": ["conversation-content-producer-pd", "english-speaking-content-contributor"],
   };
   const careersTemplate = await read("careers.template.html");
+  assert(careersTemplate.includes('params.get("problem_id")'), "Careers must accept an exact problem_id filter.");
+  assert(careersTemplate.includes("mappedPrimaryProblemIds(job).includes(problemId)"), "Careers problem filtering must use only Primary mappings.");
   assert(careersTemplate.includes('"app-dev.naepopquiz.com"'), "Careers staging preview must allow the app-dev custom domain.");
   assert(careersTemplate.includes('"company-dev.netmelonai.com"'), "Careers staging preview must allow the canonical company-dev custom domain.");
   const careersPage = await read("careers.html");
@@ -983,7 +985,7 @@ async function checkOpenProblemsAndCareers() {
   const participatingProblems = problems.filter((problem) => ["open", "exploring"].includes(problem?.status));
   const inlineFormCount = (page.match(/class="problem-application-form"/g) || []).length;
   const inlineToggleCount = (page.match(/data-problem-application-toggle/g) || []).length;
-  const expectedCareerLinkCount = participatingProblems.reduce((count, problem) => count + mappedJobs(problem).length, 0);
+  const expectedCareerLinkCount = participatingProblems.reduce((count, problem) => count + Math.min(mappedJobs(problem).length, 1), 0);
   const actualCareerLinkCount = (page.match(/class="problem-career-link"/g) || []).length;
   assert(inlineFormCount === participatingProblems.length, "problems.html must render one inline application form per participating problem.");
   assert(inlineToggleCount === participatingProblems.length, "problems.html must render one application toggle per participating problem.");
@@ -1043,15 +1045,22 @@ async function checkOpenProblemsAndCareers() {
     assert(!detail.includes("__OPEN_PROBLEM_"), detailPath + " contains unresolved Open Problem markers.");
     const directJobs = mappedJobs(problem);
     const detailCareerLinkCount = (detail.match(/class="problem-career-link"/g) || []).length;
-    assert(detailCareerLinkCount === directJobs.length, detailPath + " must render careers actions only for directly owned Primary problems.");
-    for (const job of directJobs) {
+    assert(detailCareerLinkCount === Math.min(directJobs.length, 1), detailPath + " must render one direct or grouped careers action for its Primary positions.");
+    if (directJobs.length === 1) {
+      const job = directJobs[0];
       const listHref = 'careers.html?job_id=' + encodeURIComponent(String(job.id));
       const detailHref = '../' + listHref;
       assert(page.includes('href="' + listHref + '"'), "problems.html is missing the mapped careers action for " + problem.problemId);
       assert(detail.includes('href="' + detailHref + '"'), detailPath + " is missing its mapped careers action.");
-      if (job.status !== "open") {
-        assert(page.includes('data-career-status="' + String(job.status) + '"') && page.includes(" hidden"), "review-only careers actions must be hidden outside staging preview.");
-      }
+    } else if (directJobs.length > 1) {
+      const listHref = 'careers.html?problem_id=' + encodeURIComponent(String(problem.problemId));
+      const detailHref = '../' + listHref;
+      assert(page.includes('href="' + listHref + '"'), "problems.html is missing the grouped careers action for " + problem.problemId);
+      assert(detail.includes('href="' + detailHref + '"'), detailPath + " is missing its grouped careers action.");
+      assert(page.includes('관련 채용 포지션 ' + directJobs.length + '개 보기'), "grouped careers action must state its exact position count.");
+    }
+    if (directJobs.length > 0 && !directJobs.some((job) => job.status === "open")) {
+      assert(page.includes('data-career-status="closed"') && page.includes(" hidden"), "review-only careers actions must be hidden outside staging preview.");
     }
     for (const phrase of rejectedParticipationPhrases) {
       assert(!detail.includes(phrase), detailPath + " contains obsolete application wording: " + phrase);
