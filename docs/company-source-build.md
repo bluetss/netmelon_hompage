@@ -59,7 +59,7 @@ COMPANY_OPEN_PROBLEMS_INTAKE_API_BASE="https://your-api.example.com" \
 npm run build:with-cms
 ```
 
-`fetch-company-open-problems.mjs`는 schema, site/locale, published lifecycle, sourceVersionId/sourceHash를 검증한 뒤 `data/company-open-problems.ko.json`을 원자적으로 교체합니다. 이 JSON은 직접 편집하는 원본이 아니라 마지막 공개 snapshot의 빌드 캐시입니다. `generate-company-open-problems.mjs`는 문제 질문, 근거, 현재 시도, 필요한 전문성, 제공 환경과 Studio에서 등록한 YouTube 설명 영상을 목록과 상세 페이지에 렌더링합니다. 후보 등급, 담당자, 접촉 이력과 내부 메모는 공개 projection과 정적 HTML에 포함하지 않습니다. 해결 방안 폼은 `COMPANY_OPEN_PROBLEMS_INTAKE_API_BASE`의 `/web-cms/public/company-open-problem-proposals`를 사용합니다. 구조화 데이터는 `CollectionPage`, `ItemList`, `WebPage`만 사용하며 `JobPosting`을 사용하지 않습니다.
+`fetch-company-open-problems.mjs`는 schema, site/locale, published lifecycle, sourceVersionId/sourceHash를 검증한 뒤 `data/company-open-problems.ko.json`을 원자적으로 교체합니다. 이 JSON은 직접 편집하는 원본이 아니라 마지막 공개 snapshot의 빌드 캐시입니다. 공개 snapshot은 9개의 정본 문제 ID를 각각 유지하며 학습자 성장과 creator 공급을 합치거나 `first-speech-product-research`를 별도 표시용 ID로 바꾸지 않습니다. 채용 CTA는 `careers.ko.json`의 `Primary · <problemId>`가 정본 문제 ID와 정확히 일치할 때만 렌더링합니다. `generate-company-open-problems.mjs`는 문제 질문, 근거, 현재 시도, 필요한 전문성, 제공 환경과 Studio에서 등록한 YouTube 설명 영상을 목록과 상세 페이지에 렌더링합니다. 후보 등급, 담당자, 접촉 이력과 내부 메모는 공개 projection과 정적 HTML에 포함하지 않습니다. 해결 방안 폼은 `COMPANY_OPEN_PROBLEMS_INTAKE_API_BASE`의 `/web-cms/public/company-open-problem-proposals`를 사용합니다. 구조화 데이터는 `CollectionPage`, `ItemList`, `WebPage`만 사용하며 `JobPosting`을 사용하지 않습니다.
 
 ## 회사 공고 CMS 반영
 
