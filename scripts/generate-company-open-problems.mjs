@@ -106,7 +106,7 @@ function replaceOnce(source, marker, replacement) {
 }
 
 
-function renderApplicationForm(problem, privacyHref = "privacy.html") {
+function renderApplicationForm(problem, privacyHref = "/company-privacy") {
   return [
     '<form class="problem-application-form" data-api-base="' + htmlEscape(INTAKE_API_BASE, true) + '" novalidate>',
     '<input type="hidden" name="problemId" value="' + htmlEscape(problem.problemId, true) + '">',
@@ -128,9 +128,8 @@ function mappedProblemIds(job) {
 }
 
 function careersByProblem(careersSource) {
-  const jobs = Array.isArray(careersSource?.jobs) ? careersSource.jobs : [];
   const result = new Map();
-  for (const job of jobs) {
+  for (const job of Array.isArray(careersSource?.jobs) ? careersSource.jobs : []) {
     const id = clean(job?.id);
     const title = clean(job?.title);
     const status = clean(job?.status);
@@ -155,7 +154,7 @@ function renderCareerLinks(careers, hrefPrefix = "", problemId = "") {
   }
   return careers.map((job) => {
     const reviewOnly = job.status !== "open";
-    return '<a class="problem-career-link" href="' + hrefPrefix + 'careers.html?job_id=' + encodeURIComponent(job.id) + '" data-career-status="' + htmlEscape(job.status, true) + '" aria-label="' + htmlEscape(job.title + " 지원하기", true) + '"' + (reviewOnly ? " hidden" : "") + '>채용 포지션 지원하기</a>';
+    return '<a class="problem-career-link" href="' + hrefPrefix + 'careers.html?job_id=' + encodeURIComponent(job.id) + '" data-career-status="' + htmlEscape(job.status, true) + '" aria-label="' + htmlEscape(job.title + " 채용 포지션 보기", true) + '"' + (reviewOnly ? " hidden" : "") + '>채용 포지션 보기</a>';
   }).join("\n");
 }
 
@@ -316,7 +315,7 @@ function renderDetailParticipation(problem) {
     '<h2 id="participate-title">해결 방안을 보내주세요</h2>',
     "<p>이 문제에 대한 접근과 검증 방법을 알려주세요.</p>",
     "</div>",
-    renderApplicationForm(problem, "../privacy.html"),
+    renderApplicationForm(problem, "/company-privacy"),
     "</section>",
   ].join("\n");
 }

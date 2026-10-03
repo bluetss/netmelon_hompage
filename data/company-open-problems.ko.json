@@ -1,7 +1,8 @@
 {
   "enabled": true,
   "eyebrow": "Open Problems",
-  "headline": "AI만으로 풀 수 없는 문제를 함께 책임질 사람을 찾습니다.",
+  "headline": "네트멜론이 내팝퀴즈를 통해 풀고 있는 문제들입니다.",
+  "previewReviewRevision": "company-problems-review-2026-09-16",
   "intro": "출시·시장 검증에 필요한 문제와 다음 단계, 데이터가 쌓인 뒤의 연구 문제를 구분합니다. 완성된 해답을 무료로 받기 위한 목록이 아니라 유급 협업의 출발점입니다.",
   "lifecycleStatus": "published",
   "locale": "ko",

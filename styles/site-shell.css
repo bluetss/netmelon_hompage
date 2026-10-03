@@ -196,6 +196,15 @@
   flex-wrap: wrap;
 }
 
+.footer-links a {
+  color: var(--site-text);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 920px) {
   .site-header .shell {
     position: relative;

@@ -7,6 +7,39 @@ All company-site changes are built and reviewed first on Firebase Hosting site
 branch before explicit final approval. See
 [the company website release policy](docs/COMPANY_WEBSITE_RELEASE_POLICY.md).
 
+로컬에서도 Firebase Hosting의 `cleanUrls`, trailing-slash, header 규칙을 동일하게
+검증한다. 단순 파일 서버 대신 다음 명령을 사용한다.
+
+```bash
+# 제출 API를 호출하지 않는 안전한 UI·라우팅 미리보기
+npm run preview:staging
+
+# staging 공개 인입 API까지 연결하는 미리보기
+COMPANY_PUBLIC_INTAKE_API_BASE=https://<approved-staging-public-intake> \
+  npm run preview:staging:api
+```
+
+두 모드 모두 `http://127.0.0.1:4174`에서 `/problems`, `/careers` 같은 실제
+확장자 없는 경로를 제공한다. `preview:staging:api`는 승인된 staging HTTPS 주소가
+없으면 fail-closed하며 production API나 비밀 값을 기본값으로 사용하지 않는다.
+2026-10-03 통합 충돌 결정: 사용자가 Growth & Creator Partnerships, Conversation Learning Scientist, 영어 말하기 콘텐츠 기여자, Conversation Content Producer (PD)의 4개 검토용 역할 유지를 승인했다. 이전 미승인 역할 제거 기록보다 이 결정이 우선하며, KO/EN 데이터와 문제 연결은 동일한 4개 역할을 유지한다. 공개 모집 및 production 게시 승인은 포함하지 않는다.
+
+명시적으로 검토 승인을 받은 `closed` 상태 채용 공고와 Open Problems 연결만
+`company-dev.netmelonai.com`, Firebase Preview channel, `localhost`, `127.0.0.1`에서 표시한다. `closed` 상태 자체는
+검토 승인을 의미하지 않으며, 승인되지 않은 공고는 locale별 snapshot과 생성 페이지,
+문제 연결에서 모두 제외한다. production에서는 모든 `closed` 공고를 숨긴다.
+
+세션 Preview용 Firebase 산출물은 검증할 정확한 커밋을 40자리 SHA로 명시한다.
+이는 관리형 실행 환경에서 빌드 프로세스의 `git` 호출이 제한되더라도 릴리스
+매니페스트가 검증 대상을 잃지 않게 한다.
+
+```bash
+COMPANY_SOURCE_COMMIT=<exact-40-character-git-sha> \
+COMPANY_PUBLIC_INTAKE_API_BASE=https://<approved-staging-public-intake> \
+COMPANY_APP_LANDING_ORIGIN=https://npq-landing-dev--<preview-channel>.web.app \
+npm run build:firebase:staging
+```
+
 ## Role
 
 - Company introduction
@@ -15,15 +48,17 @@ branch before explicit final approval. See
 - IR request flow
 - Company announcements
 
-Canonical app install, support, privacy, terms, subscription, and account/data deletion pages belong to `naepopquiz.com`, not this company site.
+Canonical app install, support, terms, subscription, and account/data deletion pages belong to `naepopquiz.com`, not this company site. The company site exposes only the privacy-policy entry needed beside its own IR, recruiting, and Open Problems collection surfaces; it does not duplicate the app terms set.
 
 The company site policy is governed by the shared web-system source of truth at `/home/seungwoo/myworks/dev/npq_web_system/content-model/corporate-source-policy.md`. Use that document before changing IA, Studio Web CMS ownership, common/site-specific content boundaries, header, footer, page ownership, localization exposure, or release checks.
 
-The company site footer must not link to app-facing privacy, terms, subscription, refund, account deletion, or data deletion routes. It should also not duplicate the global header navigation; keep it minimal unless a company-specific legal notice is created.
+The company site footer must not link to app-facing terms, subscription, refund, account deletion, or data deletion routes. It exposes one privacy-policy entry for company-site collection surfaces and must not duplicate the global header navigation.
+
+`company-privacy.html` and `en/company-privacy.html` are the company-site intake notice, separate from the app privacy policy. Their one-year retention statement is a production stop condition: the intake owner must operate and evidence matching deletion before production publication.
 
 The company site header and footer shell is shared through `partials/site-header.html`, `partials/site-footer.html`, `partials/site-shell-script.html`, `styles/site-shell.css`, and `scripts/site-shell.js`. Page-level files must not redefine shared header, navigation, brand, mobile menu, download menu, footer, footer-row, or shell menu behavior.
 
-The global company header exposes company introduction, product introduction, open problems, IR, and company announcements. `problems.html` is the problem-centered collaboration surface. The former `careers.html`, `careers.template.html`, and `en/careers.html` remain archived for direct historical access, but builds, global navigation, and the sitemap must not modify or expose them. Company announcements live on `announcement.html` and generated `announcements/{slug}.html` detail pages.
+The global company header exposes company introduction, product introduction, open problems, careers, IR, and company announcements. `problems.html` is the problem-centered collaboration surface. English navigation uses root-relative `/en/...` routes so Firebase clean URLs cannot resolve links back into the Korean root. Company announcements live on `announcement.html` and generated `announcements/{slug}.html` detail pages.
 
 ## Shared system
 
@@ -55,8 +90,9 @@ Production HTML must not hard-code dev or staging API URLs.
   - `COMPANY_ANNOUNCEMENTS_BEARER_TOKEN`: bearer token for a protected snapshot endpoint.
 - Shared Publisher Legal Profile uses `PUBLISHER_PROFILE_API_BASE` or `PUBLISHER_PROFILE_PUBLIC_URL` to fetch `/web-cms/public/publisher-profile?publisherId=netmelon`. `PUBLISHER_PROFILE_JSON_PATH` overrides the build snapshot path and `PUBLISHER_PROFILE_BEARER_TOKEN` is available only when the public projection is protected.
 - `data/publisher-legal-profile.json` is the current verified static public snapshot for reproducible local builds. It is not a second CMS editing source; `build:with-cms` replaces it with the published shared profile before the static build.
-- The archived careers page retains its former runtime configuration for direct historical access only. New builds and public navigation do not depend on it.
+- Careers remains a public navigation surface. The English build preserves its list/filter, privacy, and hiring-process structure while showing an explicit empty state until reviewed English openings are published.
 - IR and open-problem forms prefer one explicitly injected `window.__NPQ_PUBLIC_INTAKE_API_BASE__`. `window.__NPQ_IR_API_BASE__` and `window.__NPQ_COMPANY_API_BASE__` remain compatibility overrides. Static problem generation uses `COMPANY_OPEN_PROBLEMS_INTAKE_API_BASE`; production cutover must point it at the dedicated max-instance-one public-intake service before the core POST routes are disabled.
+- Firebase staging builds replace links marked with `data-app-homepage-link` with `https://app-dev.naepopquiz.com/`. A session review build may set `COMPANY_APP_LANDING_ORIGIN` only to that staging custom domain or one of its Firebase Preview channel origins so the company and app reviews remain linked without changing either live channel. Production source keeps the canonical `https://naepopquiz.com/` target; production deployment must wait for its DNS and TLS readiness.
 
 Production CMS-driven releases should use a published Company Source snapshot. The committed `data/company-source.ko.json` is the current published public snapshot used for local and GitHub Pages static builds.
 
@@ -69,7 +105,7 @@ npm run build:with-cms:require-announcement
 npm run check
 ```
 
-`npm run build` syncs the shared site shell, then regenerates `index.html`, `company.html`, `problems.html`, `announcement.html`, and generated company announcement detail pages from local snapshot files. It does not rewrite the archived careers files. It injects the published Asset binding snapshot when `data/company-assets.ko.json` exists and otherwise keeps the controlled template fallback, then injects the shared Publisher Legal Profile into every company Footer. `npm run build:with-cms` first fetches Company Source, company announcements, open problems, the public Asset manifest, public Site Asset Bindings, and the published Publisher Legal Profile, then runs the static build. `npm run build:with-cms:require-announcement` does the same but fails if the fetched public announcement snapshot has zero published announcements. `npm run check` also verifies manifest v2, exact purpose/variant resolution, disclosure, duplicate references, final product screenshot order, and exact KO/EN Footer profile/version binding before deployment.
+`npm run build` syncs the shared site shell, then regenerates the Korean source-backed pages and detail pages. `npm run build:english` regenerates English home, company, careers, IR, announcements, and published Open Problems pages. `npm run build:english:review-open-problems` is the explicit non-indexed preview path for the reviewed English draft snapshot. The release check verifies locale-safe navigation, the environment-aware app CTA, English Careers/IR/Open Problems functional structure, and exact KO/EN Footer profile/version binding.
 
 Company announcement CMS release example:
 
