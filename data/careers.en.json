@@ -1,0 +1,151 @@
+{
+  "locale": "en",
+  "jobs": [
+    {
+      "id": "founding-growth-creator-partnerships",
+      "title": "Founding Growth & Creator Partnerships",
+      "team": "Growth & Partnerships",
+      "status": "closed",
+      "employmentType": "Short-term paid project",
+      "location": "To be agreed",
+      "workMode": "Hybrid",
+      "mission": "Build the first repeatable path from learner acquisition to speaking, payment, and creator supply.",
+      "responsibilities": [
+        "Define the first anchor learner cohort and validate the funnel from outreach and acquisition through first speech, repeat use, and payment.",
+        "Design and run channel and message experiments, connecting CAC, activation, paid conversion, and retention in every decision.",
+        "Source education, language, and content creators and own personalized outreach, meetings, commercial terms, contracts, and pilot operations.",
+        "Build and operate the pipeline from creator outreach to repeatable supply and learner selection or purchase.",
+        "Turn customer rejection, churn, and language into decision-ready evidence for weekly reviews with the founder.",
+        "Maintain source, usage-right, compensation, and contract records and escalate rights or trust risks immediately."
+      ],
+      "requirements": [
+        "Evidence that you personally delivered acquisition, conversion, or partnership outcomes for an app, subscription service, advertising program, or creator campaign.",
+        "Ability to contact unfamiliar customers or creators directly and change the target, message, or offer based on rejection evidence.",
+        "Ability to manage acquisition, first value, payment, and repeat use as one funnel rather than optimizing impressions or installs.",
+        "Ability to define the next experiment and stopping criteria with a small budget and incomplete data.",
+        "Ability to negotiate partner terms while protecting long-term trust."
+      ],
+      "preferred": [
+        "Hands-on performance or growth marketing experience for an app or subscription product.",
+        "Acquisition, CRM, or lifecycle experience in edtech or consumer subscriptions.",
+        "Creator sourcing, outreach, negotiation, and campaign ownership in influencer marketing or an MCN.",
+        "Experience measuring paid or creator channels through payment and retention.",
+        "Experience building in an early-stage team and stopping failed hypotheses with evidence."
+      ],
+      "primaryProblemIds": [
+        "paid-learner-growth"
+      ]
+    },
+    {
+      "id": "founding-conversation-learning-scientist",
+      "title": "Founding Conversation Learning Scientist",
+      "team": "Learning Science & Product",
+      "status": "closed",
+      "employmentType": "Paid project with subsequent hiring review",
+      "location": "To be agreed",
+      "workMode": "Hybrid",
+      "mission": "Design training and assessment that help Korean speakers construct and sustain English conversations appropriate to their purpose and audience.",
+      "responsibilities": [
+        "Design a conversation capability model linking conventions, functions, purpose, empathy, and utterance-generation difficulty.",
+        "Build progression from shadowing through recall, variation, personal experience, persuasion, and unexpected questions.",
+        "Observe Korean learners' speech and classify failures in retrieval, discourse, fluency, interaction, and anxiety.",
+        "Develop rubrics, assessment tasks, and before-and-after comparisons to measure transfer.",
+        "Review AI conversation tasks and feedback for linguistic validity, educational benefit, and misjudgment risk.",
+        "Translate learner research and experiments into product requirements with the founder, product, and engineering teams.",
+        "End ineffective hypotheses based on evidence and design the next curriculum and product experiments."
+      ],
+      "requirements": [
+        "Applied experience in applied linguistics, second-language acquisition, English education, or learning science.",
+        "Ability to observe Korean learners' speech errors and diagnose their causes systematically.",
+        "Experience designing and improving task-based training, curricula, or speaking-assessment rubrics.",
+        "Ability to turn interviews and speech evidence into education or product decisions.",
+        "Ability to make hypotheses measurable independently of English fluency.",
+        "Ability to independently evaluate the linguistic validity and learning effects of AI output."
+      ],
+      "preferred": [
+        "English conversation teaching, research, or curriculum experience with Korean adults.",
+        "Experience developing edtech, speaking training, or consumer learning products.",
+        "Familiarity with CEFR, ACTFL, and performance-based speaking assessment.",
+        "Experience combining learning experiments, qualitative research, and basic statistics.",
+        "Experience evaluating AI tutors, LLM feedback, or speech assessment.",
+        "Experience connecting research rapidly to prototypes and decisions in an early-stage team."
+      ],
+      "primaryProblemIds": [
+        "learning-content-lead"
+      ]
+    },
+    {
+      "id": "english-speaking-content-contributor",
+      "title": "English Speaking Content Contributor",
+      "team": "Content & Learning",
+      "status": "closed",
+      "employmentType": "Paid per accepted content item",
+      "location": "Remote within Korea",
+      "workMode": "Remote",
+      "mission": "Resolve the initial content cold start by writing and validating small units of words, idioms, phrasal verbs, and speaking situations used in real conversations.",
+      "responsibilities": [
+        "Choose a published word, idiom, phrasal verb, or conversation mission and submit it.",
+        "Write core meanings, real usage situations, original English examples, and natural Korean explanations.",
+        "Record a short follow-up response, difficulty, and register.",
+        "AI may assist drafting, but personally verify meaning, sentence patterns, naturalness, and references.",
+        "Provide one revision within the stated deadline when requested by a reviewer.",
+        "Accepted items are assembled into vocabulary, idiom, phrasal-verb, rehearsal, and home-feed training content."
+      ],
+      "requirements": [
+        "Ability to write concise, accurate Korean and English explanations and examples.",
+        "Write original examples instead of copying textbooks, dictionaries, subtitles, or blogs.",
+        "Record references and reasoning in the required format.",
+        "Follow acceptance, copyright, and content-safety standards.",
+        "Agree to voluntary short-term mission participation without required working hours or ongoing participation."
+      ],
+      "preferred": [
+        "Study in English literature, English education, translation, applied linguistics, or TESOL.",
+        "Translation, proofreading, teaching, textbook, or dialogue-writing experience.",
+        "Experience explaining common English errors made by Korean learners.",
+        "Experience using or creating rehearsal, shadowing, or conversation materials."
+      ],
+      "compensation": "KRW 1,000 per accepted item; up to 20 items and KRW 20,000 per contributor.",
+      "primaryProblemIds": [
+        "creator-supply"
+      ]
+    },
+    {
+      "id": "conversation-content-producer-pd",
+      "title": "Conversation Content Producer (PD)",
+      "team": "Content Studio",
+      "status": "closed",
+      "employmentType": "Project-based production contract",
+      "location": "To be agreed",
+      "workMode": "Agreed per project",
+      "mission": "Develop an English conversation format suited to its performers and connect a four-to-six-episode pilot to Naepopquiz training, reuse, and purchases.",
+      "responsibilities": [
+        "Define the learners, repeatable program format, four-to-six-episode plan, and production schedule.",
+        "Discover and recruit performers, coordinating episode participation terms and schedules.",
+        "Deliver scripts, filming, editing, titles, thumbnails, and short-form assets personally or through agreed collaborators.",
+        "Coordinate educational review of expressions, translations, and difficulty, and provide training-pack source materials.",
+        "Record sources, music and video rights, performers' name, image, and voice permissions, and advertising disclosures per episode.",
+        "Apply traceable CTAs and campaign or deep-link identifiers to measure app entry and learning after viewing.",
+        "Recommend retaining, revising, or ending the format and evaluate season contracts or shared-IP arrangements."
+      ],
+      "requirements": [
+        "A portfolio of digital video projects completed from planning through publication.",
+        "Ability to turn performers' strengths into repeatable interview, entertainment, or education formats.",
+        "Ability to manage casting, filming, editing, schedules, and quality with a small budget.",
+        "Ability to interpret app entry, training starts and completion, and purchases rather than views alone.",
+        "Ability to record copyright, personality rights, advertising disclosures, and agreed usage scope.",
+        "Ability to independently deliver agreed outcomes and deadlines rather than working-hour commitments."
+      ],
+      "preferred": [
+        "Pilot or season production for web entertainment, interviews, education, or creator-led shows.",
+        "Direct discovery and recruitment of emerging performers, experts, or education creators.",
+        "Repurposing footage into full episodes, Shorts, Reels, and educational content.",
+        "Edtech, English conversation, shadowing, or learning-content production.",
+        "Branded content, sponsorship, or creator revenue-share experience.",
+        "Analysis of post-viewing behavior with GA4, Firebase Analytics, or YouTube Analytics."
+      ],
+      "primaryProblemIds": [
+        "creator-supply"
+      ]
+    }
+  ]
+}

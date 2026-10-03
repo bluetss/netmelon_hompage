@@ -1,11 +1,25 @@
 (() => {
-  const isStagingPreview = window.location.hostname === "npq-company-dev.web.app";
+  const isStagingPreview = ["company-dev.netmelonai.com", "app-dev.naepopquiz.com", "npq-company-dev.web.app", "localhost", "127.0.0.1"].includes(window.location.hostname) || /^npq-company-dev--[a-z0-9-]+\.web\.app$/.test(window.location.hostname);
   document.querySelectorAll('[data-career-status="closed"]').forEach((link) => {
     link.hidden = !isStagingPreview;
   });
   const toggles = Array.from(document.querySelectorAll("[data-problem-application-toggle]"));
   const forms = Array.from(document.querySelectorAll(".problem-application-form"));
   if (!forms.length) return;
+  const english = document.documentElement.lang.toLowerCase().startsWith("en");
+  const copy = english ? {
+    open: "Send solution", close: "Close solution", required: "Please check the submitted information.",
+    sent: "Your proposal has been sent.", failed: "The intake service is currently unavailable. Please try again later.",
+    busy: (minutes) => `Request intake is busy. Please try again in ${minutes} minute(s).`,
+    paused: "Request intake is temporarily paused. Please try again later.", tooLarge: "The submitted content is too long.",
+    offline: "Please check your internet connection.",
+  } : {
+    open: "해결 방안 보내기", close: "해결 방안 닫기", required: "입력 내용을 확인해 주세요.",
+    sent: "제안을 보냈습니다.", failed: "현재 접수 서버에 연결할 수 없습니다. 잠시 후 다시 확인해 주세요.",
+    busy: (minutes) => `요청이 몰려 접수를 잠시 쉬고 있습니다. ${minutes}분 뒤 다시 시도해 주세요.`,
+    paused: "안전한 운영을 위해 접수를 잠시 중단했습니다. 잠시 후 다시 확인해 주세요.", tooLarge: "입력 내용이 너무 깁니다. 내용을 줄여 주세요.",
+    offline: "인터넷 연결을 확인해 주세요.",
+  };
   const createRequestKey = () => {
     if (window.crypto?.randomUUID) return window.crypto.randomUUID();
     return `web-${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -14,7 +28,7 @@
 
   const setToggleLabel = (toggle, expanded) => {
     const label = toggle.querySelector("[data-problem-application-label]");
-    if (label) label.textContent = expanded ? "해결 방안 닫기" : "해결 방안 보내기";
+    if (label) label.textContent = expanded ? copy.close : copy.open;
   };
 
   const getPanel = (toggle) => {
@@ -117,7 +131,7 @@
       event.preventDefault();
       const invalid = markInvalid();
       if (invalid.length) {
-        setStatus("입력 내용을 확인해 주세요.", "error");
+        setStatus(copy.required, "error");
         invalid[0].focus();
         return;
       }
@@ -125,11 +139,11 @@
       const data = new FormData(form);
       if (String(data.get("website") || "").trim()) {
         form.reset();
-        setStatus("제안을 보냈습니다.", "success");
+        setStatus(copy.sent, "success");
         return;
       }
       if (!apiBase) {
-        setStatus("제안을 보내지 못했습니다. 다시 시도해 주세요.", "error");
+        setStatus(copy.failed, "error");
         return;
       }
 
@@ -150,7 +164,7 @@
             experience: String(data.get("solutionProposal") || "").trim(),
             referenceUrl: String(data.get("resourceUrl") || "").trim() || null,
             consent: Boolean(data.get("consent")),
-            locale: "ko",
+            locale: english ? "en" : "ko",
             sourcePage: window.location.pathname,
             website: String(data.get("website") || "").trim(),
           }),
@@ -160,20 +174,20 @@
           const retrySeconds = Number(detail.retryAfterSeconds || response.headers.get("Retry-After") || 0);
           if (response.status === 429) {
             const minutes = Math.max(1, Math.ceil(retrySeconds / 60));
-            setStatus(`요청이 몰려 접수를 잠시 쉬고 있습니다. ${minutes}분 뒤 다시 시도해 주세요.`, "error");
+            setStatus(copy.busy(minutes), "error");
             return;
           }
           if (response.status === 503) {
             const pauseMessage = String(detail.error || "").trim();
-            setStatus(pauseMessage || "안전한 운영을 위해 접수를 잠시 중단했습니다. 잠시 후 다시 확인해 주세요.", "error");
+            setStatus(pauseMessage || copy.paused, "error");
             return;
           }
           if (response.status === 403) {
-            setStatus("현재 접수를 잠시 쉬고 있습니다. 잠시 후 다시 확인해 주세요.", "error");
+            setStatus(copy.paused, "error");
             return;
           }
           if (response.status === 413) {
-            setStatus("입력 내용이 너무 깁니다. 내용을 줄여 주세요.", "error");
+            setStatus(copy.tooLarge, "error");
             return;
           }
           throw new Error("SUBMIT_FAILED");
@@ -181,10 +195,10 @@
         form.reset();
         delete form.dataset.requestKey;
         clearInvalid();
-        setStatus("제안을 보냈습니다.", "success");
+        setStatus(copy.sent, "success");
       } catch (error) {
         const offline = !window.navigator.onLine;
-        setStatus(offline ? "인터넷 연결을 확인해 주세요." : "현재 접수 서버에 연결할 수 없습니다. 잠시 후 다시 확인해 주세요.", "error");
+        setStatus(offline ? copy.offline : copy.failed, "error");
       } finally {
         setSubmitting(false);
       }

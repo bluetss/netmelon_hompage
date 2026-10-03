@@ -28,10 +28,10 @@
   <title>Netmelon</title>
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://netmelonai.com/#organization","name":"Netmelon","url":"https://netmelonai.com/","logo":"https://netmelonai.com/images/logo.png","image":"https://netmelonai.com/images/og-cover.png","description":"Netmelon turns language learning into practical speaking training, so people can stop leaving a language on the page and start thinking, speaking, and connecting with the world in it.","email":"netmelon@netmelonai.com","sameAs":["https://naepopquiz.com/","https://studio.naepopquiz.com/","https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz","https://apple.co/4ez9nji"]},{"@type":"WebPage","@id":"https://netmelonai.com/en/ir.html#webpage","url":"https://netmelonai.com/en/ir.html","name":"Netmelon | IR","description":"IR materials are shared only after we review the request and confirm the right context.","inLanguage":"en-US","isPartOf":{"@id":"https://netmelonai.com/#website"},"about":{"@id":"https://netmelonai.com/#organization"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://netmelonai.com/en/"},{"@type":"ListItem","position":2,"name":"IR","item":"https://netmelonai.com/en/ir.html"}]}}]}</script>
 </head>
-<body>
+<body class="ir-request-page">
   <header class="site-header" id="top">
     <div class="shell">
-      <a class="brand" href="index.html">
+      <a class="brand" href="/en">
         <img src="../images/logo.png" alt="Netmelon logo" width="36" height="36">
         <span>Netmelon</span>
       </a>
@@ -50,39 +50,48 @@
         </button>
       </div>
       <nav class="site-nav" id="primary-navigation" aria-label="Primary">
-        <a href="company.html">About</a>
-        <a href="index.html#naepopquiz-app">Products</a>
-        <a href="problems.html">Open problems</a>
-        <a href="careers.html">Careers</a>
-        <a class="is-current" href="ir.html">IR</a>
-        <a href="announcement.html">Company announcements</a>
-        <a class="lang-link" href="../ir.html" lang="ko">KOREAN</a>
+        <a href="/en/company">About</a>
+        <a href="/en#naepopquiz-app">Products</a>
+        <a href="/en/problems">Open problems</a>
+        <a href="/en/careers">Careers</a>
+        <a class="is-current" href="/en/ir">IR</a>
+        <a href="/en/announcement">Company announcements</a>
+        <a class="lang-link" href="/ir" lang="ko">KOREAN</a>
       </nav>
     </div>
   </header>
 
   <main class="ir-main">
     <section class="ir-flow" aria-label="IR request overview">
-      <article class="ir-slide ir-hero-slide" id="ir-overview">
-        <div class="ir-slide-inner ir-hero-grid">
-          <div class="ir-hero-copy">
-            <p class="ir-kicker">Investor Relations</p>
-            <h1 class="ir-title">IR materials are shared only after we review the request and confirm the right context.</h1>
-            <p class="ir-subtitle">Public IR materials are shared only after request review.</p>
-            <div class="ir-hero-cta">
-              <a class="button primary" href="mailto:netmelon@netmelonai.com?subject=%5BIR%20Request%5D">Request IR materials</a>
-            </div>
-          </div>
-        </div>
+      <article class="ir-slide ir-request-slide" id="ir-request"><div class="ir-slide-inner ir-request-grid">
+        <section class="ir-card"><p class="ir-kicker">Investor Relations</p><h1 class="ir-title wide">IR materials are shared only after we review the request and confirm the right context.</h1><p class="ir-subtitle">Leave your contact details and review purpose. We will respond after reviewing the request.</p></section>
+        <section class="ir-form-card" aria-label="IR materials request form"><h2>Request IR materials</h2>
+          <form id="ir-request-form" novalidate><div class="ir-form-grid">
+            <label class="ir-field"><span>Name *</span><input type="text" name="name" autocomplete="name" required></label>
+            <label class="ir-field"><span>Email *</span><input type="email" name="email" autocomplete="email" required></label>
+            <label class="ir-field"><span>Organization *</span><input type="text" name="organization" autocomplete="organization" required></label>
+            <label class="ir-field"><span>Title *</span><input type="text" name="title" autocomplete="organization-title" required></label>
+            <label class="ir-field"><span>Phone *</span><input type="tel" name="phone" autocomplete="tel" required></label>
+            <label class="ir-field"><span>Investor type *</span><select name="investor_type" required><option value="" disabled selected>Select</option><option>VC</option><option>PE</option><option>CVC</option><option>Family Office</option><option value="Angel">Angel / Individual</option><option value="Other">Other</option></select></label>
+            <label class="ir-field"><span>Requested materials *</span><select name="requested_material" required><option value="" disabled selected>Select</option><option>IR Deck</option><option>Financial Model</option><option>IR Deck + Financial Model</option></select></label>
+            <label class="ir-field"><span>NDA availability *</span><select name="nda_preference" required><option value="" disabled selected>Select</option><option value="possible">Available</option><option value="needs_discussion">Needs discussion</option><option value="impossible">Unavailable</option></select></label>
+            <label class="ir-field full"><span>Purpose and background *</span><textarea name="request_note" required maxlength="4000" rows="5"></textarea></label>
+            <label class="ir-field full ir-check"><input type="checkbox" name="consent" required><span>I consent to the collection and use of the submitted information to review and respond to this request. <a href="/en/company-privacy">Privacy Policy</a> *</span></label>
+            <label class="intake-honeypot" aria-hidden="true"><span>Website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          </div><div class="ir-form-actions"><button type="submit" class="button primary"><span class="ir-submit-label">Submit request</span><span class="ir-submit-spinner" aria-hidden="true"></span></button><p class="ir-status" id="ir-request-status" aria-live="polite"></p></div></form>
+        </section></div>
       </article>
+      <article class="ir-slide ir-policy-slide" id="ir-policy"><div class="ir-slide-inner"><p class="ir-kicker">IR Policy</p><h2 class="ir-title wide">Materials are shared in stages after review.</h2><div class="ir-policy-grid"><section class="ir-card"><h3>Scope</h3><p>Detailed materials are shared after the requester and purpose have been reviewed.</p></section><section class="ir-card"><h3>Response</h3><p>We respond by email or a follow-up meeting after reviewing the request and NDA preference.</p></section><section class="ir-card"><h3>Personal information</h3><p>Submitted information is used only for request review, follow-up contact, and internal request records.</p></section></div></div></article>
     </section>
   </main>
+  <script src="../scripts/ir-intake.js" defer></script>
 
   <footer class="site-footer">
     <div class="shell footer-row">
       <div class="footer-brand">
         <strong class="footer-company-name">Netmelon</strong>
         <p class="footer-copyright">Copyright 2026 Netmelon. All rights reserved.</p>
+        <nav class="footer-links" aria-label="Privacy Policy"><a href="/en/company-privacy">Privacy Policy</a></nav>
       </div>
       <section class="publisher-business" aria-label="Business information" data-publisher-profile-version="publisher_netmelon_2026-09-05_1" data-publisher-profile-hash="6c7e7675e7e3060a1784b00b65505f0a5713941f1cab1d7c6a3b0ed1e3c394a3">
         <p class="publisher-business-line"><span class="publisher-business-item"><strong>Business registration:</strong> 826-81-02224</span><span class="publisher-business-item"><strong>Representative:</strong> Seungwoo Shin</span></p>

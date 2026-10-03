@@ -1,4 +1,13 @@
 {
+  "emulators": {
+    "hosting": {
+      "host": "127.0.0.1",
+      "port": 4174
+    },
+    "ui": {
+      "enabled": false
+    }
+  },
   "hosting": [
     {
       "target": "company",

@@ -11,6 +11,8 @@ const COMPANY_SOURCE_PATH = process.env.COMPANY_SOURCE_EN_JSON_PATH ||
   path.join(ROOT, "data", "company-source.en.json");
 const ANNOUNCEMENTS_PATH = process.env.COMPANY_ANNOUNCEMENTS_EN_JSON_PATH ||
   path.join(ROOT, "data", "company-announcements.en.json");
+const CAREERS_PATH = process.env.COMPANY_CAREERS_EN_JSON_PATH ||
+  path.join(ROOT, "data", "careers.en.json");
 const OUTPUT_DIR = process.env.COMPANY_ENGLISH_OUTPUT_DIR ||
   path.join(ROOT, "en");
 const ANNOUNCEMENT_DETAIL_DIR = process.env.COMPANY_ENGLISH_ANNOUNCEMENT_DETAIL_DIR ||
@@ -232,26 +234,26 @@ function renderHead({ title, description, canonicalPath, schema = null, assetPre
 
 function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
   const nav = [
-    ["company", "company.html", "About"],
-    ["product", "index.html#naepopquiz-app", "Products"],
-    ["problems", "problems.html", "Open problems"],
-    ["careers", "careers.html", "Careers"],
-    ["ir", "ir.html", "IR"],
-    ["announcement", "announcement.html", "Company announcements"],
+    ["company", "/en/company", "About"],
+    ["product", "/en#naepopquiz-app", "Products"],
+    ["problems", "/en/problems", "Open problems"],
+    ["careers", "/en/careers", "Careers"],
+    ["ir", "/en/ir", "IR"],
+    ["announcement", "/en/announcement", "Company announcements"],
   ];
   const koreanHrefByActive = {
-    product: `${assetPrefix}index.html`,
-    company: `${assetPrefix}company.html`,
-    careers: `${assetPrefix}careers.html`,
-    ir: `${assetPrefix}ir.html`,
-    announcement: `${assetPrefix}announcement.html`,
-    problems: `${assetPrefix}problems.html`,
+    product: "/",
+    company: "/company",
+    careers: "/careers",
+    ir: "/ir",
+    announcement: "/announcement",
+    problems: "/problems",
   };
   const koreanHref = koreanHrefByActive[active] || `${assetPrefix}index.html`;
   return [
     '<header class="site-header" id="top">',
     '    <div class="shell">',
-    `      <a class="brand" href="${hrefPrefix}index.html">`,
+    '      <a class="brand" href="/en">',
     `        <img src="${assetPrefix}images/logo.png" alt="Netmelon logo" width="36" height="36">`,
     '        <span>Netmelon</span>',
     '      </a>',
@@ -270,7 +272,7 @@ function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
     '        </button>',
     '      </div>',
     '      <nav class="site-nav" id="primary-navigation" aria-label="Primary">',
-    ...nav.map(([key, href, label]) => `        <a${key === active ? ' class="is-current"' : ""} href="${hrefPrefix}${href}">${label}</a>`),
+    ...nav.map(([key, href, label]) => `        <a${key === active ? ' class="is-current"' : ""} href="${href}">${label}</a>`),
     `        <a class="lang-link" href="${koreanHref}" lang="ko">KOREAN</a>`,
     '      </nav>',
     '    </div>',
@@ -386,7 +388,7 @@ function renderHomePage(source) {
     '        <div class="story-content">',
     `          <h2 id="home-app-title">${textWithBreaks(identity.appIntroTitle)}</h2>`,
     `          <p id="home-app-copy">${textWithBreaks(identity.appIntroBody)}</p>`,
-    '          <a class="story-link" href="https://naepopquiz.com/" target="_blank" rel="noopener noreferrer">Open app homepage</a>',
+    '          <a class="story-link" data-app-homepage-link href="https://naepopquiz.com/" target="_blank" rel="noopener noreferrer">Open app homepage</a>',
     '          <div class="app-shotcase" aria-label="Naepopquiz app screens">',
     '            <div class="app-shot-track">',
     '              <!-- __COMPANY_ASSET_PRODUCT_SHOTS_START__ -->',
@@ -508,7 +510,57 @@ function renderCompanyPage(source) {
   return pageShell({ head, headerActive: "company", main });
 }
 
-function renderCareersPage(source) {
+function renderCareerListItem(job) {
+  return `<a class="job-row" data-primary-problems="${htmlEscape((job.primaryProblemIds || []).join(" "), true)}" href="careers.html?job_id=${encodeURIComponent(job.id)}"><div class="job-main"><h2 class="job-title">${htmlEscape(job.title)}</h2><p class="job-mission">${htmlEscape(job.mission)}</p></div><div class="job-side"><span class="meta-chip team">${htmlEscape(job.team)}</span><span class="job-arrow">→</span></div></a>`;
+}
+
+function renderCareerSection(title, items) {
+  return `<section class="detail-section"><h2>${htmlEscape(title)}</h2><ul>${items.map((item) => `<li>${htmlEscape(item)}</li>`).join("")}</ul></section>`;
+}
+
+function renderCareerDetail(job) {
+  return [
+    `<section class="view detail-view" data-english-job-detail="${htmlEscape(job.id, true)}" hidden>`,
+    '  <div class="shell">',
+    '    <div class="detail-header"><a class="back-link" href="careers.html">← All positions</a></div>',
+    '    <div class="detail-layout"><article>',
+    `      <div class="detail-title"><h1 tabindex="-1">${htmlEscape(job.title)}</h1><div class="detail-meta"><span class="meta-chip team">${htmlEscape(job.team)}</span><span class="meta-chip">${htmlEscape(job.employmentType)}</span><span class="meta-chip">${htmlEscape(job.location)}</span><span class="meta-chip">${htmlEscape(job.workMode)}</span></div><p class="detail-mission">${htmlEscape(job.mission)}</p></div>`,
+    `      ${renderCareerSection("What you will do", job.responsibilities)}`,
+    `      ${renderCareerSection("What we are looking for", job.requirements)}`,
+    `      ${renderCareerSection("Preferred experience", job.preferred)}`,
+    '    </article><aside class="detail-side"><h3>Position status</h3><ul><li>This review position is not currently accepting applications.</li><li>Questions: netmelon@netmelonai.com</li></ul></aside></div>',
+    '  </div>',
+    '</section>',
+  ].join("\n");
+}
+
+function normalizeEnglishCareers(payload) {
+  if (!payload || payload.locale !== "en" || !Array.isArray(payload.jobs) || !payload.jobs.length) {
+    throw new Error("English careers source must contain locale=en and at least one job.");
+  }
+  const ids = new Set();
+  return payload.jobs.map((job) => {
+    const normalized = {
+      ...job,
+      id: plainText(job.id),
+      title: assertEnglishText(`careers.${job.id}.title`, job.title),
+      team: assertEnglishText(`careers.${job.id}.team`, job.team),
+      employmentType: assertEnglishText(`careers.${job.id}.employmentType`, job.employmentType),
+      location: assertEnglishText(`careers.${job.id}.location`, job.location),
+      workMode: assertEnglishText(`careers.${job.id}.workMode`, job.workMode),
+      mission: assertEnglishText(`careers.${job.id}.mission`, job.mission),
+    };
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(normalized.id) || ids.has(normalized.id)) throw new Error(`Invalid or duplicate English career id: ${normalized.id}`);
+    ids.add(normalized.id);
+    for (const key of ["responsibilities", "requirements", "preferred"]) {
+      if (!Array.isArray(job[key]) || !job[key].length) throw new Error(`English career ${normalized.id} is missing ${key}.`);
+      normalized[key] = job[key].map((item, index) => assertEnglishText(`careers.${normalized.id}.${key}.${index}`, item));
+    }
+    return normalized;
+  });
+}
+
+function renderCareersPage(source, jobs) {
   const identity = source.identity;
   const description = plainText(identity.recruitingOneLiner);
   const schema = pageSchema(source, {
@@ -524,19 +576,31 @@ function renderCareersPage(source) {
     canonicalPath: "careers.html",
     schema,
     sourceVersionId: source.sourceVersionId,
-  });
+  }) + '\n  <link rel="stylesheet" href="../styles/careers.css">';
   const main = [
     '  <main class="careers-main">',
-    '    <section class="careers-hero" aria-label="Careers">',
-    '      <div class="shell careers-hero-grid">',
-    '        <div class="careers-hero-copy">',
-    '          <p class="story-kicker">Careers</p>',
+    '    <section class="view list-view" id="list-view">',
+    '      <div class="shell">',
+    '        <div class="list-hero"><p class="hero-eyebrow">NETMELON CAREERS</p>',
     `          <h1 id="hero-headline">${htmlEscape(description)}</h1>`,
-    '          <p id="hero-intro"></p>',
-    "        </div>",
-    "      </div>",
+    '          <p id="hero-intro">Review each role\'s mission, responsibilities, and qualifications.</p></div>',
+    '        <div class="filters" role="group" aria-label="Job filters">',
+    '          <label class="sr-only" for="search-input">Search positions</label><input id="search-input" type="search" placeholder="Search positions or keywords" disabled>',
+    '          <label class="sr-only" for="team-filter">Team filter</label><select id="team-filter" disabled><option>All teams</option></select>',
+    '          <label class="sr-only" for="type-filter">Employment type filter</label><select id="type-filter" disabled><option>All types</option></select>',
+    '        </div>',
+    `        <p class="job-count"><strong id="job-count">${jobs.length}</strong> review positions</p><div class="job-list" id="job-list">`,
+    ...jobs.map((job) => `          ${renderCareerListItem(job)}`),
+    '        </div>',
+    '        <section class="list-info" aria-label="Applicant privacy and hiring process">',
+    '          <article class="info-card"><h2>Applicant privacy</h2><ul><li>Application materials and contact details are used only for recruitment review and communication.</li><li>Do not submit sensitive information unrelated to recruitment.</li><li>You may request correction or deletion at netmelon@netmelonai.com.</li></ul><p><a href="/en/company-privacy">Privacy Policy</a></p></article>',
+    '          <article class="info-card"><h2>Hiring process</h2><ul><li>Document review, role interview, task or portfolio review, and final discussion.</li><li>Steps may change depending on the role and company circumstances.</li></ul></article>',
+    '        </section>',
+    '      </div>',
     "    </section>",
+    ...jobs.map(renderCareerDetail),
     "  </main>",
+    '  <script src="../scripts/careers-en.js" defer></script>',
   ].join("\n");
   return pageShell({ head, headerActive: "careers", main });
 }
@@ -561,22 +625,30 @@ function renderIrPage(source) {
   const main = [
     '  <main class="ir-main">',
     '    <section class="ir-flow" aria-label="IR request overview">',
-    '      <article class="ir-slide ir-hero-slide" id="ir-overview">',
-    '        <div class="ir-slide-inner ir-hero-grid">',
-    '          <div class="ir-hero-copy">',
-    '            <p class="ir-kicker">Investor Relations</p>',
-    `            <h1 class="ir-title">${htmlEscape(description)}</h1>`,
-    '            <p class="ir-subtitle">Public IR materials are shared only after request review.</p>',
-    '            <div class="ir-hero-cta">',
-    '              <a class="button primary" href="mailto:netmelon@netmelonai.com?subject=%5BIR%20Request%5D">Request IR materials</a>',
-    "            </div>",
-    "          </div>",
-    "        </div>",
+    '      <article class="ir-slide ir-request-slide" id="ir-request"><div class="ir-slide-inner ir-request-grid">',
+    `        <section class="ir-card"><p class="ir-kicker">Investor Relations</p><h1 class="ir-title wide">${htmlEscape(description)}</h1><p class="ir-subtitle">Leave your contact details and review purpose. We will respond after reviewing the request.</p></section>`,
+    '        <section class="ir-form-card" aria-label="IR materials request form"><h2>Request IR materials</h2>',
+    '          <form id="ir-request-form" novalidate><div class="ir-form-grid">',
+    '            <label class="ir-field"><span>Name *</span><input type="text" name="name" autocomplete="name" required></label>',
+    '            <label class="ir-field"><span>Email *</span><input type="email" name="email" autocomplete="email" required></label>',
+    '            <label class="ir-field"><span>Organization *</span><input type="text" name="organization" autocomplete="organization" required></label>',
+    '            <label class="ir-field"><span>Title *</span><input type="text" name="title" autocomplete="organization-title" required></label>',
+    '            <label class="ir-field"><span>Phone *</span><input type="tel" name="phone" autocomplete="tel" required></label>',
+    '            <label class="ir-field"><span>Investor type *</span><select name="investor_type" required><option value="" disabled selected>Select</option><option>VC</option><option>PE</option><option>CVC</option><option>Family Office</option><option value="Angel">Angel / Individual</option><option value="Other">Other</option></select></label>',
+    '            <label class="ir-field"><span>Requested materials *</span><select name="requested_material" required><option value="" disabled selected>Select</option><option>IR Deck</option><option>Financial Model</option><option>IR Deck + Financial Model</option></select></label>',
+    '            <label class="ir-field"><span>NDA availability *</span><select name="nda_preference" required><option value="" disabled selected>Select</option><option value="possible">Available</option><option value="needs_discussion">Needs discussion</option><option value="impossible">Unavailable</option></select></label>',
+    '            <label class="ir-field full"><span>Purpose and background *</span><textarea name="request_note" required maxlength="4000" rows="5"></textarea></label>',
+    '            <label class="ir-field full ir-check"><input type="checkbox" name="consent" required><span>I consent to the collection and use of the submitted information to review and respond to this request. <a href="/en/company-privacy">Privacy Policy</a> *</span></label>',
+    '            <label class="intake-honeypot" aria-hidden="true"><span>Website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>',
+    '          </div><div class="ir-form-actions"><button type="submit" class="button primary"><span class="ir-submit-label">Submit request</span><span class="ir-submit-spinner" aria-hidden="true"></span></button><p class="ir-status" id="ir-request-status" aria-live="polite"></p></div></form>',
+    '        </section></div>',
     "      </article>",
+    '      <article class="ir-slide ir-policy-slide" id="ir-policy"><div class="ir-slide-inner"><p class="ir-kicker">IR Policy</p><h2 class="ir-title wide">Materials are shared in stages after review.</h2><div class="ir-policy-grid"><section class="ir-card"><h3>Scope</h3><p>Detailed materials are shared after the requester and purpose have been reviewed.</p></section><section class="ir-card"><h3>Response</h3><p>We respond by email or a follow-up meeting after reviewing the request and NDA preference.</p></section><section class="ir-card"><h3>Personal information</h3><p>Submitted information is used only for request review, follow-up contact, and internal request records.</p></section></div></div></article>',
     "    </section>",
     "  </main>",
+    '  <script src="../scripts/ir-intake.js" defer></script>',
   ].join("\n");
-  return pageShell({ head, headerActive: "ir", main });
+  return pageShell({ head, bodyClass: "ir-request-page", headerActive: "ir", main });
 }
 
 function renderAnnouncementList(announcements, source) {
@@ -765,7 +837,21 @@ function normalizeOpenProblems(payload) {
     for (const key of ["problemId", "slug", "title", "summary", "category", "whyItMatters"]) assertEnglishText(`openProblems.${item.problemId}.${key}`, item[key]);
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.slug)) throw new Error("English Open Problems has an invalid slug.");
   }
+  if (REVIEW_MODE && problems.some((item) => item.problemId === "consumer-marketplace-growth")) {
+    const byId = Object.fromEntries(problems.map((item) => [item.problemId, item]));
+    const clone = (sourceId, problemId, sortOrder, title, category) => ({ ...byId[sourceId], problemId, slug: problemId, sortOrder, title, category });
+    return [clone("consumer-marketplace-growth", "paid-learner-growth", 1, "How do we acquire the first paying learners and keep them speaking?", "Paid Learner Growth"), { ...byId["learning-content-lead"], sortOrder: 2 }, clone("consumer-marketplace-growth", "creator-supply", 3, "How do we build a repeatable supply of trusted creator content?", "Creator Supply"), { ...byId["content-rights"], sortOrder: 4 }, { ...byId["ai-business-model"], sortOrder: 5 }, clone("product-design", "first-speech-product-research", 6, "How do we help learners reach their first successful spoken response?", "First Speech Product Research"), { ...byId["multilingual-pronunciation"], sortOrder: 7 }, { ...byId["adaptive-shadowing-stream"], sortOrder: 8 }, { ...byId["llm-content-engineering"], sortOrder: 9 }];
+  }
   return problems.slice().sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0));
+}
+
+let englishCareerJobs = [];
+function renderEnglishCareerLink(item, prefix = "") {
+  const jobs = englishCareerJobs.filter((job) => (job.primaryProblemIds || []).includes(item.problemId));
+  if (!jobs.length) return "";
+  const query = jobs.length === 1 ? "job_id=" + encodeURIComponent(jobs[0].id) : "problem_id=" + encodeURIComponent(item.problemId);
+  const reviewOnly = jobs.every((job) => job.status === "closed");
+  return `<a class="problem-career-link" href="${prefix}careers.html?${query}" data-career-status="${reviewOnly ? "closed" : "open"}"${reviewOnly ? " hidden" : ""}>${jobs.length === 1 ? "View related position" : "View " + jobs.length + " related positions"}</a>`;
 }
 
 function openProblemList(items, key) {
@@ -773,12 +859,25 @@ function openProblemList(items, key) {
   return values.length ? `<ul>${values.map((item) => `<li>${htmlEscape(item)}</li>`).join("")}</ul>` : "";
 }
 
+function renderEnglishProblemForm(item, privacyHref) {
+  return `<form class="problem-application-form" novalidate><input type="hidden" name="problemId" value="${htmlEscape(item.problemId, true)}"><label class="problem-intake-field"><span>Name</span><input type="text" name="name" autocomplete="name" maxlength="200" required></label><label class="problem-intake-field"><span>Email</span><input type="email" name="email" autocomplete="email" maxlength="240" required></label><label class="problem-intake-field full"><span>Proposed solution</span><textarea name="solutionProposal" rows="6" minlength="10" maxlength="5000" placeholder="Tell us how you would approach and validate this problem." required></textarea></label><label class="problem-intake-field full"><span>Resource URL <small>optional</small></span><input type="url" name="resourceUrl" inputmode="url" maxlength="1000" placeholder="https://"></label><label class="problem-intake-honeypot" aria-hidden="true"><span>Website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label><label class="problem-intake-consent full"><input type="checkbox" name="consent" required><span>I consent to the collection of my name, email, and proposal for review and contact. <a href="${privacyHref}">Privacy Policy</a></span></label><div class="problem-intake-actions full"><button class="problem-intake-submit" type="submit"><span>Send solution</span><i aria-hidden="true"></i></button><p class="problem-intake-status" aria-live="polite"></p></div></form>`;
+}
+
+function renderEnglishProblemCard(item) {
+  const accepting = item.status === "open" || item.status === "exploring";
+  const panelId = `problem-application-${item.slug}`;
+  const career = renderEnglishCareerLink(item);
+  const solution = accepting ? `<button class="problem-interest" type="button" data-problem-application-toggle aria-expanded="false" aria-controls="${panelId}"><span data-problem-application-label>Send solution</span></button>` : "";
+  const form = accepting ? `<section class="problem-application" id="${panelId}" hidden><div class="problem-application-head"><h3>${htmlEscape(item.category)} solution</h3><p>Tell us how you would approach and validate this problem.</p></div>${renderEnglishProblemForm(item, "/en/company-privacy")}</section>` : "";
+  return `<details class="problem-card" id="${htmlEscape(item.slug, true)}"><summary><div class="problem-card-title"><div class="problem-meta"><span class="${accepting ? "is-open" : ""}">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h3>${htmlEscape(item.title)}</h3><p class="problem-summary">${htmlEscape(item.summary)}</p></div></summary><div class="problem-card-body"><div class="problem-card-actions"><a class="problem-detail-link" href="/en/problems/${htmlEscape(item.slug, true)}">View problem</a>${solution}${career}</div>${form}</div></details>`;
+}
+
 function renderOpenProblemsPage(source, payload, problems) {
   const description = assertEnglishText("openProblems.intro", payload.intro);
   const schema = pageSchema(source, { type: "CollectionPage", id: "problems", name: "Netmelon | Open problems", description, pathName: "problems.html" });
   const head = renderHead({ title: "Netmelon | Open problems", description, canonicalPath: "problems.html", schema, sourceVersionId: payload.sourceVersionId }) + '\n  <link rel="stylesheet" href="../styles/problems.css">';
-  const cards = problems.map((item) => `<article class="problem-card"><div class="problem-meta"><span class="is-open">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h2>${htmlEscape(item.title)}</h2><p>${htmlEscape(item.summary)}</p><a class="problem-detail-link" href="problems/${htmlEscape(item.slug, true)}.html">View problem</a></article>`).join("\n");
-  const main = `<main class="problems-main"><section class="problems-hero"><div class="problems-hero-inner"><p class="problems-kicker">${htmlEscape(payload.eyebrow)}</p><h1>${htmlEscape(payload.headline)}</h1><p class="problems-hero-copy">${htmlEscape(description)}</p></div></section><section class="problems-collection"><div class="problems-section-head"><p class="problems-kicker">What we are solving</p><h2>Problems to solve together</h2></div><div class="problem-card-list">${cards}</div></section></main>`;
+  const cards = problems.map(renderEnglishProblemCard).join("\n");
+  const main = `<main class="problems-main"><section class="problems-hero"><div class="problems-hero-inner"><p class="problems-kicker">${htmlEscape(payload.eyebrow)}</p><h1>${htmlEscape(payload.headline)}</h1><p class="problems-hero-copy">${htmlEscape(description)}</p></div></section><section class="problems-collection"><div class="problems-section-head"><p class="problems-kicker">What we are solving</p><h2>Problems to solve together</h2></div><div class="problem-card-list">${cards}</div></section></main><script src="../scripts/problem-intake.js" defer></script>`;
   return pageShell({ head, headerActive: "problems", main });
 }
 
@@ -786,7 +885,12 @@ function renderOpenProblemDetail(source, payload, item) {
   const pathName = `problems/${item.slug}.html`;
   const head = renderHead({ title: `Netmelon | ${item.title}`, description: item.summary, canonicalPath: pathName, schema: pageSchema(source, { type: "WebPage", id: item.problemId, name: item.title, description: item.summary, pathName }), assetPrefix: "../../", sourceVersionId: payload.sourceVersionId }) + '\n  <link rel="stylesheet" href="../../styles/problems.css">';
   const sections = [["Why this matters", [item.whyItMatters]], ["What we know", item.currentEvidence], ["Questions to answer", item.unknowns], ["Principles and constraints", item.constraints], ["Experience we are looking for", item.neededExpertise?.length ? item.neededExpertise : item.desiredContributions]].map(([title, values]) => `<section class="problem-detail-section"><h2>${title}</h2>${openProblemList(values)}</section>`).join("\n");
-  const main = `<main class="problem-detail-main"><section class="problem-detail-hero"><div class="problem-detail-shell"><a class="problem-detail-back" href="../problems.html">All open problems</a><div class="problem-meta"><span class="is-open">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h1>${htmlEscape(item.title)}</h1><p class="problem-detail-summary">${htmlEscape(item.summary)}</p></div></section><section class="problem-detail-body"><div class="problem-detail-shell">${sections}</div></section></main>`;
+  const accepting = item.status === "open" || item.status === "exploring";
+  const careerLink = renderEnglishCareerLink(item, "../");
+  const primaryAction = accepting ? '<a class="problem-detail-primary-action" href="#participate">Propose a solution</a>' : "";
+  const heroActions = careerLink ? `<div class="problem-card-actions">${primaryAction}${careerLink}</div>` : primaryAction;
+  const participation = accepting ? `<section class="problem-detail-participation" id="participate"><div class="problem-application-head"><p class="problems-kicker">Solution</p><h2>Send your solution</h2><p>Tell us how you would approach and validate this problem.</p></div>${renderEnglishProblemForm(item, "/en/company-privacy")}</section>` : "";
+  const main = `<main class="problem-detail-main"><section class="problem-detail-hero"><div class="problem-detail-shell"><a class="problem-detail-back" href="/en/problems">All open problems</a><div class="problem-meta"><span class="is-open">${item.status === "open" ? "Open" : "Exploring"}</span><span>${htmlEscape(item.category)}</span></div><h1>${htmlEscape(item.title)}</h1><p class="problem-detail-summary">${htmlEscape(item.summary)}</p>${heroActions}</div></section><section class="problem-detail-body"><div class="problem-detail-shell">${sections}</div></section>${participation}</main><script src="../../scripts/problem-intake.js" defer></script>`;
   return pageShell({ head, headerActive: "problems", main, hrefPrefix: "../", assetPrefix: "../../" });
 }
 
@@ -795,9 +899,18 @@ async function readOpenProblemsIfPresent() {
   catch (error) { if (error?.code === "ENOENT") return null; throw error; }
 }
 
+async function cleanupStaleEnglishProblemDetails(problems) {
+  await mkdir(OPEN_PROBLEM_DETAIL_DIR, { recursive: true });
+  const expected = new Set(problems.map((item) => `${item.slug}.html`));
+  const entries = await readdir(OPEN_PROBLEM_DETAIL_DIR, { withFileTypes: true }).catch(() => []);
+  await Promise.all(entries.filter((entry) => entry.isFile() && entry.name.endsWith(".html") && !expected.has(entry.name)).map((entry) => unlink(path.join(OPEN_PROBLEM_DETAIL_DIR, entry.name))));
+}
+
 async function main() {
   const source = JSON.parse(await readFile(COMPANY_SOURCE_PATH, "utf8"));
   assertSource(source);
+  const careers = normalizeEnglishCareers(JSON.parse(await readFile(CAREERS_PATH, "utf8")));
+  englishCareerJobs = careers;
 
   const announcementsPayload = await readAnnouncementsIfPresent();
   const announcements = normalizeAnnouncements(announcementsPayload);
@@ -810,10 +923,11 @@ async function main() {
   await Promise.all([
     writeFile(path.join(OUTPUT_DIR, "index.html"), renderHomePage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "company.html"), renderCompanyPage(source), "utf8"),
+    writeFile(path.join(OUTPUT_DIR, "careers.html"), renderCareersPage(source, careers), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "ir.html"), renderIrPage(source), "utf8"),
     writeFile(path.join(OUTPUT_DIR, "announcement.html"), renderAnnouncementPage(source, announcements), "utf8"),
     cleanupStaleEnglishAnnouncementDetails(announcements),
-    ...(openProblemsPayload ? [mkdir(OPEN_PROBLEM_DETAIL_DIR, { recursive: true }), writeFile(path.join(OUTPUT_DIR, "problems.html"), renderOpenProblemsPage(source, openProblemsPayload, openProblems), "utf8")] : []),
+    ...(openProblemsPayload ? [cleanupStaleEnglishProblemDetails(openProblems), writeFile(path.join(OUTPUT_DIR, "problems.html"), renderOpenProblemsPage(source, openProblemsPayload, openProblems), "utf8")] : []),
   ]);
   await Promise.all(announcements.map((item) => (
     writeFile(path.join(ANNOUNCEMENT_DETAIL_DIR, `${item.slug}.html`), renderAnnouncementDetailPage(source, item), "utf8")

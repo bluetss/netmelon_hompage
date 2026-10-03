@@ -618,10 +618,10 @@ async function checkCompanyFooterRoutes() {
     .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
     .map((entry) => `en/problems/${entry.name}`);
   const pages = [
-    ...["index.html", "company.html", "problems.html", "announcement.html", "ir.html"].map((file) => ({ file, locale: "ko" })),
+    ...["index.html", "company.html", "company-privacy.html", "problems.html", "announcement.html", "ir.html"].map((file) => ({ file, locale: "ko" })),
     ...announcementPages.map((file) => ({ file, locale: "ko" })),
     ...problemPages.map((file) => ({ file, locale: "ko" })),
-    ...["en/index.html", "en/company.html", "en/announcement.html", "en/ir.html", "en/problems.html"].map((file) => ({ file, locale: "en" })),
+    ...["en/index.html", "en/company.html", "en/company-privacy.html", "en/careers.html", "en/announcement.html", "en/ir.html", "en/problems.html"].map((file) => ({ file, locale: "en" })),
     ...englishAnnouncementPages.map((file) => ({ file, locale: "en" })),
     ...englishProblemPages.map((file) => ({ file, locale: "en" })),
   ];
@@ -643,6 +643,8 @@ async function checkCompanyFooterRoutes() {
       assert(!/[가-힣]/.test(footer), `${page.file} English footer contains Korean fallback text.`);
     }
     assert(!footer.includes(profile.customerSupportEmail), `${page.file} footer exposes customer support email instead of the dedicated support surface.`);
+    const privacyRoute = page.locale === "en" ? "/en/company-privacy" : "/company-privacy";
+    assert(footer.includes(`href="${privacyRoute}"`), `${page.file} footer is missing the company-site privacy route ${privacyRoute}.`);
 
     for (const route of appLegalRoutes) {
       assert(!footer.includes(`href="${route}"`), `${page.file} footer links to app legal route ${route}.`);
@@ -668,79 +670,65 @@ async function checkSharedSiteShell() {
   const shellTargets = [
     {
       file: "index.template.html",
-      brandHref: "https://netmelonai.com/",
+      brandHref: "/",
       productHref: "#naepopquiz-app",
-      englishHref: "en/index.html",
+      englishHref: "/en",
       active: "",
     },
     {
       file: "index.html",
-      brandHref: "https://netmelonai.com/",
+      brandHref: "/",
       productHref: "#naepopquiz-app",
-      englishHref: "en/index.html",
+      englishHref: "/en",
       active: "",
     },
     {
       file: "company.template.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/company.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/company",
       active: "company",
     },
     {
       file: "company.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/company.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/company",
       active: "company",
     },
     {
-      file: "careers.template.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/careers.html",
-      active: "careers",
-    },
-    {
-      file: "careers.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/careers.html",
-      active: "careers",
-    },
-    {
       file: "problems.template.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/index.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/problems",
       active: "problems",
     },
     {
       file: "problems.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/index.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/problems",
       active: "problems",
     },
     {
       file: "ir.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/ir.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/ir",
       active: "ir",
     },
     {
       file: "announcement.template.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/announcement.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/announcement",
       active: "announcement",
     },
     {
       file: "announcement.html",
-      brandHref: "index.html",
-      productHref: "index.html#naepopquiz-app",
-      englishHref: "en/announcement.html",
+      brandHref: "/",
+      productHref: "/#naepopquiz-app",
+      englishHref: "/en/announcement",
       active: "announcement",
     },
   ];
@@ -781,8 +769,6 @@ async function checkSharedSiteShell() {
     "account-deletion",
     "refund",
     "support",
-    "/en/",
-    "en/",
   ];
   const indent = (source) => source.split("\n").map((line) => `  ${line}`).join("\n");
   const activeClass = (target, active) => (target === active ? ' class="is-current"' : "");
@@ -918,8 +904,21 @@ async function checkOpenProblemsAndCareers() {
 
   const problems = Array.isArray(payload.problems) ? payload.problems : [];
   const rankedProblems = problems.slice().sort((left, right) => Number(left?.sortOrder || 0) - Number(right?.sortOrder || 0));
-  assert(rankedProblems[0]?.problemId === "consumer-marketplace-growth", "Consumer marketplace growth must remain open-problem priority 1.");
-  assert(rankedProblems[1]?.problemId === "learning-content-lead", "Learning and content transfer must remain open-problem priority 2.");
+  const canonicalProblemOrder = [
+    "paid-learner-growth",
+    "learning-content-lead",
+    "creator-supply",
+    "content-rights",
+    "ai-business-model",
+    "first-speech-product-research",
+    "multilingual-pronunciation",
+    "adaptive-shadowing-stream",
+    "llm-content-engineering",
+  ];
+  assert(
+    JSON.stringify(rankedProblems.map((problem) => problem.problemId)) === JSON.stringify(canonicalProblemOrder),
+    "Open problems must contain the nine canonical problem IDs in public priority order.",
+  );
   const careersPayload = parseJson(await read("data/careers.ko.json"), "data/careers.ko.json") || {};
   const careerJobs = Array.isArray(careersPayload.jobs) ? careersPayload.jobs : [];
   const rankedCareerJobs = careerJobs.slice().sort((left, right) => Number(left?.num || 0) - Number(right?.num || 0));
@@ -930,17 +929,36 @@ async function checkOpenProblemsAndCareers() {
       && rankedCareerJobs[1].technicalChallenges.some((item) => /^Primary\s*·\s*learning-content-lead\b/.test(String(item || "").trim())),
     "Conversation Learning Scientist must directly own only the learning-content-lead problem mapping.",
   );
-  const legacyProblemIds = {
-    "consumer-marketplace-growth": ["paid-learner-growth", "creator-supply"],
-    "product-design": ["first-speech-product-research"],
-  };
   const mappedJobs = (problem) => {
-    const acceptedIds = new Set([problem.problemId, ...(legacyProblemIds[problem.problemId] || [])]);
     return careerJobs.filter((job) => (Array.isArray(job?.technicalChallenges) ? job.technicalChallenges : []).some((item) => {
       const mappedId = String(item || "").trim().match(/^Primary\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1];
-      return mappedId && acceptedIds.has(mappedId);
+      return mappedId === problem.problemId;
     }));
   };
+  const expectedCareerOwners = {
+    "paid-learner-growth": ["founding-growth-creator-partnerships"],
+    "learning-content-lead": ["founding-conversation-learning-scientist"],
+    "creator-supply": ["conversation-content-producer-pd", "english-speaking-content-contributor"],
+  };
+  const careersTemplate = await read("careers.template.html");
+  assert(careersTemplate.includes('params.get("problem_id")'), "Careers must accept an exact problem_id filter.");
+  assert(careersTemplate.includes("mappedPrimaryProblemIds(job).includes(problemId)"), "Careers problem filtering must use only Primary mappings.");
+  assert(careersTemplate.includes('"app-dev.naepopquiz.com"'), "Careers staging preview must allow the app-dev custom domain.");
+  assert(careersTemplate.includes('"company-dev.netmelonai.com"'), "Careers staging preview must allow the canonical company-dev custom domain.");
+  const careersPage = await read("careers.html");
+  assert(careersPage.includes('"app-dev.naepopquiz.com"'), "Generated careers staging preview must allow the app-dev custom domain.");
+  assert(careersPage.includes('"company-dev.netmelonai.com"'), "Generated careers staging preview must allow the canonical company-dev custom domain.");
+  const problemIntakeScript = await read("scripts/problem-intake.js");
+  assert(problemIntakeScript.includes('"app-dev.naepopquiz.com"'), "Problem CTA staging preview must allow the app-dev custom domain.");
+  assert(problemIntakeScript.includes('"company-dev.netmelonai.com"'), "Problem CTA staging preview must allow the canonical company-dev custom domain.");
+  for (const problem of rankedProblems) {
+    const actualOwners = mappedJobs(problem).map((job) => job.id).sort();
+    const expectedOwners = (expectedCareerOwners[problem.problemId] || []).slice().sort();
+    assert(
+      JSON.stringify(actualOwners) === JSON.stringify(expectedOwners),
+      problem.problemId + " must render only its directly owned career position.",
+    );
+  }
   assert(problems.length > 0, dataFile + " must include at least one problem.");
   assert(problems.some((problem) => ["open", "exploring"].includes(problem?.status)), dataFile + " must include an open or exploring problem.");
   const page = await read("problems.html");
@@ -953,11 +971,10 @@ async function checkOpenProblemsAndCareers() {
   const participatingProblems = problems.filter((problem) => ["open", "exploring"].includes(problem?.status));
   const inlineFormCount = (page.match(/class="problem-application-form"/g) || []).length;
   const inlineToggleCount = (page.match(/data-problem-application-toggle/g) || []).length;
-  const expectedCareerLinkCount = participatingProblems.reduce((count, problem) => count + mappedJobs(problem).length, 0);
+  const expectedCareerLinkCount = participatingProblems.reduce((count, problem) => count + Math.min(mappedJobs(problem).length, 1), 0);
   const actualCareerLinkCount = (page.match(/class="problem-career-link"/g) || []).length;
   assert(inlineFormCount === participatingProblems.length, "problems.html must render one inline application form per participating problem.");
   assert(inlineToggleCount === participatingProblems.length, "problems.html must render one application toggle per participating problem.");
-  assert(actualCareerLinkCount === expectedCareerLinkCount, "problems.html must render careers actions only for directly owned Primary problems.");
   for (const problem of participatingProblems) {
     assert(
       page.includes('name="problemId" value="' + String(problem.problemId) + '"'),
@@ -967,6 +984,28 @@ async function checkOpenProblemsAndCareers() {
   assert(!page.includes('id="problem-intake-form"') && !page.includes('id="problem-intake"'), "problems.html must not restore the separate bottom application section.");
   assert(!page.includes('<select name="problemId"'), "problems.html inline application forms must not ask visitors to select the problem again.");
   assert(page.includes('scripts/problem-intake.js'), "problems.html is missing the participation form script.");
+  for (const previewHost of ["company-dev.netmelonai.com", "npq-company-dev.web.app", "localhost", "127.0.0.1"]) {
+    assert(problemIntakeScript.includes(`"${previewHost}"`), `problem-intake.js must recognize preview host ${previewHost}.`);
+  }
+  assert(problemIntakeScript.includes('[data-career-status="closed"]'), "problem-intake.js must control review-only career links.");
+  assert(problemIntakeScript.includes("npq-company-dev--[a-z0-9-]+"), "problem-intake.js must recognize Firebase Preview channel hosts.");
+  assert(careersTemplate.includes("withPreviewJobs"), "careers preview must merge review-only roles with the public source.");
+  assert(careersTemplate.includes("npq-company-dev--[a-z0-9-]+"), "careers preview must recognize Firebase Preview channel hosts.");
+  assert(
+    careersTemplate.includes("Promise.race([")
+      && careersTemplate.includes("Firestore load timed out; fallback JSON will be used.")
+      && careersTemplate.includes("}, 3000);"),
+    "careers runtime must bound Firestore loading and fall back to the staged JSON snapshot.",
+  );
+  const reviewJobs = careerJobs.filter((job) => job.status === "closed");
+  const approvedReviewIds = ["founding-growth-creator-partnerships", "founding-conversation-learning-scientist", "english-speaking-content-contributor", "conversation-content-producer-pd"];
+  assert(JSON.stringify(reviewJobs.map((job) => job.id).sort()) === JSON.stringify(approvedReviewIds.slice().sort()), "Careers preview must preserve the four user-approved closed review roles.");
+  assert(actualCareerLinkCount === expectedCareerLinkCount, "problems.html must render careers actions only for directly owned Primary problems.");
+  assert(payload.headline === "네트멜론이 내팝퀴즈를 통해 풀고 있는 문제들입니다.", "Open Problems preview headline regressed.");
+  assert(payload.previewReviewRevision === "company-problems-review-2026-09-16", "Open Problems preview review revision is missing.");
+  assert(page.includes('class="problem-career-link"'), "problems.html must render mapped career actions.");
+  const problemsCss = await read("styles/problems.css");
+  assert(/\.problem-career-link\s*\{[^}]*display:\s*inline-flex;[^}]*border-radius:\s*999px;/s.test(problemsCss), "mapped career links must render as pill buttons.");
   assert(page.includes('data-api-base="https://'), "problems.html is missing the production intake API base.");
   assert(!/data-problem-id[^>]*href="mailto:/i.test(page), "problems.html must use the online form instead of a mailto problem CTA.");
   const internalOnlyPhrases = [
@@ -998,7 +1037,7 @@ async function checkOpenProblemsAndCareers() {
   for (const file of actualDetailFiles) {
     assert(expectedDetailFiles.has(file), "problems/ contains a stale detail page: " + file);
   }
-  const rejectedParticipationPhrases = ["지원서", "지원 접수", "관련 경험", "접수가 완료"];
+  const rejectedParticipationPhrases = ["지원하기", "지원서", "지원 접수", "관련 경험", "접수가 완료"];
   for (const problem of problems) {
     const detailPath = "problems/" + problem.slug + ".html";
     const detailUrl = "https://netmelonai.com/" + detailPath;
@@ -1013,15 +1052,22 @@ async function checkOpenProblemsAndCareers() {
     assert(!detail.includes("__OPEN_PROBLEM_"), detailPath + " contains unresolved Open Problem markers.");
     const directJobs = mappedJobs(problem);
     const detailCareerLinkCount = (detail.match(/class="problem-career-link"/g) || []).length;
-    assert(detailCareerLinkCount === directJobs.length, detailPath + " must render careers actions only for directly owned Primary problems.");
-    for (const job of directJobs) {
+    assert(detailCareerLinkCount === Math.min(directJobs.length, 1), detailPath + " must render one direct or grouped careers action for its Primary positions.");
+    if (directJobs.length === 1) {
+      const job = directJobs[0];
       const listHref = 'careers.html?job_id=' + encodeURIComponent(String(job.id));
       const detailHref = '../' + listHref;
       assert(page.includes('href="' + listHref + '"'), "problems.html is missing the mapped careers action for " + problem.problemId);
       assert(detail.includes('href="' + detailHref + '"'), detailPath + " is missing its mapped careers action.");
-      if (job.status !== "open") {
-        assert(page.includes('data-career-status="' + String(job.status) + '"') && page.includes(" hidden"), "review-only careers actions must be hidden outside staging preview.");
-      }
+    } else if (directJobs.length > 1) {
+      const listHref = 'careers.html?problem_id=' + encodeURIComponent(String(problem.problemId));
+      const detailHref = '../' + listHref;
+      assert(page.includes('href="' + listHref + '"'), "problems.html is missing the grouped careers action for " + problem.problemId);
+      assert(detail.includes('href="' + detailHref + '"'), detailPath + " is missing its grouped careers action.");
+      assert(page.includes('관련 채용 포지션 ' + directJobs.length + '개 보기'), "grouped careers action must state its exact position count.");
+    }
+    if (directJobs.length > 0 && !directJobs.some((job) => job.status === "open")) {
+      assert(page.includes('data-career-status="closed"') && page.includes(" hidden"), "review-only careers actions must be hidden outside staging preview.");
     }
     for (const phrase of rejectedParticipationPhrases) {
       assert(!detail.includes(phrase), detailPath + " contains obsolete application wording: " + phrase);
@@ -1058,7 +1104,7 @@ async function checkOpenProblemsAndCareers() {
   ];
   for (const file of publicNavigationFiles) {
     const source = await read(file);
-    assert(/href="[^"]*careers\.html/i.test(source), file + " must expose the careers route.");
+    assert(/href="(?:\/en)?\/careers"/i.test(source), file + " must expose the locale-aware careers route.");
   }
   const sitemap = await read("sitemap.xml");
   assert(sitemap.includes("careers.html"), "sitemap.xml must expose the careers route.");
@@ -1145,6 +1191,53 @@ async function checkProductionUrls() {
   }
 }
 
+async function checkLocaleRouteAndUiParity() {
+  const englishPages = ["en/index.html", "en/company.html", "en/careers.html", "en/problems.html", "en/ir.html", "en/announcement.html"];
+  const expectedEnglishRoutes = ["/en/company", "/en#naepopquiz-app", "/en/problems", "/en/careers", "/en/ir", "/en/announcement"];
+  for (const file of englishPages) {
+    const source = await read(file);
+    for (const route of expectedEnglishRoutes) assert(source.includes(`href="${route}"`), `${file} is missing locale-safe route ${route}.`);
+    assert(!/href="(?:\.\.\/)*problems\.html"/.test(source), `${file} contains a relative Open Problems route that can escape /en.`);
+  }
+  const home = await read("index.html");
+  const companyCss = await read("styles/company.css");
+  const englishHome = await read("en/index.html");
+  assert(home.includes("data-app-homepage-link"), "index.html app homepage CTA must use the environment-aware link marker.");
+  assert(englishHome.includes("data-app-homepage-link"), "en/index.html app homepage CTA must use the environment-aware link marker.");
+  assert(/\.app-shotcase\s*{[\s\S]*?pointer-events:\s*none;[\s\S]*?}/.test(companyCss), "App screenshots must not intercept the app-homepage CTA click target.");
+  const englishCareers = await read("en/careers.html");
+  const englishCareersRuntime = await read("scripts/careers-en.js");
+  const englishIr = await read("en/ir.html");
+  const englishProblems = await read("en/problems.html");
+  assert(englishCareers.includes('id="list-view"') && englishCareers.includes('class="filters"'), "en/careers.html must preserve the careers list UI structure.");
+  const englishCareerIds = ["founding-growth-creator-partnerships", "founding-conversation-learning-scientist", "english-speaking-content-contributor", "conversation-content-producer-pd"];
+  const englishCareerData = parseJson(await read("data/careers.en.json"), "data/careers.en.json");
+  assert(JSON.stringify(englishCareerData.jobs.map((job) => job.id).sort()) === JSON.stringify(englishCareerIds.slice().sort()), "English careers must preserve exactly the four approved review roles.");
+  assert(englishCareerData.jobs.every((job) => job.status === "closed"), "English review roles must remain closed.");
+  const koreanCareerData = parseJson(await read("data/careers.ko.json"), "data/careers.ko.json");
+  for (const job of englishCareerData.jobs) {
+    const korean = koreanCareerData.jobs.find((item) => item.id === job.id);
+    const primary = (korean?.technicalChallenges || []).map((item) => String(item).trim().match(/^Primary\s*·\s*([a-z0-9]+(?:-[a-z0-9]+)*)\b/)?.[1]).filter(Boolean).sort();
+    assert(JSON.stringify(primary) === JSON.stringify((job.primaryProblemIds || []).slice().sort()), "KO/EN primary problem mappings must agree for " + job.id);
+  }
+  for (const jobId of englishCareerIds) {
+    assert(englishCareers.includes(`href="careers.html?job_id=${jobId}"`), `en/careers.html must link the ${jobId} list item to its detail route.`);
+    assert(englishCareers.includes(`data-english-job-detail="${jobId}"`), `en/careers.html must render detail content for ${jobId}.`);
+  }
+  assert(englishProblems.includes("careers.html?job_id=founding-conversation-learning-scientist"), "English Learning Content must link its approved role.");
+  assert(englishProblems.includes("careers.html?problem_id=creator-supply"), "English Creator Supply must link its two approved roles.");
+  assert(englishCareers.includes('scripts/careers-en.js'), "en/careers.html must load the English career detail router.");
+  assert(englishCareersRuntime.includes('new URLSearchParams(window.location.search).get("job_id")'), "English career detail router must resolve job_id from the URL.");
+  assert(englishIr.includes('id="ir-request-form"') && englishIr.includes('name="consent"'), "en/ir.html must preserve the IR request and consent structure.");
+  assert(englishProblems.includes('class="problem-application-form"'), "en/problems.html review preview must expose the proposal form structure.");
+  assert(englishProblems.includes('<summary><div class="problem-card-title">'), "en/problems.html must keep each card copy in the shared title column.");
+  assert(englishProblems.includes('class="problem-summary"'), "en/problems.html must use the shared summary wrapping contract.");
+  const companyPrivacy = await read("company-privacy.html");
+  const englishCompanyPrivacy = await read("en/company-privacy.html");
+  assert(companyPrivacy.includes("접수일로부터 1년"), "company-privacy.html must disclose the company intake retention period.");
+  assert(englishCompanyPrivacy.includes("one year from submission"), "en/company-privacy.html must disclose the company intake retention period.");
+}
+
 async function main() {
   await checkCompanySourceBuild();
   await checkCompanyAnnouncements();
@@ -1156,6 +1249,7 @@ async function main() {
   await checkSharedSiteShell();
   await checkOpenProblemsAndCareers();
   await checkStructuredData();
+  await checkLocaleRouteAndUiParity();
   await checkProductionUrls();
 
   if (failures.length) {

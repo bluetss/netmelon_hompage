@@ -26,10 +26,6 @@ const INTAKE_API_BASE = String(
 ).replace(/\/+$/, "");
 const ALLOWED_STATUSES = new Set(["exploring", "open", "paused", "closed"]);
 const STATUS_LABEL = { exploring: "논의 중", open: "참여 가능", paused: "잠시 멈춤", closed: "마감" };
-const LEGACY_PROBLEM_IDS = {
-  "consumer-marketplace-growth": ["paid-learner-growth", "creator-supply"],
-  "product-design": ["first-speech-product-research"],
-};
 
 const clean = (value) => String(value ?? "").trim();
 const htmlEscape = (value, quote = false) => clean(value)
@@ -110,7 +106,7 @@ function replaceOnce(source, marker, replacement) {
 }
 
 
-function renderApplicationForm(problem, privacyHref = "privacy.html") {
+function renderApplicationForm(problem, privacyHref = "/company-privacy") {
   return [
     '<form class="problem-application-form" data-api-base="' + htmlEscape(INTAKE_API_BASE, true) + '" novalidate>',
     '<input type="hidden" name="problemId" value="' + htmlEscape(problem.problemId, true) + '">',
@@ -132,9 +128,8 @@ function mappedProblemIds(job) {
 }
 
 function careersByProblem(careersSource) {
-  const jobs = Array.isArray(careersSource?.jobs) ? careersSource.jobs : [];
   const result = new Map();
-  for (const job of jobs) {
+  for (const job of Array.isArray(careersSource?.jobs) ? careersSource.jobs : []) {
     const id = clean(job?.id);
     const title = clean(job?.title);
     const status = clean(job?.status);
@@ -149,19 +144,17 @@ function careersByProblem(careersSource) {
 }
 
 function careersForProblem(problem, careerMap) {
-  const ids = [problem.problemId, ...(LEGACY_PROBLEM_IDS[problem.problemId] || [])];
-  const seen = new Set();
-  return ids.flatMap((id) => careerMap.get(id) || []).filter((job) => {
-    if (seen.has(job.id)) return false;
-    seen.add(job.id);
-    return true;
-  });
+  return careerMap.get(problem.problemId) || [];
 }
 
-function renderCareerLinks(careers, hrefPrefix = "") {
+function renderCareerLinks(careers, hrefPrefix = "", problemId = "") {
+  if (careers.length > 1) {
+    const reviewOnly = !careers.some((job) => job.status === "open");
+    return '<a class="problem-career-link" href="' + hrefPrefix + 'careers.html?problem_id=' + encodeURIComponent(problemId) + '" data-career-status="' + (reviewOnly ? "closed" : "open") + '" aria-label="관련 채용 포지션 ' + careers.length + '개 보기"' + (reviewOnly ? " hidden" : "") + '>관련 채용 포지션 ' + careers.length + '개 보기</a>';
+  }
   return careers.map((job) => {
     const reviewOnly = job.status !== "open";
-    return '<a class="problem-career-link" href="' + hrefPrefix + 'careers.html?job_id=' + encodeURIComponent(job.id) + '" data-career-status="' + htmlEscape(job.status, true) + '" aria-label="' + htmlEscape(job.title + " 지원하기", true) + '"' + (reviewOnly ? " hidden" : "") + '>채용 포지션 지원하기</a>';
+    return '<a class="problem-career-link" href="' + hrefPrefix + 'careers.html?job_id=' + encodeURIComponent(job.id) + '" data-career-status="' + htmlEscape(job.status, true) + '" aria-label="' + htmlEscape(job.title + " 채용 포지션 보기", true) + '"' + (reviewOnly ? " hidden" : "") + '>채용 포지션 보기</a>';
   }).join("\n");
 }
 
@@ -172,7 +165,7 @@ function renderApplication(problem, careers) {
     '<div class="problem-card-actions">',
     '<a class="problem-detail-link" href="problems/' + htmlEscape(problem.slug, true) + '.html">문제 자세히 보기</a>',
     '<button class="problem-interest" type="button" data-problem-application-toggle aria-expanded="false" aria-controls="' + htmlEscape(panelId, true) + '"><span data-problem-application-label>해결 방안 보내기</span></button>',
-    renderCareerLinks(careers),
+    renderCareerLinks(careers, "", problem.problemId),
     "</div>",
     '<section class="problem-application" id="' + htmlEscape(panelId, true) + '" aria-labelledby="' + htmlEscape(titleId, true) + '" hidden>',
     '<div class="problem-application-head"><h4 id="' + htmlEscape(titleId, true) + '">' + htmlEscape(problem.category) + ' 해결 방안</h4><p>이 문제를 어떻게 풀고 확인할지 보내주세요.</p></div>',
@@ -322,7 +315,7 @@ function renderDetailParticipation(problem) {
     '<h2 id="participate-title">해결 방안을 보내주세요</h2>',
     "<p>이 문제에 대한 접근과 검증 방법을 알려주세요.</p>",
     "</div>",
-    renderApplicationForm(problem, "../privacy.html"),
+    renderApplicationForm(problem, "/company-privacy"),
     "</section>",
   ].join("\n");
 }
@@ -344,7 +337,7 @@ function renderDetailPage(detailTemplate, shellPartials, source, problem, career
   output = replaceOnce(output, "<!-- __OPEN_PROBLEM_SCHEMA__ -->", escapeScriptJson(buildDetailSchema(problem)));
   const heroActions = isOpen ? [
     '<a class="problem-detail-primary-action" href="#participate">해결 방안 제안하기</a>',
-    renderCareerLinks(careersForProblem(problem, careerMap), "../"),
+    renderCareerLinks(careersForProblem(problem, careerMap), "../", problem.problemId),
   ].filter(Boolean).join("\n") : "";
   output = replaceOnce(output, "<!-- __OPEN_PROBLEM_HERO_ACTION__ -->", heroActions);
   output = replaceOnce(output, "<!-- __OPEN_PROBLEM_DETAIL_CONTENT__ -->", renderDetailContent(problem));
