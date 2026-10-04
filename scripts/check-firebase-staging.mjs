@@ -73,6 +73,12 @@ assert(manifest.origins?.company === "https://company-dev.netmelonai.com", "rele
 assert(manifest.origins?.appLanding === expectedAppLandingOrigin, "release manifest app landing origin is invalid.");
 assert(manifest.origins?.studio === "https://studio-dev.naepopquiz.com", "release manifest Studio origin is invalid.");
 
+for (const relativePath of ["index.html", "en/index.html"]) {
+  const source = await readFile(path.join(DIST, relativePath), "utf8");
+  assert(/<a\b[^>]*class="[^"]*studio-cta[^>]*href="https:\/\/studio-dev\.naepopquiz\.com\/"/.test(source),
+    `${relativePath} Studio CTA must target staging.`);
+}
+
 for (const relativePath of files.filter((name) => name.endsWith(".html") || name.endsWith(".js"))) {
   const source = await readFile(path.join(DIST, relativePath), "utf8");
   assert(!source.includes('href="https://studio.naepopquiz.com'), `${relativePath} contains a production Studio navigation link.`);
