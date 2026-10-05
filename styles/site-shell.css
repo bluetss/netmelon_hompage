@@ -157,13 +157,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   padding: 44px 0 48px;
 }
 
-.footer-appearance { margin-top: 20px; display: flex; justify-content: flex-end; }
-.footer-appearance .web-theme-trigger {
-  background: transparent; border-color: transparent; color: var(--site-muted);
-  font-size: var(--npq-type-title-small-font-size);
-  line-height: var(--npq-type-title-small-line-height);
-}
-
 .footer-row p {
   margin: 0;
   color: var(--site-muted);
@@ -238,6 +231,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   text-underline-offset: 3px;
   line-height: var(--npq-type-home-label-line-height);
   letter-spacing: var(--npq-type-home-label-letter-spacing);
+}
+
+/* Appearance is a quiet footer utility, not a separate CTA. */
+.footer-links a, .footer-links .web-theme-trigger {
+  min-height: 48px; display: inline-flex; align-items: center;
+}
+.footer-links .web-theme-trigger {
+  padding: 0; border: 0; border-radius: 0; background: transparent;
+  color: var(--site-muted); font-weight: var(--npq-weight-regular);
+  font-size: var(--npq-type-home-label-font-size);
+  line-height: var(--npq-type-home-label-line-height);
+  letter-spacing: var(--npq-type-home-label-letter-spacing);
+  text-decoration: underline; text-decoration-thickness: from-font; text-underline-offset: 3px;
+}
+.footer-links .web-theme-trigger:focus-visible {
+  outline: 2px solid var(--site-muted); outline-offset: 3px;
 }
 
 @media (max-width: 920px) {

@@ -60,6 +60,12 @@ for (const relativePath of files.filter((name) => name.endsWith(".html") || name
 
 for (const relativePath of files.filter((name) => name.endsWith(".html"))) {
   const source = await readFile(path.join(DIST, relativePath), "utf8");
+  if (source.includes('class="site-header"')) {
+    const header = source.match(/<header class="site-header"[\s\S]*?<\/header>/)?.[0] || '';
+    assert(!header.includes('data-theme-open'), `${relativePath} appearance must not be in the header.`);
+    assert((source.match(/data-theme-open/g) || []).length === 1, `${relativePath} must have one footer appearance control.`);
+    assert(/<nav class="footer-links"[^>]*>[\s\S]*?data-theme-open[\s\S]*?<\/nav>/.test(source), `${relativePath} appearance must share the footer utility links.`);
+  }
   if (!source.includes('id="ir-request-form"') && !source.includes('class="problem-application-form"')) continue;
   const prefix = "../".repeat(relativePath.split("/").length - 1);
   assert(source.includes(`<script src="${prefix}scripts/runtime-config.js"></script>`), `${relativePath} intake form is missing runtime config.`);

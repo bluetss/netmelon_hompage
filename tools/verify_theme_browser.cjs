@@ -53,6 +53,16 @@ async function picker(page, width) {
       if (site === 'company') {
         assert.equal(await page.locator('.site-header [data-theme-open]').count(),0);
         assert.equal(await page.locator('.site-footer [data-theme-open]').count(),1);
+        assert.equal(await page.locator('.footer-links [data-theme-open]').count(),1);
+        assert.equal(await page.locator('.footer-appearance').count(),0);
+        const utility = await page.locator('.footer-links [data-theme-open]').evaluate(el => {
+          const link = el.parentElement.querySelector('a'), s = getComputedStyle(el);
+          const a = link.getBoundingClientRect(), b = el.getBoundingClientRect();
+          return {sameSize:s.fontSize === getComputedStyle(link).fontSize, height:b.height,
+            leftToRight:b.left > a.left, aligned:Math.abs((a.top+a.height/2)-(b.top+b.height/2)) < 1,
+            border:s.borderWidth, background:s.backgroundColor};
+        });
+        assert.deepEqual(utility,{sameSize:true,height:48,leftToRight:true,aligned:true,border:'0px',background:'rgba(0, 0, 0, 0)'});
       }
       if (site === 'landing') {
         assert.ok((await page.content()).includes("addEventListener('storage'"),'served Landing must include current appearance code');
@@ -69,6 +79,7 @@ async function picker(page, width) {
       await picker(page,width);
       if (site === 'company' && width === 390) {
         await page.keyboard.press('Escape');
+        await page.locator('.footer-company-name').click();
         await page.screenshot({path:path.join(output,'company-390-footer-dark.png')});
         await picker(page,width);
       }
@@ -135,13 +146,14 @@ async function picker(page, width) {
     const page = await blocked.newPage(); await page.goto(url,{waitUntil:'domcontentloaded'}); await ready(page);
     assert.equal(await page.locator('html').getAttribute('data-theme'),'dark'); await blocked.close();
     if (site === 'company') {
-      for (const route of ['/en/','/company.html','/problems/creator-supply.html','/company-privacy.html']) {
+      for (const route of ['/en/','/company.html','/careers.html','/problems/creator-supply.html','/company-privacy.html']) {
         const context = await browser.newContext({colorScheme:'dark'}); const page = await context.newPage();
         await page.goto(base+route,{waitUntil:'domcontentloaded'});
         assert.equal(await page.locator('html').getAttribute('data-theme'),'dark',route);
         assert.equal(await page.locator('[data-theme-open]').count(),1,route);
         assert.equal(await page.locator('.site-header [data-theme-open]').count(),0,route);
         assert.equal(await page.locator('.site-footer [data-theme-open]').count(),1,route);
+        assert.equal(await page.locator('.footer-links [data-theme-open]').count(),1,route);
         await context.close();
       }
     }

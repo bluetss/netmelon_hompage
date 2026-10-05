@@ -138,8 +138,8 @@ async function injectPublicLinks(relativePath) {
     // Include legacy/detail shells while keeping every header free of appearance controls.
     html = html.replace(/<button\b[^>]*\bdata-theme-open\b[^>]*>[\s\S]*?<\/button>/g, '')
       .replace(/\s*<div class="shell footer-appearance">\s*<\/div>/g, '');
-    html = html.replace(/(<footer class="site-footer">[\s\S]*?)(<\/footer>)/,
-      `$1<div class="shell footer-appearance"><button type="button" class="web-theme-trigger" data-theme-open>${label}</button></div>\n$2`);
+    html = html.replace(/(<nav class="footer-links"[^>]*>[\s\S]*?)(<\/nav>)/,
+      `$1<button type="button" class="web-theme-trigger" data-theme-open>${label}</button>$2`);
   }
   html = html.replace(
     /(<a\b[^>]*\bdata-app-homepage-link\b[^>]*\bhref=")[^"]*(")/g,

@@ -145,6 +145,8 @@ export function renderPublisherFooter(profile, locale = "ko") {
     mailOrder: "Mail-order registration",
     verify: "Verify business information",
     privacy: "Privacy Policy",
+    footerLinks: "Footer links",
+    theme: "Theme",
   } : {
     aria: "사업자 정보",
     businessNumber: "사업자등록번호",
@@ -153,6 +155,8 @@ export function renderPublisherFooter(profile, locale = "ko") {
     mailOrder: "통신판매업 신고번호",
     verify: "사업자정보확인",
     privacy: "개인정보처리방침",
+    footerLinks: "푸터 링크",
+    theme: "화면 테마",
   };
   const registeredValue = (value) => {
     if (locale !== "en") return htmlEscape(value);
@@ -164,7 +168,7 @@ export function renderPublisherFooter(profile, locale = "ko") {
     "<div class=\"footer-brand\">",
     "  <strong class=\"footer-company-name\">Netmelon</strong>",
     `  <p class="footer-copyright">${htmlEscape(profile.copyrightNotice)}</p>`,
-    `  <nav class="footer-links" aria-label="${htmlEscape(labels.privacy, true)}"><a href="${locale === "en" ? "/en/company-privacy" : "/company-privacy"}">${htmlEscape(labels.privacy)}</a></nav>`,
+    `  <nav class="footer-links" aria-label="${htmlEscape(labels.footerLinks, true)}"><a href="${locale === "en" ? "/en/company-privacy" : "/company-privacy"}">${htmlEscape(labels.privacy)}</a><button type="button" class="web-theme-trigger" data-theme-open>${htmlEscape(labels.theme)}</button></nav>`,
     "</div>",
     `<section class="publisher-business" aria-label="${htmlEscape(labels.aria, true)}" data-publisher-profile-version="${htmlEscape(profile.sourceVersionId, true)}" data-publisher-profile-hash="${htmlEscape(profile.sourceHash, true)}">`,
     `  <p class="publisher-business-line">${item(labels.businessNumber, profile.businessRegistrationNumber)}${item(labels.representative, profile.representativeName)}</p>`,

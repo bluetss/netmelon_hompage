@@ -8,6 +8,10 @@
 `../npq_web_system/design/web-theme.{js,css}`를 기존 디자인 동기화 명령으로
 소비한다. 화면 테마 선택은 헤더가 아닌 푸터에만 배치하며 모바일에서는
 바텀시트 형태의 native dialog로 연다. 기본 system과 사용자 선택 우선은 유지한다.
+테마는 개인정보처리방침과 같은 좌측 보조 링크 행에 놓고 동일한 home-label
+글자 크기를 사용한다. 별도 우측 행, 버튼 배경/테두리를 만들지 않으며 48px
+터치 영역과 muted 색상의 keyboard focus는 유지한다. Publisher 공개 데이터와
+법률 본문은 변경하지 않고 기존 footer 렌더러의 표시 구성만 조정한다.
 영문 선택지, 하위 페이지, 재접속/OS 변경/동일 origin 탭 동기화와
 storage 차단을 `tools/verify_theme_browser.cjs`에서 검증한다.
 Firebase build는 모든 site-header 페이지에 hash-versioned 초기 script를
