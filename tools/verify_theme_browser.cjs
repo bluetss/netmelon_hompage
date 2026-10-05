@@ -16,6 +16,13 @@ async function state(page) {
     overflow: document.documentElement.scrollWidth > innerWidth,
     saved: localStorage.getItem('appearance.theme_mode')}));
 }
+async function expectTheme(page, expected) {
+  for (let attempt = 0; attempt < 50; attempt++) {
+    if ((await state(page)).theme === expected) return;
+    await page.waitForTimeout(100);
+  }
+  assert.equal((await state(page)).theme,expected);
+}
 async function ready(page) {
   if (site === 'studio') await page.getByRole('button', {name:'파일 첨부',exact:true}).waitFor({timeout:90000});
   else await page.locator('.site-header:visible, .npq-appbar:visible, .yt-header:visible').first().waitFor();
@@ -44,6 +51,9 @@ async function picker(page, width) {
       const errors = [];
       page.on('pageerror', e => errors.push(e.message));
       await page.goto(url,{waitUntil:'domcontentloaded'}); await ready(page);
+      if (site === 'landing') {
+        assert.ok((await page.content()).includes("addEventListener('storage'"),'served Landing must include current appearance code');
+      }
       assert.equal((await state(page)).mode,'system');
       assert.equal((await state(page)).theme,'light');
       await page.screenshot({path:path.join(output,`${site}-${width}-light.png`)});
@@ -64,6 +74,20 @@ async function picker(page, width) {
       assert.equal((await state(page)).theme,'light'); assert.equal((await state(page)).saved,'light');
       await page.reload({waitUntil:'domcontentloaded'}); await ready(page);
       assert.equal((await state(page)).theme,'light');
+      if (width === 390) {
+        const {PNG} = require(path.join(runtime,'node_modules/playwright-core/lib/utilsBundle.js'));
+        const sample = buffer => {
+          const png = PNG.sync.read(buffer);
+          return [[2,2],[2,png.height-2]].map(([x,y]) => [...png.data.slice((y*png.width+x)*4,(y*png.width+x)*4+4)]);
+        };
+        const normal = sample(await page.screenshot());
+        const cdp = await context.newCDPSession(page);
+        await cdp.send('Emulation.setAutoDarkModeOverride',{enabled:true});
+        await page.waitForTimeout(150);
+        assert.deepEqual(sample(await page.screenshot()),normal,'authored light surfaces resist Chrome auto-dark recoloring');
+        await cdp.send('Emulation.setAutoDarkModeOverride',{enabled:false});
+        await cdp.detach();
+      }
       await picker(page,width);
       await page.locator('button[data-theme-mode="system"]:visible').click();
       assert.equal((await state(page)).theme,'dark');
@@ -72,9 +96,9 @@ async function picker(page, width) {
       // Cross-tab changes within the same origin; never cross-domain sync.
       const second = await context.newPage(); await second.goto(url,{waitUntil:'domcontentloaded'}); await ready(second);
       await second.evaluate(() => localStorage.setItem('appearance.theme_mode','dark'));
-      await page.waitForTimeout(150); assert.equal((await state(page)).theme,'dark');
+      await expectTheme(page,'dark');
       await second.evaluate(() => localStorage.removeItem('appearance.theme_mode'));
-      await page.waitForTimeout(150); assert.equal((await state(page)).mode,'system');
+      await expectTheme(page,'light'); assert.equal((await state(page)).mode,'system');
       if (site !== 'landing') {
         // Sidebar/menu may remain open after the previous selection.
         await picker(page,width);
