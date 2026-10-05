@@ -35,7 +35,6 @@ async function picker(page, width) {
     const box = await page.locator('[data-theme-open]').first().boundingBox();
     if (!box || box.x < 0) {
       if (site === 'studio' && width <= 860) await page.getByRole('button',{name:'사이드바 열기',exact:true}).click();
-      if (site === 'company' && width <= 920) await page.getByRole('button',{name:'메뉴 열기',exact:true}).click();
     }
     await page.locator('[data-theme-open]:visible').first().click();
   }
@@ -51,6 +50,10 @@ async function picker(page, width) {
       const errors = [];
       page.on('pageerror', e => errors.push(e.message));
       await page.goto(url,{waitUntil:'domcontentloaded'}); await ready(page);
+      if (site === 'company') {
+        assert.equal(await page.locator('.site-header [data-theme-open]').count(),0);
+        assert.equal(await page.locator('.site-footer [data-theme-open]').count(),1);
+      }
       if (site === 'landing') {
         assert.ok((await page.content()).includes("addEventListener('storage'"),'served Landing must include current appearance code');
       }
@@ -64,6 +67,11 @@ async function picker(page, width) {
       assert.equal((await state(page)).overflow,false);
       await page.screenshot({path:path.join(output,`${site}-${width}-dark.png`)});
       await picker(page,width);
+      if (site === 'company' && width === 390) {
+        await page.keyboard.press('Escape');
+        await page.screenshot({path:path.join(output,'company-390-footer-dark.png')});
+        await picker(page,width);
+      }
       if (width === 390) await page.screenshot({path:path.join(output,`${site}-390-theme-menu-dark.png`)});
       const choice = page.locator('button[data-theme-mode="light"]:visible');
       if (site !== 'landing') {
@@ -132,6 +140,8 @@ async function picker(page, width) {
         await page.goto(base+route,{waitUntil:'domcontentloaded'});
         assert.equal(await page.locator('html').getAttribute('data-theme'),'dark',route);
         assert.equal(await page.locator('[data-theme-open]').count(),1,route);
+        assert.equal(await page.locator('.site-header [data-theme-open]').count(),0,route);
+        assert.equal(await page.locator('.site-footer [data-theme-open]').count(),1,route);
         await context.close();
       }
     }

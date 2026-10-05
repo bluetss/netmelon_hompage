@@ -134,10 +134,12 @@ async function injectPublicLinks(relativePath) {
   if (html.includes('class="site-header"')) {
     const themeHash = createHash('sha256').update(await readFile(path.join(ROOT, 'scripts/theme.js'))).digest('hex').slice(0, 16);
     if (!html.includes('src="/scripts/theme.js')) html = html.replace('<head>', `<head>\n  <script src="/scripts/theme.js?v=${themeHash}"></script>`);
-    if (!html.includes('data-theme-open')) {
-      const label = /<html[^>]*lang="en"/.test(html) ? 'Theme' : '화면 테마';
-      html = html.replace(/(<nav class="site-nav"[^>]*>[\s\S]*?)(<\/nav>)/, `$1<button type="button" class="web-theme-trigger" data-theme-open>${label}</button>$2`);
-    }
+    const label = /<html[^>]*lang="en"/.test(html) ? 'Theme' : '화면 테마';
+    // Include legacy/detail shells while keeping every header free of appearance controls.
+    html = html.replace(/<button\b[^>]*\bdata-theme-open\b[^>]*>[\s\S]*?<\/button>/g, '')
+      .replace(/\s*<div class="shell footer-appearance">\s*<\/div>/g, '');
+    html = html.replace(/(<footer class="site-footer">[\s\S]*?)(<\/footer>)/,
+      `$1<div class="shell footer-appearance"><button type="button" class="web-theme-trigger" data-theme-open>${label}</button></div>\n$2`);
   }
   html = html.replace(
     /(<a\b[^>]*\bdata-app-homepage-link\b[^>]*\bhref=")[^"]*(")/g,

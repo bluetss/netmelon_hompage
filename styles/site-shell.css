@@ -157,6 +157,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   padding: 44px 0 48px;
 }
 
+.footer-appearance { margin-top: 20px; display: flex; justify-content: flex-end; }
+.footer-appearance .web-theme-trigger {
+  background: transparent; border-color: transparent; color: var(--site-muted);
+  font-size: var(--npq-type-title-small-font-size);
+  line-height: var(--npq-type-title-small-line-height);
+}
+
 .footer-row p {
   margin: 0;
   color: var(--site-muted);

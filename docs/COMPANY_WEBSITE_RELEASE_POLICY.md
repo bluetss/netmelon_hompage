@@ -6,7 +6,8 @@
 연결한다. 기본 system, 명시적 light/dark 우선이며 origin별
 `appearance.theme_mode`만 저장한다. 공통 동작/선택 UI는
 `../npq_web_system/design/web-theme.{js,css}`를 기존 디자인 동기화 명령으로
-소비한다. 헤더 메뉴의 화면 테마는 모바일 바텀시트 형태의 native dialog다.
+소비한다. 화면 테마 선택은 헤더가 아닌 푸터에만 배치하며 모바일에서는
+바텀시트 형태의 native dialog로 연다. 기본 system과 사용자 선택 우선은 유지한다.
 영문 선택지, 하위 페이지, 재접속/OS 변경/동일 origin 탭 동기화와
 storage 차단을 `tools/verify_theme_browser.cjs`에서 검증한다.
 Firebase build는 모든 site-header 페이지에 hash-versioned 초기 script를

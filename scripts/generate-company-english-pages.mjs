@@ -273,7 +273,6 @@ function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
     '      <nav class="site-nav" id="primary-navigation" aria-label="Primary">',
     ...nav.map(([key, href, label]) => `        <a${key === active ? ' class="is-current"' : ""} href="${href}">${label}</a>`),
     `        <a class="lang-link" href="${koreanHref}" lang="ko">KOREAN</a>`,
-    '        <button type="button" class="web-theme-trigger" data-theme-open>Theme</button>',
     '      </nav>',
     '    </div>',
     '  </header>',
@@ -286,6 +285,7 @@ function renderFooter({ assetPrefix = "../" } = {}) {
     '    <div class="shell footer-row">',
     '      <!-- __PUBLISHER_LEGAL_PROFILE__ -->',
     '    </div>',
+    '    <div class="shell footer-appearance"><button type="button" class="web-theme-trigger" data-theme-open>Theme</button></div>',
     '  </footer>',
     `  <script src="${assetPrefix}scripts/site-shell.js" defer></script>`,
   ].join("\n");
