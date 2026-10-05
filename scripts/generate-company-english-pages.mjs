@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 import { mkdir, readFile, readdir, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
+const themeHash = createHash('sha256').update(await readFile(path.join(ROOT, 'scripts/theme.js'))).digest('hex').slice(0, 16);
 
 const COMPANY_SOURCE_PATH = process.env.COMPANY_SOURCE_EN_JSON_PATH ||
   path.join(ROOT, "data", "company-source.en.json");
@@ -271,6 +273,7 @@ function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
     '      <nav class="site-nav" id="primary-navigation" aria-label="Primary">',
     ...nav.map(([key, href, label]) => `        <a${key === active ? ' class="is-current"' : ""} href="${href}">${label}</a>`),
     `        <a class="lang-link" href="${koreanHref}" lang="ko">KOREAN</a>`,
+    '        <button type="button" class="web-theme-trigger" data-theme-open>Theme</button>',
     '      </nav>',
     '    </div>',
     '  </header>',
@@ -338,6 +341,7 @@ function pageShell({ lang = "en", bodyClass = "", head, headerActive, main, href
     "<!DOCTYPE html>",
     `<html lang="${lang}">`,
     "<head>",
+    `  <script src="/scripts/theme.js?v=${themeHash}"></script>`,
     `  ${head}`,
     "</head>",
     `<body${bodyClass ? ` class="${bodyClass}"` : ""}>`,

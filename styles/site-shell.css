@@ -1,5 +1,6 @@
 @import url("./design-system.css");
 @import url("./font-face.css");
+@import url("./web-theme.css");
 
 /* Same semantic body/control roles as the app; glyphs keep independent sizes. */
 body { font-family: var(--npq-font-family-base); font-size: var(--npq-type-body-large-font-size); line-height: var(--npq-type-body-large-line-height); letter-spacing: var(--npq-type-body-large-letter-spacing); }

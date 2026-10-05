@@ -210,6 +210,9 @@ async function main() {
   const colors = parseColors(source);
   const typography = parseSemanticTypography(source, parseTypography(source));
   const fontFamily = parseFontFamily(source);
+  const darkColors = [...extractSection(source, 'static const ColorScheme dark =', '\n/// Home semantic')
+    .matchAll(/(\w+): Color\(0x([\dA-Fa-f]{8})\)/g)].map(([, name, hex]) => ({name: camelToKebab(name), value: argbToCss(hex)}));
+  if (darkColors.length < 25) throw new Error('Missing app dark ColorScheme');
 
   const output = `/* Generated from ${SOURCE_LABEL}
  * Source of truth: application/lib/utils/design_system.dart
@@ -219,7 +222,7 @@ async function main() {
 :root {
   --npq-font-family-base: "${fontFamily}", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 ${colors.map((color) => `  --npq-color-${color.name}: ${color.value};`).join("\n")}
-${[...extractSection(source, 'static const ColorScheme dark =', '\n/// Home semantic').matchAll(/(\w+): Color\(0x([\dA-Fa-f]{8})\)/g)].map(m => `  --npq-dark-${camelToKebab(m[1])}: ${argbToCss(m[2])};`).join('\n')}
+${darkColors.map(color => `  --npq-dark-${color.name}: ${color.value};`).join('\n')}
 ${renderTypography(typography)}
   --npq-weight-regular: 400;
   --npq-weight-medium: 500;
@@ -237,9 +240,20 @@ ${renderTypography(typography)}
   --npq-elevation-4: 0 2px 4px 0 rgba(14, 165, 233, 0.071), 0 6px 10px 3px rgba(59, 130, 246, 0.078);
   --npq-elevation-5: 0 4px 5px 0 rgba(14, 165, 233, 0.071), 0 8px 12px 5px rgba(59, 130, 246, 0.078);
 }
+
+/* Active web theme: existing white cards/headers use the lowest dark surface. */
+:root[data-theme="dark"] {
+${colors.filter(color => darkColors.some(dark => dark.name === color.name)).map(color => `  --npq-color-${color.name}: var(--npq-dark-${color.name === 'surface-bright' ? 'surface-container-lowest' : color.name});`).join('\n')}
+}
 `;
 
   if (/NaN|undefined/.test(output)) throw new Error('Unresolved app typography');
+  for (const [name, relative] of [['web-theme.js', 'scripts/theme.js'], ['web-theme.css', 'styles/web-theme.css']]) {
+    const shared = await readFile(path.join(ROOT, '../npq_web_system/design', name));
+    if (process.argv.includes('--check')) {
+      if (!(await readFile(path.join(ROOT, relative))).equals(shared)) throw new Error(`Shared theme differs: ${relative}`);
+    } else await writeFile(path.join(ROOT, relative), shared);
+  }
   const application = path.resolve(path.dirname(SOURCE_PATH), '../..');
   if (process.argv.includes('--check')) {
     if (await readFile(OUTPUT_PATH, 'utf8') !== output) throw new Error('App design tokens differ; run sync:design-system');

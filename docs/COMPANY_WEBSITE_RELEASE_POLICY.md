@@ -2,6 +2,18 @@
 
 ## 배포 경계
 
+2026-10-06 웹 테마: 기존 앱 light/dark 색상 정본을 생성해 활성 테마에
+연결한다. 기본 system, 명시적 light/dark 우선이며 origin별
+`appearance.theme_mode`만 저장한다. 공통 동작/선택 UI는
+`../npq_web_system/design/web-theme.{js,css}`를 기존 디자인 동기화 명령으로
+소비한다. 헤더 메뉴의 화면 테마는 모바일 바텀시트 형태의 native dialog다.
+영문 선택지, 하위 페이지, 재접속/OS 변경/동일 origin 탭 동기화와
+storage 차단을 `tools/verify_theme_browser.cjs`에서 검증한다.
+Firebase build는 모든 site-header 페이지에 hash-versioned 초기 script를
+보장하며 회사 브랜드와 원문/법률 본문은 변경하지 않는다.
+`tools/theme_staging_operation.py`는 세 사이트의 read-only 실배포 검증용이다.
+새 telemetry/API/권한/리소스는 추가하지 않는다.
+
 회사 홈페이지의 모든 수정본은 Firebase Hosting site `npq-company-dev`에서 먼저
 build, deploy, smoke test한다. 최종 사용자 승인 전에는 GitHub Pages 운영 사이트
 `netmelonai.com`, 운영 배포 branch, `CNAME`을 변경하지 않는다.

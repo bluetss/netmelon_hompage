@@ -39,6 +39,7 @@ assert(!files.some((name) => name.startsWith("scripts/") && ![
   "scripts/ir-intake.js",
   "scripts/runtime-config.js",
   "scripts/site-shell.js",
+  "scripts/theme.js",
 ].includes(name)), "Build or CMS scripts must not be deployed.");
 assert(!files.some((name) => name.startsWith("data/") && name !== "data/careers.ko.json"), "CMS source data must not be deployed.");
 assert(files.includes("sitemap.xml"), "staging artifact must include the generated sitemap.");

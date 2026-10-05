@@ -50,6 +50,7 @@
   }
 
   document.addEventListener("click", (event) => {
+    if (event.target instanceof Element && event.target.closest('.web-theme-dialog')) return;
     if (!header.contains(event.target)) closeAllMenus();
   });
 
@@ -58,6 +59,7 @@
   });
 
   document.addEventListener("keydown", (event) => {
+    if (document.querySelector('.web-theme-dialog[open]')) return;
     if (event.key === "Escape") closeAllMenus();
   });
 })();

@@ -2,6 +2,7 @@
 import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -63,7 +64,7 @@ const topLevelFiles = [
   "translations.json",
 ];
 const htmlDirectories = ["announcements", "en", "problems"];
-const runtimeScripts = ["careers-en.js", "ir-intake.js", "problem-intake.js", "site-shell.js"];
+const runtimeScripts = ["careers-en.js", "ir-intake.js", "problem-intake.js", "site-shell.js", "theme.js"];
 
 async function copyFile(relativePath) {
   const source = path.join(ROOT, relativePath);
@@ -130,6 +131,14 @@ async function listHtmlFiles(directory = DIST, prefix = "") {
 async function injectPublicLinks(relativePath) {
   const target = path.join(DIST, relativePath);
   let html = await readFile(target, "utf8");
+  if (html.includes('class="site-header"')) {
+    const themeHash = createHash('sha256').update(await readFile(path.join(ROOT, 'scripts/theme.js'))).digest('hex').slice(0, 16);
+    if (!html.includes('src="/scripts/theme.js')) html = html.replace('<head>', `<head>\n  <script src="/scripts/theme.js?v=${themeHash}"></script>`);
+    if (!html.includes('data-theme-open')) {
+      const label = /<html[^>]*lang="en"/.test(html) ? 'Theme' : '화면 테마';
+      html = html.replace(/(<nav class="site-nav"[^>]*>[\s\S]*?)(<\/nav>)/, `$1<button type="button" class="web-theme-trigger" data-theme-open>${label}</button>$2`);
+    }
+  }
   html = html.replace(
     /(<a\b[^>]*\bdata-app-homepage-link\b[^>]*\bhref=")[^"]*(")/g,
     `$1${resolvedWebOrigins.appLanding}/$2`,
