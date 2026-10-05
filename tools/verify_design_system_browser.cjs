@@ -43,6 +43,15 @@ fs.mkdirSync(output, {recursive: true});
         await menu.click();
       }
       if(site==='landing'&&scale===1){
+        const title=page.locator('.social-post .post-title b').first();
+        assert.equal(await title.evaluate(n=>getComputedStyle(n).fontWeight),'900');
+        assert.equal(await title.evaluate(n=>parseFloat(getComputedStyle(n).fontSize)),18);
+        for(const control of await page.locator('.post-action-groups .post-actions button').all()) {
+          if(!await control.isVisible()) continue;
+          const box=await control.boundingBox(); assert.equal(box.width,48); assert.ok(box.height>=48);
+          const glyph=await control.locator('.app-material-icon:visible').first().boundingBox();
+          assert.equal(glyph.width,21); assert.equal(glyph.height,21);
+        }
         for(const theme of ['light','dark']) {
           await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);
           const color=await page.locator('.concept-b').evaluate(n=>getComputedStyle(n).color);

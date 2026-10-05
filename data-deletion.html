@@ -17,14 +17,14 @@
       --secondary-container: var(--npq-color-secondary-container);
       --on-secondary-container:var(--npq-color-on-secondary-container);
       --surface:             var(--npq-color-surface);
-      --surface-low:         #FFFDE8;
+      --surface-low: var(--npq-color-surface-container-low);
       --surface-container:   var(--npq-color-surface-container);
       --surface-container-low:var(--npq-color-surface-container-low);
       --on-surface:          var(--npq-color-on-surface);
       --on-surface-variant:  var(--npq-color-on-surface-variant);
       --outline:             var(--npq-color-outline);
-      --elev1: 0 1px 3px rgba(220,200,0,.09),0 1px 2px rgba(220,200,0,.13);
-      --elev2: 0 2px 6px rgba(220,200,0,.13),0 1px 2px rgba(220,200,0,.17);
+      --elev1: var(--npq-elevation-1);
+      --elev2: var(--npq-elevation-2);
     }
     html, body {
       margin:0; padding:0;
@@ -35,7 +35,7 @@
     body { padding-top: 80px; }
     h1, h2 { margin: 0; }
     h1 { font-size: var(--npq-type-headline-medium-font-size); line-height: var(--npq-type-headline-medium-line-height); font-weight: var(--npq-weight-medium); letter-spacing:             var(--npq-type-headline-medium-letter-spacing); }
-    h2 { font-size: var(--npq-type-headline-small-font-size); line-height: var(--npq-type-headline-small-line-height); font-weight: var(--npq-weight-medium); color: var(--on-primary); letter-spacing:             var(--npq-type-headline-small-letter-spacing); }
+    h2 { font-size: var(--npq-type-headline-small-font-size); line-height: var(--npq-type-headline-small-line-height); font-weight: var(--npq-weight-medium); color: var(--on-primary-container); letter-spacing:             var(--npq-type-headline-small-letter-spacing); }
     p, a { font-size: var(--npq-type-title-small-font-size); line-height: var(--npq-type-title-small-line-height); color: var(--on-surface-variant); text-decoration: none; letter-spacing:             var(--npq-type-title-small-letter-spacing); }
 
     header {
@@ -55,7 +55,7 @@
     }
     nav a {
       margin-left: 8px; margin-right: 16px;
-      color: var(--on-primary);
+      color: var(--on-primary-container);
       font-weight: var(--npq-weight-medium);
       transition: color .2s;
     }
@@ -76,7 +76,7 @@
       box-shadow: var(--elev1);
     }
     .policy-content h2, .policy-content h3 {
-      color: var(--on-primary);
+      color: var(--on-primary-container);
       margin-top: 24px;
     }
     .policy-content p, .policy-content li {
