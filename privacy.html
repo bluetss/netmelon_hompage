@@ -10,33 +10,32 @@
     /* ==================== COLOR SYSTEM ==================== */
     :root {
       /* Primary */
-      --primary:             #FFFF66;
-      --on-primary:          #4C4C1A;
-      --primary-container:   #FFFECB;
-      --on-primary-container:#474710;
+      --primary:             var(--npq-color-primary);
+      --on-primary:          var(--npq-color-on-primary);
+      --primary-container:   var(--npq-color-primary-container);
+      --on-primary-container:var(--npq-color-on-primary-container);
       /* Secondary */
-      --secondary:           #FFD700;
-      --on-secondary:        #4C4C1A;
-      --secondary-container: #FFF9CC;
-      --on-secondary-container:#48480C;
+      --secondary:           var(--npq-color-secondary);
+      --on-secondary:        var(--npq-color-on-secondary);
+      --secondary-container: var(--npq-color-secondary-container);
+      --on-secondary-container:var(--npq-color-on-secondary-container);
       /* Surface / Background */
-      --surface:             #FFFEF4;
+      --surface:             var(--npq-color-surface);
       --surface-low:         #FFFDE8;
-      --surface-container:   #FFF9C4;
-      --surface-container-low:#FFFDE8;
+      --surface-container:   var(--npq-color-surface-container);
+      --surface-container-low:var(--npq-color-surface-container-low);
       /* Text / Border */
-      --on-surface:          #232304;
-      --on-surface-variant:  #75750D;
-      --outline:             #C2B900;
+      --on-surface:          var(--npq-color-on-surface);
+      --on-surface-variant:  var(--npq-color-on-surface-variant);
+      --outline:             var(--npq-color-outline);
       /* Shadows */
       --elev1: 0 1px 3px rgba(220,200,0,.09),0 1px 2px rgba(220,200,0,.13);
       --elev2: 0 2px 6px rgba(220,200,0,.13),0 1px 2px rgba(220,200,0,.17);
     }
     /* ==================== TYPOGRAPHY ==================== */
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
-    html, body {      
+    html, body {
       margin:0; padding:0;
-      font-family:'Roboto', sans-serif;
+      font-family:var(--npq-font-family-base);
       background: var(--surface);
       color: var(--on-surface);
     }
@@ -44,15 +43,15 @@
       padding-top: 80px; /* 헤더 높이 만큼 아래로 내림 */
     }
     h1, h2 { margin: 0; }
-    h1 { font-size: 28px; line-height: 36px; font-weight: 500; }
-    h2 { font-size: 24px; line-height: 32px; font-weight: 500; color: var(--on-primary); }
-    p, a { font-size: 14px; line-height: 20px; color: var(--on-surface-variant); text-decoration: none; }
+    h1 { font-size: var(--npq-type-headline-medium-font-size); line-height: var(--npq-type-headline-medium-line-height); font-weight: var(--npq-weight-medium); letter-spacing:             var(--npq-type-headline-medium-letter-spacing); }
+    h2 { font-size: var(--npq-type-headline-small-font-size); line-height: var(--npq-type-headline-small-line-height); font-weight: var(--npq-weight-medium); color: var(--on-primary); letter-spacing:             var(--npq-type-headline-small-letter-spacing); }
+    p, a { font-size: var(--npq-type-title-small-font-size); line-height: var(--npq-type-title-small-line-height); color: var(--on-surface-variant); text-decoration: none; letter-spacing:             var(--npq-type-title-small-letter-spacing); }
 
     /* ==================== HEADER & NAV ==================== */
     header {
       position: fixed; top: 0; left: 0; right: 0;
       padding: 16px 0;
-      background: rgba(255,255,102,0.6);
+      background: color-mix(in srgb, var(--npq-color-secondary-container) 60%, transparent);
       backdrop-filter: blur(8px);
       box-shadow: var(--elev2);
       transition: background .3s;
@@ -70,7 +69,7 @@
       margin-left: 8px;
       margin-right: 16px;
       color: var(--on-primary);
-      font-weight: 500;
+      font-weight: var(--npq-weight-medium);
       transition: color .2s;
     }
     nav a:hover {
@@ -88,7 +87,7 @@
       color: var(--on-primary-container);
       border: none; padding: 6px 12px;
       border-radius: 8px; cursor: pointer;
-      font-weight: 500;
+      font-weight: var(--npq-weight-medium);
     }
     .lang-switch button:hover {
       background: var(--secondary-container);
@@ -119,8 +118,10 @@
     .policy-nav a {
       color: var(--on-surface-variant);
       text-decoration: none;
-      font-size: 14px;
+      font-size: var(--npq-type-title-small-font-size);
       transition: color .2s;
+      line-height:             var(--npq-type-title-small-line-height);
+      letter-spacing:             var(--npq-type-title-small-letter-spacing);
     }
     .policy-nav a:hover { color: var(--primary); }
     .policy-content {
@@ -153,7 +154,9 @@
     }
     .footer-info {
       text-align: center;
-      font-size: 14px;
+      font-size: var(--npq-type-title-small-font-size);
+      line-height:             var(--npq-type-title-small-line-height);
+      letter-spacing:             var(--npq-type-title-small-letter-spacing);
     }
 
     /* ==================== MOBILE ==================== */
@@ -165,10 +168,11 @@
       padding: 0 8px;
     }
     header h1 {
-      font-size: 20px;
-      line-height: 26px;
+      font-size: var(--npq-type-reading-compact-font-size);
+      line-height: var(--npq-type-reading-compact-line-height);
       margin-bottom: 0;
       white-space: nowrap;
+      letter-spacing:             var(--npq-type-reading-compact-letter-spacing);
     }
     nav {
       display: flex;
@@ -178,10 +182,12 @@
       padding-right: 0;
     }
     nav a {
-      font-size: 14px;
+      font-size: var(--npq-type-title-small-font-size);
       margin: 0 4px;
       padding: 0 2px;
       white-space: nowrap;
+      line-height:             var(--npq-type-title-small-line-height);
+      letter-spacing:             var(--npq-type-title-small-letter-spacing);
     }
     .lang-switch {
       margin-left: 8px;
@@ -189,10 +195,13 @@
     }
     .lang-switch button {
       padding: 3px 8px;
-      font-size: 13px;
+      font-size: var(--npq-type-home-label-font-size);
+      line-height:             var(--npq-type-home-label-line-height);
+      letter-spacing:             var(--npq-type-home-label-letter-spacing);
     }
   }
   </style>
+  <link rel="stylesheet" href="/styles/site-shell.css">
 </head>
 <body>
   <header id="site-header">
@@ -261,7 +270,7 @@
     }
     // <html> lang도 갱신
     document.documentElement.lang = lang;
-    } 
+    }
 
     function renderPrivacy(lang) {
       const html = privacyPolicies[lang]?.content || '<p>내용이 없습니다.</p>';

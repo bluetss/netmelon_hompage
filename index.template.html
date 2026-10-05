@@ -24,19 +24,16 @@
   <meta name="twitter:image" content="https://netmelonai.com/images/og-cover.png">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/company.css">
   <!-- __COMPANY_SOURCE_BUILD_META__ -->
   <style id="home-mobile-display-type-system">
     @media (max-width: 640px) {
       :root {
-        --home-mobile-display-font-size: clamp(1.42rem, 5.9vw, 1.78rem);
-        --home-mobile-display-line-height: 1.14;
-        --home-mobile-hero-line-height: 1.22;
-        --home-mobile-display-letter-spacing: -0.045em;
-        --home-mobile-display-weight: 800;
+        --home-mobile-display-font-size: var(--npq-type-headline-small-font-size);
+        --home-mobile-display-line-height: var(--npq-type-headline-small-line-height);
+        --home-mobile-hero-line-height: var(--npq-type-headline-small-line-height);
+        --home-mobile-display-letter-spacing: var(--npq-type-headline-small-letter-spacing);
+        --home-mobile-display-weight: var(--npq-weight-extra-bold);
         --home-mobile-section-title-top-gap: clamp(28px, 7svh, 84px);
       }
 
@@ -63,7 +60,7 @@
 
       .hero-motto #home-hero-lines .hero-line {
         display: block;
-        white-space: nowrap;
+        white-space: normal;
       }
 
       .story-end-spacer {

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir, copyFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 
 const DEFAULT_SOURCE =
-  "/home/seungwoo/myworks/dev/naepopquiz_app/application/lib/utils/design_system.dart";
+  path.resolve(ROOT, "../naepopquiz_app/application/lib/utils/design_system.dart");
 const SOURCE_PATH = process.env.APP_DESIGN_SYSTEM_DART || DEFAULT_SOURCE;
 const SOURCE_LABEL =
   process.env.APP_DESIGN_SYSTEM_LABEL || "naepopquiz_app/application/lib/utils/design_system.dart";
@@ -65,7 +65,7 @@ const parseFontFamily = (source) => {
 
 const parseLineHeightPx = (body) => {
   const ratioMatch = body.match(/height:\s*([0-9.]+)\s*\/\s*([0-9.]+)/);
-  if (ratioMatch) return `${Number(ratioMatch[1])}px`;
+  if (ratioMatch) return String(Number(ratioMatch[1]) / Number(ratioMatch[2]));
   const plainMatch = body.match(/height:\s*([0-9.]+)/);
   if (plainMatch) return String(Number(plainMatch[1]));
   return null;
@@ -97,13 +97,39 @@ const parseTypography = (source) => {
   return typography;
 };
 
+// Consume existing semantic styles, including copyWith variants. No web-only
+// typography registry: the app classes remain the source of role definitions.
+const parseSemanticTypography = (source, base) => {
+  const styles = new Map(base.map(item => [`AppTypography.${item.name.replace(/-([a-z])/g, (_, c) => c.toUpperCase())}`, item]));
+  const sizes = Object.fromEntries([...source.matchAll(/static const (?:double\s+)?(\w+)\s*=\s*([\d.]+);/g)].map(m => [m[1], Number(m[2])]));
+  for (const className of ["AppTypography", "AppHomeTypography", "AppContentTypography", "AppTrainingTypography"]) {
+    const section = source.slice(source.indexOf(`class ${className} {`)).split(/\n(?:abstract final )?class /)[0];
+    for (const m of section.matchAll(/static (?:final|const)\s+(\w+)\s*=\s*([\w.]+)(?:\.copyWith\(([\s\S]*?)\))?\s*;/g)) {
+      const parent = styles.get(m[2]) || styles.get(`${className}.${m[2]}`);
+      if (!parent) continue;
+      const role = className === "AppTypography" ? camelToKebab(m[1]) : `${className.replace(/^App|Typography$/g, '').toLowerCase()}-${camelToKebab(m[1])}`;
+      const item = {...parent, name: role};
+      const body = m[3] || '';
+      const size = body.match(/fontSize:\s*(AppTypeSizes\.(\w+)|[\d.]+)/);
+      if (size) item.fontSize = `${size[2] ? sizes[size[2]] : Number(size[1])}px`;
+      const height = body.match(/height:\s*([\d.]+)(?:\s*\/\s*([\d.]+))?/);
+      if (height) item.lineHeight = String(Number(height[1]) / (height[2] ? Number(height[2]) : 1));
+      const spacing = body.match(/letterSpacing:\s*(-?[\d.]+)/);
+      if (spacing) item.letterSpacing = `${Number(spacing[1])}px`;
+      item.fontWeight = parseFontWeight(body) || parent.fontWeight || '400';
+      styles.set(`${className}.${m[1]}`, item);
+    }
+  }
+  return [...new Map([...styles.values()].map(item => [item.name, item])).values()];
+};
+
 const renderTypography = (typography) => typography.flatMap((item) => {
   const prefix = `--npq-type-${item.name}`;
   const lines = [];
-  if (item.fontSize) lines.push(`  ${prefix}-font-size: ${item.fontSize};`);
-  if (item.lineHeight) lines.push(`  ${prefix}-line-height: ${item.lineHeight};`);
+  if (item.fontSize) lines.push(`  ${prefix}-font-size: ${Number.parseFloat(item.fontSize) / 16}rem;`);
+  if (item.lineHeight) lines.push(`  ${prefix}-line-height: ${item.lineHeight.endsWith('px') ? Number.parseFloat(item.lineHeight) / Number.parseFloat(item.fontSize) : item.lineHeight};`);
   if (item.letterSpacing) lines.push(`  ${prefix}-letter-spacing: ${item.letterSpacing};`);
-  if (item.fontWeight) lines.push(`  ${prefix}-font-weight: ${item.fontWeight};`);
+  lines.push(`  ${prefix}-font-weight: ${item.fontWeight || '400'};`);
   return lines;
 }).join("\n");
 
@@ -182,7 +208,7 @@ export const spacing = {
 async function main() {
   const source = await readFile(SOURCE_PATH, "utf8");
   const colors = parseColors(source);
-  const typography = parseTypography(source);
+  const typography = parseSemanticTypography(source, parseTypography(source));
   const fontFamily = parseFontFamily(source);
 
   const output = `/* Generated from ${SOURCE_LABEL}
@@ -193,7 +219,14 @@ async function main() {
 :root {
   --npq-font-family-base: "${fontFamily}", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 ${colors.map((color) => `  --npq-color-${color.name}: ${color.value};`).join("\n")}
+${[...extractSection(source, 'static const ColorScheme dark =', '\n/// Home semantic').matchAll(/(\w+): Color\(0x([\dA-Fa-f]{8})\)/g)].map(m => `  --npq-dark-${camelToKebab(m[1])}: ${argbToCss(m[2])};`).join('\n')}
 ${renderTypography(typography)}
+  --npq-weight-regular: 400;
+  --npq-weight-medium: 500;
+  --npq-weight-semibold: 600;
+  --npq-weight-bold: 700;
+  --npq-weight-extra-bold: 800;
+  --npq-weight-heavy: 900;
   --npq-radius-button: 12px;
   --npq-radius-card: 16px;
   --npq-radius-logo: 10px;
@@ -206,8 +239,31 @@ ${renderTypography(typography)}
 }
 `;
 
+  if (/NaN|undefined/.test(output)) throw new Error('Unresolved app typography');
+  const application = path.resolve(path.dirname(SOURCE_PATH), '../..');
+  if (process.argv.includes('--check')) {
+    if (await readFile(OUTPUT_PATH, 'utf8') !== output) throw new Error('App design tokens differ; run sync:design-system');
+    const fonts = path.join(path.dirname(OUTPUT_PATH), 'fonts');
+    if (!(await readFile(path.join(fonts, 'PretendardVariable.ttf'))).equals(await readFile(path.join(application, 'assets/fonts/PretendardVariable.ttf')))) throw new Error('App font bytes differ');
+    console.log('App semantic typography, light/dark colors and font parity PASS');
+    return;
+  }
   await writeFile(OUTPUT_PATH, output, "utf8");
   console.log(`Wrote ${OUTPUT_PATH}`);
+
+  const fonts = path.join(path.dirname(OUTPUT_PATH), 'fonts');
+  await mkdir(fonts, {recursive: true});
+  await copyFile(path.join(application, 'assets/fonts/PretendardVariable.ttf'), path.join(fonts, 'PretendardVariable.ttf'));
+  await writeFile(path.join(fonts, 'Pretendard-LICENSE.txt'), (await readFile(path.join(application, 'tools/open_source_notices/Pretendard_LICENSE.txt'), 'utf8')).replace(/[ \t]+$/gm, ''));
+  if (!process.env.APP_DESIGN_SYSTEM_CSS) {
+    const icons = path.join(ROOT, 'styles/icons');
+    await mkdir(icons, {recursive: true});
+    for (const name of ['menu', 'close']) await copyFile(path.join(application, `assets/material_symbols/outlined/${name}.svg`), path.join(icons, `${name}.svg`));
+    const notices = JSON.parse(await readFile(path.join(application, 'assets/legal/open_source_notices.json'), 'utf8'));
+    const material = notices.components.find(item => item.name === 'Material Icons');
+    if (!material || !notices.notices[material.noticeId]) throw new Error('App Material Icons license missing');
+    await writeFile(path.join(icons, 'Material-Icons-LICENSE.txt'), notices.notices[material.noticeId].replace(/[ \t]+$/gm, '') + '\n');
+  }
 
   if (TS_OUTPUT_PATH) {
     await writeFile(TS_OUTPUT_PATH, renderStudioTokensTs(colors, typography), "utf8");

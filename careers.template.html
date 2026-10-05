@@ -22,9 +22,6 @@
   <meta name="twitter:image" content="https://netmelonai.com/images/og-cover.png">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/careers.css">
   <!-- __COMPANY_SOURCE_BUILD_META__ -->
   <script type="application/ld+json"><!-- __COMPANY_SOURCE_CAREERS_SCHEMA__ --></script>
@@ -33,10 +30,10 @@
     .technology-section {
       margin-top: 30px;
       padding: 28px;
-      border: 1px solid rgba(15, 23, 42, 0.08);
+      border: 1px solid color-mix(in srgb, var(--npq-color-outline-variant) 8%, transparent);
       border-radius: 24px;
-      background: linear-gradient(145deg, rgba(248, 250, 252, 0.92), #ffffff 64%);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.05);
+      background: linear-gradient(145deg, color-mix(in srgb, var(--npq-color-surface-bright) 92%, transparent), var(--npq-color-surface-bright) 64%);
+      box-shadow: 0 16px 40px color-mix(in srgb, var(--npq-color-on-surface) 5%, transparent);
     }
 
     .technology-section[hidden] {
@@ -52,24 +49,25 @@
 
     .technology-eyebrow {
       margin: 0;
-      color: #009e8b;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
+      color: var(--npq-color-on-primary-container);
+      font-size: var(--npq-type-label-medium-font-size);
+      font-weight: var(--npq-weight-extra-bold);
+      letter-spacing: var(--npq-type-label-medium-letter-spacing);
       text-transform: uppercase;
+      line-height: var(--npq-type-label-medium-line-height);
     }
 
     .technology-header h2 {
       margin: 0;
-      color: #111827;
-      font-size: clamp(1.45rem, 3vw, 2.25rem);
-      line-height: 1.14;
-      letter-spacing: -0.04em;
+      color: var(--npq-color-on-surface);
+      font-size: var(--npq-type-display-small-font-size);
+      line-height: var(--npq-type-display-small-line-height);
+      letter-spacing: var(--npq-type-display-small-letter-spacing);
     }
 
     .technology-header p {
       margin: 0;
-      color: #4e5968;
+      color: var(--npq-color-on-surface-variant);
       line-height: 1.7;
     }
 
@@ -82,24 +80,25 @@
     .technology-card {
       min-width: 0;
       padding: 18px;
-      border: 1px solid rgba(15, 23, 42, 0.08);
+      border: 1px solid color-mix(in srgb, var(--npq-color-outline-variant) 8%, transparent);
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.9);
+      background: color-mix(in srgb, var(--npq-color-surface-bright) 90%, transparent);
     }
 
     .technology-card h3 {
       margin: 0;
-      color: #111827;
-      font-size: 17px;
-      line-height: 1.25;
-      letter-spacing: -0.02em;
+      color: var(--npq-color-on-surface);
+      font-size: var(--npq-type-subheading-font-size);
+      line-height: var(--npq-type-subheading-line-height);
+      letter-spacing: var(--npq-type-subheading-letter-spacing);
     }
 
     .technology-card p {
       margin: 10px 0 0;
-      color: #4e5968;
-      line-height: 1.65;
-      font-size: 14px;
+      color: var(--npq-color-on-surface-variant);
+      line-height: var(--npq-type-title-small-line-height);
+      font-size: var(--npq-type-title-small-font-size);
+      letter-spacing: var(--npq-type-title-small-letter-spacing);
     }
 
     .tech-tag-list {
@@ -115,13 +114,14 @@
       min-height: 30px;
       padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(0, 158, 139, 0.2);
-      background: rgba(236, 255, 251, 0.78);
-      color: #007a6c;
-      font-size: 12px;
-      font-weight: 800;
-      line-height: 1;
+      border: 1px solid color-mix(in srgb, var(--npq-color-outline-variant) 20%, transparent);
+      background: color-mix(in srgb, var(--npq-color-surface-container-low) 78%, transparent);
+      color: var(--npq-color-on-primary-container);
+      font-size: var(--npq-type-label-medium-font-size);
+      font-weight: var(--npq-weight-extra-bold);
+      line-height: var(--npq-type-label-medium-line-height);
       white-space: nowrap;
+      letter-spacing: var(--npq-type-label-medium-letter-spacing);
     }
 
     .job-tech-tags {
@@ -132,15 +132,15 @@
     }
 
     .job-experience-tag {
-      background: #fff7ed;
-      border-color: rgba(249, 115, 22, 0.16);
-      color: #9a3412;
+      background: var(--npq-color-surface-container-low);
+      border-color: color-mix(in srgb, var(--npq-color-outline-variant) 16%, transparent);
+      color: var(--npq-color-error);
     }
 
     .job-tool-tag {
-      background: #f1f5f9;
-      border-color: rgba(15, 23, 42, 0.08);
-      color: #475569;
+      background: var(--npq-color-surface-container-low);
+      border-color: color-mix(in srgb, var(--npq-color-outline-variant) 8%, transparent);
+      color: var(--npq-color-on-surface-variant);
     }
 
     .job-tech-tag {
@@ -149,12 +149,13 @@
       min-height: 26px;
       padding: 5px 9px;
       border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      background: #f8fafc;
-      color: #4e5968;
-      font-size: 12px;
-      font-weight: 700;
-      line-height: 1;
+      border: 1px solid color-mix(in srgb, var(--npq-color-outline-variant) 8%, transparent);
+      background: var(--npq-color-surface-bright);
+      color: var(--npq-color-on-surface-variant);
+      font-size: var(--npq-type-label-medium-font-size);
+      font-weight: var(--npq-weight-bold);
+      line-height: var(--npq-type-label-medium-line-height);
+      letter-spacing: var(--npq-type-label-medium-letter-spacing);
     }
 
     .detail-tech-stack-section[hidden],
@@ -192,10 +193,10 @@
       width: min(720px, 100%);
       margin: 0 auto;
       padding: clamp(28px, 5vw, 48px);
-      border: 1px solid rgba(15, 23, 42, 0.08);
+      border: 1px solid color-mix(in srgb, var(--npq-color-outline-variant) 8%, transparent);
       border-radius: 28px;
-      background: linear-gradient(145deg, rgba(236, 255, 251, 0.72), #ffffff 64%);
-      box-shadow: 0 18px 46px rgba(15, 23, 42, 0.08);
+      background: linear-gradient(145deg, color-mix(in srgb, var(--npq-color-surface-container-low) 72%, transparent), var(--npq-color-surface-bright) 64%);
+      box-shadow: 0 18px 46px color-mix(in srgb, var(--npq-color-on-surface) 8%, transparent);
       text-align: center;
     }
 
@@ -204,27 +205,28 @@
       width: 34px;
       height: 34px;
       margin-bottom: 18px;
-      border: 3px solid rgba(0, 158, 139, 0.18);
-      border-top-color: #009e8b;
+      border: 3px solid color-mix(in srgb, var(--npq-color-outline-variant) 18%, transparent);
+      border-top-color: var(--npq-color-outline-variant);
       border-radius: 999px;
       animation: careersSpin 0.8s linear infinite;
     }
 
     .careers-loading-eyebrow {
       margin: 0 0 10px;
-      color: #009e8b;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
+      color: var(--npq-color-on-primary-container);
+      font-size: var(--npq-type-label-medium-font-size);
+      font-weight: var(--npq-weight-extra-bold);
+      letter-spacing: var(--npq-type-label-medium-letter-spacing);
       text-transform: uppercase;
+      line-height: var(--npq-type-label-medium-line-height);
     }
 
     .careers-loading-title {
       margin: 0;
-      color: #111827;
-      font-size: clamp(1.45rem, 3.4vw, 2.35rem);
-      line-height: 1.16;
-      letter-spacing: -0.04em;
+      color: var(--npq-color-on-surface);
+      font-size: var(--npq-type-display-small-font-size);
+      line-height: var(--npq-type-display-small-line-height);
+      letter-spacing: var(--npq-type-display-small-letter-spacing);
     }
 
     @keyframes careersSpin {
@@ -240,6 +242,7 @@
     }
   </style>
   <title>네트멜론 채용</title>
+  <link rel="stylesheet" href="/styles/site-shell.css">
 </head>
 <body>
   <header class="site-header" id="top">

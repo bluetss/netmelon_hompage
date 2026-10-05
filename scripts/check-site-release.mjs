@@ -790,7 +790,7 @@ async function checkSharedSiteShell() {
   assert(/\.site-header\s*{[\s\S]*?position:\s*sticky;[\s\S]*?top:\s*0;[\s\S]*?}/.test(shellCss), "styles/site-shell.css must keep the shared site header sticky.");
   assert(/@media\s*\(max-width:\s*920px\)\s*{[\s\S]*?\.site-header\s+\.shell\s*{[\s\S]*?gap:\s*10px;[\s\S]*?}/.test(shellCss), "styles/site-shell.css must constrain mobile header spacing.");
   assert(/\.mobile-actions\s*{[\s\S]*?flex:\s*0\s+0\s+auto;[\s\S]*?}/.test(shellCss), "styles/site-shell.css must prevent mobile header actions from shrinking away.");
-  assert(/\.menu-toggle\s*{[\s\S]*?flex:\s*0\s+0\s+42px;[\s\S]*?}/.test(shellCss), "styles/site-shell.css must keep the mobile menu button visible.");
+  assert(/\.menu-toggle\s*{[\s\S]*?flex:\s*0\s+0\s+48px;[\s\S]*?}/.test(shellCss), "styles/site-shell.css must keep the 48px mobile menu button visible.");
   assert(shellScript.includes('document.querySelector(".site-header")'), "scripts/site-shell.js must own the shared site header behavior.");
   assert(shellScript.includes('document.querySelector(".menu-toggle")'), "scripts/site-shell.js must own the shared mobile menu behavior.");
   assert(!shellScript.includes("document.body.style.paddingTop"), "scripts/site-shell.js must not mutate body padding for the shared header.");

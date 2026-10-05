@@ -22,9 +22,6 @@
   <meta name="twitter:image" content="https://netmelonai.com/images/og-cover.png">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/company.css">
 
   <style>
@@ -33,20 +30,20 @@
     }
 
     .ir-status.success {
-      color: #166534;
-      font-weight: 800;
+      color: var(--npq-color-on-surface);
+      font-weight: var(--npq-weight-extra-bold);
     }
 
     .ir-status.error {
-      color: #b91c1c;
-      font-weight: 700;
+      color: var(--npq-color-error);
+      font-weight: var(--npq-weight-bold);
     }
 
     .ir-field.invalid input,
     .ir-field.invalid select,
     .ir-field.invalid textarea {
-      border-color: #dc2626 !important;
-      box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.12);
+      border-color: var(--npq-color-error) !important;
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--npq-color-error) 12%, transparent);
     }
 
     .ir-submit-spinner {

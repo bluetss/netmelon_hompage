@@ -20,9 +20,6 @@
   <meta name="twitter:title" content="네트멜론 | 회사소개">
   <meta name="twitter:description" content="네트멜론의 Mission, Vision, Core Values, 성장 기록을 확인할 수 있습니다.">
   <meta name="twitter:image" content="https://netmelonai.com/images/og-cover.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/company.css?v=20260709-freedom-statement">
   <!-- __COMPANY_SOURCE_BUILD_META__ -->
   <style id="company-index-layout-type-system">
@@ -30,8 +27,8 @@
       z-index: 4;
       min-height: calc(120svh - var(--header-offset));
       background:
-        radial-gradient(circle at 92% 18%, rgba(255, 200, 61, 0.24), transparent 26%),
-        linear-gradient(145deg, #fff8e5 0%, #ffffff 58%);
+        radial-gradient(circle at 92% 18%, color-mix(in srgb, var(--npq-color-secondary) 24%, transparent), transparent 26%),
+        linear-gradient(145deg, var(--npq-color-surface-container-low) 0%, var(--npq-color-surface-bright) 58%);
     }
 
     .story-section.company-history-panel {
@@ -59,10 +56,10 @@
 
       .hero-motto #company-freedom-statement {
         width: min(100%, 980px);
-        font-size: clamp(1.24rem, 5.2vw, 1.7rem);
-        line-height: 1.36;
-        letter-spacing: 0;
-        font-weight: 700;
+        font-size: var(--npq-type-headline-medium-font-size);
+        line-height: var(--npq-type-headline-medium-line-height);
+        letter-spacing: var(--npq-type-headline-medium-letter-spacing);
+        font-weight: var(--npq-weight-bold);
         word-break: keep-all;
         overflow-wrap: break-word;
         text-wrap: balance;

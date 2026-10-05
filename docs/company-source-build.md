@@ -1,5 +1,27 @@
 # Company Source build-time injection
 
+## Shared app design consumption (2026-10-05)
+
+- Design policy: `../naepopquiz_app/docs/APP_DESIGN_SYSTEM.md`; icon choices:
+  `../naepopquiz_app/docs/ICON_REFERENCE.md`. Do not fork a company design registry.
+- `scripts/sync-design-system-css.mjs` reads the sibling app runtime, including
+  semantic copyWith typography and dark ColorScheme. `npm run sync:design-system`
+  refreshes `styles/design-system.css`, the identical Pretendard font/OFL and the
+  app menu/close SVGs with their Apache notice. `--check` checks token/font parity.
+- The existing generator also refreshes the app landing consumer with
+  `APP_DESIGN_SYSTEM_CSS=../naepopquiz_homepage/styles/design-system.css`.
+  Studio retains its own `tools/sync_design_system_tokens.mjs --check` consumer.
+- General UI uses semantic type/color variables; font sizes are rem and line
+  heights are ratios, not viewport-scaled text. Brand logos, product screenshots,
+  artwork geometry and content-specific layout are not replaced by generic UI.
+- `tools/verify_design_system_browser.cjs RUNTIME BASE OUTPUT company all` checks
+  16 representative KO/EN pages at 320/390/1440px and text 1/2. The install page
+  is an existing immediate redirect and is not a rendered-page audit target.
+  `tools/audit_design_system_staging.py` is the read-only owner-operation adapter.
+- No telemetry: visual-only styles and menu SVG identity. Source copy, CTA
+  destinations, forms, submission behavior, API contracts and privacy text stay
+  unchanged. 43 modified HTML files were compared outside styles/font loading.
+
 목표: 회사 홈페이지의 SEO 핵심 문구를 runtime fetch에 의존하지 않고, Studio 공개본을 빌드 시점에 HTML에 주입합니다.
 
 ## 파일 구조
