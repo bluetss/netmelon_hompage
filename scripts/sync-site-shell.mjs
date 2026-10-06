@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
+const themeHash = createHash('sha256').update(await readFile(path.join(ROOT, 'scripts/theme.js'))).digest('hex').slice(0, 16);
 
 const read = (relativePath) => readFile(path.join(ROOT, relativePath), "utf8");
 const write = (relativePath, source) => writeFile(path.join(ROOT, relativePath), source, "utf8");
@@ -98,6 +100,8 @@ function renderHeader(template, page) {
 
 function syncShell(source, page, partials) {
   let output = source;
+  output = output.replace(/\s*<script src="\/scripts\/theme\.js[^"\n]*"\s*><\/script>/g, "");
+  output = output.replace(/<head>/, `<head>\n  <script src="/scripts/theme.js?v=${themeHash}"></script>`);
   output = replaceSection(
     output,
     /  <header class="site-header" id="top"[^>]*>[\s\S]*?^  <\/header>/m,

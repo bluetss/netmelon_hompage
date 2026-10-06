@@ -253,3 +253,35 @@
   --npq-elevation-4: 0 2px 4px 0 rgba(14, 165, 233, 0.071), 0 6px 10px 3px rgba(59, 130, 246, 0.078);
   --npq-elevation-5: 0 4px 5px 0 rgba(14, 165, 233, 0.071), 0 8px 12px 5px rgba(59, 130, 246, 0.078);
 }
+
+/* Active web theme: existing white cards/headers use the lowest dark surface. */
+:root[data-theme="dark"] {
+  --npq-color-primary: var(--npq-dark-primary);
+  --npq-color-on-primary: var(--npq-dark-on-primary);
+  --npq-color-primary-container: var(--npq-dark-primary-container);
+  --npq-color-on-primary-container: var(--npq-dark-on-primary-container);
+  --npq-color-secondary: var(--npq-dark-secondary);
+  --npq-color-on-secondary: var(--npq-dark-on-secondary);
+  --npq-color-secondary-container: var(--npq-dark-secondary-container);
+  --npq-color-on-secondary-container: var(--npq-dark-on-secondary-container);
+  --npq-color-tertiary: var(--npq-dark-tertiary);
+  --npq-color-on-tertiary: var(--npq-dark-on-tertiary);
+  --npq-color-tertiary-container: var(--npq-dark-tertiary-container);
+  --npq-color-on-tertiary-container: var(--npq-dark-on-tertiary-container);
+  --npq-color-error: var(--npq-dark-error);
+  --npq-color-on-error: var(--npq-dark-on-error);
+  --npq-color-error-container: var(--npq-dark-error-container);
+  --npq-color-on-error-container: var(--npq-dark-on-error-container);
+  --npq-color-surface-dim: var(--npq-dark-surface-dim);
+  --npq-color-surface: var(--npq-dark-surface);
+  --npq-color-surface-bright: var(--npq-dark-surface-container-lowest);
+  --npq-color-surface-container-lowest: var(--npq-dark-surface-container-lowest);
+  --npq-color-surface-container-low: var(--npq-dark-surface-container-low);
+  --npq-color-surface-container: var(--npq-dark-surface-container);
+  --npq-color-surface-container-high: var(--npq-dark-surface-container-high);
+  --npq-color-surface-container-highest: var(--npq-dark-surface-container-highest);
+  --npq-color-on-surface: var(--npq-dark-on-surface);
+  --npq-color-on-surface-variant: var(--npq-dark-on-surface-variant);
+  --npq-color-outline: var(--npq-dark-outline);
+  --npq-color-outline-variant: var(--npq-dark-outline-variant);
+}

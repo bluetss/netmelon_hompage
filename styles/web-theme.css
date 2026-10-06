@@ -1,0 +1,35 @@
+/* Shared theme selection, not a separate palette. Native dialog supplies focus/Escape. */
+:root[data-theme="light"] { color-scheme: only light; }
+:root[data-theme="dark"] { color-scheme: only dark; }
+.web-theme-trigger {
+  min-width: 48px; min-height: 48px; padding: 8px 12px; cursor: pointer;
+  border: 1px solid var(--npq-color-outline-variant); border-radius: var(--npq-radius-button);
+  background: var(--npq-color-surface-container-low); color: var(--npq-color-on-surface);
+  font: inherit;
+}
+.web-theme-dialog {
+  width: min(420px, calc(100% - 32px)); padding: 20px;
+  max-height: calc(100dvh - 32px); overflow: auto;
+  border: 1px solid var(--npq-color-outline-variant); border-radius: var(--npq-radius-card);
+  background: var(--npq-color-surface-container-low); color: var(--npq-color-on-surface);
+  font-family: var(--npq-font-family-base);
+}
+.web-theme-dialog::backdrop { background: var(--npq-dark-scrim); }
+.web-theme-dialog header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.web-theme-dialog h2 { margin: 0; font-size: var(--npq-type-title-large-font-size); font-weight: var(--npq-weight-bold); }
+.web-theme-dialog [role="group"] { display: grid; gap: 8px; margin-top: 16px; }
+.web-theme-dialog button {
+  min-height: 48px; padding: 10px 16px; border-radius: var(--npq-radius-button); cursor: pointer;
+  border: 1px solid var(--npq-color-outline-variant); background: var(--npq-color-surface);
+  color: var(--npq-color-on-surface); font: inherit;
+}
+.web-theme-dialog button[aria-pressed="true"] {
+  border-color: var(--npq-color-primary); background: var(--npq-color-primary-container);
+  color: var(--npq-color-on-primary-container); font-weight: var(--npq-weight-bold);
+}
+.web-theme-dialog button:focus-visible, .web-theme-trigger:focus-visible { outline: 2px solid var(--npq-color-primary); outline-offset: 3px; }
+@media (max-width: 600px) {
+  .web-theme-dialog { margin: auto 0 0; width: 100%; max-width: none; max-height: 80dvh;
+    border-radius: var(--npq-radius-card) var(--npq-radius-card) 0 0;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
+}
