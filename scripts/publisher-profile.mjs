@@ -74,6 +74,7 @@ export function publisherProfileContent(profile) {
     businessInfoVerificationUrl: profile.businessInfoVerificationUrl,
     footerRouteIds: profile.footerRouteIds,
     copyrightNotice: profile.copyrightNotice,
+    ...(profile.copyrightReceiver != null ? { copyrightReceiver: profile.copyrightReceiver } : {}),
   };
 }
 
