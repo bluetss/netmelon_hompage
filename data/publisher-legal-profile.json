@@ -10,13 +10,13 @@
     "enabled": true,
     "fax": "",
     "name": "신승우",
-    "phone": "",
+    "phone": "070-4250-1000",
     "postalAddress": "경기도 김포시 고촌읍 태리로 236, 130동 305호",
     "submissionUrl": ""
   },
   "customerSupportEmail": "netmelon@netmelonai.com",
   "customerSupportHours": null,
-  "customerSupportPhone": "",
+  "customerSupportPhone": "070-4250-1000",
   "enabled": true,
   "footerRouteIds": [
     "company.overview",
@@ -35,12 +35,12 @@
   "lifecycleStatus": "published",
   "mailOrderRegistrationAuthority": "경기도 김포시",
   "mailOrderRegistrationNumber": "2025-경기김포-5450",
-  "publishedAt": "2026-10-08T08:34:59.708127+00:00",
+  "publishedAt": "2026-10-12T05:25:52.527898+00:00",
   "publisherId": "netmelon",
   "representativeName": "신승우",
   "schemaId": "npq.publisher_legal_profile.v1",
-  "sourceHash": "8c84e296c206c0b30ed48d9537af2220e1289620936289965ce7df57e45558c3",
-  "sourceVersionId": "publisher_netmelon_copyright_receiver_8c84e296c206c0b30ed48d95",
+  "sourceHash": "bc599b7f01497968d77a2e99aec2050cf7abc23523d60ba6d7df2dece09e2d97",
+  "sourceVersionId": "publisher_netmelon_copyright_receiver_bc599b7f01497968d77a2e99",
   "studioRouteId": "studio.root_redirect",
-  "versionLabel": "copyright-receiver-8c84e296c206c0b30ed48d95"
+  "versionLabel": "copyright-receiver-bc599b7f01497968d77a2e99"
 }
