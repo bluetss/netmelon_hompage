@@ -78,17 +78,19 @@ assert(manifest.hostingSite === "npq-company-dev", "release manifest has the wro
 assert(manifest.publicIntakeConfigured === Boolean(expectedApiBase), "release manifest intake state is inconsistent.");
 assert(manifest.origins?.company === "https://company-dev.netmelonai.com", "release manifest company origin is invalid.");
 assert(manifest.origins?.appLanding === expectedAppLandingOrigin, "release manifest app landing origin is invalid.");
-assert(manifest.origins?.studio === "https://studio-dev.naepopquiz.com", "release manifest Studio origin is invalid.");
+assert(manifest.origins?.studio === expectedAppLandingOrigin, "release manifest unified Studio origin is invalid.");
 
 for (const relativePath of ["index.html", "en/index.html"]) {
   const source = await readFile(path.join(DIST, relativePath), "utf8");
-  assert(/<a\b[^>]*class="[^"]*studio-cta[^>]*href="https:\/\/studio-dev\.naepopquiz\.com\/"/.test(source),
-    `${relativePath} Studio CTA must target staging.`);
+  const links = [...source.matchAll(/<a\b[^>]*class="[^"]*studio-cta[^>]*href="([^"]+)"/g)];
+  assert(links.length > 0 && links.every(match => match[1] === expectedAppLandingOrigin + "/studio"),
+    `${relativePath} Studio CTA must target the unified staging product.`);
 }
 
 for (const relativePath of files.filter((name) => name.endsWith(".html") || name.endsWith(".js"))) {
   const source = await readFile(path.join(DIST, relativePath), "utf8");
   assert(!source.includes('href="https://studio.naepopquiz.com'), `${relativePath} contains a production Studio navigation link.`);
+  assert(!source.includes('href="https://studio-dev.naepopquiz.com'), `${relativePath} contains a retired Studio navigation link.`);
 }
 
 console.log(`Firebase company staging artifact is valid (${files.length} files).`);

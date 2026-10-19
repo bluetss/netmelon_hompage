@@ -15,7 +15,7 @@ const {chromium} = require('/tmp/npq-homepage-browser.8OTw0C/node_modules/playwr
    await page.waitForTimeout(1000);
    const links = await page.locator('.studio-cta').evaluateAll(nodes=>nodes.map(n=>({text:n.textContent,href:n.href})));
    console.log(JSON.stringify({path,status:response.status(),links}));
-   if (!links.length || links.some(n=>n.href!=='https://studio-dev.naepopquiz.com/')) process.exitCode=1;
+   if (!links.length || links.some(n=>n.href!=='https://app-dev.naepopquiz.com/studio')) process.exitCode=1;
    await page.close();
   }
  } finally { await browser.close(); }
