@@ -18,7 +18,7 @@ const WEB_ORIGINS_BY_ENVIRONMENT = Object.freeze({
   staging: Object.freeze({
     company: "https://company-dev.netmelonai.com",
     appLanding: "https://app-dev.naepopquiz.com",
-    studio: "https://studio-dev.naepopquiz.com",
+    studio: "https://app-dev.naepopquiz.com",
   }),
 });
 const webOrigins = WEB_ORIGINS_BY_ENVIRONMENT[environment];
@@ -36,6 +36,7 @@ if (sourceCommitOverride && !/^[0-9a-f]{40}$/.test(sourceCommitOverride)) {
 const resolvedWebOrigins = Object.freeze({
   ...webOrigins,
   appLanding: appLandingOverride || webOrigins.appLanding,
+  studio: appLandingOverride || webOrigins.appLanding,
 });
 if (apiBase && !/^https:\/\/[^/]+(?:\/[^?#]*)?$/.test(apiBase)) {
   throw new Error("COMPANY_PUBLIC_INTAKE_API_BASE must be an absolute HTTPS URL.");
@@ -146,8 +147,8 @@ async function injectPublicLinks(relativePath) {
     `$1${resolvedWebOrigins.appLanding}/$2`,
   );
   html = html.replace(
-    /(<a\b[^>]*\bhref=")https:\/\/studio\.naepopquiz\.com(?=\/[^\"]*\")/g,
-    `$1${webOrigins.studio}`,
+    /(<a\b[^>]*\bhref=")(?:https:\/\/studio\.naepopquiz\.com\/?|https:\/\/naepopquiz\.com\/studio\/?)"/g,
+    `$1${resolvedWebOrigins.studio}/studio"`,
   );
   await writeFile(target, html, "utf8");
 }

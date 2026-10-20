@@ -402,7 +402,7 @@ function renderHomePage(source) {
     '        <div class="story-content">',
     `          <h2 id="home-studio-title">${textWithBreaks(identity.studioIntroTitle)}</h2>`,
     `          <p id="home-studio-copy">${textWithBreaks(identity.studioIntroBody)}</p>`,
-    '          <a class="story-link studio-cta" href="https://studio.naepopquiz.com/" target="_blank" rel="noopener noreferrer">Open Studio</a>',
+    '          <a class="story-link studio-cta" href="https://naepopquiz.com/studio" target="_blank" rel="noopener noreferrer">Open Studio</a>',
     '          <div class="studio-shotcase" aria-label="Naepopquiz Studio screens">',
     '            <div class="studio-shot-track">',
     '              <!-- __COMPANY_ASSET_STUDIO_SHOTS_START__ -->',
