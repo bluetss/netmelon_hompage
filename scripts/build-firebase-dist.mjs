@@ -153,6 +153,7 @@ async function injectPublicLinks(relativePath) {
   await writeFile(target, html, "utf8");
 }
 
+execFileSync(process.execPath, [path.join(ROOT, 'scripts/sync-app-brand.mjs'), '--check'], {cwd: ROOT, stdio: 'inherit'});
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST, { recursive: true });
 
