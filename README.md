@@ -147,3 +147,7 @@ the manifest is the reusable source for future existing-slot consumption, not a 
 `npm run check` and the staging artifact builder verify hashes. Standalone CI
 validates the committed receipt when the App sibling is absent; it never downloads
 or writes another session's checkout. This does not update remotely published CMS assets.
+
+### NPQ 제품 아이콘 원본 (2026-10-31)
+
+NPQ 앱 연결용 자산은 App `docs/APP_BRAND_ICON_SPEC.md`의 밝은 내부 `#E6EEFA` 원본을 사용한다. `scripts/sync-app-brand.mjs`로 SVG hash와 설치용 PNG를 동기화하며 `--check`로 byte 대조한다. 회사 자체 Netmelon 로고·파비콘은 이 앱 브랜드 자산과 별개다. 이번 sync/check, npm check, secret path 검사 PASS. 원격 배포 없음.
