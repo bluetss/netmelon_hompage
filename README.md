@@ -138,3 +138,12 @@ Publishing an Asset only adds it to the reusable site manifest. The actual homep
 GitHub Actions runs the same `npm run check` command on pushes to `main` and pull requests.
 
 Local implementation details for Company Source build-time injection are documented in [docs/company-source-build.md](docs/company-source-build.md).
+
+App brand assets use `npm run sync:app-brand` and `data/app-brand.json`.
+The source is the App's actual `assets/images/topAppBar_icon.svg` (light interior
+in both themes) plus its launcher PNG. Company `logo.png`/favicon stay independent.
+The product logo is currently not rendered in the company page's product section;
+the manifest is the reusable source for future existing-slot consumption, not a new UI.
+`npm run check` and the staging artifact builder verify hashes. Standalone CI
+validates the committed receipt when the App sibling is absent; it never downloads
+or writes another session's checkout. This does not update remotely published CMS assets.
