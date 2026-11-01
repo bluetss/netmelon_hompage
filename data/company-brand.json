@@ -1,0 +1,38 @@
+{
+  "policy": "../npq_web_system/design/BRAND_IDENTITY.md",
+  "approvedOn": "2026-11-01",
+  "layout": "company horizontal; exact outside gap28; uniform scaling",
+  "theme": "Original colors retained in light and night",
+  "assets": [
+    {
+      "source": "approved/company-horizontal.svg",
+      "target": "images/brand/netmelon-horizontal.svg",
+      "sha256": "12cc9e5177f6852fa2fe435cdf361ceacf822407806a7151603c2af05a370cd9"
+    },
+    {
+      "source": "website/light/symbol.png",
+      "target": "images/logo.png",
+      "sha256": "4562ab8d21f9afe4bdcfaae203588f473b168fb1317494a1591cfa29d2b397b0"
+    },
+    {
+      "source": "website/light/favicon.ico",
+      "target": "favicon.ico",
+      "sha256": "223783059a9faa3fe909bb7f051ce7e261d04598fbaddf75acd97023f9450e79"
+    },
+    {
+      "source": "approved/common-symbol.svg",
+      "target": "images/brand/common-symbol.svg",
+      "sha256": "24c78da0b84cde9ca25f6ccaf6f3e1beb0cf5fafba17a069af9fd548d4c6161a"
+    },
+    {
+      "source": "social/company/light/og.png",
+      "target": "images/og-cover.png",
+      "sha256": "ec7413e9a2ae51b57d241a514a14617e4ea4d806c0964924f3e8ba9b29861615"
+    },
+    {
+      "source": "website/light/apple-touch-icon.png",
+      "target": "images/apple-touch-icon.png",
+      "sha256": "8d5ba1a3d8a1a450755f63a05ee1a2a0a3e2a63d53fd115f080c2635f1f9a6d2"
+    }
+  ]
+}

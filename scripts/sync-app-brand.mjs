@@ -18,10 +18,10 @@ if(!await stat(app).then(()=>true).catch(()=>false)){
   console.log('Company App brand: bundled pinned hashes match (App sibling absent)');
   process.exit(0);
 }
-const logo=await readFile(path.join(app,'assets/images/topAppBar_icon.svg'));
+const logo=await readFile(path.join(app,'tool/app_icon/brand_mark.svg'));
 const launcher=await readFile(path.join(app,'assets/images/ic_launcher.png'));
 const svgPath=`images/shared-icons/npq-brand.${hash(logo).slice(0,16)}.svg`;
-const assets=[{source:'assets/images/topAppBar_icon.svg',target:svgPath,bytes:logo},
+const assets=[{source:'tool/app_icon/brand_mark.svg',target:svgPath,bytes:logo},
   {source:'assets/images/ic_launcher.png',target:'images/app_icon.png',bytes:launcher}];
 for(const {target,bytes} of assets){
   const destination=path.join(root,target);
