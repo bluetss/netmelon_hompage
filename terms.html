@@ -1,272 +1,72 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex,nofollow" />
-  <link rel="canonical" href="https://naepopquiz.com/terms.html" />
-  <title id="terms-title">네트멜론 - 이용약관</title>
-  <style>
-    /* ==================== COLOR SYSTEM ==================== */
-    :root {
-      /* Primary */
-      --primary:             var(--npq-color-primary);
-      --on-primary:          var(--npq-color-on-primary);
-      --primary-container:   var(--npq-color-primary-container);
-      --on-primary-container:var(--npq-color-on-primary-container);
-      /* Secondary */
-      --secondary:           var(--npq-color-secondary);
-      --on-secondary:        var(--npq-color-on-secondary);
-      --secondary-container: var(--npq-color-secondary-container);
-      --on-secondary-container:var(--npq-color-on-secondary-container);
-      /* Surface / Background */
-      --surface:             var(--npq-color-surface);
-      --surface-low: var(--npq-color-surface-container-low);
-      --surface-container:   var(--npq-color-surface-container);
-      --surface-container-low:var(--npq-color-surface-container-low);
-      /* Text / Border */
-      --on-surface:          var(--npq-color-on-surface);
-      --on-surface-variant:  var(--npq-color-on-surface-variant);
-      --outline:             var(--npq-color-outline);
-      /* Shadows */
-      --elev1: var(--npq-elevation-1);
-      --elev2: var(--npq-elevation-2);
-    }
-    /* ==================== TYPOGRAPHY ==================== */
-    html, body {
-      margin:0; padding:0;
-      font-family:var(--npq-font-family-base);
-      background: var(--surface);
-      color: var(--on-surface);
-    }
-    body {
-      padding-top: 80px; /* 헤더 높이 만큼 아래로 내림 */
-    }
-    h1, h2 { margin: 0; }
-    h1 { font-size: var(--npq-type-headline-medium-font-size); line-height: var(--npq-type-headline-medium-line-height); font-weight: var(--npq-weight-medium); letter-spacing:             var(--npq-type-headline-medium-letter-spacing); }
-    h2 { font-size: var(--npq-type-headline-small-font-size); line-height: var(--npq-type-headline-small-line-height); font-weight: var(--npq-weight-medium); color: var(--on-primary-container); letter-spacing:             var(--npq-type-headline-small-letter-spacing); }
-    p, a { font-size: var(--npq-type-title-small-font-size); line-height: var(--npq-type-title-small-line-height); color: var(--on-surface-variant); text-decoration: none; letter-spacing:             var(--npq-type-title-small-letter-spacing); }
-
-    /* ==================== HEADER & NAV ==================== */
-    header {
-      position: fixed; top: 0; left: 0; right: 0;
-      padding: 16px 0;
-      background: color-mix(in srgb, var(--npq-color-secondary-container) 60%, transparent);
-      backdrop-filter: blur(8px);
-      box-shadow: var(--elev2);
-      transition: background .3s;
-      z-index: 100;
-    }
-    header.scrolled {
-      background: var(--primary) !important;
-    }
-    header .container {
-      max-width: 1200px; margin: auto;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 24px;
-    }
-    nav a {
-      margin-left: 8px;
-      margin-right: 16px;
-      color: var(--on-primary-container);
-      font-weight: var(--npq-weight-medium);
-      transition: color .2s;
-    }
-    nav a:hover {
-      color: var(--on-surface);
-    }
-    nav a:first-child {
-      margin-left: 0;
-    }
-
-    /* ==================== TERMS LAYOUT ==================== */
-    .policy-container {
-      display: flex;
-      max-width: 1200px;
-      margin: 100px auto 60px;
-      gap: 32px;
-      padding: 0 24px;
-    }
-    .policy-nav {
-      flex: 0 0 240px;
-      background: var(--surface-low);
-      border-radius: 8px;
-      padding: 24px;
-      position: sticky;
-      top: 100px;
-      box-shadow: var(--elev1);
-    }
-    .policy-nav ul { list-style: none; padding: 0; margin: 0; }
-    .policy-nav li { margin-bottom: 12px; }
-    .policy-nav a {
-      color: var(--on-surface-variant);
-      text-decoration: none;
-      font-size: var(--npq-type-title-small-font-size);
-      transition: color .2s;
-      line-height:             var(--npq-type-title-small-line-height);
-      letter-spacing:             var(--npq-type-title-small-letter-spacing);
-    }
-    .policy-nav a:hover { color: var(--primary); }
-    .policy-content {
-      flex: 1;
-      background: var(--surface);
-      border-radius: 8px;
-      padding: 32px;
-      box-shadow: var(--elev1);
-    }
-    .policy-content h2, .policy-content h3 {
-      color: var(--on-primary-container);
-      margin-top: 24px;
-    }
-    .policy-content p, .policy-content li {
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-    .lang-switch-top { display:flex; gap:8px; margin-bottom:24px; }
-    .lang-switch-top button.active {
-      background: var(--secondary);
-      color: var(--on-secondary);
-    }
-
-    /* ==================== FOOTER ==================== */
-    footer {
-      background: var(--on-surface);
-      color: var(--surface);
-      padding: 40px 0;
-    }
-    .footer-info { text-align: center; font-size: var(--npq-type-title-small-font-size); line-height:             var(--npq-type-title-small-line-height); letter-spacing:             var(--npq-type-title-small-letter-spacing); }
-
-    /* ==================== MOBILE ==================== */
-    @media (max-width: 600px) {
-    header .container {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 8px;
-    }
-    header h1 {
-      font-size: var(--npq-type-reading-compact-font-size);
-      line-height: var(--npq-type-reading-compact-line-height);
-      margin-bottom: 0;
-      white-space: nowrap;
-      letter-spacing:             var(--npq-type-reading-compact-letter-spacing);
-    }
-    nav {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 0;
-      padding-right: 0;
-    }
-    nav a {
-      font-size: var(--npq-type-title-small-font-size);
-      margin: 0 4px;
-      padding: 0 2px;
-      white-space: nowrap;
-      line-height:             var(--npq-type-title-small-line-height);
-      letter-spacing:             var(--npq-type-title-small-letter-spacing);
-    }
-    .lang-switch {
-      margin-left: 8px;
-      gap: 3px;
-    }
-    .lang-switch button {
-      padding: 3px 8px;
-      font-size: var(--npq-type-home-label-font-size);
-      line-height:             var(--npq-type-home-label-line-height);
-      letter-spacing:             var(--npq-type-home-label-letter-spacing);
-    }
-  }
-  </style>
-  <link rel="stylesheet" href="/styles/site-shell.css">
-</head>
-<body>
-  <header id="site-header">
-    <div class="container">
-      <h1 id="company-name">네트멜론</h1>
-      <nav>
-        <a href="#" id="home-link">HOME</a>
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>기업 홈페이지 이용약관 · 네트멜론</title>
+<link rel="canonical" href="https://netmelonai.com/terms">
+<script src="/scripts/theme.js"></script>
+<link rel="stylesheet" href="/styles/company.css">
+<link rel="stylesheet" href="/styles/legal-documents.css">
+</head><body class="company-legal-page">
+<header class="site-header" id="top">
+    <div class="shell">
+      <a class="brand" href="/">
+        <img class="company-brand-logo" src="images/brand/netmelon-horizontal.svg" alt="네트멜론 로고" width="918" height="204">
+      </a>
+      <div class="mobile-actions">
+        <div class="download-menu">
+          <button class="download-toggle" type="button" aria-expanded="false" aria-controls="download-menu" aria-label="앱 다운로드 메뉴 열기">앱 다운로드</button>
+          <div class="download-dropdown" id="download-menu">
+            <a href="https://play.google.com/store/apps/details?id=com.netmelon.naepopquiz" target="_blank" rel="noopener noreferrer">Google Play</a>
+            <a href="https://apple.co/4ez9nji" target="_blank" rel="noopener noreferrer">App Store</a>
+          </div>
+        </div>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="메뉴 열기">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary">
+        <a href="/company">회사소개</a>
+        <a href="/#naepopquiz-app">제품소개</a>
+        <a href="/problems">풀고 있는 문제</a>
+        <a href="/careers">채용</a>
+        <a href="/ir">IR</a>
+        <a href="/announcement">회사 공고</a>
+        <a class="lang-link" href="/en/company" lang="en">ENGLISH</a>
       </nav>
     </div>
   </header>
-
-  <div class="policy-container">
-    <article class="policy-content" id="policy-content">로딩 중...</article>
-  </div>
-
-  <footer>
-    <div class="container">
-      <div class="footer-info">© 2025 Netmelon. All rights reserved.</div>
+<main class="shell legal-page"><article class="policy-content" id="policy-content" aria-label="기업 홈페이지 이용약관"><h1>주식회사 네트멜론 기업 홈페이지 이용약관 초안</h1><p class="legal-draft-status">검토용 초안 · 시행일 미정 · 아직 게시·시행되지 않았습니다.</p><section><h2 id="article-1">제1조(목적과 적용 범위)</h2><p>이 약관은 주식회사 네트멜론(이하 ‘회사’)이 운영하는 기업 홈페이지의 이용에 관한 기본 사항을 정합니다. 기업 홈페이지는 제품 홍보, 채용·협업 안내, 투자 정보 및 회사 정보 공시를 제공합니다.</p></section><section><h2 id="article-2">제2조(정보의 이용)</h2><p>① 이용자는 홈페이지에 공개된 정보를 열람하고 안내된 방법으로 회사에 문의할 수 있습니다. 제품의 가입·결제·콘텐츠 이용에는 해당 제품에서 제공하는 이용조건이 적용됩니다. 홈페이지 열람만으로 제품 구매나 별도 계약이 체결되는 것은 아닙니다.</p><p>② 회사는 정확하고 최신의 정보를 제공하기 위해 노력합니다. 게시 자료의 작성 시점과 적용 범위를 확인해야 하며, 별도 표시가 없는 전망·계획은 변경될 수 있습니다. 법령상 공시나 회사의 책임을 이 조항으로 배제하지 않습니다.</p></section><section><h2 id="article-3">제3조(문의·지원·제안)</h2><p>① 이용자는 안내된 목적에 맞는 정확한 정보와 제출 권한이 있는 자료를 제공해야 합니다. 회사는 요청 검토와 연락에 필요한 범위에서 제출 자료를 이용하며, 개인정보는 개인정보처리방침에 따라 처리합니다.</p><p>② 지원·제안의 제출이나 접수 확인만으로 채용·협업·투자·보수 지급 또는 자료 제공이 확정되지 않습니다. 구체적인 조건과 비밀유지·권리 이용은 별도로 합의합니다. 제출만으로 자료의 지식재산권이 회사에 이전되지는 않습니다.</p></section><section><h2 id="article-4">제4조(게시 자료의 권리)</h2><p>홈페이지의 글·이미지·로고 등 자료의 권리는 회사 또는 정당한 권리자에게 있습니다. 이용자는 법률이 허용하거나 권리자가 허락한 범위에서 자료를 이용할 수 있습니다.</p></section><section><h2 id="article-5">제5조(금지행위)</h2><p>타인의 정보 도용, 허위·악성 요청, 불법 자료 제출, 악성코드 전송, 권리 침해와 홈페이지의 정상적인 운영을 방해하는 행위를 금지합니다. 회사는 그 정도와 사유에 따라 해당 접수나 접근을 제한할 수 있습니다.</p></section><section><h2 id="article-6">제6조(운영 변경과 책임)</h2><p>① 회사는 점검·장애·보안 또는 운영상 필요한 사유로 홈페이지의 일부를 변경하거나 일시 중단할 수 있습니다. 이용에 중요한 영향을 미치는 사항은 사전에 안내하며, 긴급한 사유가 있는 경우 사후에 안내할 수 있습니다.</p><p>② 회사는 자신의 고의 또는 과실로 발생시킨 손해에 대하여 관련 법령에 따라 책임을 부담합니다. 이 약관은 법률이 보장하는 이용자의 권리를 제한하지 않습니다.</p></section><section><h2 id="article-7">제7조(변경과 해석)</h2><p>이 약관의 변경 내용·이유와 시행일은 홈페이지에서 안내합니다. 별도 계약이나 동의가 필요한 사항은 해당 절차를 따릅니다. 약관의 뜻이 명백하지 않은 경우에는 이용자에게 유리하게 해석합니다.</p></section><section><h2 id="article-8">제8조(문의와 분쟁 해결)</h2><p>홈페이지 관련 문의와 불만은 netmelon@netmelonai.com 또는 070-4250-1000으로 접수할 수 있습니다. 이 약관에는 대한민국 법을 적용하며 관할은 관련 법률에 따릅니다. 적용되는 강행법상 권리는 제한하지 않습니다.</p></section></article></main>
+<footer class="site-footer">
+    <div class="shell footer-row">
+      <div class="footer-brand">
+        <strong class="footer-company-name">Netmelon</strong>
+        <p class="footer-copyright">Copyright 2026 Netmelon. All rights reserved.</p>
+        <nav class="footer-links" aria-label="푸터 링크"><a href="/company-privacy">개인정보처리방침</a><button type="button" class="web-theme-trigger" data-theme-open>화면 테마</button></nav>
+      </div>
+      <section class="publisher-business" aria-label="사업자 정보" data-publisher-profile-version="publisher_netmelon_copyright_receiver_bc599b7f01497968d77a2e99" data-publisher-profile-hash="bc599b7f01497968d77a2e99aec2050cf7abc23523d60ba6d7df2dece09e2d97">
+        <p class="publisher-business-line"><span class="publisher-business-item"><strong>사업자등록번호:</strong> 826-81-02224</span><span class="publisher-business-item"><strong>대표:</strong> 신승우</span></p>
+        <p class="publisher-business-line"><span class="publisher-business-item"><strong>호스팅 서비스:</strong> 구글클라우드 코리아 유한회사</span><span class="publisher-business-item"><strong>통신판매업 신고번호:</strong> 2025-경기김포-5450 <a class="business-verify" href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=8268102224" target="_blank" rel="noopener noreferrer">사업자정보확인</a></span><span class="publisher-business-item"><strong>전화:</strong> 070-4250-1000</span></p>
+        <p class="publisher-business-address">경기도 김포시 고촌읍 태리로 236, 130동 305호</p>
+      </section>
     </div>
   </footer>
-
-  <script>
-    async function fetchJsonData(url) { const res = await fetch(url); return res.json(); }
-    let terms;
-    // URL 쿼리 파라미터에서 lang 값을 가져와서 초기 언어 설정
-    const urlParams = new URLSearchParams(window.location.search);
-    let currentLang = urlParams.get('lang') === 'en' ? 'en' : 'ko';
-
-    document.addEventListener('DOMContentLoaded', async () => {
-      terms = await fetchJsonData('terms_of_service.json');
-      translations = await fetchJsonData('translations.json');  // ★ 추가
-      applyLangTexts(currentLang);  // ★ 추가
-      renderTerms(currentLang);
-      buildToc();
-      window.addEventListener('scroll', () => {
-        document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 50);
-      });
-    });
-
-    // HOME 링크를 현재 언어에 맞게 동작시킴
-    document.addEventListener('DOMContentLoaded', function() {
-      const homeLink = document.getElementById('home-link');
-      if (homeLink) {
-        homeLink.addEventListener('click', function(e) {
-          e.preventDefault();
-	          window.location.href = currentLang === 'en' ? '/en/' : '/';
-        });
-      }
-    });
-
-    function switchTermsLang(lang) {
-      currentLang = lang;
-      document.getElementById('btn-ko').classList.toggle('active', lang==='ko');
-      document.getElementById('btn-en').classList.toggle('active', lang==='en');
-      applyLangTexts(lang); // ★ 언어 바꿀 때도 반영
-      renderTerms(lang);
-      buildToc();
-    }
-
-    function applyLangTexts(lang) {
-      // 타이틀, 회사명 교체
-      if (translations && translations[lang]) {
-        document.title = translations[lang]['terms-title'];
-        document.getElementById('terms-title').innerText = translations[lang]['terms-title'];
-        document.getElementById('company-name').innerText = translations[lang]['company-name'];
-      }
-      document.documentElement.lang = lang;
-    }
-
-    function renderTerms(lang) {
-      const html = terms[lang]?.content || '<p>내용이 없습니다.</p>';
-      document.getElementById('policy-content').innerHTML = html;
-      // <html> 요소의 lang 속성도 업데이트 (접근성/SEO)
-      document.documentElement.lang = lang === 'en' ? 'en' : 'ko';
-    }
-
-    function buildToc() {
-      const container = document.getElementById('policy-content');
-      const toc = document.getElementById('policy-toc'); toc.innerHTML = '';
-      container.querySelectorAll('h2, h3').forEach(h => {
-        if (!h.id) h.id = h.textContent.trim().replace(/\s+/g, '-');
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = '#'+h.id; a.textContent = h.textContent;
-        li.appendChild(a);
-        toc.appendChild(li);
-      });
-    }
-  </script>
-</body>
-</html>
+<script src="/scripts/site-shell.js" defer></script>
+<script>
+(async () => {
+ const lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ko';
+ try {
+  const response = await fetch('terms_of_service.json');
+  if (!response.ok) throw new Error('Document unavailable');
+  const documents = await response.json();
+  document.getElementById('policy-content').innerHTML = documents[lang].content;
+  document.documentElement.lang = lang;
+  document.title = documents[lang].title;
+ } catch (error) {
+  document.getElementById('policy-content').textContent = '문서를 불러오지 못했습니다. 새로고침해 주세요.';
+ }
+})();
+</script>
+</body></html>

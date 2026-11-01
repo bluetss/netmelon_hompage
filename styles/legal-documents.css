@@ -1,0 +1,11 @@
+/* Company shell and theme stay canonical; document layout follows app legal reading roles. */
+.company-legal-page { margin: 0; color: var(--npq-color-on-surface); background: var(--npq-color-surface); }
+.company-legal-page .legal-page { padding-block: 40px 64px; }
+.policy-content { max-width: 820px; margin-inline: auto; overflow-wrap: anywhere; font-size: var(--npq-type-body-large-font-size); line-height: var(--npq-type-body-large-line-height); letter-spacing: var(--npq-type-body-large-letter-spacing); }
+.policy-content h1 { margin: 24px 0 20px; font-size: var(--npq-type-headline-medium-font-size); line-height: var(--npq-type-headline-medium-line-height); letter-spacing: var(--npq-type-headline-medium-letter-spacing); font-weight: var(--npq-weight-semibold); }
+.policy-content h2 { margin: 0 0 12px; font-size: var(--npq-type-title-large-font-size); line-height: var(--npq-type-title-large-line-height); letter-spacing: var(--npq-type-title-large-letter-spacing); font-weight: var(--npq-weight-semibold); }
+.policy-content section { margin-block: 32px; scroll-margin-top: 100px; }
+.policy-content p, .policy-content li { color: var(--npq-color-on-surface); font-size: var(--npq-type-body-large-font-size); line-height: var(--npq-type-body-large-line-height); margin-block: 0 16px; }
+.policy-content a { color: var(--npq-color-on-primary-container); text-decoration: underline; text-underline-offset: .2em; }
+.policy-content .legal-draft-status { color: var(--npq-color-on-surface-variant); font-size: var(--npq-type-body-medium-font-size); line-height: var(--npq-type-body-medium-line-height); padding-bottom: 24px; border-bottom: 1px solid var(--npq-color-outline-variant); margin-bottom: 32px; }
+@media(max-width:680px) { .company-legal-page .legal-page { padding-block: 28px 64px; } }

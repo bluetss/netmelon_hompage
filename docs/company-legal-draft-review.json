@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-02",
+  "stagingOrigin": "https://company-dev.netmelonai.com",
+  "stagingSourceCommit": "4d1fc82fccf3059ec9b21bd706ee186e67a41c82",
+  "sourceDirty": false,
+  "publicIntakeConfigured": false,
+  "publishBlocked": true,
+  "englishPreserved": true,
+  "translated": false,
+  "deployed": false,
+  "pending": [
+    "실제 위탁업체·처리 국가 및 계약 확인",
+    "목적별 실제 삭제 처리와 보유기간의 일치 확인",
+    "접수 활성화 전 항목별 수집 안내 확인"
+  ]
+}
