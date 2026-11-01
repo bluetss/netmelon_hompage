@@ -449,3 +449,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     height: 48px;
   }
 }
+
+/* Approved 301 wordmark + original symbol: preserve paths, colors and ratio. */
+.brand .company-brand-logo {
+  width: auto;
+  height: 40px;
+  max-width: 100%;
+  border-radius: 0;
+  object-fit: contain;
+  object-position: left center;
+  flex-shrink: 1;
+}
+@media (max-width: 768px) {
+  .brand .company-brand-logo { height: 32px; }
+}
