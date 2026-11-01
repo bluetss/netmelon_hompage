@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="832" height="580" viewBox="96 222 832 580" fill="none">
+  <!-- AppColors.surfaceContainerHigh. Overscan beneath the ring prevents an antialias seam. -->
+  <path fill="#E6EEFA" stroke="#E6EEFA" stroke-width="48" d="M360 328H664A158 158 0 0 1 822 486V538A158 158 0 0 1 664 696H360A158 158 0 0 1 202 538V486A158 158 0 0 1 360 328Z"/>
+  <path
+      fill="#00BFA5"
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M348 238H676A236 236 0 0 1 912 474V550A236 236 0 0 1 676 786H348A236 236 0 0 1 112 550V474A236 236 0 0 1 348 238ZM360 328H664A158 158 0 0 1 822 486V538A158 158 0 0 1 664 696H360A158 158 0 0 1 202 538V486A158 158 0 0 1 360 328Z"/>
+  <path
+      d="M284 536C354 536 356 420 430 420C512 420 494 610 574 610C650 610 638 446 742 446"
+      stroke="#00564B"
+      stroke-width="64"
+      stroke-linecap="round"/>
+</svg>

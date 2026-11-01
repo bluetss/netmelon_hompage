@@ -1,0 +1,226 @@
+{
+  "generatedAt": "2026-07-10T07:48:19.027Z",
+  "purpose": "Seed payload for Studio Web CMS company English localization records.",
+  "apiPath": "/company/source/translations",
+  "sourceVersionId": "mvc_v0_2",
+  "sourceLocale": "ko",
+  "targetLocale": "en",
+  "translationStatus": "human_draft",
+  "records": [
+    {
+      "translationId": "tr_company_home_en_mvc_v0_2",
+      "routeId": "company.home",
+      "sourceLocale": "ko",
+      "targetLocale": "en",
+      "sourceVersionId": "mvc_v0_2",
+      "sourceHash": "sha256:4b6b0c86b6b0d5d1ce45e7d9befbc5d4299b6fd4da8dcf78ac3c8aa4bb0cd71c",
+      "translationStatus": "human_draft",
+      "translationOwner": "localization",
+      "reviewOwner": "company",
+      "fields": [
+        {
+          "fieldPath": "identity.brandSignatureMessage.plainText",
+          "sourceText": "네트멜론은\n언어를 통해\n생각과 기회의 자유를 넓힙니다.",
+          "targetText": "Netmelon helps people\nthink, speak, and connect\nmore freely through language.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "identity.appIntroTitle",
+          "sourceText": "공부하지 마세요.\n그냥 따라 말하세요.",
+          "targetText": "Stop studying a language.\nStart speaking it.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "identity.appIntroBody",
+          "sourceText": "내팝퀴즈는 단어장부터 회화장까지, 듣고 따라 말하는 반복 훈련으로 외국어를 실제로 말할 수 있게 만드는 언어 훈련 앱입니다.",
+          "targetText": "Naepopquiz is a language-training app that turns vocabulary, phrases, and conversations into repeatable listen-and-speak practice, helping learners build the reflex to speak in real situations.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "identity.studioIntroTitle",
+          "sourceText": "말하기 훈련 콘텐츠를 더 빠르게 만들고, 더 쉽게 운영합니다.",
+          "targetText": "Build speaking-practice content faster, and run it with less friction.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "identity.studioIntroBody",
+          "sourceText": "내팝퀴즈 스튜디오는 어학 콘텐츠를 생성하고 수정해 앱에서 바로 사용할 수 있게 하는 콘텐츠 운영 도구입니다.",
+          "targetText": "Naepopquiz Studio gives teams a faster way to create, edit, and publish language-training content that can be used directly in the app.",
+          "status": "human_draft"
+        }
+      ]
+    },
+    {
+      "translationId": "tr_company_overview_en_mvc_v0_2",
+      "routeId": "company.overview",
+      "sourceLocale": "ko",
+      "targetLocale": "en",
+      "sourceVersionId": "mvc_v0_2",
+      "sourceHash": "sha256:f73a93e0d97dba3eca6cb5f5bb55df7ad02aa9886ebcb8e060c981fdba93ce11",
+      "translationStatus": "human_draft",
+      "translationOwner": "localization",
+      "reviewOwner": "company",
+      "fields": [
+        {
+          "fieldPath": "identity.brandSignatureMessage.plainText",
+          "sourceText": "네트멜론은\n언어를 통해\n생각과 기회의 자유를 넓힙니다.",
+          "targetText": "Netmelon helps people\nthink, speak, and connect\nmore freely through language.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "identity.mission",
+          "sourceText": "네트멜론은 외국어 학습을 공부에 머물지 않게 하고, 실제로 말할 수 있는 훈련으로 바꾸어 누구나 새로운 언어로 생각하고 표현하며 더 넓은 세상과 자유롭게 연결되게 합니다.",
+          "targetText": "Netmelon turns language learning into practical speaking training, so people can stop leaving a language on the page and start thinking, speaking, and connecting with the world in it.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "identity.vision",
+          "sourceText": "우리는 언어가 기회를 제한하지 않는 세상, 누구나 새로운 언어로 자유롭게 생각하고 말하며 배우고 일할 수 있는 세상을 만듭니다.",
+          "targetText": "We want to build a world where language never decides who gets to learn, work, belong, or take the next opportunity.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "identity.freedomStatement",
+          "sourceText": "언어는 단순히 번역의 대상이 아니라 사고의 도구입니다. 인간이 외국어를 배우는 이유는 뜻을 옮기기 위해서만이 아니라, 새로운 언어로 생각하고 표현하며 더 자유로운 사고를 하기 위해서입니다. 네트멜론은 말하기 훈련 기술을 통해 사람들이 언어의 한계에서 벗어나 더 자유롭게 배우고, 일하고, 관계 맺을 수 있도록 돕습니다.",
+          "targetText": "Language is more than something to translate. It is a way of thinking. People learn a new language not just to swap words from one language to another, but to form thoughts, express themselves, and see more choices in front of them. Netmelon builds speaking-training technology that helps people move past language barriers so they can learn, work, and build relationships with more freedom.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.make_people_speak.title",
+          "sourceText": "Make People Speak",
+          "targetText": "Make People Speak",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.think_beyond_translation.title",
+          "sourceText": "Think Beyond Translation",
+          "targetText": "Think Beyond Translation",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.freedom_through_language.title",
+          "sourceText": "Freedom Through Language",
+          "targetText": "Freedom Through Language",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.technology_for_training.title",
+          "sourceText": "Technology for Training",
+          "targetText": "Technology for Training",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.build_from_truth.title",
+          "sourceText": "Build from Truth",
+          "targetText": "Build from Truth",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.from_speaking_to_action.title",
+          "sourceText": "From Speaking to Action",
+          "targetText": "From Speaking to Action",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.make_people_speak.body",
+          "sourceText": "우리는 사용자가 실제로 입을 열고 말하게 만드는 결과에 집중합니다.",
+          "targetText": "We measure our work by whether users actually open their mouths and speak.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.think_beyond_translation.body",
+          "sourceText": "우리는 언어를 단순한 번역의 문제가 아니라, 사고와 표현의 확장으로 봅니다.",
+          "targetText": "We see language not as word-for-word conversion, but as a wider way to think and express yourself.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.freedom_through_language.body",
+          "sourceText": "우리는 사람들이 새로운 언어로 생각하고 말하며 더 자유로운 선택과 기회를 얻도록 돕습니다.",
+          "targetText": "We help people gain more choices, opportunities, and confidence by thinking and speaking in a new language.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.technology_for_training.body",
+          "sourceText": "우리는 설명을 늘리는 기술이 아니라, 사람이 반복하고 훈련하고 실제로 말하게 만드는 기술을 만듭니다.",
+          "targetText": "We build technology that supports repetition, practice, and real speaking, not just more explanations.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.build_from_truth.body",
+          "sourceText": "우리는 검증된 콘텐츠, 정확한 데이터, 일관된 메시지 위에서 제품을 만듭니다.",
+          "targetText": "We build on verified content, accurate data, and consistent messages.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "coreValues.from_speaking_to_action.body",
+          "sourceText": "우리는 말하기가 단순한 연습에 머무르지 않고, 실제 학습과 일, 관계와 기회로 이어지게 만듭니다.",
+          "targetText": "We want speaking practice to lead to real learning, work, relationships, and opportunity.",
+          "status": "human_draft"
+        }
+      ]
+    },
+    {
+      "translationId": "tr_company_careers_en_mvc_v0_2",
+      "routeId": "company.careers",
+      "sourceLocale": "ko",
+      "targetLocale": "en",
+      "sourceVersionId": "mvc_v0_2",
+      "sourceHash": "sha256:1232a09d0421d3f02dfc307f57907abb8ace28a48556d9e083f5b8fdf6c5e71a",
+      "translationStatus": "human_draft",
+      "translationOwner": "localization",
+      "reviewOwner": "people",
+      "fields": [
+        {
+          "fieldPath": "identity.recruitingOneLiner",
+          "sourceText": "기술 그 자체를 넘어, 사람을 위한 기술을 함께 만들 동료를 찾습니다.",
+          "targetText": "We are looking for teammates who want to build technology that helps people, not technology for its own sake.",
+          "status": "human_draft"
+        }
+      ]
+    },
+    {
+      "translationId": "tr_company_ir_en_mvc_v0_2",
+      "routeId": "company.ir",
+      "sourceLocale": "ko",
+      "targetLocale": "en",
+      "sourceVersionId": "mvc_v0_2",
+      "sourceHash": "sha256:2a4119b62b058a269249c008def7030f0880f6a0397b9c9a7f8c151cb4ea55ad",
+      "translationStatus": "human_draft",
+      "translationOwner": "localization",
+      "reviewOwner": "finance",
+      "fields": [
+        {
+          "fieldPath": "identity.irOneLiner",
+          "sourceText": "IR 자료는 요청 검토와 맥락 확인 후 순차적으로 공유합니다.",
+          "targetText": "IR materials are shared only after we review the request and confirm the right context.",
+          "status": "human_draft"
+        }
+      ]
+    },
+    {
+      "translationId": "tr_company_announcements_en_mvc_v0_2",
+      "routeId": "company.announcements",
+      "sourceLocale": "ko",
+      "targetLocale": "en",
+      "sourceVersionId": "mvc_v0_2",
+      "sourceHash": "sha256:ff155ae0020378f2398d5e9f34379ad54d031bade9d5437e476448f7ed2928a8",
+      "translationStatus": "human_draft",
+      "translationOwner": "localization",
+      "reviewOwner": "company_legal_finance",
+      "fields": [
+        {
+          "fieldPath": "identity.announcementEmptyTitle",
+          "sourceText": "새로운 소식을 준비중입니다.",
+          "targetText": "Updates are on the way.",
+          "status": "human_draft"
+        },
+        {
+          "fieldPath": "identity.announcementEmptyBody",
+          "sourceText": "공고가 등록되면 이 페이지에서 확인할 수 있습니다.",
+          "targetText": "When company announcements are published, they will appear here.",
+          "status": "human_draft"
+        }
+      ]
+    }
+  ]
+}

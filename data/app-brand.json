@@ -1,0 +1,17 @@
+{
+  "sourceRepository": "naepopquiz_app",
+  "usage": "App product brand only; Netmelon company brand is independent",
+  "headerLogo": "images/shared-icons/npq-brand.b42f167cc19fb5cc.svg",
+  "assets": [
+    {
+      "source": "tool/app_icon/brand_mark.svg",
+      "target": "images/shared-icons/npq-brand.b42f167cc19fb5cc.svg",
+      "sha256": "b42f167cc19fb5ccc94bab674fb60b05e59bf675154211985f622cf45fb2b8a5"
+    },
+    {
+      "source": "assets/images/ic_launcher.png",
+      "target": "images/app_icon.png",
+      "sha256": "e8f08e355462ff2172b19aa5445a466cced82100f6b21d120bcf94153f858259"
+    }
+  ]
+}

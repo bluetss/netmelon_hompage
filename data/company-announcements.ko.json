@@ -1,0 +1,23 @@
+{
+  "site": "company",
+  "locale": "ko",
+  "entryType": "company_announcement",
+  "generatedAt": "2026-07-09T16:35:42.810000+00:00",
+  "announcements": [
+    {
+      "announcementType": "administrative_notice",
+      "attachments": [],
+      "body": "test",
+      "effectiveDate": "2026-07-10",
+      "entryId": "ann_20260709163531507093_company_announcement_20260710",
+      "publishedAt": "2026-07-10",
+      "relatedRoutes": [
+        "/announcement.html"
+      ],
+      "slug": "company-announcement-20260710",
+      "sourceVersionId": null,
+      "summary": "test",
+      "title": "test"
+    }
+  ]
+}

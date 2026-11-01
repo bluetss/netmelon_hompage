@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "npq-staging",
+    "staging": "npq-staging"
+  },
+  "targets": {
+    "npq-staging": {
+      "hosting": {
+        "company": [
+          "npq-company-dev"
+        ]
+      }
+    }
+  }
+}

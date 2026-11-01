@@ -1,0 +1,236 @@
+{
+  "schemaVersion": "asset-manifest.v2",
+  "siteId": "company",
+  "locale": "ko",
+  "generatedAt": "2026-07-13T15:37:30.559592+00:00",
+  "publishedAt": "2026-07-13T15:37:30.559592+00:00",
+  "publishedBy": "netmelondev@gmail.com",
+  "assetIds": [
+    "npq_app_training_shadowing_ko_android",
+    "npq_app_unified_content_studio_ko_android"
+  ],
+  "assets": [
+    {
+      "assetId": "npq_app_training_shadowing_ko_android",
+      "assetVersion": 2,
+      "assetType": "app_screenshot",
+      "product": "naepopquiz_app",
+      "locale": "ko",
+      "title": "내팝퀴즈 트레이닝 쉐도잉 화면",
+      "altText": "내팝퀴즈 앱의 쉐도잉 트레이닝 화면",
+      "disclosureLevel": "public",
+      "usageTargets": [
+        "company_homepage",
+        "app_landing",
+        "ir_deck",
+        "google_play",
+        "app_store"
+      ],
+      "derivatives": [
+        {
+          "derivativeId": "npq_app_training_shadowing_ko_android_web_product_section_ko",
+          "purpose": "web_product_section",
+          "variant": "default",
+          "locale": "ko",
+          "format": "png",
+          "width": 1080,
+          "height": 2424,
+          "publicUrl": "https://firebasestorage.googleapis.com/v0/b/npq-staging.firebasestorage.app/o/asset-registry%2Fpublic%2Fnaepopquiz_app%2Fko%2Fnpq_app_training_shadowing_ko_android%2Fnpq_app_training_shadowing_ko_android_web_product_section_ko%2Fb609251ef55c485191e52f6c1711a65c821ce3a71474a1bf41c611b8918a126b.png?alt=media&token=0d1c53f6-7445-4327-89a9-f7656861ec73",
+          "checksumSha256": "b609251ef55c485191e52f6c1711a65c821ce3a71474a1bf41c611b8918a126b"
+        }
+      ],
+      "derivative": {
+        "derivativeId": "npq_app_training_shadowing_ko_android_web_product_section_ko",
+        "purpose": "web_product_section",
+        "variant": "default",
+        "locale": "ko",
+        "format": "png",
+        "width": 1080,
+        "height": 2424,
+        "publicUrl": "https://firebasestorage.googleapis.com/v0/b/npq-staging.firebasestorage.app/o/asset-registry%2Fpublic%2Fnaepopquiz_app%2Fko%2Fnpq_app_training_shadowing_ko_android%2Fnpq_app_training_shadowing_ko_android_web_product_section_ko%2Fb609251ef55c485191e52f6c1711a65c821ce3a71474a1bf41c611b8918a126b.png?alt=media&token=0d1c53f6-7445-4327-89a9-f7656861ec73",
+        "checksumSha256": "b609251ef55c485191e52f6c1711a65c821ce3a71474a1bf41c611b8918a126b"
+      },
+      "source": {
+        "deviceProfile": "android-emulator",
+        "platform": "android",
+        "screenId": "trainingShadowingScreen"
+      }
+    },
+    {
+      "assetId": "npq_app_unified_content_studio_ko_android",
+      "assetVersion": 21,
+      "assetType": "app_screenshot",
+      "product": "naepopquiz_app",
+      "locale": "ko",
+      "title": "내팝퀴즈 통합 콘텐츠 스튜디오 화면",
+      "altText": "내팝퀴즈 앱의 통합 콘텐츠 스튜디오 화면",
+      "disclosureLevel": "public",
+      "usageTargets": [
+        "company_homepage",
+        "app_landing",
+        "ir_deck",
+        "google_play",
+        "app_store"
+      ],
+      "derivatives": [
+        {
+          "derivativeId": "npq_app_unified_content_studio_ko_android_web_product_section_ko",
+          "purpose": "web_product_section",
+          "variant": "default",
+          "locale": "ko",
+          "format": "png",
+          "width": 1080,
+          "height": 2424,
+          "publicUrl": "https://firebasestorage.googleapis.com/v0/b/npq-staging.firebasestorage.app/o/asset-registry%2Fpublic%2Fnaepopquiz_app%2Fko%2Fnpq_app_unified_content_studio_ko_android%2Fnpq_app_unified_content_studio_ko_android_web_product_section_ko%2Fdff6e5cc7864043215226cf1be3a938d4b9b176a8fe75fa90f17e77925112596.png?alt=media&token=669c0968-0257-4146-bf6b-2ca0ba7c834f",
+          "checksumSha256": "dff6e5cc7864043215226cf1be3a938d4b9b176a8fe75fa90f17e77925112596"
+        }
+      ],
+      "derivative": {
+        "derivativeId": "npq_app_unified_content_studio_ko_android_web_product_section_ko",
+        "purpose": "web_product_section",
+        "variant": "default",
+        "locale": "ko",
+        "format": "png",
+        "width": 1080,
+        "height": 2424,
+        "publicUrl": "https://firebasestorage.googleapis.com/v0/b/npq-staging.firebasestorage.app/o/asset-registry%2Fpublic%2Fnaepopquiz_app%2Fko%2Fnpq_app_unified_content_studio_ko_android%2Fnpq_app_unified_content_studio_ko_android_web_product_section_ko%2Fdff6e5cc7864043215226cf1be3a938d4b9b176a8fe75fa90f17e77925112596.png?alt=media&token=669c0968-0257-4146-bf6b-2ca0ba7c834f",
+        "checksumSha256": "dff6e5cc7864043215226cf1be3a938d4b9b176a8fe75fa90f17e77925112596"
+      },
+      "source": {
+        "deviceProfile": "android-emulator",
+        "platform": "android",
+        "screenId": "unifiedContentStudioScreen"
+      }
+    }
+  ],
+  "assetsById": {
+    "npq_app_training_shadowing_ko_android": {
+      "assetId": "npq_app_training_shadowing_ko_android",
+      "assetVersion": 2,
+      "assetType": "app_screenshot",
+      "product": "naepopquiz_app",
+      "locale": "ko",
+      "title": "내팝퀴즈 트레이닝 쉐도잉 화면",
+      "altText": "내팝퀴즈 앱의 쉐도잉 트레이닝 화면",
+      "disclosureLevel": "public",
+      "usageTargets": [
+        "company_homepage",
+        "app_landing",
+        "ir_deck",
+        "google_play",
+        "app_store"
+      ],
+      "derivatives": [
+        {
+          "derivativeId": "npq_app_training_shadowing_ko_android_web_product_section_ko",
+          "purpose": "web_product_section",
+          "variant": "default",
+          "locale": "ko",
+          "format": "png",
+          "width": 1080,
+          "height": 2424,
+          "publicUrl": "https://firebasestorage.googleapis.com/v0/b/npq-staging.firebasestorage.app/o/asset-registry%2Fpublic%2Fnaepopquiz_app%2Fko%2Fnpq_app_training_shadowing_ko_android%2Fnpq_app_training_shadowing_ko_android_web_product_section_ko%2Fb609251ef55c485191e52f6c1711a65c821ce3a71474a1bf41c611b8918a126b.png?alt=media&token=0d1c53f6-7445-4327-89a9-f7656861ec73",
+          "checksumSha256": "b609251ef55c485191e52f6c1711a65c821ce3a71474a1bf41c611b8918a126b"
+        }
+      ],
+      "derivative": {
+        "derivativeId": "npq_app_training_shadowing_ko_android_web_product_section_ko",
+        "purpose": "web_product_section",
+        "variant": "default",
+        "locale": "ko",
+        "format": "png",
+        "width": 1080,
+        "height": 2424,
+        "publicUrl": "https://firebasestorage.googleapis.com/v0/b/npq-staging.firebasestorage.app/o/asset-registry%2Fpublic%2Fnaepopquiz_app%2Fko%2Fnpq_app_training_shadowing_ko_android%2Fnpq_app_training_shadowing_ko_android_web_product_section_ko%2Fb609251ef55c485191e52f6c1711a65c821ce3a71474a1bf41c611b8918a126b.png?alt=media&token=0d1c53f6-7445-4327-89a9-f7656861ec73",
+        "checksumSha256": "b609251ef55c485191e52f6c1711a65c821ce3a71474a1bf41c611b8918a126b"
+      },
+      "source": {
+        "deviceProfile": "android-emulator",
+        "platform": "android",
+        "screenId": "trainingShadowingScreen"
+      }
+    },
+    "npq_app_unified_content_studio_ko_android": {
+      "assetId": "npq_app_unified_content_studio_ko_android",
+      "assetVersion": 21,
+      "assetType": "app_screenshot",
+      "product": "naepopquiz_app",
+      "locale": "ko",
+      "title": "내팝퀴즈 통합 콘텐츠 스튜디오 화면",
+      "altText": "내팝퀴즈 앱의 통합 콘텐츠 스튜디오 화면",
+      "disclosureLevel": "public",
+      "usageTargets": [
+        "company_homepage",
+        "app_landing",
+        "ir_deck",
+        "google_play",
+        "app_store"
+      ],
+      "derivatives": [
+        {
+          "derivativeId": "npq_app_unified_content_studio_ko_android_web_product_section_ko",
+          "purpose": "web_product_section",
+          "variant": "default",
+          "locale": "ko",
+          "format": "png",
+          "width": 1080,
+          "height": 2424,
+          "publicUrl": "https://firebasestorage.googleapis.com/v0/b/npq-staging.firebasestorage.app/o/asset-registry%2Fpublic%2Fnaepopquiz_app%2Fko%2Fnpq_app_unified_content_studio_ko_android%2Fnpq_app_unified_content_studio_ko_android_web_product_section_ko%2Fdff6e5cc7864043215226cf1be3a938d4b9b176a8fe75fa90f17e77925112596.png?alt=media&token=669c0968-0257-4146-bf6b-2ca0ba7c834f",
+          "checksumSha256": "dff6e5cc7864043215226cf1be3a938d4b9b176a8fe75fa90f17e77925112596"
+        }
+      ],
+      "derivative": {
+        "derivativeId": "npq_app_unified_content_studio_ko_android_web_product_section_ko",
+        "purpose": "web_product_section",
+        "variant": "default",
+        "locale": "ko",
+        "format": "png",
+        "width": 1080,
+        "height": 2424,
+        "publicUrl": "https://firebasestorage.googleapis.com/v0/b/npq-staging.firebasestorage.app/o/asset-registry%2Fpublic%2Fnaepopquiz_app%2Fko%2Fnpq_app_unified_content_studio_ko_android%2Fnpq_app_unified_content_studio_ko_android_web_product_section_ko%2Fdff6e5cc7864043215226cf1be3a938d4b9b176a8fe75fa90f17e77925112596.png?alt=media&token=669c0968-0257-4146-bf6b-2ca0ba7c834f",
+        "checksumSha256": "dff6e5cc7864043215226cf1be3a938d4b9b176a8fe75fa90f17e77925112596"
+      },
+      "source": {
+        "deviceProfile": "android-emulator",
+        "platform": "android",
+        "screenId": "unifiedContentStudioScreen"
+      }
+    }
+  },
+  "bindings": {
+    "schemaVersion": "asset-bindings.v1",
+    "status": "published",
+    "draftVersion": 1,
+    "publicVersion": 2,
+    "publishedAt": "2026-07-13T17:58:34.596315+00:00",
+    "publishedBy": "netmelondev@gmail.com",
+    "slots": {
+      "company.index.product_screens": [
+        {
+          "assetId": "npq_app_training_shadowing_ko_android",
+          "purpose": "web_product_section",
+          "variant": "default"
+        },
+        {
+          "assetId": "npq_app_unified_content_studio_ko_android",
+          "purpose": "web_product_section",
+          "variant": "default"
+        }
+      ]
+    }
+  },
+  "slots": {
+    "company.index.product_screens": [
+      {
+        "assetId": "npq_app_training_shadowing_ko_android",
+        "purpose": "web_product_section",
+        "variant": "default"
+      },
+      {
+        "assetId": "npq_app_unified_content_studio_ko_android",
+        "purpose": "web_product_section",
+        "variant": "default"
+      }
+    ]
+  }
+}

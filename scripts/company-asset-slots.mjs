@@ -1,0 +1,26 @@
+export const COMPANY_ASSET_RENDER_SLOTS = Object.freeze([
+  Object.freeze({
+    slotId: "company.index.product_screens",
+    label: "app product shot",
+    products: Object.freeze(["naepopquiz_app"]),
+    purpose: "web_product_section",
+    variant: "default",
+    startMarker: "<!-- __COMPANY_ASSET_PRODUCT_SHOTS_START__ -->",
+    endMarker: "<!-- __COMPANY_ASSET_PRODUCT_SHOTS_END__ -->",
+    figureClass: "app-shot",
+    indexedClassPrefix: "shot",
+    indent: "              ",
+  }),
+  Object.freeze({
+    slotId: "company.index.studio_screens",
+    label: "Studio product shot",
+    products: Object.freeze(["naepopquiz_studio"]),
+    purpose: "web_product_section",
+    variant: "default",
+    startMarker: "<!-- __COMPANY_ASSET_STUDIO_SHOTS_START__ -->",
+    endMarker: "<!-- __COMPANY_ASSET_STUDIO_SHOTS_END__ -->",
+    figureClass: "studio-shot",
+    indexedClassPrefix: "studio-shot",
+    indent: "              ",
+  }),
+]);
