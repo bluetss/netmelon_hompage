@@ -151,3 +151,8 @@ or writes another session's checkout. This does not update remotely published CM
 ### NPQ 제품 아이콘 원본 (2026-10-31)
 
 NPQ 앱 연결용 자산은 App `docs/APP_BRAND_ICON_SPEC.md`의 밝은 내부 `#E6EEFA` 원본을 사용한다. `scripts/sync-app-brand.mjs`로 SVG hash와 설치용 PNG를 동기화하며 `--check`로 byte 대조한다. 회사 자체 Netmelon 로고·파비콘은 이 앱 브랜드 자산과 별개다. 이번 sync/check, npm check, secret path 검사 PASS. 원격 배포 없음.
+
+
+### Shared web favicon
+
+Company and App tabs use the exact App `assets/images/topAppBar_icon.svg`, centered with its aspect ratio preserved in square browser slots. App's existing `generate_brand_assets.mjs --web-favicon-only` creates transparent SVG/PNG and ICO16/32/48/64/128/256; `scripts/sync-app-brand.mjs` copies SVG/ICO and updates all KR/EN/template icon links. `data/app-brand.json.webFavicon` pins bytes and cache revisions. This does not change the company wordmark, native/store/PWA installation icons or telemetry; favicon assets add no navigation/event surface.
