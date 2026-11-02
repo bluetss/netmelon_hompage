@@ -9,6 +9,8 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 const themeHash = createHash('sha256').update(await readFile(path.join(ROOT, 'scripts/theme.js'))).digest('hex').slice(0, 16);
 
+const webFavicon=JSON.parse(await readFile(path.join(ROOT,'data/app-brand.json'),'utf8')).webFavicon;
+
 const COMPANY_SOURCE_PATH = process.env.COMPANY_SOURCE_EN_JSON_PATH ||
   path.join(ROOT, "data", "company-source.en.json");
 const ANNOUNCEMENTS_PATH = process.env.COMPANY_ANNOUNCEMENTS_EN_JSON_PATH ||
@@ -222,7 +224,8 @@ function renderHead({ title, description, canonicalPath, schema = null, assetPre
     `<meta name="twitter:title" content="${htmlEscape(title, true)}">`,
     `<meta name="twitter:description" content="${htmlEscape(description, true)}">`,
     `<meta name="twitter:image" content="${OG_IMAGE_URL}">`,
-    `<link rel="icon" href="${assetPrefix}favicon.ico?v=20261101" sizes="any">`,
+    `<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48 64x64 128x128 256x256" href="/favicon.ico?v=${webFavicon.icoSha256.slice(0,16)}">`,
+    `<link rel="icon" type="image/svg+xml" sizes="any" href="/${webFavicon.svg}">`,
     `<link rel="apple-touch-icon" sizes="180x180" href="${assetPrefix}images/apple-touch-icon.png">`,
     `<link rel="stylesheet" href="${assetPrefix}styles/company.css">`,
     `<!-- ${GENERATED_COMMENT}: sourceVersionId=${htmlEscape(sourceVersionId)} -->`,

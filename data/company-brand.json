@@ -15,11 +15,6 @@
       "sha256": "4562ab8d21f9afe4bdcfaae203588f473b168fb1317494a1591cfa29d2b397b0"
     },
     {
-      "source": "website/light/favicon.ico",
-      "target": "favicon.ico",
-      "sha256": "223783059a9faa3fe909bb7f051ce7e261d04598fbaddf75acd97023f9450e79"
-    },
-    {
       "source": "approved/common-symbol.svg",
       "target": "images/brand/common-symbol.svg",
       "sha256": "24c78da0b84cde9ca25f6ccaf6f3e1beb0cf5fafba17a069af9fd548d4c6161a"
@@ -34,5 +29,6 @@
       "target": "images/apple-touch-icon.png",
       "sha256": "8d5ba1a3d8a1a450755f63a05ee1a2a0a3e2a63d53fd115f080c2635f1f9a6d2"
     }
-  ]
+  ],
+  "webFaviconReceipt": "data/app-brand.json"
 }

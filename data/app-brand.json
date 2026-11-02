@@ -1,6 +1,13 @@
 {
   "sourceRepository": "naepopquiz_app",
-  "usage": "App product brand only; Netmelon company brand is independent",
+  "usage": "App product brand and shared web favicon; Netmelon wordmark is independent",
+  "webFavicon": {
+    "svg": "images/shared-icons/app-favicon.80fa4bff6cc8b32c.svg",
+    "ico": "favicon.ico",
+    "sha256": "80fa4bff6cc8b32cde9fd082888ade59c148a50c2c4e38398ba13346ad31d29b",
+    "icoSha256": "b8e93735aab3f33adb23597b1dfe06f8708d171cc5570ec386582ce405f5e528",
+    "fit": "contain center"
+  },
   "headerLogo": "images/shared-icons/npq-brand.b42f167cc19fb5cc.svg",
   "assets": [
     {
@@ -12,6 +19,16 @@
       "source": "assets/images/ic_launcher.png",
       "target": "images/app_icon.png",
       "sha256": "e8f08e355462ff2172b19aa5445a466cced82100f6b21d120bcf94153f858259"
+    },
+    {
+      "source": "assets/images/topAppBar_icon.svg",
+      "target": "images/shared-icons/app-favicon.80fa4bff6cc8b32c.svg",
+      "sha256": "80fa4bff6cc8b32cde9fd082888ade59c148a50c2c4e38398ba13346ad31d29b"
+    },
+    {
+      "source": "web/favicon.ico",
+      "target": "favicon.ico",
+      "sha256": "b8e93735aab3f33adb23597b1dfe06f8708d171cc5570ec386582ce405f5e528"
     }
   ]
 }
