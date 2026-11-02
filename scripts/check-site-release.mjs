@@ -1234,7 +1234,7 @@ async function checkLocaleRouteAndUiParity() {
   assert(englishProblems.includes('class="problem-summary"'), "en/problems.html must use the shared summary wrapping contract.");
   const companyPrivacy = await read("company-privacy.html");
   const englishCompanyPrivacy = await read("en/company-privacy.html");
-  assert(companyPrivacy.includes("접수일로부터 1년"), "company-privacy.html must disclose the company intake retention period.");
+  assert(companyPrivacy.includes("보유기간과 파기") && companyPrivacy.includes("해당 요청의 처리가 끝날 때까지") && companyPrivacy.includes("검토용 초안"), "company-privacy.html must disclose the reviewed draft retention and erasure terms.");
   assert(englishCompanyPrivacy.includes("one year from submission"), "en/company-privacy.html must disclose the company intake retention period.");
 }
 
