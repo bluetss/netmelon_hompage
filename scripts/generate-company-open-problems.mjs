@@ -315,6 +315,7 @@ function renderDetailParticipation(problem) {
     '<h2 id="participate-title">해결 방안을 보내주세요</h2>',
     "<p>이 문제에 대한 접근과 검증 방법을 알려주세요.</p>",
     "</div>",
+    problem.problemId === "creator-supply" ? '<p>크리에이터·콘텐츠 제휴 문의: <a href="mailto:creator@netmelonai.com">creator@netmelonai.com</a></p>' : "",
     renderApplicationForm(problem, "/company-privacy"),
     "</section>",
   ].join("\n");
