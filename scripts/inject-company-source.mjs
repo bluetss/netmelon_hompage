@@ -221,7 +221,7 @@ function buildOrganizationNode(data) {
       {
         "@type": "ContactPoint",
         "contactType": "customer support",
-        "email": CONTACT_EMAIL,
+        "email": "support@netmelonai.com",
         "url": SITE_URL,
         "availableLanguage": ["ko"],
       },
