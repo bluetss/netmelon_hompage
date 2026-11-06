@@ -10,14 +10,14 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 const PROFILE_PATH = process.env.PUBLISHER_PROFILE_JSON_PATH || path.join(ROOT, "data", "publisher-legal-profile.json");
 const ROOT_TARGETS = [
-  "index.template.html", "index.html",
+  "index.template.html", "index.html", "creators.html",
   "company.template.html", "company.html", "company-privacy.html",
   "careers.template.html", "careers.html",
   "problems.template.html", "problems.html",
   "ir.html", "announcement.template.html", "announcement.html",
 ];
 const EN_TARGETS = [
-  "en/index.html", "en/company.html", "en/company-privacy.html", "en/careers.html", "en/ir.html", "en/announcement.html", "en/problems.html",
+  "en/creators.html", "en/index.html", "en/company.html", "en/company-privacy.html", "en/careers.html", "en/ir.html", "en/announcement.html", "en/problems.html",
 ];
 
 async function htmlFiles(relativeDirectory) {
