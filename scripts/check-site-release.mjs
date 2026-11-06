@@ -775,7 +775,6 @@ async function checkSharedSiteShell() {
   const renderHeader = (target) => headerPartial
     .replaceAll("__SITE_HEADER_BRAND_HREF__", target.brandHref)
     .replaceAll("__SITE_NAV_PRODUCT_HREF__", target.productHref)
-    .replaceAll("__SITE_NAV_CREATORS_CLASS__", activeClass("creators", target.active))
     .replaceAll("__SITE_NAV_COMPANY_CLASS__", activeClass("company", target.active))
     .replaceAll("__SITE_NAV_PROBLEMS_CLASS__", activeClass("problems", target.active))
     .replaceAll("__SITE_NAV_CAREERS_CLASS__", activeClass("careers", target.active))
@@ -810,8 +809,8 @@ async function checkSharedSiteShell() {
   const headerNavLabels = Array.from(headerNav.matchAll(/<a(?:\b|__)[^>]*>([\s\S]*?)<\/a>/gi))
     .map((match) => match[1].replace(/<[^>]*>/g, "").trim());
   assert(
-    headerNavLabels.join("|") === "회사소개|제품소개|크리에이터|풀고 있는 문제|채용|IR|회사 공고|ENGLISH",
-    `partials/site-header.html global nav must be exactly 회사소개, 제품소개, 크리에이터, 풀고 있는 문제, 채용, IR, 회사 공고, ENGLISH. Current: ${headerNavLabels.join(", ")}`,
+    headerNavLabels.join("|") === "회사소개|제품소개|풀고 있는 문제|채용|IR|회사 공고|ENGLISH",
+    `partials/site-header.html global nav must be exactly 회사소개, 제품소개, 풀고 있는 문제, 채용, IR, 회사 공고, ENGLISH. Current: ${headerNavLabels.join(", ")}`,
   );
 
   for (const route of forbiddenHeaderRoutes) {
@@ -1239,6 +1238,26 @@ async function checkLocaleRouteAndUiParity() {
   assert(englishCompanyPrivacy.includes("one year from submission"), "en/company-privacy.html must disclose the company intake retention period.");
 }
 
+async function checkCreatorHierarchy() {
+  for (const prefix of ["", "en/"]) {
+    const href = prefix ? "/en/creators" : "/creators";
+    const productHref = prefix ? "/en#naepopquiz-app" : "/#naepopquiz-app";
+    const home = await read(prefix + "index.html");
+    const guide = await read(prefix + "creators.html");
+    for (const [name, source] of [["home", home], ["guide", guide]]) {
+      const nav = source.match(/<nav class="site-nav"[^>]*>[\s\S]*?<\/nav>/)?.[0] || "";
+      assert(!nav.includes('href="' + href + '"'), prefix + name + " must keep creator guidance below company navigation.");
+    }
+    for (const id of ["naepopquiz-app", "naepopquiz-studio"]) {
+      const article = home.match(new RegExp('<article[^>]*id="' + id + '"[^>]*>[\\s\\S]*?<\\/article>'))?.[0] || "";
+      assert(article.includes('href="' + href + '"'), prefix + id + " must link to creator guidance.");
+    }
+    const breadcrumb = guide.match(/<nav class="creator-breadcrumb"[^>]*>[\s\S]*?<\/nav>/)?.[0] || "";
+    assert(breadcrumb.includes('href="' + productHref + '"') && breadcrumb.includes('aria-current="page"'), prefix + "guide must expose product context and a working return route.");
+    assert(guide.includes('class="is-current" href="' + productHref + '"'), prefix + "guide must mark Products current using the home section URL.");
+  }
+}
+
 async function main() {
   await checkCompanySourceBuild();
   await checkCompanyAnnouncements();
@@ -1248,6 +1267,7 @@ async function main() {
   await checkSitemap();
   await checkCompanyFooterRoutes();
   await checkSharedSiteShell();
+  await checkCreatorHierarchy();
   await checkOpenProblemsAndCareers();
   await checkStructuredData();
   await checkLocaleRouteAndUiParity();

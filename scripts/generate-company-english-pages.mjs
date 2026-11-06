@@ -238,7 +238,6 @@ function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
   const nav = [
     ["company", "/en/company", "About"],
     ["product", "/en#naepopquiz-app", "Products"],
-    ["creators", "/en/creators", "Creators"],
     ["problems", "/en/problems", "Open problems"],
     ["careers", "/en/careers", "Careers"],
     ["ir", "/en/ir", "IR"],
@@ -392,6 +391,7 @@ function renderHomePage(source) {
     `          <h2 id="home-app-title">${textWithBreaks(identity.appIntroTitle)}</h2>`,
     `          <p id="home-app-copy">${textWithBreaks(identity.appIntroBody)}</p>`,
     '          <a class="story-link" data-app-homepage-link href="https://naepopquiz.com/" target="_blank" rel="noopener noreferrer">Open app homepage</a>',
+    '          <a class="story-link creator-guide-link" href="/en/creators">For Naepopquiz creators</a>',
     '          <div class="app-shotcase" aria-label="Naepopquiz app screens">',
     '            <div class="app-shot-track">',
     '              <!-- __COMPANY_ASSET_PRODUCT_SHOTS_START__ -->',
@@ -406,6 +406,7 @@ function renderHomePage(source) {
     `          <h2 id="home-studio-title">${textWithBreaks(identity.studioIntroTitle)}</h2>`,
     `          <p id="home-studio-copy">${textWithBreaks(identity.studioIntroBody)}</p>`,
     '          <a class="story-link studio-cta" href="https://naepopquiz.com/studio" target="_blank" rel="noopener noreferrer">Open Studio</a>',
+    '          <a class="story-link creator-guide-link" href="/en/creators">For Naepopquiz creators</a>',
     '          <div class="studio-shotcase" aria-label="Naepopquiz Studio screens">',
     '            <div class="studio-shot-track">',
     '              <!-- __COMPANY_ASSET_STUDIO_SHOTS_START__ -->',
