@@ -48,6 +48,7 @@ const topLevelFiles = [
   "careers.html",
   "company-privacy.html",
   "company.html",
+  "creators.html",
   "data-deletion.html",
   "data-deletion.json",
   "favicon.ico",

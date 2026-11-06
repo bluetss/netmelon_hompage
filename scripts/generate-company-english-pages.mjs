@@ -238,6 +238,7 @@ function renderHeader(active, { hrefPrefix = "", assetPrefix = "../" } = {}) {
   const nav = [
     ["company", "/en/company", "About"],
     ["product", "/en#naepopquiz-app", "Products"],
+    ["creators", "/en/creators", "Creators"],
     ["problems", "/en/problems", "Open problems"],
     ["careers", "/en/careers", "Careers"],
     ["ir", "/en/ir", "IR"],

@@ -775,6 +775,7 @@ async function checkSharedSiteShell() {
   const renderHeader = (target) => headerPartial
     .replaceAll("__SITE_HEADER_BRAND_HREF__", target.brandHref)
     .replaceAll("__SITE_NAV_PRODUCT_HREF__", target.productHref)
+    .replaceAll("__SITE_NAV_CREATORS_CLASS__", activeClass("creators", target.active))
     .replaceAll("__SITE_NAV_COMPANY_CLASS__", activeClass("company", target.active))
     .replaceAll("__SITE_NAV_PROBLEMS_CLASS__", activeClass("problems", target.active))
     .replaceAll("__SITE_NAV_CAREERS_CLASS__", activeClass("careers", target.active))
@@ -809,8 +810,8 @@ async function checkSharedSiteShell() {
   const headerNavLabels = Array.from(headerNav.matchAll(/<a(?:\b|__)[^>]*>([\s\S]*?)<\/a>/gi))
     .map((match) => match[1].replace(/<[^>]*>/g, "").trim());
   assert(
-    headerNavLabels.join("|") === "회사소개|제품소개|풀고 있는 문제|채용|IR|회사 공고|ENGLISH",
-    `partials/site-header.html global nav must be exactly 회사소개, 제품소개, 풀고 있는 문제, 채용, IR, 회사 공고, ENGLISH. Current: ${headerNavLabels.join(", ")}`,
+    headerNavLabels.join("|") === "회사소개|제품소개|크리에이터|풀고 있는 문제|채용|IR|회사 공고|ENGLISH",
+    `partials/site-header.html global nav must be exactly 회사소개, 제품소개, 크리에이터, 풀고 있는 문제, 채용, IR, 회사 공고, ENGLISH. Current: ${headerNavLabels.join(", ")}`,
   );
 
   for (const route of forbiddenHeaderRoutes) {

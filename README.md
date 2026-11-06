@@ -156,3 +156,7 @@ NPQ 앱 연결용 자산은 App `docs/APP_BRAND_ICON_SPEC.md`의 밝은 내부 `
 ### Shared web favicon
 
 Company and App tabs use the exact App `assets/images/topAppBar_icon.svg`, centered with its aspect ratio preserved in square browser slots. App's existing `generate_brand_assets.mjs --web-favicon-only` creates transparent SVG/PNG and ICO16/32/48/64/128/256; `scripts/sync-app-brand.mjs` copies SVG/ICO and updates all KR/EN/template icon links. `data/app-brand.json.webFavicon` pins bytes and cache revisions. This does not change the company wordmark, native/store/PWA installation icons or telemetry; favicon assets add no navigation/event surface.
+
+## Creator page (2026-11-06)
+
+`/creators` and `/en/creators` describe existing-material reuse, learning support languages, shadowing, quiz assignments, challenge-room management, channel links/announcements, historical-content announcement updates, and NPQ channel ownership transfer. Edit `scripts/generate-creators.mjs` and `styles/creators.css`; `npm run build` regenerates both pages and the menu. Staging compilation resolves Studio to the existing unified staging origin. The example announcement is explicitly illustrative. No new telemetry, identifier, form, newsletter subscription, entitlement grant or automatic publication is added; existing navigation and mailto are sufficient for this static information page. No view/sales attribution is claimed.
