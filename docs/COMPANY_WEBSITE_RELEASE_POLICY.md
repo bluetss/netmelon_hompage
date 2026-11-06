@@ -78,3 +78,41 @@ rollback, cache, 비용 검토가 있어야 한다.
 script, `.git`, CLI token, 환경 파일과 secret은 배포하지 않는다.
 
 `release-manifest.json`은 environment, source commit, dirty 여부, build 시각, 회사·앱 랜딩·Studio의 resolved origin, public-intake API 연결 여부와 CMS source version/hash를 기록한다. secret이나 인증 token은 기록하지 않는다.
+
+## 2026-11-06 회사 홈페이지 자산 경량화
+
+사용자 요청으로 회사 staging의 전체 폰트 다운로드와 참조되지 않는 장식·중복
+이미지를 제거했다. 삭제한 raw 파일은 총 11,490,471bytes이며 폰트가
+6,739,336bytes다. App 정본 색상·타입 크기·행간·간격·아이콘 bytes를 유지하고,
+글꼴은 기존 `--npq-font-family-base`의 시스템 fallback을 사용한다.
+크리에이터 안내의 로컬 타입 크기와 weight도 기존 App 타입 토큰으로 연결했다.
+
+`build-firebase-dist.mjs`는 페이지별 모든 stylesheet와 inline style을 기존 순서로
+묶어 단일 CSS를 만든다. 중첩 @import 요청은 없다. CSS·JS·CSS 이미지와 로고는
+내용 SHA256을 포함한 `/assets/` URL이며 그 경로에만 immutable 캐시를 적용한다.
+HTML·JSON·runtime endpoint config와 기타 응답의 no-store 정책은 유지한다.
+파일명이 고정된 자산에 장기 캐시를 확대하지 않는다. 실제 참조되지 않는 원본
+images/styles/scripts는 dist에 게시하지 않는다.
+
+제품 스크린샷의 exact published binding·alt·width·height는 유지하며, viewport
+160px 부근에서만 원본 URL을 연결한다. noscript fallback 및 IntersectionObserver
+미지원 fallback이 있다. 다운로드 완료나 실제 사용자 스크롤을 새로운 telemetry로
+수집하지 않는다. 채용은 기존 JSON과 DB 조회를 함께 시작한다. 공개·closed preview
+필터 및 DB 결과 우선순위, 기존 3초 제한과 지원 제출 경계는 유지한다.
+
+로컬 산출물은 75files/1,623,391bytes였다(배포 manifest의 commit/time에 따라 작은
+차이는 가능). 이는 사이트 전체 산출물이며 방문 1회의 wire byte가 아니다.
+로컬 검증은 Node 회귀9개, `npm run check`, staging build/check, secret-path gate,
+`git diff --check` 통과다. 관리 Windows Chrome에서 40개 한·영 HTML ×390/1440px의
+80조건 모두 HTTP200/로드 완료/폰트 요청0/중첩 CSS 요청0/가로 넘침0/페이지 오류0을
+확인했다. 홈·크리에이터·채용의 라이트/다크, footer dialog 닫힘, 모바일 메뉴
+열기/닫기6조건과 홈 두 너비의 viewport image activation도 통과했다.
+이는 loopback에서 외부 요청을 차단한 UI 검사이며 실제 staging 2초 SLO나
+외부 screenshot 성공·실제 지원 제출·실 DB 동시 실행의 증거로 사용하지 않는다.
+신규 이벤트·외부 추적·계정·provider 실행은 추가하지 않았다.
+
+원본은 `/tmp/npq-company-functional-browser.jsonl`, 화면은
+`/tmp/npq-company-lean-{index,creators,careers}-{390,1440}.png`다.
+원격 baseline의 공개 manifest는 source `07f4415bd6ddd10e96714a3fbd167bfed4ae913c`,
+clean, publicIntakeConfigured=false, company/app-dev/통합 Studio origin을 가리켰다.
+이후 배포도 그 공개 인입 활성 상태와 origin을 보존해야 한다.

@@ -1,8 +1,1 @@
-/* Identical to the app font; bundled OFL is in fonts/Pretendard-LICENSE.txt. */
-@font-face {
-  font-family: "Pretendard";
-  src: url("./fonts/PretendardVariable.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-}
+/* Company pages use the design token system-font fallback; no font download. */

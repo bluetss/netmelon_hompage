@@ -939,6 +939,15 @@
       };
 
       const fetchData = async () => {
+        const firestoreResult = Promise.race([
+          fetchJobsFromFirestore(),
+          new Promise((resolve) => {
+            window.setTimeout(() => {
+              console.warn("[careers] Firestore load timed out; fallback JSON will be used.");
+              resolve(null);
+            }, 3000);
+          }),
+        ]);
         const fallback = await fetchLocalData();
         const fallbackJobs = Array.isArray(fallback.jobs) ? fallback.jobs : [];
         const publicFallbackJobs = fallbackJobs.filter((job) => String(job.status || "open").toLowerCase() !== "closed");
@@ -950,15 +959,7 @@
           return [...previewJobs, ...publicJobs.filter((job) => !previewIds.has(String(job.id || "")) && !previewIds.has(String(job.slug || "")))];
         };
         const companySource = readBuildTimeCompanySource();
-        const fromFirestore = await Promise.race([
-          fetchJobsFromFirestore(),
-          new Promise((resolve) => {
-            window.setTimeout(() => {
-              console.warn("[careers] Firestore load timed out; fallback JSON will be used.");
-              resolve(null);
-            }, 3000);
-          }),
-        ]);
+        const fromFirestore = await firestoreResult;
 
         const fallbackCommon = fallback.common || {};
         const commonFromFirestore = fromFirestore?.common || {};

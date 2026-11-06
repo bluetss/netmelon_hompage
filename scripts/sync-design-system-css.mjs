@@ -257,18 +257,22 @@ ${colors.filter(color => darkColors.some(dark => dark.name === color.name)).map(
   const application = path.resolve(path.dirname(SOURCE_PATH), '../..');
   if (process.argv.includes('--check')) {
     if (await readFile(OUTPUT_PATH, 'utf8') !== output) throw new Error('App design tokens differ; run sync:design-system');
-    const fonts = path.join(path.dirname(OUTPUT_PATH), 'fonts');
-    if (!(await readFile(path.join(fonts, 'PretendardVariable.ttf'))).equals(await readFile(path.join(application, 'assets/fonts/PretendardVariable.ttf')))) throw new Error('App font bytes differ');
-    console.log('App semantic typography, light/dark colors and font parity PASS');
+    if (process.env.APP_DESIGN_SYSTEM_CSS) {
+      const fonts = path.join(path.dirname(OUTPUT_PATH), 'fonts');
+      if (!(await readFile(path.join(fonts, 'PretendardVariable.ttf'))).equals(await readFile(path.join(application, 'assets/fonts/PretendardVariable.ttf')))) throw new Error('App font bytes differ');
+    }
+    console.log('App semantic typography and light/dark colors PASS');
     return;
   }
   await writeFile(OUTPUT_PATH, output, "utf8");
   console.log(`Wrote ${OUTPUT_PATH}`);
 
-  const fonts = path.join(path.dirname(OUTPUT_PATH), 'fonts');
-  await mkdir(fonts, {recursive: true});
-  await copyFile(path.join(application, 'assets/fonts/PretendardVariable.ttf'), path.join(fonts, 'PretendardVariable.ttf'));
-  await writeFile(path.join(fonts, 'Pretendard-LICENSE.txt'), (await readFile(path.join(application, 'tools/open_source_notices/Pretendard_LICENSE.txt'), 'utf8')).replace(/[ \t]+$/gm, ''));
+  if (process.env.APP_DESIGN_SYSTEM_CSS) {
+    const fonts = path.join(path.dirname(OUTPUT_PATH), 'fonts');
+    await mkdir(fonts, {recursive: true});
+    await copyFile(path.join(application, 'assets/fonts/PretendardVariable.ttf'), path.join(fonts, 'PretendardVariable.ttf'));
+    await writeFile(path.join(fonts, 'Pretendard-LICENSE.txt'), (await readFile(path.join(application, 'tools/open_source_notices/Pretendard_LICENSE.txt'), 'utf8')).replace(/[ \t]+$/gm, ''));
+  }
   if (!process.env.APP_DESIGN_SYSTEM_CSS) {
     const icons = path.join(ROOT, 'styles/icons');
     await mkdir(icons, {recursive: true});

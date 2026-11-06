@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { optimizeSiteAssets } from './optimize-site-assets.mjs';
 import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
@@ -187,6 +188,8 @@ await writeFile(
   "utf8",
 );
 
+const assetOptimization = await optimizeSiteAssets(DIST, htmlFiles);
+
 const companySource = await readJson("data/company-source.ko.json");
 const openProblems = await readJson("data/company-open-problems.ko.json");
 const publisherProfile = await readJson("data/publisher-legal-profile.json");
@@ -199,6 +202,7 @@ const manifest = {
   builtAt: new Date().toISOString(),
   publicIntakeConfigured: Boolean(apiBase),
   origins: resolvedWebOrigins,
+  assetOptimization,
   cms: {
     companySourceVersion: companySource.sourceVersionId || companySource.version || null,
     companySourceHash: companySource.sourceHash || null,

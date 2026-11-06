@@ -93,4 +93,13 @@ for (const relativePath of files.filter((name) => name.endsWith(".html") || name
   assert(!source.includes('href="https://studio-dev.naepopquiz.com'), `${relativePath} contains a retired Studio navigation link.`);
 }
 
+assert(!files.some(name => /\.(?:ttf|otf|woff2?)$/.test(name)), "Company pages must not publish downloadable fonts.");
+for (const name of files.filter(name => name.endsWith('.css'))) {
+  const css = await readFile(path.join(DIST, name), 'utf8');
+  assert(!/@import\b|@font-face\b/.test(css), `${name} must be self-contained with no font download.`);
+}
+for (const name of files.filter(name => name.endsWith('.html'))) {
+  const html = await readFile(path.join(DIST, name), 'utf8');
+  assert((html.match(/rel="stylesheet"/g) || []).length <= 1, `${name} must request at most one stylesheet.`);
+}
 console.log(`Firebase company staging artifact is valid (${files.length} files).`);

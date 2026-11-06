@@ -1,3 +1,14 @@
+// Same published image bindings; defer offscreen screenshots without a new user action.
+(() => {
+  const images = document.querySelectorAll('img[data-site-src]');
+  const load = image => { image.src = image.dataset.siteSrc; image.removeAttribute('data-site-src'); };
+  if (!('IntersectionObserver' in window)) { images.forEach(load); return; }
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) if (entry.isIntersecting) { load(entry.target); observer.unobserve(entry.target); }
+  }, {rootMargin:'160px'});
+  images.forEach(image => observer.observe(image));
+})();
+
 (() => {
   const header = document.querySelector(".site-header");
   const menuToggle = document.querySelector(".menu-toggle");
