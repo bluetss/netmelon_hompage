@@ -23,3 +23,7 @@ Runtime learning, purchases, channel transfers and email delivery were not execu
 The creator guide belongs under Products → Naepopquiz. Remove its Korean/English global company menu entries, link from both app and Studio introductions, and show the product breadcrumb in the guide. The guide keeps its direct URL for outreach. The active global item and return URL are Products. No new telemetry or data collection: existing static navigation only. `npm run check` now checks product entrypoints, breadcrumb and working home-section return URLs.
 
 Validation: static release/secret/whitespace and staging artifact checks PASS. Browser verification and deployment follow the same official Windows Chrome/Hosting workflow above.
+
+## Documentation presentation
+
+Replaced the campaign-style hero, cards, background effects, example UI and CTA panels with a Korean/English help document. Seven section anchors, desktop side contents/mobile top contents, restrained typography, plain links, feature descriptions and ordered steps. Product hierarchy, existing URLs, theme and Studio destinations remain. No new tracking or data collection. Static/secret/whitespace/staging-artifact checks PASS. Owned Windows Chrome 390/1440px: Korean/English document layout, seven contents links, eight sections, plain background, no horizontal overflow, breadcrumb, product return and mobile menu PASS; screenshots inspected.
