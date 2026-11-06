@@ -17,3 +17,9 @@
 - Predecessor source was `c8350b544943f7383e1028be13e023a840439095`, preserved in ancestry. Existing public intake disabled state preserved.
 
 Runtime learning, purchases, channel transfers and email delivery were not executed by this static page change.
+
+## Navigation hierarchy correction
+
+The creator guide belongs under Products → Naepopquiz. Remove its Korean/English global company menu entries, link from both app and Studio introductions, and show the product breadcrumb in the guide. The guide keeps its direct URL for outreach. The active global item and return URL are Products. No new telemetry or data collection: existing static navigation only. `npm run check` now checks product entrypoints, breadcrumb and working home-section return URLs.
+
+Validation: static release/secret/whitespace and staging artifact checks PASS. Browser verification and deployment follow the same official Windows Chrome/Hosting workflow above.

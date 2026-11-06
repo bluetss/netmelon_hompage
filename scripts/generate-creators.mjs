@@ -12,7 +12,8 @@ for(const locale of ['ko','en']){
  const t=copy[locale],prefix=locale==='en'?'../':'';
  const base=await readFile(path.join(root,locale==='en'?'en/index.html':'index.html'),'utf8');
  let header=base.match(/  <header class="site-header"[\s\S]*?<\/header>/)[0];
- header=header.replaceAll(' class="is-current"','').replace(/(<a)( href="\/(?:en\/)?creators")/,'$1 class="is-current"$2');
+ header=header.replaceAll(' class="is-current"','').replace(/(<a)( href="[^"]*#naepopquiz-app")/,'$1 class="is-current"$2');
+ header=header.replace(/href="[^"]*#naepopquiz-app"/,`href="${locale==='ko'?'/#naepopquiz-app':'/en#naepopquiz-app'}"`);
  header=header.replace(/(class="lang-link" href=")[^"]+/,`$1${locale==='ko'?'/en/creators':'/creators'}`);
  const footer=base.match(/  <footer class="site-footer">[\s\S]*?<\/footer>/)[0];
  const html=`<!DOCTYPE html>
@@ -25,7 +26,7 @@ for(const locale of ['ko','en']){
 </head><body>
 ${header}
 <main class="creator-page" id="main-content">
-<section class="creator-section creator-hero"><div class="shell"><p class="eyebrow">${t.eyebrow}</p><h1>${t.hero}</h1><p class="lead">${t.lead}</p><div class="creator-actions"><a class="creator-button primary" href="https://naepopquiz.com/studio">${t.start}</a><a class="creator-button" href="#how-it-works">${t.flow}</a></div></div></section>
+<section class="creator-section creator-hero"><div class="shell"><nav class="creator-breadcrumb" aria-label="${locale==='ko'?'현재 위치':'Breadcrumb'}"><ol><li><a href="${locale==='ko'?'/#naepopquiz-app':'/en#naepopquiz-app'}">${locale==='ko'?'제품소개':'Products'}</a></li><li>${locale==='ko'?'내팝퀴즈':'Naepopquiz'}</li><li aria-current="page">${locale==='ko'?'크리에이터 안내':'For creators'}</li></ol></nav><p class="eyebrow">${t.eyebrow}</p><h1>${t.hero}</h1><p class="lead">${t.lead}</p><div class="creator-actions"><a class="creator-button primary" href="https://naepopquiz.com/studio">${t.start}</a><a class="creator-button" href="#how-it-works">${t.flow}</a></div></div></section>
 <section class="creator-section creator-band"><div class="shell"><p class="eyebrow">${t.benefit}</p><h2>${t.benefitTitle}</h2>${cards(t.cards)}</div></section>
 <section class="creator-section"><div class="shell"><p class="eyebrow">${t.challengeLabel}</p><h2>${t.challengeTitle}</h2><p class="lead">${t.challengeLead}</p>${cards(t.challengeCards)}</div></section>
 <section class="creator-section creator-band"><div class="shell creator-split"><div><p class="eyebrow">${t.marketingLabel}</p><h2>${t.marketingTitle}</h2><p class="lead">${t.marketingLead}</p><p>${t.marketingDetail}</p></div><div class="creator-panel"><p class="caption">${t.example}</p><div class="notice"><h3>${t.notice}</h3><p>${t.noticeBody}</p><strong>${t.noticeButton}</strong></div><div class="archive-row"><span>${t.oldOne}</span><span>${t.synced}</span></div><div class="archive-row"><span>${t.oldTwo}</span><span>${t.synced}</span></div><p class="caption">${t.exampleNote}</p></div></div></section>
@@ -40,24 +41,28 @@ ${footer}
 `;
  await writeFile(path.join(root,locale==='en'?'en/creators.html':'creators.html'),html);
 }
-// Include detail and legacy shells; never modify legal text or add tracking.
-async function addMenu(dir=''){
+// Keep this product-specific guide out of company-level navigation.
+async function removeCreatorMenu(dir=''){
  for(const item of await readdir(path.join(root,dir),{withFileTypes:true})){
-  if(item.isDirectory()&&['en','problems','announcements'].includes(item.name))await addMenu(path.join(dir,item.name));
+  if(item.isDirectory()&&['en','problems','announcements'].includes(item.name))await removeCreatorMenu(path.join(dir,item.name));
   if(!item.isFile()||!item.name.endsWith('.html'))continue;
-  const file=path.join(root,dir,item.name);let source=await readFile(file,'utf8');
-  if(!source.includes('class="site-header"'))continue;
-  const en=/<html[^>]*lang="en"/.test(source),href=en?'/en/creators':'/creators',label=en?'Creators':'크리에이터';
-  source=source.replace(/(<nav class="site-nav"[^>]*>)([\s\S]*?)(<\/nav>)/,(_,open,body,close)=>{
-   body=body.replace(/\s*<a[^>]*href="\/(?:en\/)?creators"[^>]*>[\s\S]*?<\/a>/g,'');
-   return open+body.replace(/(<a[^>]*href="[^"]*(?:#naepopquiz-app)[^"]*"[^>]*>[\s\S]*?<\/a>)/,`$1\n        <a href="${href}">${label}</a>`)+close;
-  });
-  if(source!==await readFile(file,'utf8'))await writeFile(file,source);
+  const file=path.join(root,dir,item.name),original=await readFile(file,'utf8');
+  const source=original.replace(/(<nav class="site-nav"[^>]*>)([\s\S]*?)(<\/nav>)/,(_,open,body,close)=>open+body.replace(/\s*<a[^>]*href="\/(?:en\/)?creators"[^>]*>[\s\S]*?<\/a>/g,'')+close);
+  if(source!==original)await writeFile(file,source);
  }
 }
-await addMenu();
-// Mark the new destination only, keeping the copied shell's existing active state untouched elsewhere.
-for(const file of ['creators.html','en/creators.html']){
- let s=await readFile(path.join(root,file),'utf8');s=s.replace(/(<a)( href="\/(?:en\/)?creators")/,'$1 class="is-current"$2');await writeFile(path.join(root,file),s);
+await removeCreatorMenu();
+// Existing English snapshots get the same links without republishing CMS text.
+for(const file of ['index.template.html','index.html','en/index.html']){
+ let source=await readFile(path.join(root,file),'utf8');
+ const en=file.startsWith('en/'),href=en?'/en/creators':'/creators',label=en?'For Naepopquiz creators':'크리에이터 활용 안내';
+ for(const id of ['naepopquiz-app','naepopquiz-studio']){
+  const article=new RegExp(`(<article[^>]*id="${id}"[^>]*>)([\\s\\S]*?)(<\\/article>)`);
+  source=source.replace(article,(_,open,body,close)=>{
+   if(body.includes('creator-guide-link'))return open+body+close;
+   return open+body.replace(/(<a[^>]*class="story-link[^"]*"[^>]*>[\s\S]*?<\/a>)/,`$1\n          <a class="story-link creator-guide-link" href="${href}">${label}</a>`)+close;
+  });
+ }
+ await writeFile(path.join(root,file),source);
 }
-console.log('Generated Korean and English creator pages and synchronized creator navigation.');
+console.log('Generated creator guides under product navigation and linked both product sections.');
