@@ -42,7 +42,7 @@ ${header}
 <section class="creator-section" id="management"><h2>${d.sections[3]}</h2>${features(t.manageCards)}<p>${t.transferNote}</p></section>
 <section class="creator-section" id="how-it-works"><h2>${d.sections[4]}</h2><ol class="creator-steps">${t.steps.map(([h,p])=>`<li><strong>${h}</strong><p>${p}</p></li>`).join('')}</ol></section>
 <section class="creator-section" id="faq"><h2>${d.sections[5]}</h2>${t.faqs.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</section>
-<section class="creator-section" id="contact"><h2>${d.sections[6]}</h2><p>${d.contact}</p><ul><li><a class="creator-button primary" href="https://naepopquiz.com/studio">${t.start}</a></li><li><a href="mailto:netmelon@netmelonai.com?subject=Creator%20partnership">${t.contact}</a></li></ul><p>${t.fine}</p></section>
+<section class="creator-section" id="contact"><h2>${d.sections[6]}</h2><p>${d.contact}</p><ul><li><a class="creator-button primary" href="https://naepopquiz.com/studio">${t.start}</a></li><li><a href="mailto:creator@netmelonai.com?subject=Creator%20partnership">${t.contact}</a></li></ul><p>${t.fine}</p></section>
 </article>
 </div>
 </main>

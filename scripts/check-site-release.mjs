@@ -642,7 +642,9 @@ async function checkCompanyFooterRoutes() {
     if (page.locale === "en") {
       assert(!/[가-힣]/.test(footer), `${page.file} English footer contains Korean fallback text.`);
     }
-    assert(!footer.includes(profile.customerSupportEmail), `${page.file} footer exposes customer support email instead of the dedicated support surface.`);
+    for (const email of ["netmelon@netmelonai.com", "creator@netmelonai.com", "support@netmelonai.com"]) {
+      assert(footer.includes(`href="mailto:${email}"`), `${page.file} footer is missing ${email}.`);
+    }
     const privacyRoute = page.locale === "en" ? "/en/company-privacy" : "/company-privacy";
     assert(footer.includes(`href="${privacyRoute}"`), `${page.file} footer is missing the company-site privacy route ${privacyRoute}.`);
 
