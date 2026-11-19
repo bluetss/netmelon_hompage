@@ -144,6 +144,9 @@ export function renderPublisherFooter(profile, locale = "ko") {
     representative: "Representative",
     hosting: "Hosting service",
     phone: "Phone",
+    companyContact: "Company inquiries",
+    creatorContact: "Creator inquiries",
+    supportContact: "Customer support",
     mailOrder: "Mail-order registration",
     verify: "Verify business information",
     privacy: "Privacy Policy",
@@ -155,6 +158,9 @@ export function renderPublisherFooter(profile, locale = "ko") {
     representative: "대표",
     hosting: "호스팅 서비스",
     phone: "전화",
+    companyContact: "회사·대표 문의",
+    creatorContact: "크리에이터 문의",
+    supportContact: "고객지원",
     mailOrder: "통신판매업 신고번호",
     verify: "사업자정보확인",
     privacy: "개인정보처리방침",
@@ -177,6 +183,7 @@ export function renderPublisherFooter(profile, locale = "ko") {
     `  <p class="publisher-business-line">${item(labels.businessNumber, profile.businessRegistrationNumber)}${item(labels.representative, profile.representativeName)}</p>`,
     `  <p class="publisher-business-line">${item(labels.hosting, profile.hostingProviderName)}${item(labels.mailOrder, profile.mailOrderRegistrationNumber, verifyLink)}${profile.customerSupportPhone ? item(labels.phone, profile.customerSupportPhone) : ""}</p>`,
     `  <p class="publisher-business-address">${registeredValue(publisherBusinessAddressForFooter(profile.businessAddress))}</p>`,
+    `  <p class="publisher-business-line">${[[labels.companyContact, "netmelon@netmelonai.com"], [labels.creatorContact, "creator@netmelonai.com"], [labels.supportContact, "support@netmelonai.com"]].map(([label, email]) => `<span class="publisher-business-item"><strong>${htmlEscape(label)}:</strong> <a href="mailto:${email}">${email}</a></span>`).join("")}</p>`,
     "</section>",
   ].join("\n");
 }
