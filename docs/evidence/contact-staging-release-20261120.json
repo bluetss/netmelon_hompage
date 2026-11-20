@@ -1,0 +1,47 @@
+{
+  "origin": "https://company-dev.netmelonai.com",
+  "sourceSha": "b48f5c5dfdfa78e6d9bb5faaffd141f5ee972c50",
+  "rows": [
+    {
+      "route": "/",
+      "status": 200,
+      "contactLinksPassed": true
+    },
+    {
+      "route": "/en/",
+      "status": 200,
+      "contactLinksPassed": true
+    },
+    {
+      "route": "/creators",
+      "status": 200,
+      "contactLinksPassed": true
+    },
+    {
+      "route": "/en/creators",
+      "status": 200,
+      "contactLinksPassed": true
+    }
+  ],
+  "publicIntakeConfigured": false,
+  "remoteDataWrites": 0,
+  "deploymentTarget": "npq-staging/npq-company-dev",
+  "cloudBuildSubmitted": false,
+  "productionMainChanged": false,
+  "artifactFiles": 75,
+  "windowsChrome": {
+    "passed": true,
+    "viewportWidths": [
+      390,
+      1440
+    ],
+    "routes": [
+      "/",
+      "/en/",
+      "/creators",
+      "/en/creators"
+    ],
+    "horizontalOverflow": false,
+    "actualFormSubmitted": false
+  }
+}
