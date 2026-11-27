@@ -26,14 +26,14 @@
         },
         {
           "fieldPath": "identity.appIntroTitle",
-          "sourceText": "공부하지 마세요.\n그냥 따라 말하세요.",
-          "targetText": "Stop studying a language.\nStart speaking it.",
+          "sourceText": "내팝퀴즈, 말하기 훈련 앱",
+          "targetText": "Naepopquiz, a speaking training app",
           "status": "human_draft"
         },
         {
           "fieldPath": "identity.appIntroBody",
-          "sourceText": "내팝퀴즈는 단어장부터 회화장까지, 듣고 따라 말하는 반복 훈련으로 외국어를 실제로 말할 수 있게 만드는 언어 훈련 앱입니다.",
-          "targetText": "Naepopquiz is a language-training app that turns vocabulary, phrases, and conversations into repeatable listen-and-speak practice, helping learners build the reflex to speak in real situations.",
+          "sourceText": "내가 말하고 싶은 이야기를 훈련 콘텐츠로 만들거나, 크리에이터가 공유한 콘텐츠로 시작할 수 있습니다. 대화를 듣고 따라 말하며, 필요한 순간에 꺼내 쓸 표현을 익힙니다.",
+          "targetText": "Turn the stories you want to tell into training content, or start with content shared by creators. Listen to conversations and speak along to build a repertoire of expressions you can draw on when you need them.",
           "status": "human_draft"
         },
         {
