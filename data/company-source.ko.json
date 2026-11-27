@@ -35,8 +35,8 @@
   "identity": {
     "announcementEmptyBody": "공고가 등록되면 이 페이지에서 확인할 수 있습니다.",
     "announcementEmptyTitle": "새로운 소식을 준비중입니다.",
-    "appIntroBody": "내팝퀴즈에서는 단어와 표현, 대화를 듣고 따라 말하며 일상에서 쓸 수 있는 외국어를 연습할 수 있습니다.",
-    "appIntroTitle": "내팝퀴즈, 외국어 말하기 연습 앱",
+    "appIntroBody": "내팝퀴즈는 단어장부터 회화장까지, 듣고 따라 말하는 반복 훈련으로 외국어를 실제로 말할 수 있게 만드는 언어 훈련 앱입니다.",
+    "appIntroTitle": "공부하지 마세요. 그냥 따라 말하세요.",
     "brandSignatureMessage": {
       "key": "freedom_through_language",
       "lines": [
